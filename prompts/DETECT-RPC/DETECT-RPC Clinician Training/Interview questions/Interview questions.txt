@@ -1,0 +1,94 @@
+# =============================================================================
+Interview questions for the videos in the DETECT-RPC clinician training
+2024-11-07
+Brad Cannell
+# =============================================================================
+
+I am an academic researcher who is the principal investigator of a large study that is funded by the National Institute on Aging (NIA).
+
+The name of the study is “Detection of Elder abuse Through Emergency Care Technicians – Revised for Primary Care” or “DETECT-RPC” for short. We previously developed and tested an elder mistreatment (EM) screening tool designed specifically for use by EMTs and paramedics in older adults’ homes. The project and screening tool was called Detection of Elder abuse Through Emergency Care Technicians (DETECT). The DETECT tool was designed to (1) be brief, (2) be based on the clinician’s direct observations of the older adult and the older adult’s physical and social environment, (3) provide reporting guidance, and (4) be integrated into their existing procedures and medical charting software.
+
+Our current objective is to adapt the DETECT screening tool for home-based primary care (HBPC) — with special emphasis on older adults who were recently diagnosed with Alzheimer’s Disease and Related Dementias (ADRD) — DETECT Revised for Primary Care (DETECT-RPC). Additionally, we believe that the Theory of Planned Behavior (TPB) and the Abuse Intervention Model (AIM) are two theories that will help explain why the revised DETECT-RPC screening tool changes, or does not change, home-based primary care clinician APS reporting behavior.
+
+We have completed the following steps towards adapting DETECT for home-based primary care:
+
+1. We completed focus groups with 12 home-based primary care clinicians about barriers and facilitators to recognizing and reporting EM during medical encounters.
+
+2. We created an initial draft of the screening items we plan to use on the DETECT-RPC screening tool.
+
+3. We completed an intervention mapping process designed to help plan our intervention. Specifically, it maps together the underlying theories – TPB and AIM – that we believe help explain home-based primary care clinician reporting behavior, the barriers and facilitators reported by the focus group participants, and the DETECT-RPC screening items and procedures.
+
+Now, we are creating a training program for HBPC clinicians to complete before using the DETECT-RPC screening tool with their patients. 
+
+The attached Word document titled "Experimental Group Training Outline.docx" contains an overview of the training program, the training program's learning objectives, some details about the individual training modules that make up the training program, and some development notes.
+
+For each of the following pieces of training content, we want to create recorded interviews with experts in the field:
+
+1. A video featuring a geriatrician discussing their experiences screening patients for EM. This is not intended to be a "how-to" video describing techniques for conducting such a screening; rather, it is a video about the geriatrician's subject experience with how these screenings feel in the moment and how they impact their relationship with their patients. This video aims to address HBPC clinicians' fears that screening for and reporting EM will be difficult and unpleasant.
+
+2. A video featuring a geriatrician discussing how to preserve therapeutic relationships with patients after determining they need to contact Adult Protective Services post-screening to report potential EM. This video aims to address HBPC clinicians' fears that screening for and reporting EM will harm their therapeutic relationships with their patients.
+
+3. A video featuring an expert teaching HBPC clinicians how to have discussions with their patients about contacting Adult Protective Services (APS) post-screening to report potential EM. This video is intended to be a "how-to" video describing techniques the HBPC clinicians can use to facilitate these discussions. Many of the HBPC clinicians we interviewed in our preliminary focus groups expressed apprehension about these conversations with patients and caregivers. They expressed feeling as though they lacked the knowledge, experience, and practical skills needed to navigate such a difficult conversation topic successfully.
+
+4. A video featuring an APS professional discussing what APS does and doesn't do after the HBPC clinician reports potential EM. This video aims to address gaps in HBPC clinicians' understanding of APS's mission (i.e., social services, not law enforcement) and its investigation process. This video should also discuss differences in the APS response for patients who are living with cognitive impairment or who are undocumented immigrants. This video aims to address HBPC clinicians' fears about what happens after they file an APS report. For example, many of the HBPC clinicians we interviewed in our preliminary focus groups expressed concern that APS would remove their patient from the home or arrest the caregiver.
+
+5. A video featuring an APS professional discussing the need for more reports. This video aims to address HBPC clinicians' fears about overloading APS with too much work or reporting a case of potential EM that APS eventually determines not to be EM.
+
+6. A video featuring an expert describing how to react to high-risk responses from patients or caregivers. In this context, the term "high-risk" does not necessarily refer to risk to the patient; rather, it refers to the patient and/or caregiver having an extreme reaction when the HBPC clinician informs the patient that they will need to report potential EM to APS. This video aims to address HBPC clinicians' fears about what to do if they ever find themselves in a situation where the patient and/or caregiver has an extreme reaction, including the possibility of danger to themselves.
+
+Don't write a response yet. I will submit some information about the experts we will interview for each topic above, one at a time. When I do, please help me write a list of interview questions we can use to extract the information we need from them and create our training videos.
+
+# =============================================================================
+
+Video 1: A video featuring a geriatrician discussing their experiences screening patients for EM. This is not intended to be a "how-to" video describing techniques for conducting such a screening; rather, it is a video about the geriatrician's subjective experience with how these screenings feel in the moment and how they impact their relationship with their patients. This video aims to address HBPC clinicians' fears that screening for and reporting EM will be difficult and unpleasant.
+
+Interviewee: Laura Mosqueda, MD. Laura Mosqueda, MD, FAAFP, AGSF is a professor (with tenure) of Family Medicine and Geriatrics at the Keck School of Medicine of USC. She is a widely respected authority on elder abuse and care of the elderly and underserved. She is also an expert on medical education curriculum design, development, and implementation. Since joining the Keck School of Medicine of USC, her roles have included: Chair of the Department of Family Medicine, Associate Dean of Primary Care, and Dean. She is the principal investigator of an NIA-funded R01 study to understand the causes of the abuse of people with dementia and is the Director of the National Center on Elder Abuse, a federally funded initiative that serves as the nation’s coordinating body and clearinghouse for information on research, training, best practices, news, and resources. Dr. Mosqueda is also a fellow in the Health and Aging Policy Fellowship Program. As a clinician, researcher, educator, and academic administrator, she has a unique perspective that is informed by her extensive experiences in the community, including her role as a volunteer long-term care ombudsman.
+
+The video should be no more than 2-3 minutes in length. Please suggest some interview questions.
+
+# =============================================================================
+
+Video 2: A video featuring a geriatrician discussing how to preserve therapeutic relationships with patients after determining they need to contact Adult Protective Services (APS) post-screening to report potential EM. This video aims to address HBPC clinicians' fears that screening for and reporting EM will harm their therapeutic relationships with their patients.
+
+Interviewee: Laura Mosqueda, MD. Laura Mosqueda, MD, FAAFP, AGSF is a professor (with tenure) of Family Medicine and Geriatrics at the Keck School of Medicine of USC. She is a widely respected authority on elder abuse and care of the elderly and underserved. She is also an expert on medical education curriculum design, development, and implementation. Since joining the Keck School of Medicine of USC, her roles have included: Chair of the Department of Family Medicine, Associate Dean of Primary Care, and Dean. She is the principal investigator of an NIA-funded R01 study to understand the causes of the abuse of people with dementia and is the Director of the National Center on Elder Abuse, a federally funded initiative that serves as the nation’s coordinating body and clearinghouse for information on research, training, best practices, news, and resources. Dr. Mosqueda is also a fellow in the Health and Aging Policy Fellowship Program. As a clinician, researcher, educator, and academic administrator, she has a unique perspective that is informed by her extensive experiences in the community, including her role as a volunteer long-term care ombudsman.
+
+The video should be no more than 2-3 minutes in length. Please suggest some interview questions.
+
+# =============================================================================
+
+Video 3: A video featuring an expert teaching HBPC clinicians how to have discussions with their patients about contacting Adult Protective Services (APS) post-screening to report potential EM. This video is intended to be a "how-to" video describing techniques the HBPC clinicians can use to facilitate these discussions. Many of the HBPC clinicians we interviewed in our preliminary focus groups expressed apprehension about these conversations with patients and caregivers. They expressed feeling as though they lacked the knowledge, experience, and practical skills needed to navigate such a difficult conversation topic successfully.
+
+Interviewee: Ron Acierno, PhD. Ron Acierno is a professor and vice chair of Veterans Affairs in the Department of Psychiatry and Behavioral Sciences. He also serves as the Executive Director of the UTHealth Trauma and Resilience Center (TRC). Acierno has two related but distinct research foci: epidemiological studies of elder mistreatment and treatment outcome studies, focusing on victims of trauma, disaster, combat or loss. He has served as Principal Investigator on grants from NIA, NIMH, NIJ, the Department of Defense, The Department of Veterans Affairs, the South Carolina Department of Public Safety, the Archstone Foundation, and the Retirement Research Foundation. Thus Acierno mixes epidemiological research with treatment outcome research, and keeps close to the clinical world as a clinician-administrator for treatment programs serving both civilian and military traumatized populations. Acierno has also been recognized for his personal investment in the mentoring of others, with over 20 current faculty researchers across the country having worked alongside him in his lab over the years. Acierno has over 150 published articles and 30 book chapters, and has served on the Editorial Boards of several journals. In addition, he is a member of several grant review committees for the VA, NIH, and DoD. Finally, he has worked on special expert panels in the areas of elder abuse for the CDC, the WHO, and the NIJ.
+
+The video should be no more than 2-3 minutes in length. Please suggest some interview questions.
+
+# =============================================================================
+
+Video 4: A video featuring an APS professional discussing what APS does and doesn't do after the HBPC clinician reports potential EM. This video aims to address gaps in HBPC clinicians' understanding of APS's mission (i.e., social services, not law enforcement) and its investigation process. This video should also discuss differences in the APS response for patients who are living with cognitive impairment or who are undocumented immigrants. This video aims to address HBPC clinicians' fears about what happens after they file an APS report. For example, many of the HBPC clinicians we interviewed in our preliminary focus groups expressed concern that APS would remove their patient from the home or arrest the caregiver.
+
+
+Interviewee: Kez Wold. Kez Wold serves as the associate commissioner for Adult Protective Services. Texas Adult Protective Services is a nationally recognized program known for its innovation and client services. His management skills are backed by many years of health and human services experience. He started his career in protective services in June 1996. Kez was both a child and adult protective services caseworker, front-line supervisor, subject matter expert in risk and self-neglect, program administrator, and regional director. Prior to his selection as the associate commissioner for APS, Kez was the director of field for seven years. He has a Bachelor of Arts degree in political science from Texas Lutheran College and a Master's in Public Administration from Texas State University.
+
+The video should be no more than 2-3 minutes in length. Please suggest some interview questions.
+
+# =============================================================================
+
+Video 5: A video featuring an APS professional discussing the need for more reports. This video aims to address HBPC clinicians' fears about overloading APS with too much work or reporting a case of potential EM that APS eventually determines not to be EM.
+
+Interviewee: Kez Wold. Kez Wold serves as the associate commissioner for Adult Protective Services. Texas Adult Protective Services is a nationally recognized program known for its innovation and client services. His management skills are backed by many years of health and human services experience. He started his career in protective services in June 1996. Kez was both a child and adult protective services caseworker, front-line supervisor, subject matter expert in risk and self-neglect, program administrator, and regional director. Prior to his selection as the associate commissioner for APS, Kez was the director of field for seven years. He has a Bachelor of Arts degree in political science from Texas Lutheran College and a Master's in Public Administration from Texas State University.
+
+The video should be no more than 2-3 minutes in length. Please suggest some interview questions.
+
+# =============================================================================
+
+Video 6: A video featuring an expert describing how to react to high-risk responses from patients or caregivers. In this context, the term "high-risk" does not necessarily refer to risk to the patient; rather, it refers to the patient and/or caregiver having an extreme reaction when the HBPC clinician informs the patient that they will need to report potential EM to APS. This video aims to address HBPC clinicians' fears about what to do if they ever find themselves in a situation where the patient and/or caregiver has an extreme reaction, including the possibility of danger to themselves.
+
+Interviewee: Ron Acierno, PhD. Ron Acierno is a professor and vice chair of Veterans Affairs in the Department of Psychiatry and Behavioral Sciences. He also serves as the Executive Director of the UTHealth Trauma and Resilience Center (TRC). Acierno has two related but distinct research foci: epidemiological studies of elder mistreatment and treatment outcome studies, focusing on victims of trauma, disaster, combat or loss. He has served as Principal Investigator on grants from NIA, NIMH, NIJ, the Department of Defense, The Department of Veterans Affairs, the South Carolina Department of Public Safety, the Archstone Foundation, and the Retirement Research Foundation. Thus Acierno mixes epidemiological research with treatment outcome research, and keeps close to the clinical world as a clinician-administrator for treatment programs serving both civilian and military traumatized populations. Acierno has also been recognized for his personal investment in the mentoring of others, with over 20 current faculty researchers across the country having worked alongside him in his lab over the years. Acierno has over 150 published articles and 30 book chapters, and has served on the Editorial Boards of several journals. In addition, he is a member of several grant review committees for the VA, NIH, and DoD. Finally, he has worked on special expert panels in the areas of elder abuse for the CDC, the WHO, and the NIJ.
+
+The video should be no more than 2-3 minutes in length. Please suggest some interview questions.
+
+# =============================================================================
+
+My next step is to send these interview questions to the appropriate interviewee and ask them for feedback about the interview questions. After they are happy with the wording of the questions, I will arrange to film the interview session together.
+
+Help me draft an email I can use to send the interview questions to each interviewee. 

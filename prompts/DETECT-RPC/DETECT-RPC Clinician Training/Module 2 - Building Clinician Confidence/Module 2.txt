@@ -1,0 +1,30 @@
+# =============================================================================
+Crafting the materials for Module 2: Building Clinician Confidence in Screening
+and Reporting
+2025-01-17
+Brad Cannell
+# =============================================================================
+
+I am an academic researcher who is the principal investigator of a large study that is funded by the National Institute on Aging (NIA).
+
+The name of the study is “Detection of Elder abuse Through Emergency Care Technicians – Revised for Primary Care” or “DETECT-RPC” for short. We previously developed and tested an elder mistreatment (EM) screening tool designed specifically for use by EMTs and paramedics in older adults’ homes. The project and screening tool was called Detection of Elder abuse Through Emergency Care Technicians (DETECT). The DETECT tool was designed to (1) be brief, (2) be based on the clinician’s direct observations of the older adult and the older adult’s physical and social environment, (3) provide reporting guidance, and (4) be integrated into their existing procedures and medical charting software.
+
+Our current objective is to adapt the DETECT screening tool for home-based primary care (HBPC) — with special emphasis on older adults who were recently diagnosed with Alzheimer’s Disease and Related Dementias (ADRD) — DETECT Revised for Primary Care (DETECT-RPC). Additionally, we believe that the Theory of Planned Behavior (TPB) and the Abuse Intervention Model (AIM) are two theories that will help explain why the revised DETECT-RPC screening tool changes, or does not change, home-based primary care clinician APS reporting behavior.
+
+We have completed the following steps towards adapting DETECT for home-based primary care:
+
+1. We completed focus groups with 12 home-based primary care clinicians about barriers and facilitators to recognizing and reporting EM during medical encounters.
+
+2. We created an initial draft of the screening items we plan to use on the DETECT-RPC screening tool.
+
+3. We completed an intervention mapping process designed to help plan our intervention. Specifically, it maps together the underlying theories – TPB and AIM – that we believe help explain home-based primary care clinician reporting behavior, the barriers and facilitators reported by the focus group participants, and the DETECT-RPC screening items and procedures.
+
+Now, we are creating a training program for HBPC clinicians to complete before using the DETECT-RPC screening tool with their patients. 
+
+The attached Word document titled "Experimental Group Training Outline.docx" contains an overview of the training program, the training program's learning objectives, some details about the individual training modules that make up the training program, and some development notes.
+
+In this chat, I would like your help with creating content for Module 2: Building Clinician Confidence in Screening and Reporting.
+
+# =============================================================================
+
+Here is a draft of the storyboard for the second video in this module. The video is supposed to define elder mistreatment (EM) and recognize its epidemiology, causes, and consequences. Please review the slide notes for accuracy, flow, and learner engagement. The tone should be educated but not stuffy. Additionally, the video must be no more than 2 minutes long.

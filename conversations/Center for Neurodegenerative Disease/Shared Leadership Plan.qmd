@@ -1,0 +1,276 @@
+---
+title: "Shared Leadership Plan for the Center for Neurodegenerative Disease"
+id: conversation_shared_leadership_plan_cnd
+author: brad_cannell
+date: 2026-01-28
+date-modified: 2026-01-28
+audience: course_authors
+category: academic
+tags:
+  - cnd
+  - administration
+format:
+  html:
+    toc: true
+    embed-resources: true
+execute:
+  eval: false
+---
+
+# Overview
+
+**I wasn't able to pass the files to ChatGPT. I ended up just using the browser. I still used the prompt, though. Honestly, that's what I should have done in the first place.**
+
+- On 2025-12-05, Chris Watts emailed Michelle Kimzey and I. In that email, he said:
+  - "Michelle and I feel it would be appropriate that you take over the title of Co-Director from me in January."
+  - "The workload for Co-Director is unknown at this point – Michelle and I never got around to developing a roles/responsibilities document. My hope is that you and Michelle can get together next semester to do that."
+- We need to create a shared leadership plan for Michelle and I.
+- I want to use the MPI documents that we authored for DETECT-RPC and Roybal as inspiration.
+- In a recent meeting I had with Michelle, she said that in the past, she and Chris tended to divide their responsibilities by substantive area of expertise - Parkinson's Disease (Chris) and Alzheimer's Disease (Michelle) - rather than types of tasks and activities. We discussed that we could potentially do the same thing, but we didn't necessarily need to.
+
+## Files I want to pass to the AI assistant
+
+- Box: [DETECT-RPC MPI Plan](https://tcu.box.com/s/qxrpqtswjca6ndzr1alngw4cb8sdjak4)
+- Box: [Roybal MPI Plan](https://tcu.box.com/s/ezqmcr14z8awjuaos5yz48oad56buy8h)
+- Box: [About CND](https://tcu.box.com/s/5x60vz30wmhsn4fqqwebdu6exkbq8ftp)
+- Website: [Center for Nuerodegenerative Disease](https://harriscollege.tcu.edu/research/center-neurodegenerative-disease/index.php)
+- Faculty profile: [Michelle Kimzey](https://harriscollege.tcu.edu/faculty-staff/view/michelle-kimzey)
+
+## Prerequisites
+- Create a new virtual environment (venv). See: `vignettes/Python and Chatlas.qmd`
+- Install Packages:
+  - pip install keyring
+  - pip install openai
+  - pip install jupyter
+  - pip install -U chatlas
+- pip freeze > requirements.txt
+
+# Load Packages
+
+```{python}
+import os
+import keyring
+from openai import OpenAI
+import sys
+import json
+from pathlib import Path
+import chatlas as ctl
+from datetime import date
+```
+
+# File Paths and Environment Variables
+
+Optional, but I like saving file paths and enivronment variables near the top of the conversation. It makes the conversations easier to reuse in the future. 
+
+- Set today's date.
+- Set files paths.
+    - Especially when using prompt templates
+- Set full path to file content that will be passed to the AI assistant.
+- Set the model to inject into the API calls. See available models at: https://platform.openai.com/docs/models.
+
+They are passed to the AI assistant below.
+
+```{python}
+# Set today's date
+today = date.today().isoformat()
+
+# Set file paths (optional)
+template_prompt_path = Path("prompts/Center for Neurodegenerative Disease/Shared Leadership Plan.md")
+
+# Files (optional)
+template_prompt_content = template_prompt_path.read_text(encoding="utf-8")
+
+# Vector Store ID
+vs_id = "vs_697a7babe1548191829270cb6235b0a2"
+
+# Model
+model = "gpt-5-nano-2025-08-07"
+```
+
+# Load helper functions
+
+[ChatGPT](https://chatgpt.com/g/g-p-694c5854fc0481918223d2c7988b756b/c/69730d63-d5bc-8333-8273-e13d8b6b4296) help with setting this up.
+
+Run in terminal:
+- `cd "/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/AI Assistant/py_scripts"`
+- `python -m pip install -e .`
+- Restart kernal
+
+```{python}
+# Load functions from py_scripts/ewb_py_scripts
+from ewb_py_scripts import (
+    prompt_extract_system_prompt,
+    prompt_extract_user_message,
+    prompt_fill_placeholders,
+)
+```
+
+# Expose API
+
+This assumes you've already created an API key on [openai's website](https://platform.openai.com/api-keys), and that you saved the API key in keyring using `keyring.set_password("API Name", "User", "API Key")`.
+
+```{python}
+# Retrieve the password from the system keyring
+openai_api = keyring.get_password("bradGPT", "brad")
+
+if openai_api is not None:
+    # Set the retrieved value as a temporary environment variable
+    os.environ['OPENAI_API_KEY'] = openai_api
+    print("Environment variable 'OPENAI_API_KEY' set successfully within the script.")
+else:
+    print("Could not retrieve password from keyring.")
+```
+
+# Read the Template Prompt
+
+```{python}
+# Raw system (developer) section of the prompt template.
+system_prompt = prompt_extract_system_prompt(template_prompt_path)
+
+# Raw user message section of the prompt template.
+user_message_raw = prompt_extract_user_message(template_prompt_path)
+
+# Inject course and lesson name into user message (optional)
+# user_message = prompt_fill_placeholders(
+#     text = user_message_raw,
+#     replacements = {
+#         "lesson_name": lesson_name,
+#         "course_name": course_name,
+#     },
+# )
+```
+
+# Create Chat Object
+
+```{python}
+chat = ctl.ChatOpenAI(
+    model = model,
+    system_prompt = system_prompt
+)
+```
+
+# Pass the Template Prompt to the AI Assistant
+
+- Before running the code below, I uploaded the files to the vector store on ChatGPT.
+
+```{python}
+chat.chat(user_message_raw, echo='none')
+```
+
+```{python}
+#| echo: false
+print(chat)
+```
+
+```{python}
+resp = chat.chat(
+    user_message_raw,
+    kwargs={
+        "tools": [{"type": "file_search", "vector_store_ids": [vs_id]}]
+    },
+    echo='none'
+)
+print(str(resp))
+```
+
+## Response
+
+Review the response, but there typically isn't a good reason to save it. It's just some version of ChatGPT repeating back the instructions from the first prompt.
+
+```{python}
+#| echo: false
+print(chat)
+```
+
+# Pass the Lesson Text to the AI Assistant
+
+```{python}
+#| echo: false
+chat.chat(file_content, echo='none')
+```
+
+# Write the Revised Lesson Text to a Markdown File for Review
+
+```{python}
+(folder_path / ("file_name" + today + ".md")).write_text(
+    str(chat.get_last_turn()),
+    encoding='utf-8'
+)
+```
+
+# Follow-up and Refinement
+
+A section for optional follow-up questions and refinements. 
+- Optionally, create a fork of the chat. `import copy; chat_fork = copy.deepcopy(chat)`
+- Asks follow-up questions in interactive mode - `chat.app()`.
+
+## Section - Summary
+
+Optionally, ask for a lesson summary.
+
+```{python}
+prompt_summary = "Please write a brief summary paragraph to wrap up this lesson."
+chat.chat(prompt_summary, echo='none')
+```
+
+### Response
+
+```{python}
+#| echo: false
+print(chat)
+```
+
+# Save Chat History
+
+Optional, but necessary to return to the conversation later.
+
+```{python}
+# Export chat history as a markdown file
+# This version is easier to pass back to to the chat object in the future.
+chat_history_path_md = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + today + ".md"))
+chat.export(chat_history_path_md, overwrite=True)
+
+# Export chat history as an HTML file
+chat_history_path_html = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + today + ".html"))
+chat.export(chat_history_path_html, overwrite=True)
+
+# Export chat history as a json file
+# Useful for saving/loading the history to/from a database or file.
+# chat_history_path_json = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + today + ".json"))
+# with open(chat_history_path_json, "w", encoding="utf-8") as f:
+#     json.dump(
+#         [json.loads(x) for x in turns_json],
+#         f,
+#         indent=2,
+#         ensure_ascii=False
+#     )
+```
+
+## Condense
+
+You can also optionally condense the history by asking the LLM to summarize it. This is useful if you want to keep the context of the conversation, but don’t want to provide the entire history to the model on each new submission.
+
+```{python}
+# chat.chat("Can you summarize our conversation so far?")
+# chat.set_turns([chat.get_last_turn()])
+```
+
+## Load chat history
+
+To optionally load the chat history later.
+
+```{python}
+# Import chat history as a md file
+# chat_history_path_md = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + "yyyy-mm-dd" + ".md"))
+# history_md = chat_history_path_md.read_text(encoding="utf-8")
+
+# Import chat history as a json file
+# chat_history_path_json = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + "yyyy-mm-dd" + ".json"))
+# history_json = json.loads(chat_history_path_json.read_text(encoding="utf-8"))
+```
+
+# Render to HTML
+
+Render to HTML (Optional)
+- Click the Preview button.
+- Type `quarto render "path/Lesson Revisions.qmd"` in the terminal.

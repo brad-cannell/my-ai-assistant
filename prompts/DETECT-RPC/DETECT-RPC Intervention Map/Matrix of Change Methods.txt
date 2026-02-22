@@ -1,0 +1,30 @@
+# =============================================================================
+Matrix of Theory and Evidence-based Change Methods
+2024-03-19
+Brad Cannell
+# =============================================================================
+
+What theory-based or evidence-based methods can we use to help "Clinicians prioritize the detection and referral of modifiable risk factors in their routine assessments, recognizing it as a critical element of patient care and EM prevention."
+
+The first determinant I want to address is attitudinal. Specifically, I want "clinicians report a belief that screening for EM is important to their patient’s health and wellbeing." What are some theory or evidence-based behavior change methods I should consider using to elicit that behavior change?
+
+
+# -----------------------------------------------------------------------------
+Database approach
+2024-08-16
+# -----------------------------------------------------------------------------
+
+I am trying to create our matrix of theory and evidence-based behavior change methods. We need it to display all of the strategies that will be used in DETECT-RPC to impact the determinants of recognizing EM, reporting potential EM to the appropriate authorities, and connecting patients and caregivers who are living with potential EM to needed services. Currently, this table is grouped first by DETECT-RPC component (i.e., education and training, the screening and referral process, the indicators of EM module, and the reporting guidance module), and then by the general evidence-based behavior change methods the specific strategy is taken from (e.g., asynchronous information exchange, skills and confidence building).
+
+However, the list of determinants being addressed by each strategy is getting to long, and many determinants are repeated because multiple strategies address them. On the other hand, if I write the determinants in the first column of the table, and the list of strategies we will use to address the determinant, then I will have to repeat the strategy many times because each strategy may address more than one determinant.
+
+It seems like creating two or more different layouts might be a good idea. Layout 1 would have a strategy first orientation where we can clearly see each strategy that will be used in the DETECT-RPC intervention, what study component we need to incorporate them into, and what evidence-based method they came from. Layout 2 will have a determinant first orientation where we can clearly see what strategies will be used to address a given determinant. We may also want to identify how we will measure changes in each determinant over time to understand if our strategies are working.
+
+This makes me think of two separate data tables -- a strategies table and a determinants table -- with a many-to-many merge.
+
+How should we do this?
+
+
+** It seems like NOT using professor C gives better results. However, I need to upload some of the literature so that ChatGPT has it for background information.
+
+

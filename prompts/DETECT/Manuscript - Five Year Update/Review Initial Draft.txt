@@ -1,0 +1,45 @@
+# =============================================================================
+Review Brianna's Initial Draft
+2025-04-18
+Brad Cannell
+# =============================================================================
+
+# About me
+
+I am an epidemiologist, gerontologist, data scientist, and associate professor at the University of Texas Health Science Center. I am passionate about researching healthy aging and late-life quality of life and applying that understanding to improving the health of older adults and communities. Specifically, I have published research focusing on preserving physical and cognitive function, living and aging with disability, and detecting and preventing elder mistreatment. I also have a passion for data science and digital epidemiology. I'm committed to the idea of learning about -- and positively impacting -- health outcomes using a data-driven approach. My expertise includes scientific writing – I have published more than 45 peer-reviewed journal articles, two textbook chapters, and one textbook; grant writing – I have secured more than $27 million in grant funding for research; project management – I have been the principal or co-investigator on multiple trials and observational studies in community and healthcare settings; teaching – I have taught 8 different courses at 3 different universities; public speaking – I have given numerous presentations and trainings; and data science – I am fluent in all major statistical programming languages. 
+
+# About DETECT
+
+I am also the PI of the Detection of Elder Abuse Through Emergency Care Technicians (DETECT) project. In 2014, we began developing and pilot testing an EM screening tool intended for use by emergency medical services (EMS) providers (i.e., “medics”). Initial development was funded by the U.S. Department of Justice, National Institute of Justice (NIJ). The study team began by conducting a series of focus groups with medics and APS caseworkers. The results of these qualitative studies highlighted medics’ barriers to confidently identifying EM (see Medic barriers to identifying and reporting EM), and pointed towards the need for an assistive screening tool based on systematic observation of the older adult patient and their environment. Themes identified during these focus groups were used to create a preliminary 26-item EM screening tool designed specifically to be used by EMS providers.  
+
+We piloted the DETECT tool between September 17 and October 26th, 2015. During this time, 251 medics employed by MedStar Mobile Healthcare responded to 911 emergency calls for a total of 1,480 older adults (i.e., individuals 65 years of age or older). DETECT was administered to 1,248 of those older adults i.e., to screen for EM exposure in the context of the medical response call. These 1,248 screenings resulted in 209 positive screens (16.8%). Further, immediately following the introduction of the DETECT screening tool, there was an increase of 3.6 (p < 0.0001) validated reports per month – a 152% improvement.   
+
+On October 27, 2015, MedStar stopped using the DETECT screening tool while we conducted an evaluation of the data collected during that initial pilot period — including EMR data. In that evaluation, we found preliminary evidence of the effectiveness of the DETECT screening tool. We also created a revised 14-item version of the DETECT screening tool, which was subsequently used by MedStar between February 2, 2017 and February 28, 2018. In May 2020, we published the results of a quality improvement study that used a difference in difference in differences design and included adults aged 65 years and older who were reported to Texas APS in the study region (246 cities in Denton, Johnson, and Tarrant Counties) between December 31, 2014, and February 28, 2018. After adjusting for changes in the number of EM reports in the comparison groups (i.e., underlying changes in reporting trends), the number of reports to APS increased 3-fold (RR, 3.03; 95% CI, 2.06-4.46).
+
+In September 2018, we received additional funding from the National Institute on Aging (NIA) to further refine and validate DETECT over a 5-year period (R01AG059993). More than 90,000 initial EM screenings were completed as part of the DETECT project, and additional screenings are being completed at a rate of approximately 1,600 per month. In addition to initial screenings, we completed the five-year effort to more rigorously evaluate the DETECT screening tool that included conducting in-home follow-up interviews with previously screened older adults in May 2023. Those follow-up interviews included the administration of the PEG-3 pain scale, the Rand 20-item short-form survey (SF-20), the Geriatric Depression Scale (GDS), and other validated measures of health, safety, and quality of life. At the close of the study, we completed 950 follow-up interviews, which include more than 790 unique people (i.e., some participants receive multiple follow-up visits).
+
+Since completing data collection, the study team has shifted focus to analyzing the collected data and preparing to publish results. Our immediate priority is to concentrate on analyses that address our three primary study aims: 
+
+AIM 1: Validation of an innovative EM screening tool (DETECT). We will match DETECT screening results with an expert LEAD panel determination “gold standard” to calculate diagnostic performance for each screening item, and all screening items collectively. This comprehensive approach to validating DETECT will provide the needed empirical foundation for its broader implementation.  
+
+AIM 2: Optimizing the DETECT Tool Via Systematic Item Reduction. We will use confirmatory factor analysis to determine the relative predictive value of each DETECT item. Results will inform systematic item reduction efforts, streamlining the tool for optimally efficient administration. 
+
+AIM 3: Identify risk and protective factors for EM. Follow-up in-person interviews will provide rich contextual data that highlight modifiable personal and contextual factors (e.g., previous EM and/or polyvictimization, social support, unmet health and daily living needs, financial problems, and mental factors).4,5,24 The large sample size of the proposed study (N=2,500) will permit an unprecedented opportunity to examine predictors of EM. 
+
+# The current manuscript
+
+In January 2029, we published a manuscript titled, "Pilot Testing the Detection of Elder Abuse Through Emergency Care Technicians (DETECT) Screening Tool: Results from the DETECT Pilot Project." That paper is attached. 
+
+One of our first manuscripts to come from the 5-year DETECT project (R01AG059993), which we are currently writing, is a follow up to that publication. We want to investigate if the results we found in the 2019 pilot study publication are robust over a much longer timeframe.
+
+Two of my graduate research assistants (GRAs), Brianna Burzynski and Morrigan Mahady, recently completed a first draft of that manuscript, which I'm attaching to this chat as well.
+
+# Request
+
+Please review the first draft of the manuscript and provide suggestions for improving grammar, sentence structure, and flow. You may also provide suggestions for more substantive changes about the overall direction of the manuscript and the analyses included therein.
+
+
+
+
+
+

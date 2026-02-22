@@ -1,0 +1,23 @@
+# =============================================================================
+Video 3: Addressing Special Considerations in APS Cases
+2025-01-31
+Brad Cannell
+# =============================================================================
+
+In this chat (https://chatgpt.com/g/g-p-67618def0a5c8191b59dd2ff6c925821-detect-rpc-clinician-training/c/679a682c-59ac-8001-92b9-deb6a261ed9a), you suggested that I group our recorded interview with Kez Wold into three short videos, each under three minutes, that align with the key aspects of APS that clinicians need to understand.
+
+Now, I would like your help finalizing Video 3: Addressing Special Considerations in APS Cases. 
+
+# =============================================================================
+
+Here is the script from the current version of the video. Please write a very brief summary description of the video using 150 words or less.
+
+# =============================================================================
+
+Please generate a bulleted list of key takeaways from the video.
+
+# =============================================================================
+
+# Attach the basic aps 101 PDF document I received from Nisaa. 
+
+Here is a copy of a PDF document I received from Texas APS. APS uses this document to give presentations to the community explaining what elder mistreatment is and APS's role in addressing it. Briefly summarize any information in this document that is directly relevant to this video so that I can add it to the key takeaways section.

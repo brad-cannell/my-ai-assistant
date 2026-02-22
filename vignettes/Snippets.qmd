@@ -1,0 +1,24 @@
+---
+title: "Vignette - Snippets"
+id: vignette_snippets
+author: brad_cannell
+date: 2026-01-31
+date-modified: 2026-01-31
+audience: developers
+category: vignette
+tags:
+  - vs_code
+  - positron
+format:
+  html:
+    toc: true
+    embed-resources: true
+execute:
+  eval: false
+---
+
+# Overview
+
+- This vignette is about creating snippets in VS Code (Positron)
+- This could be helpful for many things, including adding resuable chunks to AI conversations.
+

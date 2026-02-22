@@ -1,0 +1,17 @@
+# =============================================================================
+Module Overview
+2025-12-16
+Brad Cannell
+# =============================================================================
+
+# Background
+
+I teach a university course titled "Introduction to R Programming and Data Management." I created a module overview page for each course learning module. Each module overview page includes a module overview section that narratively introduces learners to the module, a module topics section that provides learners with a granular bullied list of topics covered, a required reading list, and a list of optional supplementary materials. 
+
+# Request
+
+In this chat, I would like your help with revising the module overview page (attached) for the  "Effectively Presenting Results" module.
+
+Do so as if you were a university professor teaching this course.
+
+Please maintain the same structure (e.g., headings) and relevant assigned readings.

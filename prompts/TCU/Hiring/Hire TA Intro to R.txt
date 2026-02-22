@@ -1,0 +1,13 @@
+# =============================================================================
+Hire TA
+2025-10-13
+Brad Cannell
+# =============================================================================
+
+I'll be teaching a coarse in Spring 2026 titled, "Introduction to R Programming and Data Management." Here is a description of the course:
+
+"This course aims to provide students with hands-on experience in R programming and data management. The students should be familiar with basic concepts in epidemiology and biostatistics. Previous experience in using SAS, STATA or SPSS is helpful, but not required. Topics include downloading and installing R, basic programming concepts, basic programming best practices, R packages and environments, R data structures, data transfer, creating and manipulating data, visualizing data, conditional operations, working with multiple data frames, restructuring data frames, repeated/iterative operations, writing functions, basic analyses used in epidemiology, and techniques for presenting results to various audiences. Special emphasis will be given to using the Tidyverse family of R packages."
+
+I perviously taught this course at UTHealth, where we used the Canvas learning management system. I would like to hire a student to help me move and adapt my course materials from Canvas to D2L, the LMS we use at TCU.
+
+Please write a brief job description I can post on Hardshake, the web application we use for recruiting student workers.

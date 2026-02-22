@@ -1,0 +1,5 @@
+# Overview
+
+I am writing a peer-reviewed journal article that outlines the research protocol for my DETECT-RPC study. I want to make sure the article adheres to the "Standard Protocol Items: Recommendations For Interventional Trials (SPIRIT)" Guidelines.
+
+I am uploading a document that contains a list of the SPIRIT guidelines. I want you to create a checklist in spreadsheet format that I can use to review my protocol paper and make sure that every item on the SPIRIT checklist is addressed. I also want a notes column in the spreadsheet to write what part of the protocol paper addresses each checklist item.
