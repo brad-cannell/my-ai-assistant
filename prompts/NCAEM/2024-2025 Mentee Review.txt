@@ -1,0 +1,68 @@
+# =============================================================================
+Creating a prompt to get help reviewing mentee applications from ChatGPT
+2024-12-06
+Brad Cannell
+- Summarize applications.
+- Comment on the scored criteria.
+- Comment on the unscored criteria.
+# =============================================================================
+
+# About me
+
+I am an epidemiologist, gerontologist, data scientist, and associate professor at the University of Texas Health Science Center. I am passionate about researching healthy aging and late-life quality of life and applying that understanding to improving the health of older adults and communities. Specifically, I have published research focusing on the preservation of physical and cognitive function, living and aging with disability, and detecting and preventing elder mistreatment. I also have a passion for data science and digital epidemiology. I'm committed to the idea of learning about -- and positively impacting -- health outcomes using a data-driven approach. My expertise includes scientific writing – I have published more than 45 peer-reviewed journal articles, two textbook chapters, and one textbook; grant writing – I have secured more than $27 million in grant funding for research; project management – I have been the principal or co-investigator on multiple trials and observational studies in community and healthcare settings; teaching – I have taught 8 different courses at 3 different universities; public speaking – I have given numerous presentations and trainings; and data science – I am fluent in all major statistical programming languages.
+
+I am also a member of the National Collaboratory to Address Elder Mistreatment (NCAEM), and I participate in its mentorship program.
+
+# About the National Collaboratory to Address Elder Mistreatment mentorship program
+
+The National Collaboratory to Address Elder Mistreatment 1-year mentorship program is intended to identify and support clinicians and service providers, researchers, policy makers and advocates from multiple disciplines who wish to focus on improving care for older adults experiencing or at risk of experiencing elder mistreatment.
+
+# Task
+
+I need to review applications from this year's cohort of applicants.
+
+# Application review instructions
+
+Here are the application review instructions from the NCAEM.
+
+Enter ratings, suggested mentor(s), and notes for each applicant using the following steps:
+
+REVIEWER STEP 1: Rate each application criterion from 0-2 with 0=not a good fit for the program, 1=recommend for the program, 2=highly recommend for the program.
+
+REVIEWER STEP 2: Enter your suggestion for an NCAEM team member to mentor the applicant. You are welcome to nominate yourself. If you are unsure, you may recommend more than one or leave the cell blank.
+
+REVIEWER STEP 3: Respond to yes/no questions and enter any notes relevant to the non-scored criteria (Criteria 6 & 7).
+
+# Scored criteria
+
+Here are the scored criteria:
+
+1. Likelihood of the candidate's success (0-2). Assess the candidate’s past achievements, goals, and potential for success in the program.
+
+2. Value of participating for mentee (0-2). Evaluate how the program will benefit the mentee in terms of career development and skills enhancement.
+
+3. Proposed Programmatic or Research Objective. Evaluate the relevance, innovation, potential impact, and readiness of the candidate's proposed programmatic or research objective.
+
+4. Ability to Bring Elder Mistreatment to Aging Mainstream. Evaluate the candidate’s potential to integrate elder mistreatment into broader aging initiatives and to complement NCAEM ongoing work in this area.
+
+5. Fit with a Potential Mentor. Evaluate the candidate's proposed programmatic or research objective with consideration for its alignment or complement to a mentor's line of work or ongoing NCAEM Phase IV work.
+
+# Non-scored criteria
+
+Here are the non-scored criteria:
+
+6. Interest in EMED Toolkit Implementation. Does candidate have interest in and capacity to implement the EMED Toolkit in their work?
+
+7a. Specialty: Does the candidate possess specialized expertise and a unique professional background that will contribute to the diversity of the program? If yes, please specify the area of specialization and relevant.
+
+7b. Topic area: Does the candidate have a unique focus on a specific topic area, such as a type of mistreatment or a concentration on dementia? If yes, please specify the topic area.
+
+7c. Target: Does the candidate focus on a particular target area, such as clinical practice, research, education, or policy development? If yes, please specify the target area. 
+
+7d. Career stage: Does the candidate's career stage add to the diversity of the program? If yes, please specify the candidate's career stage (e.g., early-career, mid-career, senior-level).
+
+7e. Demographics: Does the candidate's demographic background add to the diversity of the program? If yes, please specify the relevant demographic factors (e.g., gender, ethnicity, geographic location).
+
+# Request
+
+I will pass in a PDF application for each candidate, one at a time. When I do, I want you to return a brief summary of the application, provide a rating for each scored and non-scored criterion, and provide a very brief justification for each score.

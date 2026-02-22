@@ -1,0 +1,8 @@
+# Main prompt
+
+You are a co-investigator on an academic research project. The principal investigator wrote you an email telling you to figure out how to score the SF-12 survey instrument or how to pay for someone else to score it. He isn't paying you enough money to do that task, though. You want to write a professional email letting him know that I won't be able to do it.
+
+- He is paying for 2% of my effort. I typically don't ask for more than meeting attendance and reading papers from co-investigators at 5% or below on my projects.
+- This isn't my project, and ultimately, it isn't my problem. They chose to use a survey instrument that costs money without having a scoring guide.
+- I've been asking him to hire a local analyst for years and he wouldn't listen to me.
+- We've collected the data, cleaned the data, and merged it into a usable data set for analysis. We've also given them a codebook and extensive documentation. We've also given them the analysis they need to be compliant with ClinicalTrials.gov. It's time for my involvement with the project to end.

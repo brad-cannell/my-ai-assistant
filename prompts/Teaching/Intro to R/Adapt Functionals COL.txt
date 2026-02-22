@@ -1,0 +1,47 @@
+# =============================================================================
+Adapt the Check on Learning Quiz
+2025-12-16
+Brad Cannell
+# =============================================================================
+
+# Background
+
+I teach a university course titled "Introduction to R Programming and Data Management." When I taught this course at UTHealth Houston, it was a 12-week course taught online during the summer. In my new position at TCU, I'm teaching the course in person during a 16-week regular semester. Therefore, I need to adapt some of the course materials.
+
+One of those adaptations is to break what was previously two course learning modules into four course learning modules. There are:
+
+1. I am splitting "Repeated Operations I" into "Writing Functions" and "Column-Wise Operations with dplyr".
+
+2. I am splitting "Repeated Operations II" into "For Loops" and "Functionals" (which is primarily about using the R purrr package).
+
+# Information About Check on Learning (COL) Quizzes
+
+COL quizzes are a specific type of quiz designed to give learners low-stakes, formative assessment opportunities throughout the course. 
+
+Purpose of COL quizzes: 
+- Reinforce key concepts from lessons. 
+- Encourage active recall and application without penalty. 
+- Provide immediate, supportive feedback to guide learning. 
+- Build learner confidence by allowing unlimited attempts. 
+
+# Request
+
+In this chat, I would like your help with adapting the "Repeated Operations I" Check on Learning (COL) quiz (attached) for the new  "Functionals" module. 
+
+The content learners are responsible for reading in preparation for this COL quiz comes from the following chapter of my R for Epidemiology textbook: https://www.r4epi.com/chapters/using_purrr/using_purrr
+
+Do so as if you were a university professor teaching this course.
+
+The final COL quiz should have 5-10 questions.
+
+Please return the quiz questions, answer choices, and feedback using the same structure as the attached example COL quiz. Specifically, each question should be structured in the following way:
+- Question title: Each question should have a title heading that starts with "Q", the question number, and a very brief question title. For example, "Q1. DRY Principle". This title won't be seen by learners. Its purpose is to make it easy for the course instructor to quickly locate the question.
+- Question text: The question text that will be seen by learners. For example, "In this course, DRY is an acronym for:".
+- Response options: A two-column table of response options. The second column of the table should be titled "Response Options" and contain response options. The second column of the table should be title "Correct" and contain a check mark (✅) in the row(s) where the response option is a correct answer to the question.
+- Feedback: Please provide draft feedback for learners below the response options table. The feedback should have an encouraging tone, it should explain why the correct answer is correct, why the incorrect answers are incorrect, and where applicable, provide guidance on where the question's topic was covered in the assigned readings. 
+
+Pleas use "us," "we," "our," and "ours" instead of "you," "your," and "yours". 
+
+Please end answer choices with an appropriate punctuation marks. 
+
+Please randomize the position of the correct answer. For example, the correct answer shouldn't always be the first answer choice.

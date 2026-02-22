@@ -1,0 +1,10 @@
+# =============================================================================
+Month Sheet Layout
+2024-12-21
+Brad Cannell
+Working on my personal budget app.
+# =============================================================================
+
+# Overview
+
+I'm trying to create an application in Google Sheets to help me pay my personal bills and manage my personal budget. Should I have each month of the year be a separate sheet?

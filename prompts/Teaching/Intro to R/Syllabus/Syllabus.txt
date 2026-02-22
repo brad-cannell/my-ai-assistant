@@ -1,0 +1,35 @@
+# =============================================================================
+Syllabus
+2025-09-05
+Brad Cannell
+# =============================================================================
+
+# About Intro to R
+
+I taught a course at the University of Texas Health Science Center at Houston (UTHealth Houston) titled, "Introduction to R Programming and Data Management" (Intro to R). The course aimed to provide students with hands-on experience in R programming and data management. 
+
+On 2025-08-01, I started a new position at Texas Christian University (TCU). I have been asked to adapt my Intro to R course and teach it to graduate students here in the Harris College of Nursing & Health Sciences.
+
+The students should be familiar with basic concepts in epidemiology and biostatistics. Previous experience in using SAS, Stata or SPSS is helpful, but not required. Topics include downloading and installing R, basic programming concepts, basic programming best practices, R packages and environments, R data structures, data transfer, creating and manipulating data, visualizing data, conditional operations, working with multiple data frames, restructuring data frames, repeated/iterative operations, writing functions, basic analyses used in epidemiology, and techniques for presenting results to various audiences. Special emphasis will be given to using the Tidyverse family of R packages.
+
+That course uses the R for Epidemiology (R4Epi) textbook, which is freely available online at https://www.r4epi.com/, supplementary readings, and the following 5 types of assignments.
+
+1. Readings (0% of final grade): These are the primary mode of content delivery. They should be fun. If they aren’t fun, I want students to let me know so that I can try to make them fun.
+
+2. Check on learning (COL) quizzes (30% of final grade): Students complete a short reading comprehension quiz in each learning module. The goal of COL quizzes is simply to assess basic comprehension of the assigned materials and provide students with feedback early in the module when the stakes are low. Students may complete COL quizzes as many times as they like. Only the highest score counts.
+
+3. Lab assignments (30% of final grade): Each module will include a lab assignment. They are an opportunity for students to practice applying that module’s concepts with the help of the instructor (via written feedback). Students may complete lab assignments as many times as they like. Only the highest score counts.
+
+4. Weekly module quizzes (40% of final grade): Each module will include a quiz to be completed independently on Canvas. These quizzes provide an opportunity for students to self-assess their progress while working independently. They also provide the instructor with an opportunity to assess each student's progress.
+
+# Resources
+
+I'm attaching the following documents to this chat:
+- The syllabus I used for the Intro to R course at UTHealth Houston.
+- The syllabus template for TCU.
+
+# Request
+
+Please help me draft a syllabus for the adapted TCU version of my Intro to R course.
+
+

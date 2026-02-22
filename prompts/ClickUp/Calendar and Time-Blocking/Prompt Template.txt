@@ -1,0 +1,19 @@
+# =============================================================================
+Time-Block Prompt
+2025-02-24
+Brad Cannell
+This is just a pain text template we can use to write and record ChatGPT prompts.
+# =============================================================================
+
+I use a task management application called "ClickUp." In January 2025, ClickUp released a new calendar feature in their application. Along with the calendar, they also released a set of features that allows users to time-block the tasks they've created in ClickUp on that calendar. 
+
+Here is a link to ClickUp's help page for their feature: https://help.clickup.com/hc/en-us/articles/29051586233879-Use-the-Calendar-to-schedule-and-join-events
+
+Here is a link to the time-blocking feature's feedback page: https://feedback.clickup.com/feature-requests/p/time-blocking-1. 
+
+I've been trying out the new calendar and time-blocking features, and I have some feedback that I hope will improve these features in the future. 
+
+<Insert specific feedback here>
+
+I would like help writing comment to post on ClickUp's user forum. Please start the comment with something friendly about me enjoying ClickUp overall and appreciate the fact that they've added these features.
+

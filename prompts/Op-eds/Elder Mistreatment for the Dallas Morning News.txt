@@ -1,0 +1,12 @@
+# Main prompt
+
+Give me an op-ed idea that would interest readers of the Dallas Morning News. The topic of the op-ed should be elder mistreatment. 
+
+## Notes
+
+I might want to refine the prompt above more. I might want to veil the op-ed with a movie theme or something like Scott did with his Western Movie op-ed. Additionally, I might want to weave in a story or two.
+
+# Response
+
+https://chat.openai.com/g/g-mjAQpVknH-brad-s-blogger/c/95de12cd-6a36-4af0-b204-cc7d4ee21306
+https://copilot.microsoft.com/?itrid=660425d2cb354e7b8654cf80368796cb

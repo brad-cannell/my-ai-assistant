@@ -1,0 +1,51 @@
+# =============================================================================
+Prompt to help us refine the recruitment postcards.
+2025-04-23
+Brad Cannell
+# =============================================================================
+
+I am an academic researcher who is the principal investigator of a large study that is funded by the National Institute on Aging (NIA).
+
+The name of the study is “Detection of Elder abuse Through Emergency Care Technicians – Revised for Primary Care” or “DETECT-RPC” for short. We previously developed and tested an elder mistreatment screening tool designed specifically for use by EMTs and paramedics in older adults’ homes. The project and screening tool were called Detection of Elder mistreatment Through Emergency Care Technicians (DETECT). The DETECT tool was designed to (1) be brief, (2) be based on the clinician’s direct observations of the older adult and the older adult’s physical and social environment, (3) provide reporting guidance, and (4) be integrated into their existing procedures and medical charting software.
+
+Our current objective is to adapt the DETECT screening tool for home-based primary care (HBPC) — with special emphasis on older adults who were recently diagnosed with Alzheimer’s Disease and Related Dementias (ADRD) — DETECT Revised for Primary Care (DETECT-RPC). Additionally, we believe that the Theory of Planned Behavior (TPB) and the Abuse Intervention Model (AIM) are two theories that will help explain why the revised DETECT-RPC screening tool changes, or does not change, home-based primary care clinician APS reporting behavior.
+
+We have completed the following steps towards adapting DETECT for home-based primary care:
+
+1. We completed focus groups with 12 home-based primary care clinicians about barriers and facilitators to recognizing and reporting elder mistreatment during medical encounters.
+
+2. We created version 1 of the DETECT-RPC screening tool.
+
+3. We completed an intervention mapping process designed to help plan our intervention. Specifically, it maps together the underlying theories – TPB and AIM – that we believe help explain home-based primary care clinician reporting behavior, the barriers and facilitators reported by the focus group participants, and the DETECT-RPC screening items and procedures.
+
+4. In February 2025, we created and launched a training program for HBPC clinicians to complete before using the DETECT-RPC screening tool with their patients.
+
+5. In February 2025, we created and disseminated surveys that HBPC clinicians in both the control and experimental groups completed. These surveys measure the HBPC clinicians' attitudes, beliefs, and perceived norms about elder mistreatment and adult protective services.
+
+6. In March 2025, we launched a cluster-randomized clinical trial to evaluate the preliminary efficacy with which DETECT-RPC impacts reporting of potential EM (R33 Aim 1), targeted mechanisms of action (R33 Aim 2), and to evaluate the benefits and harms associated with screening for and reporting EM (R33 Aim 3).
+
+A further aim of our study is to rigorously evaluate the benefits and harms of screening with DETECT-RPC. To do so, we will recruit a purposive sample of N=60 patient/caregiving dyads consisting of family caregivers and their care recipients, half of which will be living with Alzheimer’s Disease or Related Dementias (ADRD). We are recruiting dyads because we are interested in caregiver behaviors and their relationship to care recipient outcomes.
+
+# Recruitment procedures
+
+Our planned recruitment procedures include: 
+
+- HBPC clinicians will help recruit patients and caregivers (screened only). 
+- We will give clinicians postcards to hand out. 
+	- The postcards will have a QR code and/or short link that takes them to REDCap. 
+	- We also include our phone number in case they prefer to call (warm handoff?).
+	- The patients will get a gift card if they complete the "health and safety survey."
+- The survey will also allow them to click a button to indicate their interest in participating in the dyad interviews. 
+	- Ask them if there is a date and time that’s best to be contacted.
+	- They also give us their phone number. If they do, EDC will call them.
+- Dyad interview will be done over the phone with the patient and caregiver together.
+
+# Recruitment postcard
+
+I'm attaching a draft of the recruitment postcard that the HBPC clinicians will hand out at medical encounters.
+- We want both patients and caregivers to complete the survey.
+- We want the wording on the postcard to strike a balance between ethical and effective recruitment.
+- We want the postcards to be 508 compliant.
+- We want the wording to be at a seventh-grade reading level.
+
+

@@ -1,0 +1,39 @@
+# =============================================================================
+Video 1: Understanding APS’s Role and Mission
+2025-01-29
+Brad Cannell
+# =============================================================================
+
+In this chat (https://chatgpt.com/g/g-p-67618def0a5c8191b59dd2ff6c925821-detect-rpc-clinician-training/c/679a682c-59ac-8001-92b9-deb6a261ed9a), you suggested that I group our recorded interview with Kez Wold into three short videos, each under three minutes, that align with the key aspects of APS that clinicians need to understand.
+
+In this chat, I would like your help finalizing Video 1: Understanding APS’s Role and Mission. 
+
+To start with, please write a short script to narrate the title slide for this video. It shouldn't be longer than 10 to 15 seconds.
+
+# =============================================================================
+
+In the second scene of the video, we will introduce Kez Wold, the expert being interviewed. Write a short script to narrate this scene. It shouldn't be longer than 10 to 15 seconds.
+
+Here is some additional information about Mr. Wold. 
+
+Kez Wold is the Associate Commissioner for Texas Adult Protective Services and President of the  National Adult Protective Services Association Board of Directors. Texas Adult Protective Services is a nationally recognized program known for its innovation and client services. His management skills are backed by many years of health and human services experience.
+
+He started his career in protective services in June 1996. Kez was both a child and adult protective services caseworker, front-line supervisor, subject matter expert in risk and self-neglect, program administrator, and regional director.
+
+Prior to his selection as the associate commissioner for APS, Kez was the director of field for seven years. He has a Bachelor of Arts degree in political science from Texas Lutheran College and a Master's in Public Administration from Texas State University. 
+
+Mr. Wold has 27 years experience in Protective Services, including casework, supervision, case consulting, and executive leadership. Four Texas Legislative sessions as executive for APS program, including testifying before committee, 3 prior sessions in senior leadership position. Experience leading a statewide program, making strategic and practice decisions, overseeing a staff of up to 1,000 employees and a budget in excess of $60 million.
+
+# =============================================================================
+
+Here is the script from the current version of the video. Please write a very brief summary description of the video.
+
+# =============================================================================
+
+Please generate a bulleted list of key takeaways from the video.
+
+# =============================================================================
+
+# Attach the basic aps 101 PDF document I received from Nisaa. 
+
+Here is a copy of a PDF document I received from Texas APS. APS uses this document to give presentations to the community explaining what elder mistreatment is and APS's role in addressing it. Briefly summarize any information in this document that is directly relevant to this video so that I can add it to the key takeaways section.

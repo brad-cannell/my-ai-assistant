@@ -1,0 +1,55 @@
+# =============================================================================
+Presentation for the monthly P30 meeting
+2025-01-07
+Brad Cannell
+
+2024-09-16, from Karina Davidson (Roybal Coordinating Center):
+"As we prepare for our upcoming monthly P30 meetings, we will dedicate some 
+time to have P30 sites introduce themselves and their proposed projects. We 
+kindly ask that you use the attached PowerPoint to prepare your brief 
+introductory presentations"
+# =============================================================================
+
+# About me
+
+I am an epidemiologist, gerontologist, data scientist, and associate professor at the University of Texas Health Science Center. I am passionate about researching healthy aging and late-life quality of life and applying that understanding to improving the health of older adults and communities. Specifically, I have published research focusing on the preservation of physical and cognitive function, living and aging with disability, and detecting and preventing elder mistreatment. I also have a passion for data science and digital epidemiology. I'm committed to the idea of learning about -- and positively impacting -- health outcomes using a data-driven approach. My expertise includes scientific writing – I have published more than 45 peer-reviewed journal articles, two textbook chapters, and one textbook; grant writing – I have secured more than $27 million in grant funding for research; project management – I have been the principal or co-investigator on multiple trials and observational studies in community and healthcare settings; teaching – I have taught 8 different courses at 3 different universities; public speaking – I have given numerous presentations and trainings; and data science – I am fluent in all major statistical programming languages. 
+
+I am also one of the multiple principal investigators (MPI) of The Roybal Center for Elder Mistreatment Intervention Research at the University of Texas Health Science Center at Houston (UTHealth - Houston). 
+
+
+# About The Roybal Center for Elder Mistreatment Intervention Research
+# =============================================================================
+
+The Roybal Center for Elder Mistreatment Intervention Research is part of the National Institute on Aging (NIA) Roybal Network, funded by the National Institute on Aging through the Edward R. Roybal Centers for Translational Research in the Behavioral and Social Sciences of Aging program.
+
+The multidisciplinary center draws on extensive resources and expertise of UTHealth Houston researchers at Cizik School of Nursing, McGovern Medical School, UTHealth Houston School of Public Health, and UTHealth Houston School of Behavioral Sciences.
+
+The goals of The Roybal Center for Elder Mistreatment Intervention Research are:
+
+1. Create an infrastructure of expertise and pragmatic resources that support the progression of research projects through the NIH stages of intervention development by a) addressing crucial problems related to initiating elder mistreatment (EM) research, and b) increasing the pool of researchers trained in EM-focused intervention research. 
+
+2. Evaluate the mechanisms and outcomes of scalable interventions that address the causes and consequences of EM for community-dwelling older adults and their family caregivers.
+
+The Roybal Center for Elder Mistreatment Intervention Research funds project proposals focusing on stages 0-2 of the NIH Stage Model of Behavioral Intervention Development. A clearly defined mechanism must support them. All proposals must be a clinical trial with adequate statistical power to test the mechanism of behavior change and/or efficacy of the intervention.
+
+
+# About the presentation
+# =============================================================================
+
+I need to give a five-minute presentation to the Roybal Coordinating Center and an audience of academics representing other Roybal Centers from across the country. The objective of the presentation is to briefly introduce The Roybal Center for Elder Mistreatment Intervention Research and the projects it supports. Currently, The Roybal Center for Elder Mistreatment Intervention Research supports three projects. 
+
+For each project, I need to provide the following information:
+
+1. The project title.
+
+2. The name and credentials of the project PI.
+
+3. A brief description of the intervention.
+
+4. A brief description of the participants.
+
+5. A brief description of the methods.
+
+6. A brief description of the project's current stage of the NIH Stage Model of Behavioral Intervention Development.
+
+7. A brief description of how the project will progress through the remaining stages of the NIH Stage Model of Behavioral Intervention Development.

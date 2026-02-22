@@ -1,0 +1,17 @@
+# =============================================================================
+Extract Slide Notes from a PowerPoint Presentation
+2025-02-07
+Brad Cannell
+# =============================================================================
+
+# PowerPoint File
+
+I'm attaching a PowerPoint file to this chat. Please extract the presenter notes from each slide in the file and return them as a bulleted list. If a slide doesn't have any presenter notes, please indicate that in the bulleted list. Please do not return the slides' content. I am only interested in the presenter notes.
+
+## I couldn't get this to work. ChatGPT either won't return anything or it will return the text on the slides.
+
+# PDF Export of a PowerPoint file.
+
+I'm attaching a PDF file to this chat. The PDF contains the contents of a PowerPoint presentation file that I exported in "notes" layout. Please extract the presenter notes from each slide (i.e., page) in the file and return them as a bulleted list. If a slide doesn't have any presenter notes, please indicate that in the bulleted list. Please do not return the content from the slides. I am only interested in the presenter notes.
+
+## This worked as expected.

@@ -1,0 +1,25 @@
+# =============================================================================
+Revise the DSMP
+2025-07-10
+Brad Cannell
+# =============================================================================
+
+I need to create a [data and safety monitoring plan (DSMP)](https://www.nia.nih.gov/research/grants-funding/nia-guidance-clinical-trials) for the R33 phase of the study.
+
+I'm attaching a DSMP template to this chat, which is provided by the NIA. It includes instructions for each section. This document is titled: Data and Safety Monitoring Plan (DSMP) Template and Guidelines.docx.
+
+I'm also attaching approved DSMPs from two other projects to this chat. The specific content is not relevant to DETECT-RPC. I'm attaching them as an example of the kind of content and level of detail required to get approval. These documents are titled:
+- Wood_DSMP_Roybal_Updated_2.10.25_Clean.docx
+- 3. Horstman_DSMP_Roybal_2.7.25_clean.docx
+
+Additionally, I have a draft DSMP that I've already written. 
+
+I want to submit it to you, and I would like you to give me suggestions for improving the writing and content.
+
+I forgot to mention a couple of important notes. We need to ensure that the following are clear in the DSMB:
+- The target of our behavioral intervention is clinicians.
+- We are attempting to change their screening and reporting behaviors.
+- Therefore, we are enrolling clinicians into the RCT, which is being used to evaluate our screening and reporting behavioral intervention.
+- We are not attempting to change patient or caregiver behaviors
+- Therefore, we are not enrolling patients or caregivers into our RCT.
+- Our study protocol and study materials have additionally been reviewed and approved (via reliance agreements) by IRBs at the following institutions: UTHealth Houston, Johns Hopkins University, UAB, UTSW, BCM, Harris Health System, and UCSF.

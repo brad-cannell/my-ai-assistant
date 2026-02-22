@@ -1,0 +1,15 @@
+# =============================================================================
+Get EMA data column attributes
+I'm trying to figure out which columns I need to use to compare Bridge use in 
+the Bridge data to potential phone-based case management sessions in the EMA 
+data. OU didn't send a codebook for the EMA data, so I want to create function
+to look at the label attribute of each variable in the EMA data. 
+2024-08-15
+Brad Cannell
+# =============================================================================
+
+Write an R function that takes a data frame as input (df1) and returns a new data frame with two columns (df2). The first column of df2 should contain the name of each column in df1. The second column of df2 should contain the value of the label attribute for the column listed in the first column of df2.
+
+For testing, create df1. It should have two columns -- one numeric and one character. Both variables should also have a label attribute.
+
+There is an issue with the extract_labels() function. Currently, if a column in df1 doesn't have a label attribute, the function returns the following error: "Error in labels[i] <- attr(df1[[i]], "label", exact = TRUE) : replacement has length zero". Amend the extract_labels() function to account for columns that don't have a label attribute.

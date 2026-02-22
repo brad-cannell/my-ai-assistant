@@ -1,0 +1,130 @@
+---
+title: "Lab: Module Name"
+format:
+  html:
+    embed-resources: true
+---
+
+<!--
+Note to authors:
+Lab exercises are designed to reinforce multiple course concepts through applied problem-solving in realistic scenarios. This document includes placeholder content and guidance for authors. 
+
+Lab exercises typically typically contain the following components:
+- Coding tasks: Tasks that require learners to write R code.
+- Questions: Quiz-style questions that are used to determine if the coding task was completed correctly and if the learner understood the results of the coding task.
+
+Formatting:
+
+1. Please name this file `lab_module_name.qmd`. For example, lab_writing_functions.qmd for the Writing Functions module.
+
+2. The Overview section, each task number, and each question number should be written as a level-one header (e.g., `# Overview` and `# Task 1`).
+
+3. All R code being run, should be written into R code chunks.
+
+4. All R code being discussed in the text (but not run) should be written inline (i.e., placed inside backticks). For example, "Run `install.packages("dplyr")` to install the `dplyr` package.".
+
+5. R package names being discussed in the text should be formatted as code (e.g., "...the `dplyr` package...).
+
+6. When functions are discussed in the text, they should be formatted as code and empty parentheses added to the end of the function name (e.g., "The `tibble()` function can be used to create data frames…").
+
+7. Data set and data frame names, variable names, and other key words should be written with **bold** text (e.g., "Please download **chocolate study 1.xls**".
+
+8. There should be one line break (return) immediately above all headers.
+
+9. There should be one line break (return) immediately above each code chunk. 
+
+10. There should be at least one line break (return) immediately below each code chunk. If the code chunk is immediately followed by a level-one header, then there will be two line breaks.
+
+Delete or revise these notes when adapting the template.
+-->
+
+# Overview
+
+In this section, describe the real-world scenario that the lab simulates. This should give learners enough context to understand the situation they're stepping into and why it matters. Keep it brief—two to four sentences is usually enough. You may also include a short statement about the purpose of the lab exercise. This can help orient learners to the kind of task they’ll be doing and how it relates to the broader course themes.
+
+Here are some things to consider when writing the overview section:
+- **Scenario summary:** Briefly describe the real-world situation the learner is entering. Provide just enough background to frame the problem.
+- **Your role:** What is the learner's role in this scenario? Example: Epidemiologist, Data Analyst, Program Evaluator, etc.
+- **Your task:** What is the learner expected to do? Use clear, action-oriented phrasing.
+
+<!--
+Note to authors:
+Make it authentic and grounded in real practice. Use scenarios relevant to public health, healthcare, or epidemiology settings.
+-->
+
+# Load packages
+
+<!--
+Note to authors:
+Asking learners to load packages and data themselves can help reinforce their understanding of what each package does and how to load it properly.
+-->
+
+Remember, it's considered a best practice to load all the packages that our file will use up at the top of the file. If we have not yet installed a package, we will need to do so by running `install.packages("package name")` in the R console. For example, to install the `dplyr` package, we would run `install.packages("dplyr")`. However, we typically **do not** want to type the code to install the package here in our Quarto file because we only need to install the package once on a given computer. Not every time we run our R code.
+
+```{r}
+#| label: load-packages
+library(dplyr, warn.conflicts = FALSE)
+```
+
+# Task 1
+
+<!--
+Note to authors:
+Many lab exercises begin with a task that asks learners to explore a dataset or review a codebook. This step helps orient learners to the structure, variables, and context of the data they’ll be analyzing. However, this is not required. Include this type of task when it adds value to the learning experience — for example, when variable names are unfamiliar or when understanding the data is essential to choosing the correct analysis approach.
+-->
+
+Please use the following links to view the `Dataset 1` data and its associated codebook:
+
+* [Dataset 1](link)   
+* [Codebook 1](link)
+
+# Task 2
+
+<!-- 
+Note to authors:
+The second task in many lab exercises involves having learners import a dataset or simulate data they will need for the analysis. This reinforces skills related to data input and ensures learners are working with the correct data structure for the tasks that follow.
+-->
+
+Import `Dataset 1.csv` into your R global environment as `df`.
+
+<!-- 
+Note to authors:
+When including code blocks that will be evaluated for correctness, follow this standard pattern:
+
+1. Exercise code blocks: Where learners write, edit, and submit code. Best practice is to include code scaffolding (e.g., partial code, function signatures, comments) to guide learners without giving away the full solution.
+-->
+
+```{r}
+df <- read_function("path")
+```
+
+<!-- 
+Note to authors:
+- Use `## Notes for students` sections to highlight additional, supporting information that may be useful but is not essential for completing the task.
+- You may additionally use these sections to offer shortcuts, best practices, or ideas for exploration that can help learners work more efficiently or go beyond the core lesson.
+-->
+
+## Notes for students
+
+1. Here is an example note about importing the data in the code block above.
+
+## Question 1
+
+<!-- 
+Note to authors:
+The first question in many lab exercises asks learners to report the number of rows and columns in the dataset they imported or simulated in Task 2. This serves as a simple confidence-building task to help learners get started and verify that they’re using the correct dataset.
+
+As shown below, the correct answer is written as a bullet under the question.
+-->
+
+The **df** data frame contains ____ rows and ____ columns.
+
+* The **study_data** data frame contains 189 rows and 15 columns.
+
+<!-- 
+Note to authors:
+- Use the space below to add a sequence of tasks that learners must complete to achieve the objective.
+- Provide starter code or leave blank if learners are expected to write from scratch.
+-->
+
+

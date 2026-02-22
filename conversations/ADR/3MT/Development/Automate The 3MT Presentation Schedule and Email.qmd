@@ -1,0 +1,549 @@
+---
+title: "Automate The 3MT Presentation Schedule and Email"
+id: 3mt_schedule_and_email
+author: brad_cannell
+date: 2026-02-18
+date-modified: 2026-02-20
+audience: self
+domain: administration
+tags:
+  - 3MT
+  - ADR
+  - Scheduling
+  - Data Cleaning
+format:
+  html:
+    toc: true
+    embed-resources: true
+execute:
+  eval: false
+---
+
+# Overview
+
+- This is a template for generating the 3MT schedule and email to participants.
+- 2025-02-20: This is all in Python because I originally expected to use AI. However, the code below doesn't actually ever call AI. If you don't eventually add AI, you might want to convert this to R.
+- I got help with this from ChatGPT in the browser: https://chatgpt.com/g/g-p-6996201538d881918045948a02f806df/c/69962272-4aa0-8326-94b1-34014dac0a30
+
+# Prerequisites
+- Create a new virtual environment (uv).
+    - `uv init`
+- Install Packages
+    - `uv add keyring openai jupyter -U chatlas`
+- Load environment on a new machine
+    - `uv sync`
+    - - Select the virtual environment as the Python interpreter (Shift+Command+P).
+
+# Load Packages
+
+```{python}
+from datetime import date, datetime, timedelta
+from collections import defaultdict
+from docx.oxml import OxmlElement
+from docx.shared import Pt
+from docx.oxml.ns import qn
+from docx import Document
+from openai import OpenAI
+from pathlib import Path
+import chatlas as ctl
+import pandas as pd
+import keyring
+import heapq
+import json
+import math
+import os
+```
+
+# File Paths and Environment Variables
+
+They are passed to the AI assistant below.
+
+```{python}
+# OpenAI Models: https://platform.openai.com/docs/models
+# Anthropic Models: https://platform.claude.com/docs/en/about-claude/models/overview
+model = "gpt-5.2-2025-12-11"
+
+# Today's date
+today = date.today().isoformat()
+
+# Event Details
+event_date = "Friday, March 6, 2026"
+event_time = "11:30 am – 1:30 pm"
+event_location = "Bass Hall, Room 1004"
+
+# What time should the first presentation start?
+# Used in compute_presentation_spacing() and generate_start_times()
+presentation_start_time = "11:35 AM"
+
+# What time should the judging and awards start?
+# Used in compute_presentation_spacing()
+presentation_end_time = "12:23 PM"
+
+# Path to the intent-to-participate data (Qualtrics)
+qualtrics_path = Path('/Users/bradcannell/Library/CloudStorage/Box-Box/AI Assistant/conversations/ADR/3MT/Development/Qualtrics Data Raw.xlsx')
+
+# Path to the 3MT schedule template
+schedule_template_path = Path('/Users/bradcannell/Library/CloudStorage/Box-Box/AI Assistant/conversations/ADR/3MT/Development/3MT Schedule Template.docx')
+```
+
+# Import and Clean the Intent-to-Participate Data (Qualtrics)
+
+```{python}
+# Import the Qualtrics data
+qualtrics = pd.read_excel(
+    qualtrics_path,
+    engine="openpyxl",
+    header=0,      # First row = column names
+    skiprows=[1]   # Skip the second row (labels)
+)
+
+# Select columns of interest
+keep_cols = [
+    "name_first", "name_last", "email", "department", "degree", "title", 
+    "name_mentor",
+]
+qualtrics = qualtrics.loc[:, keep_cols]
+
+# Drop students who no longer want to participate
+qualtrics = qualtrics[qualtrics["name_first"] != "Paulina"]
+```
+
+## Convert the intent-to-participate data to JSON
+
+- AI models behave much better with structured JSON than pasted tables.
+
+```{python}
+# Convert to a JSON list/dict object
+qualtrics_json = qualtrics.to_dict(orient="records")
+# Also create a string that looks like JSON
+qualtrics_json_str = json.dumps(qualtrics_json, indent=2)
+```
+
+## Arrange presentations by department
+
+Reorder contestants to avoid same-department back-to-back (if possible).
+
+Goal: create an ordering such that adjacent contestants are not from the same department, when feasible.
+
+This is basically a “rearrange string so no adjacent equal” problem. A reliable greedy approach:
+    - Group contestants by department
+    - Always pick the department with the most remaining contestants, unless it’s the same as the last one used
+    - If the only remaining department is the same as last, you’re forced to place it (constraint not fully satisfiable)
+
+```{python}
+def reorder_to_avoid_adjacent_department(contestants, department_key="department"):
+    """
+    Reorder a list of contestant dicts to minimize adjacent contestants
+    from the same department.
+
+    Parameters
+    ----------
+    contestants : list[dict]
+        Each dict must have department_key.
+    department_key : str
+        Key that identifies department.
+
+    Returns
+    -------
+    reordered : list[dict]
+    success : bool
+        True if no adjacent same-department pairs exist in the result.
+        False if constraint could not be fully satisfied.
+    """
+    # Bucket contestants by department
+    buckets = defaultdict(list)
+    for c in contestants:
+        dept = (c.get(department_key) or "").strip()
+        buckets[dept].append(c)
+
+    # Max-heap by remaining count
+    heap = []
+    for dept, items in buckets.items():
+        heapq.heappush(heap, (-len(items), dept))
+
+    reordered = []
+    last_dept = None
+
+    while heap:
+        count1, dept1 = heapq.heappop(heap)
+
+        if dept1 != last_dept:
+            # Use dept1
+            item = buckets[dept1].pop(0)
+            reordered.append(item)
+            last_dept = dept1
+            count1 += 1  # less negative
+
+            if -count1 > 0:
+                heapq.heappush(heap, (count1, dept1))
+        else:
+            # dept1 is same as last; try next best
+            if not heap:
+                # No alternative exists -> must place dept1 (constraint impossible)
+                item = buckets[dept1].pop(0)
+                reordered.append(item)
+                last_dept = dept1
+                count1 += 1
+                if -count1 > 0:
+                    heapq.heappush(heap, (count1, dept1))
+            else:
+                count2, dept2 = heapq.heappop(heap)
+
+                # Place dept2 instead
+                item = buckets[dept2].pop(0)
+                reordered.append(item)
+                last_dept = dept2
+                count2 += 1
+
+                # Push back remaining
+                if -count2 > 0:
+                    heapq.heappush(heap, (count2, dept2))
+                heapq.heappush(heap, (count1, dept1))
+
+    # Check success: no adjacent same department
+    success = True
+    for i in range(1, len(reordered)):
+        d_prev = (reordered[i-1].get(department_key) or "").strip()
+        d_curr = (reordered[i].get(department_key) or "").strip()
+        if d_prev == d_curr:
+            success = False
+            break
+
+    return reordered, success
+```
+
+This returns:
+    - reordered_list
+    - no_consecutive_depts (True if fully satisfied; False if unavoidable adjacency remains)
+
+```{python}
+qualtrics_json_reordered, no_consecutive_depts = reorder_to_avoid_adjacent_department(qualtrics_json, department_key="department")
+no_consecutive_depts
+```
+
+## Compute presentation spacing.
+
+Compute the “optimal” spacing from start/end time + number of contestants.
+
+Interpretation: distribute presenters evenly across the available time window.
+    - Inputs: n, start_time, end_time
+    - Output: spacing_minutes (integer) + optionally the generated start times
+
+This version:
+    - Parses strings like "11:30 AM" / "1:30 PM"
+    - Computes total available minutes
+    - Uses floor(total / n) by default (safe; won’t exceed end time)
+    - Returns both the spacing and a list of start time strings you can use directly
+
+```{python}
+def compute_presentation_spacing(
+    n_contestants: int,
+    start_time: str,
+    end_time: str,
+    time_fmt: str = "%I:%M %p",
+    rounding: str = "floor",
+):
+    """
+    Compute minutes per contestant given a window.
+
+    Parameters
+    ----------
+    n_contestants : int
+        Number of contestants (must be >= 1).
+    start_time, end_time : str
+        Time-of-day strings (e.g., "11:30 AM", "1:30 PM").
+    time_fmt : str
+        strptime format for times.
+    rounding : {"floor","ceil","round"}
+        How to convert raw spacing (float minutes) to integer.
+
+    Returns
+    -------
+    spacing_minutes : int
+    total_minutes : int
+    raw_spacing : float
+    """
+    if n_contestants < 1:
+        raise ValueError("n_contestants must be >= 1")
+
+    t0 = datetime.strptime(start_time, time_fmt)
+    t1 = datetime.strptime(end_time, time_fmt)
+
+    # Handle windows that cross noon/midnight (rare for 3MT, but safe)
+    if t1 <= t0:
+        t1 = t1 + timedelta(days=1)
+
+    total_minutes = int((t1 - t0).total_seconds() / 60)
+    raw_spacing = total_minutes / n_contestants
+
+    if rounding == "floor":
+        spacing_minutes = max(1, math.floor(raw_spacing))
+    elif rounding == "ceil":
+        spacing_minutes = max(1, math.ceil(raw_spacing))
+    elif rounding == "round":
+        spacing_minutes = max(1, int(round(raw_spacing)))
+    else:
+        raise ValueError("rounding must be one of: 'floor', 'ceil', 'round'")
+
+    return spacing_minutes, total_minutes, raw_spacing
+
+
+def generate_start_times(
+    n_contestants: int,
+    event_start_time: str,
+    spacing_minutes: int,
+    input_fmt: str = "%I:%M %p",
+    output_style: str = "lower_nospace",  # "11:35am"
+):
+    """
+    Generate a list of start times for each contestant.
+    """
+    t0 = datetime.strptime(event_start_time, input_fmt)
+    out = []
+    for i in range(n_contestants):
+        t = t0 + timedelta(minutes=spacing_minutes * i)
+        if output_style == "lower_nospace":
+            out.append(t.strftime("%I:%M%p").lstrip("0").lower())
+        elif output_style == "ampm_space":
+            out.append(t.strftime("%I:%M %p").lstrip("0"))
+        else:
+            raise ValueError("Unknown output_style.")
+    return out
+```
+
+```{python}
+n = len(qualtrics_json_reordered)
+spacing_minutes, total, raw = compute_presentation_spacing(n, presentation_start_time, presentation_end_time)
+presentation_start_times = generate_start_times(n, presentation_start_time, spacing_minutes)
+spacing_minutes, presentation_start_times
+```
+
+# Add the Presentation Schedule to the Schedule Template
+
+- Upadate the template Word document.
+- This function will replace {{SCHEDULE_BLOCK}} with the presentation schedule.
+
+🔴 Move the template paths in the chunk below to the File Paths and Environment Variables section. Also, update the file paths to the ADR folder. 
+
+```{python}
+
+DEV_DIR = Path("/Users/bradcannell/Library/CloudStorage/Box-Box/AI Assistant/conversations/ADR/3MT/Development")
+
+template_path = DEV_DIR / "3MT Schedule Template.docx"
+output_path   = DEV_DIR / "3MT_Schedule_2026_Filled.docx"
+
+PLACEHOLDER = "{{SCHEDULE_BLOCK}}"
+FONT_SIZE_PT = 12
+
+
+def _insert_paragraph_after(paragraph):
+    """Insert an empty paragraph after `paragraph` and return it."""
+    new_p = OxmlElement("w:p")
+    paragraph._p.addnext(new_p)
+    new_para = paragraph._parent.add_paragraph("")  # temporary; we repoint XML next line
+    new_para._p = new_p
+    return new_para
+
+
+def _set_spacing(paragraph, space_before=0, space_after=0, line_spacing=1.0):
+    pf = paragraph.paragraph_format
+    pf.space_before = Pt(space_before)
+    pf.space_after = Pt(space_after)
+    pf.line_spacing = line_spacing
+
+
+def _format_time_lower(dt_obj):
+    # e.g., "11:35am" / "12:07pm"
+    return dt_obj.strftime("%I:%M%p").lstrip("0").lower()
+
+
+def build_schedule_rows_from_qualtrics_with_times(qualtrics_json, start_times):
+    """
+    Build schedule rows using a precomputed list of start times (strings like '11:35am').
+
+    qualtrics_json: list[dict] or JSON string
+    start_times: list[str] with same length as qualtrics_json
+    """
+    import json
+    if isinstance(qualtrics_json, str):
+        qualtrics_json = json.loads(qualtrics_json)
+
+    if len(start_times) != len(qualtrics_json):
+        raise ValueError(
+            f"start_times length ({len(start_times)}) must match contestants ({len(qualtrics_json)})."
+        )
+
+    rows = []
+    for i, (rec, t) in enumerate(zip(qualtrics_json, start_times), start=1):
+        first = (rec.get("name_first") or "").strip()
+        last  = (rec.get("name_last") or "").strip()
+        name = " ".join([p for p in [first, last] if p]).strip() or "[MISSING]"
+
+        rows.append({
+            "contestant_num": i,
+            "start_time": (t or "[MISSING]").strip(),
+            "name": name,
+            "department": (rec.get("department") or "[MISSING]").strip(),
+            "mentor": (rec.get("name_mentor") or "[MISSING]").strip(),
+            "title": (rec.get("title") or "[MISSING]").strip(),
+        })
+
+    return rows
+
+
+def _add_run(paragraph, text, *, bold=False, italic=False, font_size_pt=12):
+    run = paragraph.add_run(text)
+    run.bold = bold
+    run.italic = italic
+    run.font.size = Pt(font_size_pt)
+    return run
+
+
+def replace_all_schedule_placeholders(doc, placeholder, schedule_rows):
+    """
+    Replace ALL paragraphs containing placeholder text with the formatted schedule block.
+    This avoids surprises if the placeholder exists more than once.
+    """
+    placeholder_paragraphs = [p for p in doc.paragraphs if placeholder in p.text]
+    if not placeholder_paragraphs:
+        raise ValueError(f"Placeholder {placeholder!r} not found in template.")
+
+    for target in placeholder_paragraphs:
+        # Clear placeholder paragraph completely
+        target.text = ""
+        _set_spacing(target, space_before=0, space_after=0, line_spacing=1.05)
+
+        current = target
+
+        for idx, r in enumerate(schedule_rows):
+            # Line 1: time – Contestant N  (bold)
+            p1 = current if idx == 0 else _insert_paragraph_after(current)
+            _set_spacing(p1, space_before=0, space_after=0, line_spacing=1.05)
+            _add_run(
+                p1,
+                f"{r['start_time']} – Contestant {r['contestant_num']}",
+                bold=True,
+                italic=False,
+                font_size_pt=FONT_SIZE_PT,
+            )
+
+            # Line 2: Name (bold) – Department / Mentor (normal)
+            p2 = _insert_paragraph_after(p1)
+            _set_spacing(p2, space_before=0, space_after=0, line_spacing=1.05)
+            _add_run(p2, f"{r['name']}", bold=True, italic=False, font_size_pt=FONT_SIZE_PT)
+            _add_run(
+                p2,
+                f" – {r['department']} / {r['mentor']}",
+                bold=False,
+                italic=False,
+                font_size_pt=FONT_SIZE_PT,
+            )
+
+            # Line 3: Title (italic)
+            p3 = _insert_paragraph_after(p2)
+            _set_spacing(p3, space_before=0, space_after=0, line_spacing=1.05)
+            _add_run(p3, r["title"], bold=False, italic=True, font_size_pt=FONT_SIZE_PT)
+
+            # Blank line between contestants
+            p_blank = _insert_paragraph_after(p3)
+            _set_spacing(p_blank, space_before=0, space_after=0, line_spacing=1.0)
+
+            current = p_blank
+
+
+# ---- Build schedule rows from your existing qualtrics_json ----
+# Presentation_start_times was created in the previous chunk
+schedule_rows = build_schedule_rows_from_qualtrics_with_times(
+    qualtrics_json=qualtrics_json_reordered,      # IMPORTANT: use the reordered roster
+    start_times=presentation_start_times
+)
+
+# ---- Fill Word template ----
+doc = Document(template_path)
+
+# Replace schedule placeholder(s)
+replace_all_schedule_placeholders(doc, PLACEHOLDER, schedule_rows)
+
+doc.save(output_path)
+output_path
+```
+
+# Import and Clean Confirmation Email Template
+
+🔴 Move the template paths in the chunk below to the File Paths and Environment Variables section. Also, update the file paths to the ADR folder. 
+
+```{python}
+def replace_tokens_in_paragraph(paragraph, token_map):
+    """
+    Replace tokens in a paragraph while trying to preserve formatting.
+    Works by editing runs. If a token is split across runs, we fall back
+    to a paragraph-level replace (which can flatten formatting).
+    """
+    # Fast path: if no tokens present, do nothing
+    full_text = paragraph.text
+    if not any(tok in full_text for tok in token_map.keys()):
+        return
+
+    # Try run-level replacement first (preserves formatting better)
+    for run in paragraph.runs:
+        for tok, val in token_map.items():
+            if tok in run.text:
+                run.text = run.text.replace(tok, str(val))
+
+    # If tokens were split across runs, run-level replacement may miss them.
+    # Detect remaining tokens and do a paragraph-level replace as a fallback.
+    updated_text = paragraph.text
+    if any(tok in updated_text for tok in token_map.keys()):
+        # This fallback can lose mixed formatting within the paragraph,
+        # but it ensures correctness.
+        for tok, val in token_map.items():
+            updated_text = updated_text.replace(tok, str(val))
+        paragraph.text = updated_text
+
+
+def replace_tokens_in_docx(doc, token_map):
+    # Replace in normal paragraphs
+    for p in doc.paragraphs:
+        replace_tokens_in_paragraph(p, token_map)
+
+    # Replace in tables (cells contain paragraphs)
+    for table in doc.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                for p in cell.paragraphs:
+                    replace_tokens_in_paragraph(p, token_map)
+
+
+# ---- Paths (edit these) ----
+template_path = Path('/Users/bradcannell/Library/CloudStorage/Box-Box/AI Assistant/conversations/ADR/3MT/Development/3MT_Email_Template.docx')
+
+output_path = Path('/Users/bradcannell/Library/CloudStorage/Box-Box/AI Assistant/conversations/ADR/3MT/Development/3MT_Email_2026_Filled.docx')
+# ---- Token values (edit these) ----
+token_map = {
+    "{{EVENT_DATE}}": "Friday, March 6, 2026",
+    "{{EVENT_TIME}}": "11:30 AM–1:30 PM",
+    "{{EVENT_LOCATION}}": "Bass Hall, Room 1004",
+    "{{ARRIVAL_TIME}}": "11:15 AM",
+    "{{CONTACT_NAME}}": "Eva Leon",
+    "{{CORRECTION_DEADLINE}}": "Friday, February 27, 2026",
+    "{{SENDER_NAME}}": "Brad Cannell",
+    "{{SENDER_TITLE}}": "Associate Dean for Research",
+}
+
+# ---- Fill template ----
+doc = Document(template_path)
+replace_tokens_in_docx(doc, token_map)
+doc.save(output_path)
+
+output_path
+```
+
+Quick verification. If it returns [], you’re good.
+
+```{python}
+doc_check = Document(output_path)
+all_text = "\n".join(p.text for p in doc_check.paragraphs)
+missing = [tok for tok in token_map.keys() if tok in all_text]
+missing
+```
+

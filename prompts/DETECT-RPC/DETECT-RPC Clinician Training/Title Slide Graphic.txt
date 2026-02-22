@@ -1,0 +1,21 @@
+# =============================================================================
+See if ChatGPT can help create a title slide graphic that I can use across 
+all of the modules.
+
+** This prompt didn't produce the results I wanted.
+
+2024-11-22
+Brad Cannell
+# =============================================================================
+
+I am an academic researcher who is the principal investigator of a large study that is funded by the National Institute on Aging (NIA).
+
+The name of the study is “Detection of Elder abuse Through Emergency Care Technicians – Revised for Primary Care” or “DETECT-RPC” for short. We previously developed and tested an elder mistreatment (EM) screening tool designed specifically for use by EMTs and paramedics in older adults’ homes. The project and screening tool was called Detection of Elder abuse Through Emergency Care Technicians (DETECT). The DETECT tool was designed to (1) be brief, (2) be based on the clinician’s direct observations of the older adult and the older adult’s physical and social environment, (3) provide reporting guidance, and (4) be integrated into their existing procedures and medical charting software.
+
+Our current objective is to adapt the DETECT screening tool for home-based primary care (HBPC) — with special emphasis on older adults who were recently diagnosed with Alzheimer’s Disease and Related Dementias (ADRD) — DETECT Revised for Primary Care (DETECT-RPC). Additionally, we believe that the Theory of Planned Behavior (TPB) and the Abuse Intervention Model (AIM) are two theories that will help explain why the revised DETECT-RPC screening tool changes, or does not change, home-based primary care clinician APS reporting behavior.
+
+We are creating a training program for HBPC clinicians to complete before using the DETECT-RPC screening tool with their patients. It is divided up into multiple modules. Each module will contain some video content, and many of the videos will be narrated PowerPoint presentations.
+
+The attached image file contains our study's logo. Use this logo to create a graphic we can use on the title slide for each of the PowerPoint presentations described above.
+
+In this chat, I would like your help with creating content for Module 1: Introduction to Elder Mistreatment (EM) and Reporting Requirements.
