@@ -1,0 +1,33 @@
+# =============================================================================
+CNRI Surveys
+2025-04-28
+Brad Cannell
+# =============================================================================
+
+# Background
+
+I am the director of the Research Informatics Core of the UTHealth Cizik Nursing Research Institute. One goal of the core is to build an informatics infrastructure for the Cizik School of Nursing, and UTHealth at large. That includes access to tools, data, and training. 
+
+As part of that effort, we need to understand two basic things at this point: 1. What data do we already have, and 2. What data and informatics tools do our faculty need? To get us started, we are creating a survey that we will send out to faculty, and perhaps some other key stakeholders, at UTHealth.
+
+One of my GRA's, Morri, already took a shot at creating a survey, but the end result didn't meet our needs. Below is the feedback I received from Dr. Carolyn Pickering, the director of the CNRI about the survey Morri created:
+
+"Thanks for your hard work on this. I especially appreciate your attention to detail with information about the questionpro programming. 
+
+I met with several faculty from our target audience and the general feedback is that this is much too "high-level". This is true both for our clinical faculty and our research faculty. I do appreciate some of the questions offer definitions for terms, but the definitions still assume the reader has a more advanced level of knowledge in regard to data science. The majority of our research faculty and clinical faculty do not have this knowledge, and this entire idea of creating a repository will be new to them. Many don't know how a data repository could help them. It may be helpful to learn more about end goals for the user (how a data resource could help their scholarship or research) and use a similar framing to help understand needs more generally that could be extrapolated to designing a data repository rather than the more specific questions about system functionality. For example: would being able to see a table or visual representation of data be useful for you? Rather than the diagram of the data flow. We also don't need a demographics form, and including such information would require this to go through IRB as a quality improvement project rather than an administrative needs assessment survey."
+
+# Attachments
+
+I'm including the following documents with this chat to get us started.
+
+- "The Cizik Nursing Research Institute.docx." This document gives an overview of the CNRI. Most of it won't be that important for this task. However, the first 5 pages are probably worth reading (and possibly giving to ChatGPT). Page 4 is particularly relevant because it describes my core, the Research Informatics Core. 
+
+- "Year 1 Goals.docx." These are the goals we set for year one. Again, the relevant section for our purposes is the Research Informatics Core. In particular, the first and second goals are: "Complete a pilot project demonstrating that we can create a repository and dashboard," and "Create a directory of data we have or have access to. We may want to target these data sources for future inclusion into the data repository down the road." This survey we are creating is intended to serve both of those goals -- not complete them, per se, but help us complete them.
+
+- "mahady_morrigan_practicum_2_business_plan.docx." This is a document that my GRA, Morri, created. Her practicum project was to do this survey. Ultimately, the survey she created was way too long and complicated, but these notes may still be useful.
+
+- "Initial Survey Site List.docx." This is the initial list of people Morri intended to send the survey to.
+
+- "Survey Draft 2025-10-30.docx." This is the most recent version of the survey Morri sent me. Again, it is currently too long and complicated, but there may be some useful things in it.
+
+

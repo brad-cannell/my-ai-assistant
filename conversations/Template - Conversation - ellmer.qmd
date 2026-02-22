@@ -1,0 +1,138 @@
+---
+title: "Chat Template"
+id: chat_template
+author: brad_cannell
+date: "2025-12-23"
+date-modified: "2025-12-23"
+audience: course_authors
+category: course_development
+tags:
+  - tag1
+  - tag2
+format:
+  html:
+    toc: true
+    embed-resources: true
+execute:
+  eval: false
+---
+
+<!--
+YAML HEADER INSTRUCTIONS
+
+Complete the YAML header above for every prompt. These fields support organization, reuse, and future search, but should remain lightweight and human-readable.
+
+FIELD DESCRIPTIONS
+- title: A brief, human-readable description of what the prompt does. Written in Title Case.
+- id: Use a short, stable, human-readable identifier in lowercase snake_case.
+- task: The primary type of work the prompt performs (e.g., text_revision, code_review). Written in snake_case.
+- audience: The intended audience for the output (e.g., academic, student, developer). Written in snake_case.
+- author: Name of the prompt author. Written in snake_case.
+- created: Date the prompt was first created (YYYY-MM-DD).
+- last_updated: Date of the most recent substantive revision (YYYY-MM-DD).
+- project: Associated project, course, or initiative, or null if broadly reusable. Written in snake_case.
+- domain: Subject area or disciplinary context (e.g., epidemiology, data_science, general). Written in snake_case.
+- tags: Optional keywords to support browsing and future search. Written in snake_case.
+
+ID GUIDELINES
+- id: Use a short, stable, human-readable identifier in lowercase snake_case.
+- Base the id on the prompt’s core purpose using a verb–object pattern
+  (e.g., rewrite_academic_tone, review_r_code_style).
+- Avoid dates, version numbers, model names, project names, or author names.
+- Treat the id as permanent; change it only if the prompt’s fundamental purpose changes.
+
+Avoid including model names or API parameters in the YAML header.
+-->
+
+# Overview
+
+This section is for the page author or future maintainers, not the AI assistant.
+
+Use this space to capture motivation, background, assumptions, or reminders that should not be included in the system prompt or user instructions.
+
+```{r}
+#| echo: false
+
+library(ellmer)
+```
+
+```{r}
+#| echo: false
+
+# Load strip_yaml_header()
+source('/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/AI Assistant/scripts/strip_yaml_header.R')
+
+# Load prompt_extract_system_prompt()
+source('/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/AI Assistant/scripts/prompt_extract_system_prompt.R')
+
+# Load prompt_extract_user_message()
+source('/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/AI Assistant/scripts/prompt_extract_user_message.R')
+
+# Load prompt_fill_placeholders()
+source('/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/AI Assistant/scripts/prompt_fill_placeholders.R')
+```
+
+# Retrieve the API key and Expose it to ellmer
+
+```{r}
+Sys.setenv(OPENAI_API_KEY = keyring::key_get("ewb-general"))
+Sys.setenv(GOOGLE_API_KEY = keyring::key_get("ewb-general-gemini"))
+Sys.setenv(ANTHROPIC_API_KEY = keyring::key_get("ewb-general-claude"))
+```
+
+# Read the Template Prompt
+
+```{r}
+system_prompt <- prompt_extract_system_prompt('path to prompt')
+```
+
+```{r}
+user_message_raw <- prompt_extract_user_message('path to prompt')
+```
+
+# Create Chat Object
+
+Periodically check to make sure you are running the best model for the task at hand.
+
+```{r}
+chat <- chat_openai(
+  system_prompt = system_prompt,
+  model = "gpt-5-nano-2025-08-07",
+  echo = "none"
+)
+```
+
+# Prompt
+
+```{r}
+conversation <- chat$chat(user_message_raw)
+```
+
+## Response
+
+```{r}
+#| echo: false
+cat(conversation)
+```
+
+````markdown
+Copy and paste response here.
+````
+
+# Write the response to a markdown file for review
+
+Optional
+
+```{r}
+writeLines(conversation, "template_conversation.md")
+```
+
+# Save Chat Object
+
+Optional, but necessary to return to the conversation later.
+
+```{r}
+saveRDS(conversation, "template_conversation_date.rds")
+```
+
+Render to HTML

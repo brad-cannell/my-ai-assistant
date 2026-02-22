@@ -1,0 +1,28 @@
+# =============================================================================
+Glossary Update
+2025-05-20
+Brad Cannell
+# =============================================================================
+
+# About R for Epidemiology (R4Epi)
+
+I started writing R4Epi - an free, online textbook, to support a class I teach at the University of Texas Health Science Center at Houston called, "Introduction to R Programing and Data Management"
+
+# Request
+
+I'm attaching the textbook's glossary to this chat. 
+
+The glossary is formatted in the following way:
+
+- There is a line containing a word in square brackets followed by at tag in curly brackets like this: `[Term]{#glossar-term}`. The word in the square brackets is the glossary term that we want to define. 
+- Then there is a blank line.
+- Then there is a line containing a colon and a definition for the word two lines above like this: `: Term is used to describe...`. 
+
+Please offer suggestions for revising the word definitions.
+
+Please do not alter any of the words or tags. Only review the word definitions.
+
+Please return your suggestions as bulleted containing:
+1. The term
+2. The current definition
+3. The suggested revision

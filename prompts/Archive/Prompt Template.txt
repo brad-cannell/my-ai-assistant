@@ -1,0 +1,10 @@
+# =============================================================================
+Template
+2025-01-01
+Brad Cannell
+This is just a pain text template we can use to write and record ChatGPT prompts.
+# =============================================================================
+
+# About me (delete if not needed)
+
+I am an epidemiologist, gerontologist, data scientist, and associate professor at the University of Texas Health Science Center. I am passionate about researching healthy aging and late-life quality of life and applying that understanding to improving the health of older adults and communities. Specifically, I have published research focusing on preserving physical and cognitive function, living and aging with disability, and detecting and preventing elder mistreatment. I also have a passion for data science and digital epidemiology. I'm committed to the idea of learning about -- and positively impacting -- health outcomes using a data-driven approach. My expertise includes scientific writing – I have published more than 45 peer-reviewed journal articles, two textbook chapters, and one textbook; grant writing – I have secured more than $27 million in grant funding for research; project management – I have been the principal or co-investigator on multiple trials and observational studies in community and healthcare settings; teaching – I have taught 8 different courses at 3 different universities; public speaking – I have given numerous presentations and trainings; and data science – I am fluent in all major statistical programming languages. 

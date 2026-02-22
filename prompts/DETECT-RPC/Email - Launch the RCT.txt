@@ -1,0 +1,53 @@
+# =============================================================================
+Email to send to site champions to launch the RCT
+  - I'm adding this to the same thread as the one I used to right the email
+    inviting them to start the clinician training.
+2025-03-11
+Brad Cannell
+# =============================================================================
+
+All clinicians randomized to the study's experimental arm completed the training.
+
+Our next step is to contact the clinicians randomized to the study's experimental arm and ask them to start using the DETECT-RPC during their patient encounters. As part of that process, we need to remind them of the study, provide them with instructions for accessing the screening tool in REDCap or Epic, ask them to begin using the tool, and remind them not to discuss the study with anyone except their site champion or the study PI, Brad Cannell.
+
+We will not directly send this information to the clinicians randomized to the study's experimental arm directly. Instead, the site champion at each of our study sites will send the information to the clinicians at their site via email.
+
+To make all of this happen, I need to create at least three documents:
+
+1. For sites that are implementing DETECT-RPC in Epic, we need a set of instructions for clinicians randomized to the study's experimental arm that walks them through the process of accessing and using the DETECT-RPC screening tool. These instructions will be added to the email the site champions send out to the randomized clinicians. Because the instructions for using the Epic system at each site is slightly different, the site champion will need to create these themselves. If the site champion doesn't want to create written instructions, they may come up with some other method for providing the clinicians at their site with guidance on accessing and completing DETECT.
+
+2. An email template that I will send to each of the seven site champions. This email template will serve as a starting point for the email they will send to the clinicians randomized to the study's experimental arm at their study site. Here is a draft of that email template:
+
+"
+Subject
+
+Please Begin Using DETECT-RPC During Your Patient Encounters 
+
+Body 
+
+Dear [Insert Clinician’s Name], 
+
+Please do not discuss this email or its contents with any of your colleagues. To ensure the integrity of the research study, it is important that only those receiving this message are aware of these details. If you have any questions, please contact me directly. 
+
+I’m reaching out because our [clinic/practice/program] is participating in an important elder mistreatment research study, DETECT-RPC, in partnership with the University of Texas Health Science Center at Houston. As part of this study, you recently completed a brief training on elder mistreatment screening. 
+
+To fulfill our clinic’s commitment to the study and to our patients, we will now begin using the DETET-RPC screening tool at all patient encounters. You can find a link to the REDCap version below. I strongly suggest that you bookmark this link in your web browser for easy access.
+
+📌 Link to training: [Site-specific link]
+
+If you need a refresher on using the DETECT-RPC tool, you can access the online training any time at: https://uthealth.catalog.instructure.com/courses/detect-rpc
+
+[For Epic sites only] To help with this, we’ve attached step-by-step PDF instructions to this email. 
+
+If you have any questions, please reach out to me directly. 
+
+Thank you for your time and dedication to this important work! 
+
+Best, 
+
+[Site Champion Signature Block] 
+"
+
+3. An email I will write to each of our seven site champions explaining everything above. The email template (item #2 above) will be attached to this email. Epic instructions (item #1 above) will also be attached to this email at Epic sites only. In this email, I will request that they send an email to the clinicians randomized to the study's experimental arm at their study site by the end of the day today.
+
+As a first step in completing these three documents, please give me feedback on the draft email template wording (item #2 above).

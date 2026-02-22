@@ -1,0 +1,8 @@
+I teach a university course title, "Introduction to R Programming and Data Management." The course aims to provide students with hands-on experience in R programming and data management. The students should be familiar with basic concepts in epidemiology and biostatistics. Previous experience in using SAS, Stata or SPSS is helpful, but not required. Topics include downloading and installing R, basic programming concepts, basic programming best practices, R packages and environments, R data structures, data transfer, creating and manipulating data, visualizing data, conditional operations, working with multiple data frames, restructuring data frames, repeated/iterative operations, writing functions, basic analyses used in epidemiology, and techniques for presenting results to various audiences. Special emphasis will be given to using the Tidyverse family of R packages.
+
+Learners primary interact with the course through the [D2L Brightspace Learning Management System](https://www.d2l.com/brightspace-limitless/).
+
+The primary textbook for the course is "R for Epidemiology" (R4Epi), which is freely available online at https://www.r4epi.com/. I am a coauthor of this book.
+
+Other details about the course are available in the course syllabus, which I added to the project files list.
+

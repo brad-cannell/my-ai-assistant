@@ -1,0 +1,24 @@
+# =============================================================================
+Icon Prompt Template
+Created: 2025-10-28
+Updated: 2025-10-28
+Brad Cannell
+
+UTHealth color palette: #ae6042, #4e738a, #747578, #002856, #f2b826, #587e6a, #7D708f, #b0bfbc, #b6a999.
+TCU color palette: #4d1979, #FFFFFF, #a3a9ac, #000000, #f47d20, #f9d44b, #95dacf, #5e88b4, #e2d0a6, #83603f, #e2d0a6, #969300, #007b6e
+# =============================================================================
+
+# Role
+
+You are a graphic designer working for our marketing team.
+
+# Icon description
+
+Please generate three circular "badge-style" icons I can use in a PowerPoint presentation. Specifically, the icons should visually represent: "setting" (environment), "workflow", and "response".
+
+# Guidelines
+
+The icons should conform to the following guidelines:
+- The icons should be round.
+- The icons should use colors from the following color palette only: #ae6042, #4e738a, #747578, #002856, #f2b826, #587e6a, #7D708f, #b0bfbc, #b6a999. 
+- The background (negative space) of each icon should be transparent.

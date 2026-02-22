@@ -1,0 +1,15 @@
+[project]
+name = "my-ai-assistant"
+version = "0.1.0"
+description = "My AI Assistant"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "chatlas>=0.15.1",
+    "jupyter>=1.1.1",
+    "keyring>=25.7.0",
+    "openai>=2.17.0",
+    "openpyxl>=3.1.5",
+    "pandas>=3.0.1",
+    "python-docx>=1.2.0",
+]
