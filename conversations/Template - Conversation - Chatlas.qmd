@@ -22,24 +22,26 @@ execute:
 - Conversation about...
 
 # Prerequisites
-- Create a new virtual environment (uv).
-    - `uv init`
-- Install Packages
-    - `uv add keyring openai jupyter -U chatlas`
-- Load environment on a new machine
-    - `uv sync`
-    - Select the virtual environment as the Python interpreter (Shift+Command+P).
+- **Git Pull** to make sure you have the most current version of the prompts.
+- Install in the system kernel. The virtual environments cause too many problems with Box.
+- `import sys`
+- `print(sys.executable)` Path the Python interpreter that is actually running the code. 
+- Terminal: `which pip` Pip that will be used to install Python packages
+- Terminal: `/usr/local/bin/python3 -m pip install keyring openai anthropic jupyter -U chatlas shiny`
 
 # Load Packages
 
 ```{python}
+from chatlas import ChatAnthropic
+from openai import OpenAI
+from httpcore import stream
 from datetime import date
 from pathlib import Path
-from openai import OpenAI
 import chatlas as ctl
-import os
+import anthropic
 import keyring
 import json
+import os
 ```
 
 # File Paths and Environment Variables
@@ -80,7 +82,8 @@ path_template_prompt_lesson_revisions = '/Users/bradcannell/Library/CloudStorage
 # Load helper functions
 
 Run in terminal:
-- `uv add --editable "/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/AI Assistant/py_scripts"`
+- `/usr/local/bin/python3 -m pip install --editable "/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/AI Assistant/py_scripts"`
+- Restart interpreter.
 
 
 ```{python}
