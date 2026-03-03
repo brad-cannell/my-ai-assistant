@@ -1,0 +1,259 @@
+# Interactive Chats Using API Calls
+
+The vignette walks through having interactive chats with AI assistants (i.e., ChatGPT and Claude) using API calls.
+
+Why would we want to do this?
+1. Improved privacy relative to browser-based conversations.
+2. Improved ability to log activity and cost relative to browser-based conversations.
+3. Improved ability to organize conversations relative to the browser.
+4. Improved ability to search previous conversations relative to the browser.
+
+🔴 Notes
+- We don't want to have to open a Quarto file and use it for the conversation. What is the most simple usable process?
+- Have an example for ChatGPT and Claude.
+- Have a simple conversation -> save it (condensed and nont condensed) -> resume the conversation.
+- Add a file.
+- Give guidance on the folder/directory structure.
+- Give guidance on saving transcripts of console chats in the conversations folder.
+
+# Prerequisites
+- **Git Pull** to make sure you have the most current version of the repo.
+- Install in the system kernel. The virtual environments cause too many problems with Box.
+- `import sys`
+- `print(sys.executable)` Path the Python interpreter that is actually running the code. 
+- Terminal: `which pip` Pip that will be used to install Python packages
+- Terminal: `/usr/local/bin/python3 -m pip install keyring openai anthropic jupyter -U chatlas shiny`
+
+# Load Packages
+
+- What is the minimum import needed for a console chat?
+- What is the best way to import the modules?
+
+```{python}
+import keyring
+import chatlas
+```
+
+```{python}
+from chatlas import ChatAnthropic
+from openai import OpenAI
+from httpcore import stream
+from datetime import date
+from pathlib import Path
+import chatlas as ctl
+import anthropic
+import keyring
+import json
+import os
+```
+
+# API Keys
+
+- Set the API keys in keyring.
+- You should only have to do this once per computer/API key.
+- Create an API key: 
+    - [OpenAi](https://platform.openai.com/api-keys)
+    - [Anthropic](https://platform.claude.com/dashboard)
+- Run `keyring.set_password("API Name", "User", "API Key")`.
+
+# File Paths and Environment Variables
+
+They are passed to the AI assistant below.
+
+```{python}
+# OpenAI Models: https://platform.openai.com/docs/models
+# Anthropic Models: https://platform.claude.com/docs/en/about-claude/models/overview
+model = "gpt-5-nano-2025-08-07"
+
+# Today's date
+today = date.today().isoformat()
+
+# Course and lesson name
+course_name = "Course Name"
+lesson_name = "Lesson Name"
+
+# Lesson folder path
+lesson_folder_path = Path(
+    "Path/"
+    "Path/"
+)
+
+# Lesson content
+lesson_content = (lesson_folder_path / (lesson_name + ".qmd")).read_text(encoding="utf-8")
+
+# Get the current working directory
+cwd = Path.cwd()
+
+# Conversation
+conversation_folder_path = cwd / Path("01 Introduction to Descriptive Analysis/ai/")
+
+# Prompt paths
+path_template_prompt_lesson_revisions = '/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/AI Assistant/Prompts/Courses/Template Prompt - Lesson Revisions.md'
+```
+
+# Load helper functions
+
+Run in terminal:
+- `uv add --editable "/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/AI Assistant/py_scripts"`
+
+
+```{python}
+# Load functions from py_scripts/ewb_py_scripts
+from ewb_py_scripts import (
+    prompt_extract_system_prompt,
+    prompt_extract_user_message,
+    prompt_fill_placeholders,
+)
+```
+
+# Expose API
+
+This assumes you've already created an API key on [openai's website](https://platform.openai.com/api-keys), and that you saved the API key in keyring using `keyring.set_password("API Name", "User", "API Key")`.
+
+```{python}
+# Retrieve the password from the system keyring
+openai_api = keyring.get_password("ewb-course-development", "brad")
+
+if openai_api is not None:
+    # Set the retrieved value as a temporary environment variable
+    os.environ['OPENAI_API_KEY'] = openai_api
+    print("Environment variable 'OPENAI_API_KEY' set successfully within the script.")
+else:
+    print("Could not retrieve password from keyring.")
+```
+
+# Read the Template Prompt
+
+```{python}
+# Raw system (developer) section of the prompt template.
+system_prompt = prompt_extract_system_prompt(template_prompt_lesson_revisions_path)
+
+# Raw user message section of the prompt template.
+user_message_raw = prompt_extract_user_message(template_prompt_lesson_revisions_path)
+
+# Inject course and lesson name into user message
+user_message = prompt_fill_placeholders(
+    text = user_message_raw,
+    replacements = {
+        "lesson_name": lesson_name,
+        "course_name": course_name,
+    },
+)
+```
+
+# Create Chat Object
+
+```{python}
+chat = ctl.ChatOpenAI(
+    model = model,
+    system_prompt = system_prompt
+)
+```
+
+# Pass the Template Prompt to the AI Assistant
+
+```{python}
+chat.chat(user_message, echo='none')
+```
+
+## Response
+
+Review the response, but there typically isn't a good reason to save it. It's just some version of ChatGPT repeating back the instructions from the first prompt.
+
+```{python}
+#| echo: false
+print(chat)
+```
+
+# Pass the Lesson Text to the AI Assistant
+
+```{python}
+#| echo: false
+chat.chat(lesson_content, echo='none')
+```
+
+# Write the Revised Lesson Text to a Markdown File for Review
+
+```{python}
+(lesson_folder_path / "ai" / ("revised_lesson_content_" + today + ".md")).write_text(
+    str(chat.get_last_turn()),
+    encoding='utf-8'
+)
+```
+
+# Follow-up and Refinement
+
+A section for optional follow-up questions and refinements. 
+- Optionally, create a fork of the chat. `import copy; chat_fork = copy.deepcopy(chat)`
+- Asks follow-up questions in interactive mode - `chat.app()`.
+
+## Section - Summary
+
+Optionally, ask for a lesson summary.
+
+```{python}
+prompt_summary = "Please write a brief summary paragraph to wrap up this lesson."
+chat.chat(prompt_summary, echo='none')
+```
+
+### Response
+
+```{python}
+#| echo: false
+print(chat)
+```
+
+# Save Chat History
+
+Optional, but necessary to return to the conversation later.
+
+```{python}
+# Export chat history as a markdown file
+# This version is easier to pass back to to the chat object in the future.
+chat_history_path_md = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + today + ".md"))
+chat.export(chat_history_path_md, overwrite=True)
+
+# Export chat history as an HTML file
+chat_history_path_html = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + today + ".html"))
+chat.export(chat_history_path_html, overwrite=True)
+
+# Export chat history as a json file
+# Useful for saving/loading the history to/from a database or file.
+# chat_history_path_json = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + today + ".json"))
+# with open(chat_history_path_json, "w", encoding="utf-8") as f:
+#     json.dump(
+#         [json.loads(x) for x in turns_json],
+#         f,
+#         indent=2,
+#         ensure_ascii=False
+#     )
+```
+
+## Condense
+
+You can also optionally condense the history by asking the LLM to summarize it. This is useful if you want to keep the context of the conversation, but don’t want to provide the entire history to the model on each new submission.
+
+```{python}
+# chat.chat("Can you summarize our conversation so far?")
+# chat.set_turns([chat.get_last_turn()])
+```
+
+## Load chat history
+
+To optionally load the chat history later.
+
+```{python}
+# Import chat history as a md file
+# chat_history_path_md = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + "yyyy-mm-dd" + ".md"))
+# history_md = chat_history_path_md.read_text(encoding="utf-8")
+
+# Import chat history as a json file
+# chat_history_path_json = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + "yyyy-mm-dd" + ".json"))
+# history_json = json.loads(chat_history_path_json.read_text(encoding="utf-8"))
+```
+
+# Render to HTML
+
+Render to HTML (Optional)
+- Click the Preview button.
+- Type `quarto render "path/Lesson Revisions.qmd"` in the terminal.
