@@ -53,7 +53,7 @@ Many conversations rely on local helper functions stored in a shared Python pack
 
 ## Expose API
 
-API keys should never be hardcoded in a script or committed to Git. The standard approach in this repo is to store keys in the system keyring and retrieve them at runtime, then set them as environment variables for the duration of the session. This section handles that retrieval and confirms the key was found before proceeding.
+API keys should never be hardcoded in a script or committed to Git. The standard approach in this repo is to store keys in the system keyring and retrieve them at runtime, then set them as environment variables for the duration of the session. This section handles that retrieval and confirms the key was found before proceeding. See `vignettes/keyring.qmd` for setup instructions.
 
 ## Read the Template Prompt
 
