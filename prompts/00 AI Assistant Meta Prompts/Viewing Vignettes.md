@@ -153,7 +153,19 @@ _vignette-template.qmd          git-tags.qmd                    python-and-chatl
 api-vs-browser.qmd              prompt-format.qmd               snippets.qmd                    venv-virtual-environments.qmd
 ```
 
-This 
+---
+
+`quarto preview index.qmd` returned the expected result. Thank you!
+
+I would like to make a change to the structure of the website. Is it possible for `index.qmd` to provide a brief introduction to the repo, and can this be labled "Home" in the nav bar?
+
+Additionaly, should we create a separate page with the links to the rendered vignettes or should we keep them in `index.qmd` below the introduction?
+
+--- 
+
+# Follow-up: Publishing
+
+Thank you! I think we have a solid first version of the solution here. How do I make this "live" online? Additionally, I'm not currently working on the main branch.
 
 --- 
 
