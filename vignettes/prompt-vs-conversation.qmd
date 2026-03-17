@@ -14,7 +14,7 @@ execute:
   echo: true
 ---
 
-**Scope:** This vignette applies after you have already decided to use the API (see [API vs Browser-Based AI Workflows](api-vs-browser.html)). The question here is narrower: do you need a dedicated prompt file, or can you go straight to a conversation document?
+**Scope:** This vignette applies to the **Chatlas in Quarto** path — after you have decided to use the API (see [API vs Browser-Based AI Workflows](api-vs-browser.html)) and have chosen Chatlas over Claude Code (see [Claude Code vs. Chatlas](claude-code-vs-chatlas.html)). The question here is narrower: do you need a dedicated prompt file, or can you go straight to a conversation document?
 
 ---
 
