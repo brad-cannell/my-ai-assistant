@@ -1,0 +1,237 @@
+---
+title: "Git Tags"
+date: "2026-03-17"
+date-modified: "2026-03-17"
+version: "1.0"
+description: "Strategies for tracking version history on individual files within a Git repo using tags and commit history."
+categories: [git, version-control, workflow]
+format:
+  html:
+    toc: true
+    code-fold: false
+execute:
+  eval: false
+  echo: true
+---
+
+**Scope:** Strategies for tracking version history on individual files within a Git repo, and retrieving prior versions when needed. Oriented toward documents and scripts in an academic workflow (vignettes, SOPs, prompts, analysis files).
+
+---
+
+## 1. Background
+
+Git tracks changes at the **commit** level, not the file level. Every commit is a snapshot of the entire repo at a point in time. This means there is no native Git concept of "version 2.0 of this specific file" — but you can approximate it reliably using a combination of:
+
+1. **Version numbers embedded in the file itself** (YAML front matter)
+2. **Git tags** scoped by naming convention to a specific file
+3. **Git log filtered to a specific file** to retrieve the full commit history for that file
+
+Used together, these three tools give you a practical, lightweight versioning system for individual documents without requiring any additional infrastructure.
+
+---
+
+## 2. Embedding Version Numbers in Files
+
+The simplest and most portable approach is to store the version number in the file's own YAML front matter. This makes the version visible whenever you open the file, independent of any Git tooling.
+
+```yaml
+---
+title: "My Document"
+date: "2026-03-17"
+date-modified: "2026-03-17"
+version: "2.0"
+---
+```
+
+**Conventions for updating the version field** are covered in Section 5. The key discipline is keeping the version in the file synchronized with the Git tag you create at the same time (see Section 3).
+
+---
+
+## 3. Tagging a Specific File Version
+
+After committing a meaningful update to a file, create a Git tag named to identify both the file and the version. Tags point to commits, not files — but a consistent naming convention makes them behave like file-level version markers.
+
+### Workflow
+
+```bash
+# 1. Make your edits to the file, then stage and commit
+git add vignettes/api-vs-browser.qmd
+git commit -m "Revise api-vs-browser to v2.0"
+
+# 2. Create a tag referencing the file and version
+git tag sop-api-vs-browser-v2.0
+
+# 3. Push the commit and the tag to the remote
+git push origin main
+git push origin sop-api-vs-browser-v2.0
+```
+
+### Tag Naming Convention
+
+Use the pattern: `{file-identifier}-v{version}`
+
+| File | Tag |
+|------|-----|
+| `vignettes/api-vs-browser.qmd` | `sop-api-vs-browser-v2.0` |
+| `vignettes/git-tags.qmd` | `git-tags-v1.0` |
+| `prompts/ewb-content-review.md` | `prompt-ewb-content-review-v1.2` |
+| `R/clean-detect.R` | `script-clean-detect-v3.1` |
+
+The file identifier does not need to match the filename exactly — it just needs to be unambiguous and consistent. Hyphens are preferred over underscores in tag names (Git allows both, but hyphens are conventional).
+
+### Listing All Tags for a File
+
+```bash
+git tag --list "sop-api-vs-browser-*"
+```
+
+---
+
+## 4. Retrieving a Previous Version
+
+There are two retrieval scenarios: viewing a prior version, and restoring it.
+
+### 4a. View a Prior Version Without Changing Anything
+
+Use a tag to view the file as it existed at that version. This does not affect your working directory.
+
+```bash
+# View via tag
+git show sop-api-vs-browser-v1.0:"vignettes/api-vs-browser.qmd"
+
+# Redirect output to a file for closer review
+git show sop-api-vs-browser-v1.0:"vignettes/api-vs-browser.qmd" > /tmp/api-vs-browser-v1.qmd
+```
+
+### 4b. Find a Prior Version Without a Tag
+
+If you did not tag a specific version, use `git log` filtered to the file to find the relevant commit hash.
+
+```bash
+# List all commits that touched a specific file
+git log --oneline -- vignettes/api-vs-browser.qmd
+```
+
+Output will look like:
+
+```
+a3f92c1 Revise api-vs-browser to v2.0
+7d84be0 Add security considerations section
+2c10fa4 Initial commit of api-vs-browser vignette
+```
+
+Use the commit hash to view or restore the file:
+
+```bash
+# View the file at a specific commit
+git show 7d84be0:"vignettes/api-vs-browser.qmd"
+```
+
+### 4c. Restore a Prior Version to Your Working Directory
+
+If you want to roll back the file to a prior version:
+
+```bash
+# Restore the file from a tag
+git checkout sop-api-vs-browser-v1.0 -- vignettes/api-vs-browser.qmd
+
+# Or restore from a commit hash
+git checkout 7d84be0 -- vignettes/api-vs-browser.qmd
+```
+
+This overwrites the current version of the file in your working directory. The change is staged but not committed — review it first, then commit if you want to keep it.
+
+```bash
+git diff --staged vignettes/api-vs-browser.qmd      # review the change
+git commit -m "Restore api-vs-browser to v1.0"      # commit if correct
+git restore --staged vignettes/api-vs-browser.qmd   # or discard if not
+```
+
+---
+
+## 5. Version Number Conventions
+
+Use a two-part version number: `{major}.{minor}`, following these guidelines.
+
+### When to Increment the Minor Version (x.1, x.2 ...)
+
+Increment the minor version for changes that refine or extend the document without changing its fundamental structure or purpose.
+
+- Adding a new boundary case row to a decision table
+- Correcting a factual error or updating an outdated reference
+- Clarifying language without changing meaning
+- Adding a new bullet to an existing list
+- Small structural improvements (reordering sections, improving headings)
+
+**Examples:** `1.0 → 1.1`, `2.3 → 2.4`
+
+### When to Increment the Major Version (1.x → 2.0)
+
+Increment the major version for changes that substantially alter the document's scope, structure, or conclusions — changes where a reader familiar with the prior version would notice a meaningful difference.
+
+- Adding or removing entire sections
+- Changing the core recommendation or decision rule
+- Merging content from another document
+- Revising the document's stated scope or purpose
+- Any change significant enough that prior references to the document may no longer be accurate
+
+**Examples:** `1.1 → 2.0`, `2.4 → 3.0`
+
+### Starting Version
+
+New documents start at `1.0`, not `0.1` or `0.9`. A document committed to the repo is a document — there is no meaningful distinction between a "draft" and "version 1.0" for personal workflow documents. If it is not ready to commit, do not commit it.
+
+### Version Numbers for Different File Types
+
+| File Type | Version Tracking Approach |
+|-----------|--------------------------|
+| SOPs and vignettes (`.qmd`) | YAML front matter + Git tag |
+| Prompt files (`.md`) | YAML front matter + Git tag |
+| R/Python scripts | Comment header + Git tag for major milestones only |
+| Data files | Git tag only (no front matter); consider a `_provenance.md` companion file |
+| Quarto conversation documents | No versioning needed — these are logs, not living documents |
+
+### What Not to Version
+
+Not every file needs explicit version numbers. Reserve the tagging workflow for files that are:
+
+- Actively revised over time
+- Referenced by name from other documents or SOPs
+- Stable enough that prior versions have archival value
+
+One-off analysis scripts, scratch files, and conversation logs do not benefit from explicit versioning — Git's commit history is sufficient for those.
+
+---
+
+## 6. Quick Reference
+
+### Tag a new version after committing
+
+```bash
+git tag {file-identifier}-v{version}
+git push origin {file-identifier}-v{version}
+```
+
+### List all tags for a file
+
+```bash
+git tag --list "{file-identifier}-*"
+```
+
+### View a prior version (no changes to working directory)
+
+```bash
+git show {tag}:"path/to/file.qmd"
+```
+
+### Find prior versions without a tag
+
+```bash
+git log --oneline -- path/to/file.qmd
+```
+
+### Restore a prior version to working directory
+
+```bash
+git checkout {tag or hash} -- path/to/file.qmd
+```

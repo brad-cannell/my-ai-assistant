@@ -1,19 +1,24 @@
 ---
 title: "Prompt Format"
-output: rmarkdown::html_vignette
 date: "2025-12-22"
-updated: "2025-12-22"
-vignette: >
-  %\VignetteIndexEntry{Prompt Format}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+date-modified: "2025-12-22"
+version: "1.0"
+description: "Rationale and conventions for writing prompts as Markdown documents with YAML front matter."
+categories: [prompts, workflow, markdown]
+format:
+  html:
+    toc: true
+    code-fold: false
+execute:
+  eval: false
+  echo: true
 ---
 
-## Why Prompts Are Written as Markdown Documents with YAML Headers
+# Why Prompts Are Written as Markdown Documents with YAML Headers
 
 In this project, prompts are treated as **long-lived knowledge artifacts**, not disposable strings. Writing prompts as Markdown documents with YAML headers supports this goal by balancing clarity, durability, and future extensibility with minimal overhead.
 
-### Why Markdown
+## Why Markdown
 
 - Encourages **clear, well-structured prompts** that separate roles, context, tasks, and constraints
 - Improves **human readability**, review, and collaboration
@@ -21,7 +26,7 @@ In this project, prompts are treated as **long-lived knowledge artifacts**, not 
 - Supports **disciplined iteration** over time, especially in academic and pedagogical settings
 - Remains lightweight and tool-agnostic, avoiding lock-in to any specific platform or API
 
-### Why YAML Headers
+## Why YAML Headers
 
 - Capture **stable, high-level metadata** about each prompt (purpose, audience, domain, status)
 - Improve **organization and discoverability** without requiring tooling or automation
@@ -29,7 +34,7 @@ In this project, prompts are treated as **long-lived knowledge artifacts**, not 
 - Keep execution details and API-specific parameters **out of the prompt definition**
 - Are **human-readable first**, remaining useful even if no parsing system is ever built
 
-### Design Philosophy
+## Design Philosophy
 
 - Prompts are treated as **maintainable assets**, not transient inputs
 - Structure is used to **support thinking**, not constrain it
@@ -37,5 +42,3 @@ In this project, prompts are treated as **long-lived knowledge artifacts**, not 
 - The format should scale gracefully from **manual use today** to **API-driven workflows tomorrow**
 
 Together, Markdown and YAML provide a simple, durable foundation for managing prompts as part of a larger, reproducible knowledge system while preserving flexibility as tools, models, and workflows evolve.
-
-**Source:** https://chatgpt.com/g/g-p-694598b6f6448191945a46925123ae49-api/c/6949afd6-08a4-8331-b8d5-8fba80b7d028
