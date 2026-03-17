@@ -1,0 +1,136 @@
+---
+title: "Storing API Keys with Keyring"
+date: "2026-03-17"
+date-modified: "2026-03-17"
+version: "1.0"
+description: "How to securely store and retrieve API keys using the Python keyring package."
+categories: [python, api, security, workflow]
+format:
+  html:
+    toc: true
+    code-fold: false
+execute:
+  eval: false
+  echo: true
+---
+
+# Overview
+
+API keys must never be hardcoded in scripts or committed to Git. This vignette covers how to store API keys in the system keyring — a secure, OS-managed credential store — and retrieve them at runtime for use with the OpenAI and Anthropic APIs.
+
+For how to use a retrieved key in a conversation workflow, see `vignettes/python-and-chatlas.qmd`.
+
+---
+
+# Install Keyring
+
+If keyring is not already installed in your environment:
+
+```bash
+uv add keyring
+```
+
+Or, if using a standard venv:
+
+```bash
+pip install keyring
+```
+
+---
+
+# Store a Key (One-Time Setup)
+
+Run this once per machine per API key. It stores the key in the OS credential store (Keychain on macOS, Credential Manager on Windows, libsecret on Linux). You do not need to re-run this unless the key changes.
+
+```python
+import keyring
+
+keyring.set_password("service-name", "username", "your-api-key-here")
+```
+
+**Service names used in this repo:**
+
+| Provider  | Service name                  | Username |
+|-----------|-------------------------------|----------|
+| OpenAI    | `bradGPT`                     | `brad`   |
+| Anthropic | `claude-my-ai-assistant`      | `brad`   |
+
+For example, to store your OpenAI key:
+
+```python
+import keyring
+
+keyring.set_password("bradGPT", "brad", "sk-...")
+```
+
+And to store your Anthropic key:
+
+```python
+import keyring
+
+keyring.set_password("claude-my-ai-assistant", "brad", "sk-ant-...")
+```
+
+::: callout-important
+Run these in a scratch script or an interactive Python session — never in a file that gets committed to Git, since the key value will be visible in the source.
+:::
+
+---
+
+# Retrieve a Key at Runtime
+
+The standard pattern in this repo retrieves the key from keyring and sets it as a temporary environment variable for the duration of the session:
+
+```python
+import keyring
+import os
+
+# OpenAI
+openai_api = keyring.get_password("bradGPT", "brad")
+if openai_api is not None:
+    os.environ['OPENAI_API_KEY'] = openai_api
+    print("OPENAI_API_KEY set.")
+else:
+    print("Could not retrieve OpenAI key from keyring.")
+
+# Anthropic
+claude_api = keyring.get_password("claude-my-ai-assistant", "brad")
+if claude_api is not None:
+    os.environ['ANTHROPIC_API_KEY'] = claude_api
+    print("ANTHROPIC_API_KEY set.")
+else:
+    print("Could not retrieve Anthropic key from keyring.")
+```
+
+The API client libraries (`openai`, `anthropic`, `chatlas`) automatically read from these environment variables, so no further configuration is needed.
+
+---
+
+# Update or Delete a Key
+
+To update a key, call `set_password` again with the new value — it overwrites the existing entry:
+
+```python
+keyring.set_password("bradGPT", "brad", "sk-new-key-here")
+```
+
+To delete a key entirely:
+
+```python
+keyring.delete_password("bradGPT", "brad")
+```
+
+---
+
+# Quick Reference
+
+| Action        | Command                                                      |
+|---------------|--------------------------------------------------------------|
+| Store a key   | `keyring.set_password("service", "username", "key")`         |
+| Retrieve a key| `keyring.get_password("service", "username")`                |
+| Delete a key  | `keyring.delete_password("service", "username")`             |
+
+| Provider  | Service name             | Username |
+|-----------|--------------------------|----------|
+| OpenAI    | `bradGPT`                | `brad`   |
+| Anthropic | `claude-my-ai-assistant` | `brad`   |
