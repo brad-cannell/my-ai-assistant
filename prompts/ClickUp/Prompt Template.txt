@@ -1,9 +1,0 @@
-# =============================================================================
-Prompt
-2025-02-24
-Brad Cannell
-This is just a pain text template we can use to write and record ChatGPT prompts.
-# =============================================================================
-
-I use a task management application called "ClickUp." I would like help writing comment to post on ClickUp's user forum.
-

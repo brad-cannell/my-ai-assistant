@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-03-17">
+<meta name="description" content="Strategies for tracking version history on individual files within a Git repo using tags and commit history.">
+
+<title>Git Tags – My AI Assistant</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-afa37c5c79185640b9c231024f4fe5ea.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">My AI Assistant</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/brad-cannell/my-ai-assistant"> <i class="bi bi-github" role="img" aria-label="GitHub repository">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">1. Background</a></li>
+  <li><a href="#embedding-version-numbers-in-files" id="toc-embedding-version-numbers-in-files" class="nav-link" data-scroll-target="#embedding-version-numbers-in-files">2. Embedding Version Numbers in Files</a></li>
+  <li><a href="#tagging-a-specific-file-version" id="toc-tagging-a-specific-file-version" class="nav-link" data-scroll-target="#tagging-a-specific-file-version">3. Tagging a Specific File Version</a>
+  <ul class="collapse">
+  <li><a href="#workflow" id="toc-workflow" class="nav-link" data-scroll-target="#workflow">Workflow</a></li>
+  <li><a href="#tag-naming-convention" id="toc-tag-naming-convention" class="nav-link" data-scroll-target="#tag-naming-convention">Tag Naming Convention</a></li>
+  <li><a href="#listing-all-tags-for-a-file" id="toc-listing-all-tags-for-a-file" class="nav-link" data-scroll-target="#listing-all-tags-for-a-file">Listing All Tags for a File</a></li>
+  </ul></li>
+  <li><a href="#retrieving-a-previous-version" id="toc-retrieving-a-previous-version" class="nav-link" data-scroll-target="#retrieving-a-previous-version">4. Retrieving a Previous Version</a>
+  <ul class="collapse">
+  <li><a href="#a.-view-a-prior-version-without-changing-anything" id="toc-a.-view-a-prior-version-without-changing-anything" class="nav-link" data-scroll-target="#a.-view-a-prior-version-without-changing-anything">4a. View a Prior Version Without Changing Anything</a></li>
+  <li><a href="#b.-find-a-prior-version-without-a-tag" id="toc-b.-find-a-prior-version-without-a-tag" class="nav-link" data-scroll-target="#b.-find-a-prior-version-without-a-tag">4b. Find a Prior Version Without a Tag</a></li>
+  <li><a href="#c.-restore-a-prior-version-to-your-working-directory" id="toc-c.-restore-a-prior-version-to-your-working-directory" class="nav-link" data-scroll-target="#c.-restore-a-prior-version-to-your-working-directory">4c. Restore a Prior Version to Your Working Directory</a></li>
+  </ul></li>
+  <li><a href="#version-number-conventions" id="toc-version-number-conventions" class="nav-link" data-scroll-target="#version-number-conventions">5. Version Number Conventions</a>
+  <ul class="collapse">
+  <li><a href="#when-to-increment-the-minor-version-x.1-x.2" id="toc-when-to-increment-the-minor-version-x.1-x.2" class="nav-link" data-scroll-target="#when-to-increment-the-minor-version-x.1-x.2">When to Increment the Minor Version (x.1, x.2 …)</a></li>
+  <li><a href="#when-to-increment-the-major-version-1.x-2.0" id="toc-when-to-increment-the-major-version-1.x-2.0" class="nav-link" data-scroll-target="#when-to-increment-the-major-version-1.x-2.0">When to Increment the Major Version (1.x → 2.0)</a></li>
+  <li><a href="#starting-version" id="toc-starting-version" class="nav-link" data-scroll-target="#starting-version">Starting Version</a></li>
+  <li><a href="#version-numbers-for-different-file-types" id="toc-version-numbers-for-different-file-types" class="nav-link" data-scroll-target="#version-numbers-for-different-file-types">Version Numbers for Different File Types</a></li>
+  <li><a href="#what-not-to-version" id="toc-what-not-to-version" class="nav-link" data-scroll-target="#what-not-to-version">What Not to Version</a></li>
+  </ul></li>
+  <li><a href="#quick-reference" id="toc-quick-reference" class="nav-link" data-scroll-target="#quick-reference">6. Quick Reference</a>
+  <ul class="collapse">
+  <li><a href="#tag-a-new-version-after-committing" id="toc-tag-a-new-version-after-committing" class="nav-link" data-scroll-target="#tag-a-new-version-after-committing">Tag a new version after committing</a></li>
+  <li><a href="#list-all-tags-for-a-file" id="toc-list-all-tags-for-a-file" class="nav-link" data-scroll-target="#list-all-tags-for-a-file">List all tags for a file</a></li>
+  <li><a href="#view-a-prior-version-no-changes-to-working-directory" id="toc-view-a-prior-version-no-changes-to-working-directory" class="nav-link" data-scroll-target="#view-a-prior-version-no-changes-to-working-directory">View a prior version (no changes to working directory)</a></li>
+  <li><a href="#find-prior-versions-without-a-tag" id="toc-find-prior-versions-without-a-tag" class="nav-link" data-scroll-target="#find-prior-versions-without-a-tag">Find prior versions without a tag</a></li>
+  <li><a href="#restore-a-prior-version-to-working-directory" id="toc-restore-a-prior-version-to-working-directory" class="nav-link" data-scroll-target="#restore-a-prior-version-to-working-directory">Restore a prior version to working directory</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Git Tags</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+  <div class="quarto-categories">
+    <div class="quarto-category">git</div>
+    <div class="quarto-category">version-control</div>
+    <div class="quarto-category">workflow</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Strategies for tracking version history on individual files within a Git repo using tags and commit history.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 17, 2026</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">March 17, 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Scope:</strong> Strategies for tracking version history on individual files within a Git repo, and retrieving prior versions when needed. Oriented toward documents and scripts in an academic workflow (vignettes, SOPs, prompts, analysis files).</p>
+<hr>
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">1. Background</h2>
+<p>Git tracks changes at the <strong>commit</strong> level, not the file level. Every commit is a snapshot of the entire repo at a point in time. This means there is no native Git concept of “version 2.0 of this specific file” — but you can approximate it reliably using a combination of:</p>
+<ol type="1">
+<li><strong>Version numbers embedded in the file itself</strong> (YAML front matter)</li>
+<li><strong>Git tags</strong> scoped by naming convention to a specific file</li>
+<li><strong>Git log filtered to a specific file</strong> to retrieve the full commit history for that file</li>
+</ol>
+<p>Used together, these three tools give you a practical, lightweight versioning system for individual documents without requiring any additional infrastructure.</p>
+<hr>
+</section>
+<section id="embedding-version-numbers-in-files" class="level2">
+<h2 class="anchored" data-anchor-id="embedding-version-numbers-in-files">2. Embedding Version Numbers in Files</h2>
+<p>The simplest and most portable approach is to store the version number in the file’s own YAML front matter. This makes the version visible whenever you open the file, independent of any Git tooling.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My Document"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2026-03-17"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">date-modified</span><span class="kw">:</span><span class="at"> </span><span class="st">"2026-03-17"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">"2.0"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Conventions for updating the version field</strong> are covered in Section 5. The key discipline is keeping the version in the file synchronized with the Git tag you create at the same time (see Section 3).</p>
+<hr>
+</section>
+<section id="tagging-a-specific-file-version" class="level2">
+<h2 class="anchored" data-anchor-id="tagging-a-specific-file-version">3. Tagging a Specific File Version</h2>
+<p>After committing a meaningful update to a file, create a Git tag named to identify both the file and the version. Tags point to commits, not files — but a consistent naming convention makes them behave like file-level version markers.</p>
+<section id="workflow" class="level3">
+<h3 class="anchored" data-anchor-id="workflow">Workflow</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Make your edits to the file, then stage and commit</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add vignettes/api-vs-browser.qmd</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Revise api-vs-browser to v2.0"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Create a tag referencing the file and version</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> tag sop-api-vs-browser-v2.0</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Push the commit and the tag to the remote</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin main</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin sop-api-vs-browser-v2.0</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="tag-naming-convention" class="level3">
+<h3 class="anchored" data-anchor-id="tag-naming-convention">Tag Naming Convention</h3>
+<p>Use the pattern: <code>{file-identifier}-v{version}</code></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>File</th>
+<th>Tag</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>vignettes/api-vs-browser.qmd</code></td>
+<td><code>sop-api-vs-browser-v2.0</code></td>
+</tr>
+<tr class="even">
+<td><code>vignettes/git-tags.qmd</code></td>
+<td><code>git-tags-v1.0</code></td>
+</tr>
+<tr class="odd">
+<td><code>prompts/ewb-content-review.md</code></td>
+<td><code>prompt-ewb-content-review-v1.2</code></td>
+</tr>
+<tr class="even">
+<td><code>R/clean-detect.R</code></td>
+<td><code>script-clean-detect-v3.1</code></td>
+</tr>
+</tbody>
+</table>
+<p>The file identifier does not need to match the filename exactly — it just needs to be unambiguous and consistent. Hyphens are preferred over underscores in tag names (Git allows both, but hyphens are conventional).</p>
+</section>
+<section id="listing-all-tags-for-a-file" class="level3">
+<h3 class="anchored" data-anchor-id="listing-all-tags-for-a-file">Listing All Tags for a File</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> tag <span class="at">--list</span> <span class="st">"sop-api-vs-browser-*"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="retrieving-a-previous-version" class="level2">
+<h2 class="anchored" data-anchor-id="retrieving-a-previous-version">4. Retrieving a Previous Version</h2>
+<p>There are two retrieval scenarios: viewing a prior version, and restoring it.</p>
+<section id="a.-view-a-prior-version-without-changing-anything" class="level3">
+<h3 class="anchored" data-anchor-id="a.-view-a-prior-version-without-changing-anything">4a. View a Prior Version Without Changing Anything</h3>
+<p>Use a tag to view the file as it existed at that version. This does not affect your working directory.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View via tag</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> show sop-api-vs-browser-v1.0:<span class="st">"vignettes/api-vs-browser.qmd"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Redirect output to a file for closer review</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> show sop-api-vs-browser-v1.0:<span class="st">"vignettes/api-vs-browser.qmd"</span> <span class="op">&gt;</span> /tmp/api-vs-browser-v1.qmd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="b.-find-a-prior-version-without-a-tag" class="level3">
+<h3 class="anchored" data-anchor-id="b.-find-a-prior-version-without-a-tag">4b. Find a Prior Version Without a Tag</h3>
+<p>If you did not tag a specific version, use <code>git log</code> filtered to the file to find the relevant commit hash.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List all commits that touched a specific file</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--oneline</span> <span class="at">--</span> vignettes/api-vs-browser.qmd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Output will look like:</p>
+<pre><code>a3f92c1 Revise api-vs-browser to v2.0
+7d84be0 Add security considerations section
+2c10fa4 Initial commit of api-vs-browser vignette</code></pre>
+<p>Use the commit hash to view or restore the file:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View the file at a specific commit</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> show 7d84be0:<span class="st">"vignettes/api-vs-browser.qmd"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="c.-restore-a-prior-version-to-your-working-directory" class="level3">
+<h3 class="anchored" data-anchor-id="c.-restore-a-prior-version-to-your-working-directory">4c. Restore a Prior Version to Your Working Directory</h3>
+<p>If you want to roll back the file to a prior version:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Restore the file from a tag</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout sop-api-vs-browser-v1.0 <span class="at">--</span> vignettes/api-vs-browser.qmd</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Or restore from a commit hash</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout 7d84be0 <span class="at">--</span> vignettes/api-vs-browser.qmd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This overwrites the current version of the file in your working directory. The change is staged but not committed — review it first, then commit if you want to keep it.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> diff <span class="at">--staged</span> vignettes/api-vs-browser.qmd      <span class="co"># review the change</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Restore api-vs-browser to v1.0"</span>      <span class="co"># commit if correct</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> restore <span class="at">--staged</span> vignettes/api-vs-browser.qmd   <span class="co"># or discard if not</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="version-number-conventions" class="level2">
+<h2 class="anchored" data-anchor-id="version-number-conventions">5. Version Number Conventions</h2>
+<p>Use a two-part version number: <code>{major}.{minor}</code>, following these guidelines.</p>
+<section id="when-to-increment-the-minor-version-x.1-x.2" class="level3">
+<h3 class="anchored" data-anchor-id="when-to-increment-the-minor-version-x.1-x.2">When to Increment the Minor Version (x.1, x.2 …)</h3>
+<p>Increment the minor version for changes that refine or extend the document without changing its fundamental structure or purpose.</p>
+<ul>
+<li>Adding a new boundary case row to a decision table</li>
+<li>Correcting a factual error or updating an outdated reference</li>
+<li>Clarifying language without changing meaning</li>
+<li>Adding a new bullet to an existing list</li>
+<li>Small structural improvements (reordering sections, improving headings)</li>
+</ul>
+<p><strong>Examples:</strong> <code>1.0 → 1.1</code>, <code>2.3 → 2.4</code></p>
+</section>
+<section id="when-to-increment-the-major-version-1.x-2.0" class="level3">
+<h3 class="anchored" data-anchor-id="when-to-increment-the-major-version-1.x-2.0">When to Increment the Major Version (1.x → 2.0)</h3>
+<p>Increment the major version for changes that substantially alter the document’s scope, structure, or conclusions — changes where a reader familiar with the prior version would notice a meaningful difference.</p>
+<ul>
+<li>Adding or removing entire sections</li>
+<li>Changing the core recommendation or decision rule</li>
+<li>Merging content from another document</li>
+<li>Revising the document’s stated scope or purpose</li>
+<li>Any change significant enough that prior references to the document may no longer be accurate</li>
+</ul>
+<p><strong>Examples:</strong> <code>1.1 → 2.0</code>, <code>2.4 → 3.0</code></p>
+</section>
+<section id="starting-version" class="level3">
+<h3 class="anchored" data-anchor-id="starting-version">Starting Version</h3>
+<p>New documents start at <code>1.0</code>, not <code>0.1</code> or <code>0.9</code>. A document committed to the repo is a document — there is no meaningful distinction between a “draft” and “version 1.0” for personal workflow documents. If it is not ready to commit, do not commit it.</p>
+</section>
+<section id="version-numbers-for-different-file-types" class="level3">
+<h3 class="anchored" data-anchor-id="version-numbers-for-different-file-types">Version Numbers for Different File Types</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 70%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>File Type</th>
+<th>Version Tracking Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SOPs and vignettes (<code>.qmd</code>)</td>
+<td>YAML front matter + Git tag</td>
+</tr>
+<tr class="even">
+<td>Prompt files (<code>.md</code>)</td>
+<td>YAML front matter + Git tag</td>
+</tr>
+<tr class="odd">
+<td>R/Python scripts</td>
+<td>Comment header + Git tag for major milestones only</td>
+</tr>
+<tr class="even">
+<td>Data files</td>
+<td>Git tag only (no front matter); consider a <code>_provenance.md</code> companion file</td>
+</tr>
+<tr class="odd">
+<td>Quarto conversation documents</td>
+<td>No versioning needed — these are logs, not living documents</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="what-not-to-version" class="level3">
+<h3 class="anchored" data-anchor-id="what-not-to-version">What Not to Version</h3>
+<p>Not every file needs explicit version numbers. Reserve the tagging workflow for files that are:</p>
+<ul>
+<li>Actively revised over time</li>
+<li>Referenced by name from other documents or SOPs</li>
+<li>Stable enough that prior versions have archival value</li>
+</ul>
+<p>One-off analysis scripts, scratch files, and conversation logs do not benefit from explicit versioning — Git’s commit history is sufficient for those.</p>
+<hr>
+</section>
+</section>
+<section id="quick-reference" class="level2">
+<h2 class="anchored" data-anchor-id="quick-reference">6. Quick Reference</h2>
+<section id="tag-a-new-version-after-committing" class="level3">
+<h3 class="anchored" data-anchor-id="tag-a-new-version-after-committing">Tag a new version after committing</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> tag {file-identifier}-v{version}</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin {file-identifier}-v{version}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="list-all-tags-for-a-file" class="level3">
+<h3 class="anchored" data-anchor-id="list-all-tags-for-a-file">List all tags for a file</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> tag <span class="at">--list</span> <span class="st">"{file-identifier}-*"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="view-a-prior-version-no-changes-to-working-directory" class="level3">
+<h3 class="anchored" data-anchor-id="view-a-prior-version-no-changes-to-working-directory">View a prior version (no changes to working directory)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> show {tag}:<span class="st">"path/to/file.qmd"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="find-prior-versions-without-a-tag" class="level3">
+<h3 class="anchored" data-anchor-id="find-prior-versions-without-a-tag">Find prior versions without a tag</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--oneline</span> <span class="at">--</span> path/to/file.qmd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="restore-a-prior-version-to-working-directory" class="level3">
+<h3 class="anchored" data-anchor-id="restore-a-prior-version-to-working-directory">Restore a prior version to working directory</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout {tag or hash} <span class="at">--</span> path/to/file.qmd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+
+<!-- -->
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/brad-cannell\.github\.io\/my-ai-assistant\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Git Tags"</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2026-03-17"</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="an">date-modified:</span><span class="co"> "2026-03-17"</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="an">version:</span><span class="co"> "1.0"</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "Strategies for tracking version history on individual files within a Git repo using tags and commit history."</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [git, version-control, workflow]</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: false</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co">  eval: false</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>**Scope:** Strategies for tracking version history on individual files within a Git repo, and retrieving prior versions when needed. Oriented toward documents and scripts in an academic workflow (vignettes, SOPs, prompts, analysis files).</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. Background</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>Git tracks changes at the **commit** level, not the file level. Every commit is a snapshot of the entire repo at a point in time. This means there is no native Git concept of "version 2.0 of this specific file" — but you can approximate it reliably using a combination of:</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Version numbers embedded in the file itself** (YAML front matter)</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Git tags** scoped by naming convention to a specific file</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Git log filtered to a specific file** to retrieve the full commit history for that file</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>Used together, these three tools give you a practical, lightweight versioning system for individual documents without requiring any additional infrastructure.</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. Embedding Version Numbers in Files</span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>The simplest and most portable approach is to store the version number in the file's own YAML front matter. This makes the version visible whenever you open the file, independent of any Git tooling.</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a><span class="in">```yaml</span></span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My Document"</span></span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2026-03-17"</span></span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a><span class="fu">date-modified</span><span class="kw">:</span><span class="at"> </span><span class="st">"2026-03-17"</span></span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">"2.0"</span></span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a>**Conventions for updating the version field** are covered in Section 5. The key discipline is keeping the version in the file synchronized with the Git tag you create at the same time (see Section 3).</span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. Tagging a Specific File Version</span></span>
+<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a>After committing a meaningful update to a file, create a Git tag named to identify both the file and the version. Tags point to commits, not files — but a consistent naming convention makes them behave like file-level version markers.</span>
+<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a><span class="fu">### Workflow</span></span>
+<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Make your edits to the file, then stage and commit</span></span>
+<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add vignettes/api-vs-browser.qmd</span>
+<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Revise api-vs-browser to v2.0"</span></span>
+<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Create a tag referencing the file and version</span></span>
+<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> tag sop-api-vs-browser-v2.0</span>
+<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Push the commit and the tag to the remote</span></span>
+<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin main</span>
+<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin sop-api-vs-browser-v2.0</span>
+<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tag Naming Convention</span></span>
+<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a>Use the pattern: <span class="in">`{file-identifier}-v{version}`</span></span>
+<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> File <span class="pp">|</span> Tag <span class="pp">|</span></span>
+<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|-----|</span></span>
+<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`vignettes/api-vs-browser.qmd`</span> <span class="pp">|</span> <span class="in">`sop-api-vs-browser-v2.0`</span> <span class="pp">|</span></span>
+<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`vignettes/git-tags.qmd`</span> <span class="pp">|</span> <span class="in">`git-tags-v1.0`</span> <span class="pp">|</span></span>
+<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`prompts/ewb-content-review.md`</span> <span class="pp">|</span> <span class="in">`prompt-ewb-content-review-v1.2`</span> <span class="pp">|</span></span>
+<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/clean-detect.R`</span> <span class="pp">|</span> <span class="in">`script-clean-detect-v3.1`</span> <span class="pp">|</span></span>
+<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a>The file identifier does not need to match the filename exactly — it just needs to be unambiguous and consistent. Hyphens are preferred over underscores in tag names (Git allows both, but hyphens are conventional).</span>
+<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a><span class="fu">### Listing All Tags for a File</span></span>
+<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> tag <span class="at">--list</span> <span class="st">"sop-api-vs-browser-*"</span></span>
+<span id="cb15-86"><a href="#cb15-86" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-90"><a href="#cb15-90" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4. Retrieving a Previous Version</span></span>
+<span id="cb15-91"><a href="#cb15-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-92"><a href="#cb15-92" aria-hidden="true" tabindex="-1"></a>There are two retrieval scenarios: viewing a prior version, and restoring it.</span>
+<span id="cb15-93"><a href="#cb15-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-94"><a href="#cb15-94" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4a. View a Prior Version Without Changing Anything</span></span>
+<span id="cb15-95"><a href="#cb15-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-96"><a href="#cb15-96" aria-hidden="true" tabindex="-1"></a>Use a tag to view the file as it existed at that version. This does not affect your working directory.</span>
+<span id="cb15-97"><a href="#cb15-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-98"><a href="#cb15-98" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-99"><a href="#cb15-99" aria-hidden="true" tabindex="-1"></a><span class="co"># View via tag</span></span>
+<span id="cb15-100"><a href="#cb15-100" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> show sop-api-vs-browser-v1.0:<span class="st">"vignettes/api-vs-browser.qmd"</span></span>
+<span id="cb15-101"><a href="#cb15-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-102"><a href="#cb15-102" aria-hidden="true" tabindex="-1"></a><span class="co"># Redirect output to a file for closer review</span></span>
+<span id="cb15-103"><a href="#cb15-103" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> show sop-api-vs-browser-v1.0:<span class="st">"vignettes/api-vs-browser.qmd"</span> <span class="op">&gt;</span> /tmp/api-vs-browser-v1.qmd</span>
+<span id="cb15-104"><a href="#cb15-104" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-105"><a href="#cb15-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-106"><a href="#cb15-106" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4b. Find a Prior Version Without a Tag</span></span>
+<span id="cb15-107"><a href="#cb15-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-108"><a href="#cb15-108" aria-hidden="true" tabindex="-1"></a>If you did not tag a specific version, use <span class="in">`git log`</span> filtered to the file to find the relevant commit hash.</span>
+<span id="cb15-109"><a href="#cb15-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-110"><a href="#cb15-110" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-111"><a href="#cb15-111" aria-hidden="true" tabindex="-1"></a><span class="co"># List all commits that touched a specific file</span></span>
+<span id="cb15-112"><a href="#cb15-112" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--oneline</span> <span class="at">--</span> vignettes/api-vs-browser.qmd</span>
+<span id="cb15-113"><a href="#cb15-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-114"><a href="#cb15-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-115"><a href="#cb15-115" aria-hidden="true" tabindex="-1"></a>Output will look like:</span>
+<span id="cb15-116"><a href="#cb15-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-117"><a href="#cb15-117" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-118"><a href="#cb15-118" aria-hidden="true" tabindex="-1"></a><span class="in">a3f92c1 Revise api-vs-browser to v2.0</span></span>
+<span id="cb15-119"><a href="#cb15-119" aria-hidden="true" tabindex="-1"></a><span class="in">7d84be0 Add security considerations section</span></span>
+<span id="cb15-120"><a href="#cb15-120" aria-hidden="true" tabindex="-1"></a><span class="in">2c10fa4 Initial commit of api-vs-browser vignette</span></span>
+<span id="cb15-121"><a href="#cb15-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-122"><a href="#cb15-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-123"><a href="#cb15-123" aria-hidden="true" tabindex="-1"></a>Use the commit hash to view or restore the file:</span>
+<span id="cb15-124"><a href="#cb15-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-125"><a href="#cb15-125" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-126"><a href="#cb15-126" aria-hidden="true" tabindex="-1"></a><span class="co"># View the file at a specific commit</span></span>
+<span id="cb15-127"><a href="#cb15-127" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> show 7d84be0:<span class="st">"vignettes/api-vs-browser.qmd"</span></span>
+<span id="cb15-128"><a href="#cb15-128" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-129"><a href="#cb15-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-130"><a href="#cb15-130" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4c. Restore a Prior Version to Your Working Directory</span></span>
+<span id="cb15-131"><a href="#cb15-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-132"><a href="#cb15-132" aria-hidden="true" tabindex="-1"></a>If you want to roll back the file to a prior version:</span>
+<span id="cb15-133"><a href="#cb15-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-134"><a href="#cb15-134" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-135"><a href="#cb15-135" aria-hidden="true" tabindex="-1"></a><span class="co"># Restore the file from a tag</span></span>
+<span id="cb15-136"><a href="#cb15-136" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout sop-api-vs-browser-v1.0 <span class="at">--</span> vignettes/api-vs-browser.qmd</span>
+<span id="cb15-137"><a href="#cb15-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-138"><a href="#cb15-138" aria-hidden="true" tabindex="-1"></a><span class="co"># Or restore from a commit hash</span></span>
+<span id="cb15-139"><a href="#cb15-139" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout 7d84be0 <span class="at">--</span> vignettes/api-vs-browser.qmd</span>
+<span id="cb15-140"><a href="#cb15-140" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-141"><a href="#cb15-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-142"><a href="#cb15-142" aria-hidden="true" tabindex="-1"></a>This overwrites the current version of the file in your working directory. The change is staged but not committed — review it first, then commit if you want to keep it.</span>
+<span id="cb15-143"><a href="#cb15-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-144"><a href="#cb15-144" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-145"><a href="#cb15-145" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> diff <span class="at">--staged</span> vignettes/api-vs-browser.qmd      <span class="co"># review the change</span></span>
+<span id="cb15-146"><a href="#cb15-146" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Restore api-vs-browser to v1.0"</span>      <span class="co"># commit if correct</span></span>
+<span id="cb15-147"><a href="#cb15-147" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> restore <span class="at">--staged</span> vignettes/api-vs-browser.qmd   <span class="co"># or discard if not</span></span>
+<span id="cb15-148"><a href="#cb15-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-149"><a href="#cb15-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-150"><a href="#cb15-150" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-151"><a href="#cb15-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-152"><a href="#cb15-152" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5. Version Number Conventions</span></span>
+<span id="cb15-153"><a href="#cb15-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-154"><a href="#cb15-154" aria-hidden="true" tabindex="-1"></a>Use a two-part version number: <span class="in">`{major}.{minor}`</span>, following these guidelines.</span>
+<span id="cb15-155"><a href="#cb15-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-156"><a href="#cb15-156" aria-hidden="true" tabindex="-1"></a><span class="fu">### When to Increment the Minor Version (x.1, x.2 ...)</span></span>
+<span id="cb15-157"><a href="#cb15-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-158"><a href="#cb15-158" aria-hidden="true" tabindex="-1"></a>Increment the minor version for changes that refine or extend the document without changing its fundamental structure or purpose.</span>
+<span id="cb15-159"><a href="#cb15-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-160"><a href="#cb15-160" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Adding a new boundary case row to a decision table</span>
+<span id="cb15-161"><a href="#cb15-161" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Correcting a factual error or updating an outdated reference</span>
+<span id="cb15-162"><a href="#cb15-162" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Clarifying language without changing meaning</span>
+<span id="cb15-163"><a href="#cb15-163" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Adding a new bullet to an existing list</span>
+<span id="cb15-164"><a href="#cb15-164" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Small structural improvements (reordering sections, improving headings)</span>
+<span id="cb15-165"><a href="#cb15-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-166"><a href="#cb15-166" aria-hidden="true" tabindex="-1"></a>**Examples:** <span class="in">`1.0 → 1.1`</span>, <span class="in">`2.3 → 2.4`</span></span>
+<span id="cb15-167"><a href="#cb15-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-168"><a href="#cb15-168" aria-hidden="true" tabindex="-1"></a><span class="fu">### When to Increment the Major Version (1.x → 2.0)</span></span>
+<span id="cb15-169"><a href="#cb15-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-170"><a href="#cb15-170" aria-hidden="true" tabindex="-1"></a>Increment the major version for changes that substantially alter the document's scope, structure, or conclusions — changes where a reader familiar with the prior version would notice a meaningful difference.</span>
+<span id="cb15-171"><a href="#cb15-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-172"><a href="#cb15-172" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Adding or removing entire sections</span>
+<span id="cb15-173"><a href="#cb15-173" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Changing the core recommendation or decision rule</span>
+<span id="cb15-174"><a href="#cb15-174" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Merging content from another document</span>
+<span id="cb15-175"><a href="#cb15-175" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Revising the document's stated scope or purpose</span>
+<span id="cb15-176"><a href="#cb15-176" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Any change significant enough that prior references to the document may no longer be accurate</span>
+<span id="cb15-177"><a href="#cb15-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-178"><a href="#cb15-178" aria-hidden="true" tabindex="-1"></a>**Examples:** <span class="in">`1.1 → 2.0`</span>, <span class="in">`2.4 → 3.0`</span></span>
+<span id="cb15-179"><a href="#cb15-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-180"><a href="#cb15-180" aria-hidden="true" tabindex="-1"></a><span class="fu">### Starting Version</span></span>
+<span id="cb15-181"><a href="#cb15-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-182"><a href="#cb15-182" aria-hidden="true" tabindex="-1"></a>New documents start at <span class="in">`1.0`</span>, not <span class="in">`0.1`</span> or <span class="in">`0.9`</span>. A document committed to the repo is a document — there is no meaningful distinction between a "draft" and "version 1.0" for personal workflow documents. If it is not ready to commit, do not commit it.</span>
+<span id="cb15-183"><a href="#cb15-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-184"><a href="#cb15-184" aria-hidden="true" tabindex="-1"></a><span class="fu">### Version Numbers for Different File Types</span></span>
+<span id="cb15-185"><a href="#cb15-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-186"><a href="#cb15-186" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> File Type <span class="pp">|</span> Version Tracking Approach <span class="pp">|</span></span>
+<span id="cb15-187"><a href="#cb15-187" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----------|--------------------------|</span></span>
+<span id="cb15-188"><a href="#cb15-188" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> SOPs and vignettes (<span class="in">`.qmd`</span>) <span class="pp">|</span> YAML front matter + Git tag <span class="pp">|</span></span>
+<span id="cb15-189"><a href="#cb15-189" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Prompt files (<span class="in">`.md`</span>) <span class="pp">|</span> YAML front matter + Git tag <span class="pp">|</span></span>
+<span id="cb15-190"><a href="#cb15-190" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> R/Python scripts <span class="pp">|</span> Comment header + Git tag for major milestones only <span class="pp">|</span></span>
+<span id="cb15-191"><a href="#cb15-191" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Data files <span class="pp">|</span> Git tag only (no front matter); consider a <span class="in">`_provenance.md`</span> companion file <span class="pp">|</span></span>
+<span id="cb15-192"><a href="#cb15-192" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Quarto conversation documents <span class="pp">|</span> No versioning needed — these are logs, not living documents <span class="pp">|</span></span>
+<span id="cb15-193"><a href="#cb15-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-194"><a href="#cb15-194" aria-hidden="true" tabindex="-1"></a><span class="fu">### What Not to Version</span></span>
+<span id="cb15-195"><a href="#cb15-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-196"><a href="#cb15-196" aria-hidden="true" tabindex="-1"></a>Not every file needs explicit version numbers. Reserve the tagging workflow for files that are:</span>
+<span id="cb15-197"><a href="#cb15-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-198"><a href="#cb15-198" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Actively revised over time</span>
+<span id="cb15-199"><a href="#cb15-199" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Referenced by name from other documents or SOPs</span>
+<span id="cb15-200"><a href="#cb15-200" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Stable enough that prior versions have archival value</span>
+<span id="cb15-201"><a href="#cb15-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-202"><a href="#cb15-202" aria-hidden="true" tabindex="-1"></a>One-off analysis scripts, scratch files, and conversation logs do not benefit from explicit versioning — Git's commit history is sufficient for those.</span>
+<span id="cb15-203"><a href="#cb15-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-204"><a href="#cb15-204" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-205"><a href="#cb15-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-206"><a href="#cb15-206" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6. Quick Reference</span></span>
+<span id="cb15-207"><a href="#cb15-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-208"><a href="#cb15-208" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tag a new version after committing</span></span>
+<span id="cb15-209"><a href="#cb15-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-210"><a href="#cb15-210" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-211"><a href="#cb15-211" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> tag {file-identifier}-v{version}</span>
+<span id="cb15-212"><a href="#cb15-212" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin {file-identifier}-v{version}</span>
+<span id="cb15-213"><a href="#cb15-213" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-214"><a href="#cb15-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-215"><a href="#cb15-215" aria-hidden="true" tabindex="-1"></a><span class="fu">### List all tags for a file</span></span>
+<span id="cb15-216"><a href="#cb15-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-217"><a href="#cb15-217" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-218"><a href="#cb15-218" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> tag <span class="at">--list</span> <span class="st">"{file-identifier}-*"</span></span>
+<span id="cb15-219"><a href="#cb15-219" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-220"><a href="#cb15-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-221"><a href="#cb15-221" aria-hidden="true" tabindex="-1"></a><span class="fu">### View a prior version (no changes to working directory)</span></span>
+<span id="cb15-222"><a href="#cb15-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-223"><a href="#cb15-223" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-224"><a href="#cb15-224" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> show {tag}:<span class="st">"path/to/file.qmd"</span></span>
+<span id="cb15-225"><a href="#cb15-225" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-226"><a href="#cb15-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-227"><a href="#cb15-227" aria-hidden="true" tabindex="-1"></a><span class="fu">### Find prior versions without a tag</span></span>
+<span id="cb15-228"><a href="#cb15-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-229"><a href="#cb15-229" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-230"><a href="#cb15-230" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--oneline</span> <span class="at">--</span> path/to/file.qmd</span>
+<span id="cb15-231"><a href="#cb15-231" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-232"><a href="#cb15-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-233"><a href="#cb15-233" aria-hidden="true" tabindex="-1"></a><span class="fu">### Restore a prior version to working directory</span></span>
+<span id="cb15-234"><a href="#cb15-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-235"><a href="#cb15-235" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-236"><a href="#cb15-236" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout {tag or hash} <span class="at">--</span> path/to/file.qmd</span>
+<span id="cb15-237"><a href="#cb15-237" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

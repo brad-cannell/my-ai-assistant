@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-01-28">
+<meta name="description" content="Managing Python dependencies and virtual environments with uv for reproducible, cross-machine workflows.">
+
+<title>UV Virtual Environments – My AI Assistant</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-afa37c5c79185640b9c231024f4fe5ea.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">My AI Assistant</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/brad-cannell/my-ai-assistant"> <i class="bi bi-github" role="img" aria-label="GitHub repository">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#why-uv" id="toc-why-uv" class="nav-link" data-scroll-target="#why-uv">Why <code>uv</code></a></li>
+  <li><a href="#one-time-setup-per-machine" id="toc-one-time-setup-per-machine" class="nav-link" data-scroll-target="#one-time-setup-per-machine">One-Time Setup (per machine)</a></li>
+  <li><a href="#project-setup" id="toc-project-setup" class="nav-link" data-scroll-target="#project-setup">Project Setup</a>
+  <ul class="collapse">
+  <li><a href="#initialize-uv-in-the-project-root" id="toc-initialize-uv-in-the-project-root" class="nav-link" data-scroll-target="#initialize-uv-in-the-project-root">1. Initialize <code>uv</code> in the project root</a></li>
+  <li><a href="#add-dependencies" id="toc-add-dependencies" class="nav-link" data-scroll-target="#add-dependencies">2. Add dependencies</a></li>
+  </ul></li>
+  <li><a href="#virtual-environment-workflow" id="toc-virtual-environment-workflow" class="nav-link" data-scroll-target="#virtual-environment-workflow">Virtual Environment Workflow</a>
+  <ul class="collapse">
+  <li><a href="#create-a-local-virtual-environment" id="toc-create-a-local-virtual-environment" class="nav-link" data-scroll-target="#create-a-local-virtual-environment">3. Create a local virtual environment</a></li>
+  <li><a href="#install-dependencies-from-the-lockfile" id="toc-install-dependencies-from-the-lockfile" class="nav-link" data-scroll-target="#install-dependencies-from-the-lockfile">4. Install dependencies from the lockfile</a></li>
+  </ul></li>
+  <li><a href="#gitignore-sync-rules" id="toc-gitignore-sync-rules" class="nav-link" data-scroll-target="#gitignore-sync-rules"><code>.gitignore</code> / Sync Rules</a></li>
+  <li><a href="#vs-code-positron-configuration-recommended" id="toc-vs-code-positron-configuration-recommended" class="nav-link" data-scroll-target="#vs-code-positron-configuration-recommended">VS Code / Positron Configuration (Recommended)</a></li>
+  <li><a href="#python-version-pinning-optional-but-recommended" id="toc-python-version-pinning-optional-but-recommended" class="nav-link" data-scroll-target="#python-version-pinning-optional-but-recommended">Python Version Pinning (Optional but Recommended)</a></li>
+  <li><a href="#managing-dependencies" id="toc-managing-dependencies" class="nav-link" data-scroll-target="#managing-dependencies">Managing Dependencies</a></li>
+  <li><a href="#mental-model" id="toc-mental-model" class="nav-link" data-scroll-target="#mental-model">Mental Model</a></li>
+  <li><a href="#typical-daily-commands" id="toc-typical-daily-commands" class="nav-link" data-scroll-target="#typical-daily-commands">Typical Daily Commands</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">UV Virtual Environments</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+  <div class="quarto-categories">
+    <div class="quarto-category">python</div>
+    <div class="quarto-category">virtual-environments</div>
+    <div class="quarto-category">uv</div>
+    <div class="quarto-category">workflow</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Managing Python dependencies and virtual environments with uv for reproducible, cross-machine workflows.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 28, 2026</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">January 28, 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<p>This vignette summarizes a clean, reproducible workflow for managing Python dependencies with <strong><code>uv</code></strong>, especially when working across multiple computers with a synced project folder (e.g., Box, Dropbox, OneDrive).</p>
+<p>For the standard Python <code>venv</code> approach, see <code>vignettes/venv-virtual-environments.qmd</code>.</p>
+<hr>
+</section>
+<section id="why-uv" class="level1">
+<h1>Why <code>uv</code></h1>
+<ul>
+<li>Virtual environments are <strong>not portable</strong> across machines</li>
+<li>Synced folders change absolute paths, breaking <code>.venv</code></li>
+<li><code>uv</code> makes environments <strong>easy to recreate, fast, and deterministic</strong></li>
+</ul>
+<p>Core idea:</p>
+<blockquote class="blockquote">
+<p><strong>Do not sync the virtual environment. Sync the dependency definitions instead.</strong></p>
+</blockquote>
+<hr>
+</section>
+<section id="one-time-setup-per-machine" class="level1">
+<h1>One-Time Setup (per machine)</h1>
+<p>Install <code>uv</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install uv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Verify:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="project-setup" class="level1">
+<h1>Project Setup</h1>
+<section id="initialize-uv-in-the-project-root" class="level2">
+<h2 class="anchored" data-anchor-id="initialize-uv-in-the-project-root">1. Initialize <code>uv</code> in the project root</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> init</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Creates (or updates):</p>
+<ul>
+<li><code>pyproject.toml</code> — dependency intent</li>
+<li>No virtual environment yet</li>
+</ul>
+<p>Commit <code>pyproject.toml</code>.</p>
+</section>
+<section id="add-dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="add-dependencies">2. Add dependencies</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> add pandas numpy matplotlib</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This will:</p>
+<ul>
+<li>Add dependencies to <code>pyproject.toml</code></li>
+<li>Generate <code>uv.lock</code> with exact versions</li>
+</ul>
+<p>Commit <strong>both</strong> <code>pyproject.toml</code> and <code>uv.lock</code>.</p>
+<hr>
+</section>
+</section>
+<section id="virtual-environment-workflow" class="level1">
+<h1>Virtual Environment Workflow</h1>
+<section id="create-a-local-virtual-environment" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-local-virtual-environment">3. Create a local virtual environment</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> venv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Creates a <code>.venv/</code> directory. This directory is <strong>machine-local</strong> and should not be synced.</p>
+</section>
+<section id="install-dependencies-from-the-lockfile" class="level2">
+<h2 class="anchored" data-anchor-id="install-dependencies-from-the-lockfile">4. Install dependencies from the lockfile</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> sync</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This installs <strong>exactly</strong> the versions recorded in <code>uv.lock</code>.</p>
+<p>On a second machine:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> venv</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> sync</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="gitignore-sync-rules" class="level1">
+<h1><code>.gitignore</code> / Sync Rules</h1>
+<p>Exclude the virtual environment:</p>
+<pre><code>.venv/
+__pycache__/</code></pre>
+<p>Sync and version control:</p>
+<pre><code>pyproject.toml
+uv.lock</code></pre>
+<hr>
+</section>
+<section id="vs-code-positron-configuration-recommended" class="level1">
+<h1>VS Code / Positron Configuration (Recommended)</h1>
+<p>Create or update <code>.vscode/settings.json</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"python.defaultInterpreterPath"</span><span class="fu">:</span> <span class="st">"${workspaceFolder}/.venv/bin/python"</span><span class="fu">,</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"python.terminal.activateEnvironment"</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then select the interpreter once:</p>
+<ul>
+<li>Command Palette → <strong>Python: Select Interpreter</strong></li>
+<li>Choose <code>.venv/bin/python</code></li>
+</ul>
+<hr>
+</section>
+<section id="python-version-pinning-optional-but-recommended" class="level1">
+<h1>Python Version Pinning (Optional but Recommended)</h1>
+<p>In <code>pyproject.toml</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[project]</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="dt">requires-python</span> <span class="op">=</span> <span class="st">"&gt;=3.11,&lt;3.13"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This prevents subtle version mismatches across machines.</p>
+<hr>
+</section>
+<section id="managing-dependencies" class="level1">
+<h1>Managing Dependencies</h1>
+<p>All project dependencies should be managed with <strong><code>uv</code></strong>. Do not use <code>pip install</code> directly — it will not update the lockfile and can break reproducibility across machines.</p>
+<p>To add a new package:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> add <span class="op">&lt;</span>package-name<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This automatically updates <code>pyproject.toml</code>, updates <code>uv.lock</code>, and installs the package into the local <code>.venv</code>.</p>
+<p>To re-sync the environment at any time:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> sync</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="mental-model" class="level1">
+<h1>Mental Model</h1>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>File / Directory</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>.venv/</code></td>
+<td>Disposable, local build artifact — do not sync</td>
+</tr>
+<tr class="even">
+<td><code>pyproject.toml</code></td>
+<td>Dependency intent — sync and commit</td>
+</tr>
+<tr class="odd">
+<td><code>uv.lock</code></td>
+<td>Exact, reproducible state — sync and commit</td>
+</tr>
+<tr class="even">
+<td><code>uv sync</code></td>
+<td>Fast, deterministic rebuild from lockfile</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="typical-daily-commands" class="level1">
+<h1>Typical Daily Commands</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> add <span class="op">&lt;</span>package<span class="op">&gt;</span>   <span class="co"># add a dependency</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> sync            <span class="co"># install/update environment</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> venv            <span class="co"># recreate environment if needed</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/brad-cannell\.github\.io\/my-ai-assistant\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "UV Virtual Environments"</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2026-01-28"</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="an">date-modified:</span><span class="co"> "2026-01-28"</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="an">version:</span><span class="co"> "1.0"</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "Managing Python dependencies and virtual environments with uv for reproducible, cross-machine workflows."</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [python, virtual-environments, uv, workflow]</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: false</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co">  eval: false</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="fu"># Overview</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>This vignette summarizes a clean, reproducible workflow for managing Python dependencies with **`uv`**, especially when working across multiple computers with a synced project folder (e.g., Box, Dropbox, OneDrive).</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>For the standard Python <span class="in">`venv`</span> approach, see <span class="in">`vignettes/venv-virtual-environments.qmd`</span>.</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="fu"># Why `uv`</span></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Virtual environments are **not portable** across machines</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Synced folders change absolute paths, breaking <span class="in">`.venv`</span></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`uv`</span> makes environments **easy to recreate, fast, and deterministic**</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>Core idea:</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Do not sync the virtual environment. Sync the dependency definitions instead.**</span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a><span class="fu"># One-Time Setup (per machine)</span></span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>Install <span class="in">`uv`</span>:</span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install uv</span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>Verify:</span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> <span class="at">--version</span></span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a><span class="fu"># Project Setup</span></span>
+<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. Initialize `uv` in the project root</span></span>
+<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> init</span>
+<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a>Creates (or updates):</span>
+<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`pyproject.toml`</span> — dependency intent</span>
+<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No virtual environment yet</span>
+<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a>Commit <span class="in">`pyproject.toml`</span>.</span>
+<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. Add dependencies</span></span>
+<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> add pandas numpy matplotlib</span>
+<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a>This will:</span>
+<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Add dependencies to <span class="in">`pyproject.toml`</span></span>
+<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Generate <span class="in">`uv.lock`</span> with exact versions</span>
+<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a>Commit **both** <span class="in">`pyproject.toml`</span> and <span class="in">`uv.lock`</span>.</span>
+<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a><span class="fu"># Virtual Environment Workflow</span></span>
+<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. Create a local virtual environment</span></span>
+<span id="cb15-86"><a href="#cb15-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> venv</span>
+<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-90"><a href="#cb15-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-91"><a href="#cb15-91" aria-hidden="true" tabindex="-1"></a>Creates a <span class="in">`.venv/`</span> directory. This directory is **machine-local** and should not be synced.</span>
+<span id="cb15-92"><a href="#cb15-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-93"><a href="#cb15-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4. Install dependencies from the lockfile</span></span>
+<span id="cb15-94"><a href="#cb15-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-95"><a href="#cb15-95" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-96"><a href="#cb15-96" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> sync</span>
+<span id="cb15-97"><a href="#cb15-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-98"><a href="#cb15-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-99"><a href="#cb15-99" aria-hidden="true" tabindex="-1"></a>This installs **exactly** the versions recorded in <span class="in">`uv.lock`</span>.</span>
+<span id="cb15-100"><a href="#cb15-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-101"><a href="#cb15-101" aria-hidden="true" tabindex="-1"></a>On a second machine:</span>
+<span id="cb15-102"><a href="#cb15-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-103"><a href="#cb15-103" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-104"><a href="#cb15-104" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> venv</span>
+<span id="cb15-105"><a href="#cb15-105" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> sync</span>
+<span id="cb15-106"><a href="#cb15-106" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-107"><a href="#cb15-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-108"><a href="#cb15-108" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-109"><a href="#cb15-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-110"><a href="#cb15-110" aria-hidden="true" tabindex="-1"></a><span class="fu"># `.gitignore` / Sync Rules</span></span>
+<span id="cb15-111"><a href="#cb15-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-112"><a href="#cb15-112" aria-hidden="true" tabindex="-1"></a>Exclude the virtual environment:</span>
+<span id="cb15-113"><a href="#cb15-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-114"><a href="#cb15-114" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-115"><a href="#cb15-115" aria-hidden="true" tabindex="-1"></a><span class="in">.venv/</span></span>
+<span id="cb15-116"><a href="#cb15-116" aria-hidden="true" tabindex="-1"></a><span class="in">__pycache__/</span></span>
+<span id="cb15-117"><a href="#cb15-117" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-118"><a href="#cb15-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-119"><a href="#cb15-119" aria-hidden="true" tabindex="-1"></a>Sync and version control:</span>
+<span id="cb15-120"><a href="#cb15-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-121"><a href="#cb15-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-122"><a href="#cb15-122" aria-hidden="true" tabindex="-1"></a><span class="in">pyproject.toml</span></span>
+<span id="cb15-123"><a href="#cb15-123" aria-hidden="true" tabindex="-1"></a><span class="in">uv.lock</span></span>
+<span id="cb15-124"><a href="#cb15-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-125"><a href="#cb15-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-126"><a href="#cb15-126" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-127"><a href="#cb15-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-128"><a href="#cb15-128" aria-hidden="true" tabindex="-1"></a><span class="fu"># VS Code / Positron Configuration (Recommended)</span></span>
+<span id="cb15-129"><a href="#cb15-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-130"><a href="#cb15-130" aria-hidden="true" tabindex="-1"></a>Create or update <span class="in">`.vscode/settings.json`</span>:</span>
+<span id="cb15-131"><a href="#cb15-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-132"><a href="#cb15-132" aria-hidden="true" tabindex="-1"></a><span class="in">```json</span></span>
+<span id="cb15-133"><a href="#cb15-133" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb15-134"><a href="#cb15-134" aria-hidden="true" tabindex="-1"></a>  <span class="st">"python.defaultInterpreterPath"</span><span class="op">:</span> <span class="st">"${workspaceFolder}/.venv/bin/python"</span><span class="op">,</span></span>
+<span id="cb15-135"><a href="#cb15-135" aria-hidden="true" tabindex="-1"></a>  <span class="st">"python.terminal.activateEnvironment"</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb15-136"><a href="#cb15-136" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-137"><a href="#cb15-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-138"><a href="#cb15-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-139"><a href="#cb15-139" aria-hidden="true" tabindex="-1"></a>Then select the interpreter once:</span>
+<span id="cb15-140"><a href="#cb15-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-141"><a href="#cb15-141" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Command Palette → **Python: Select Interpreter**</span>
+<span id="cb15-142"><a href="#cb15-142" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Choose <span class="in">`.venv/bin/python`</span></span>
+<span id="cb15-143"><a href="#cb15-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-144"><a href="#cb15-144" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-145"><a href="#cb15-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-146"><a href="#cb15-146" aria-hidden="true" tabindex="-1"></a><span class="fu"># Python Version Pinning (Optional but Recommended)</span></span>
+<span id="cb15-147"><a href="#cb15-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-148"><a href="#cb15-148" aria-hidden="true" tabindex="-1"></a>In <span class="in">`pyproject.toml`</span>:</span>
+<span id="cb15-149"><a href="#cb15-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-150"><a href="#cb15-150" aria-hidden="true" tabindex="-1"></a><span class="in">```toml</span></span>
+<span id="cb15-151"><a href="#cb15-151" aria-hidden="true" tabindex="-1"></a><span class="in">[project]</span></span>
+<span id="cb15-152"><a href="#cb15-152" aria-hidden="true" tabindex="-1"></a><span class="in">requires-python = "&gt;=3.11,&lt;3.13"</span></span>
+<span id="cb15-153"><a href="#cb15-153" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-154"><a href="#cb15-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-155"><a href="#cb15-155" aria-hidden="true" tabindex="-1"></a>This prevents subtle version mismatches across machines.</span>
+<span id="cb15-156"><a href="#cb15-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-157"><a href="#cb15-157" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-158"><a href="#cb15-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-159"><a href="#cb15-159" aria-hidden="true" tabindex="-1"></a><span class="fu"># Managing Dependencies</span></span>
+<span id="cb15-160"><a href="#cb15-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-161"><a href="#cb15-161" aria-hidden="true" tabindex="-1"></a>All project dependencies should be managed with **`uv`**. Do not use <span class="in">`pip install`</span> directly — it will not update the lockfile and can break reproducibility across machines.</span>
+<span id="cb15-162"><a href="#cb15-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-163"><a href="#cb15-163" aria-hidden="true" tabindex="-1"></a>To add a new package:</span>
+<span id="cb15-164"><a href="#cb15-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-165"><a href="#cb15-165" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-166"><a href="#cb15-166" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> add <span class="op">&lt;</span>package-name<span class="op">&gt;</span></span>
+<span id="cb15-167"><a href="#cb15-167" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-168"><a href="#cb15-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-169"><a href="#cb15-169" aria-hidden="true" tabindex="-1"></a>This automatically updates <span class="in">`pyproject.toml`</span>, updates <span class="in">`uv.lock`</span>, and installs the package into the local <span class="in">`.venv`</span>.</span>
+<span id="cb15-170"><a href="#cb15-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-171"><a href="#cb15-171" aria-hidden="true" tabindex="-1"></a>To re-sync the environment at any time:</span>
+<span id="cb15-172"><a href="#cb15-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-173"><a href="#cb15-173" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-174"><a href="#cb15-174" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> sync</span>
+<span id="cb15-175"><a href="#cb15-175" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-176"><a href="#cb15-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-177"><a href="#cb15-177" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-178"><a href="#cb15-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-179"><a href="#cb15-179" aria-hidden="true" tabindex="-1"></a><span class="fu"># Mental Model</span></span>
+<span id="cb15-180"><a href="#cb15-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-181"><a href="#cb15-181" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> File / Directory <span class="pp">|</span> Role <span class="pp">|</span></span>
+<span id="cb15-182"><a href="#cb15-182" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb15-183"><a href="#cb15-183" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`.venv/`</span> <span class="pp">|</span> Disposable, local build artifact — do not sync <span class="pp">|</span></span>
+<span id="cb15-184"><a href="#cb15-184" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`pyproject.toml`</span> <span class="pp">|</span> Dependency intent — sync and commit <span class="pp">|</span></span>
+<span id="cb15-185"><a href="#cb15-185" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`uv.lock`</span> <span class="pp">|</span> Exact, reproducible state — sync and commit <span class="pp">|</span></span>
+<span id="cb15-186"><a href="#cb15-186" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`uv sync`</span> <span class="pp">|</span> Fast, deterministic rebuild from lockfile <span class="pp">|</span></span>
+<span id="cb15-187"><a href="#cb15-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-188"><a href="#cb15-188" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-189"><a href="#cb15-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-190"><a href="#cb15-190" aria-hidden="true" tabindex="-1"></a><span class="fu"># Typical Daily Commands</span></span>
+<span id="cb15-191"><a href="#cb15-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-192"><a href="#cb15-192" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb15-193"><a href="#cb15-193" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> add <span class="op">&lt;</span>package<span class="op">&gt;</span>   <span class="co"># add a dependency</span></span>
+<span id="cb15-194"><a href="#cb15-194" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> sync            <span class="co"># install/update environment</span></span>
+<span id="cb15-195"><a href="#cb15-195" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> venv            <span class="co"># recreate environment if needed</span></span>
+<span id="cb15-196"><a href="#cb15-196" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

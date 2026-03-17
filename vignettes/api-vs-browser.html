@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-12-22">
+<meta name="description" content="Decision criteria and guidelines for choosing between browser-based AI interaction and direct API calls.">
+
+<title>API vs Browser-Based AI Workflows – My AI Assistant</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-afa37c5c79185640b9c231024f4fe5ea.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">My AI Assistant</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/brad-cannell/my-ai-assistant"> <i class="bi bi-github" role="img" aria-label="GitHub repository">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#purpose" id="toc-purpose" class="nav-link active" data-scroll-target="#purpose">1. Purpose</a></li>
+  <li><a href="#the-core-decision-rule" id="toc-the-core-decision-rule" class="nav-link" data-scroll-target="#the-core-decision-rule">2. The Core Decision Rule</a></li>
+  <li><a href="#decision-criteria-by-signal" id="toc-decision-criteria-by-signal" class="nav-link" data-scroll-target="#decision-criteria-by-signal">3. Decision Criteria by Signal</a>
+  <ul class="collapse">
+  <li><a href="#use-the-browser-when" id="toc-use-the-browser-when" class="nav-link" data-scroll-target="#use-the-browser-when">Use the Browser When:</a></li>
+  <li><a href="#use-the-api-when" id="toc-use-the-api-when" class="nav-link" data-scroll-target="#use-the-api-when">Use the API When:</a></li>
+  <li><a href="#boundary-cases" id="toc-boundary-cases" class="nav-link" data-scroll-target="#boundary-cases">Boundary Cases</a></li>
+  </ul></li>
+  <li><a href="#security-considerations" id="toc-security-considerations" class="nav-link" data-scroll-target="#security-considerations">4. Security Considerations</a></li>
+  <li><a href="#maintenance" id="toc-maintenance" class="nav-link" data-scroll-target="#maintenance">5. Maintenance</a></li>
+  <li><a href="#quick-reference-card" id="toc-quick-reference-card" class="nav-link" data-scroll-target="#quick-reference-card">6. Quick Reference Card</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">API vs Browser-Based AI Workflows</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+  <div class="quarto-categories">
+    <div class="quarto-category">api</div>
+    <div class="quarto-category">workflow</div>
+    <div class="quarto-category">claude</div>
+    <div class="quarto-category">chatgpt</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Decision criteria and guidelines for choosing between browser-based AI interaction and direct API calls.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 22, 2025</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">March 17, 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="purpose" class="level1">
+<h1>1. Purpose</h1>
+<p>This document provides decision criteria and operational guidelines for choosing between browser-based AI interaction (Claude.ai) and direct API calls (via Chatlas in Quarto) for AI-assisted tasks. The goal is to minimize friction, maximize reproducibility where it matters, and avoid making the mode decision ad hoc.</p>
+<hr>
+</section>
+<section id="the-core-decision-rule" class="level1">
+<h1>2. The Core Decision Rule</h1>
+<p>Before starting any AI-assisted task, ask one question:</p>
+<blockquote class="blockquote">
+<p><strong>“Will I need to find, reuse, or build on this interaction later?”</strong></p>
+</blockquote>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Answer</th>
+<th>Default Mode</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>No — exploratory, one-off, or disposable</td>
+<td>Browser</td>
+</tr>
+<tr class="even">
+<td>Yes — recurring, archivable, or feeds an artifact</td>
+<td>API</td>
+</tr>
+<tr class="odd">
+<td>Unsure</td>
+<td>See Section 3</td>
+</tr>
+</tbody>
+</table>
+<p>If you find yourself copying a prompt <em>from</em> somewhere or copying a response <em>to</em> somewhere, that task belongs in the API workflow.</p>
+<blockquote class="blockquote">
+<p><strong>Framing note:</strong> The goal is not to migrate all AI usage to the API. The more useful question is: <em>“Which 20% of my AI workflows would benefit most from API-based reproducibility and control?”</em> Start there.</p>
+</blockquote>
+<hr>
+</section>
+<section id="decision-criteria-by-signal" class="level1">
+<h1>3. Decision Criteria by Signal</h1>
+<p>Use these signals to resolve ambiguous cases. No single signal is decisive — weigh the pattern.</p>
+<section id="use-the-browser-when" class="level2">
+<h2 class="anchored" data-anchor-id="use-the-browser-when">Use the Browser When:</h2>
+<ul>
+<li>The task is genuinely exploratory (“let me think out loud with Claude”)</li>
+<li>You expect to use the output once and not reference it again</li>
+<li>You are away from your development environment (no access to repo/terminal)</li>
+<li>You need to upload a file for quick extraction or summarization and have no pipeline for it</li>
+<li>The task is low-stakes and iteration speed matters more than documentation</li>
+<li>You are troubleshooting or debugging interactively and expect many rapid back-and-forth exchanges</li>
+</ul>
+</section>
+<section id="use-the-api-when" class="level2">
+<h2 class="anchored" data-anchor-id="use-the-api-when">Use the API When:</h2>
+<ul>
+<li>You have used a similar prompt before, or expect to use it again</li>
+<li>The output will be incorporated into a document, codebase, or artifact you are maintaining (EWB lesson, grant section, manuscript, R script)</li>
+<li>Reproducibility matters — you may need to document what was sent, what parameters were used, and what was returned</li>
+<li>The task involves file context that is structured and reusable (formatting guidelines, CST examples, style rules)</li>
+<li>You are building or maintaining a pipeline (EWB lesson creation, batch content review)</li>
+<li>You want parameter control (model selection, temperature, system prompt)</li>
+<li>The task involves sensitive research content where better data handling terms apply</li>
+<li>You are teaching or demonstrating AI usage and want a documentable, transferable example</li>
+<li>The task would benefit from a model other than the browser default — e.g., a larger context window for full document analysis, or a faster/cheaper model for batch or repetitive work</li>
+<li>The task is high-volume or cost-sensitive and strategic model selection would meaningfully reduce cost or processing time</li>
+</ul>
+</section>
+<section id="boundary-cases" class="level2">
+<h2 class="anchored" data-anchor-id="boundary-cases">Boundary Cases</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 42%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Situation</th>
+<th>Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Quick code fix, one function</td>
+<td>Browser — unless it’s part of a documented pipeline</td>
+</tr>
+<tr class="even">
+<td>Drafting an email from a template</td>
+<td>API — prompt is reusable; output may be archived</td>
+</tr>
+<tr class="odd">
+<td>Uploading a PDF for a one-time summary</td>
+<td>Browser</td>
+</tr>
+<tr class="even">
+<td>Uploading a file as structured context for ongoing work</td>
+<td>API</td>
+</tr>
+<tr class="odd">
+<td>Brainstorming grant aims</td>
+<td>Browser — then migrate key outputs to API doc or notes</td>
+</tr>
+<tr class="even">
+<td>Refining specific aims language</td>
+<td>API</td>
+</tr>
+<tr class="odd">
+<td>Asking “does this paragraph make sense?”</td>
+<td>Browser</td>
+</tr>
+<tr class="even">
+<td>Full manuscript section review</td>
+<td>API</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="security-considerations" class="level1">
+<h1>4. Security Considerations</h1>
+<p>These practices apply regardless of which mode you use, but several are especially relevant to the mode decision.</p>
+<ul>
+<li><strong>Never paste into any AI interface:</strong> PHI, SSNs, IRB-restricted data, financial data, or any content governed by a Data Processing Agreement or Business Associate Agreement. Neither standard browser nor standard API access is an appropriate channel for this content without specific institutional agreements in place.</li>
+<li><strong>Check institutional policy:</strong> TCU and funding agencies may have guidance or requirements governing which AI tools are permissible for specific research or course contexts. Verify before using either mode for grant-related or IRB-adjacent work.</li>
+<li><strong>API keys:</strong> Store in environment variables (<code>.Renviron</code> for R, <code>.env</code> for Python). Never commit keys to Git. Rotate periodically and immediately if exposure is suspected.</li>
+<li><strong>Browser security:</strong> Audit extensions regularly. Extensions with broad permissions can access conversation content. Consider a dedicated browser profile for AI work involving sensitive material.</li>
+<li><strong>Opt out of training data use:</strong> Disable conversation use for model training in browser settings where available. API usage under standard Anthropic terms does not use your data for training by default.</li>
+<li><strong>Local logging:</strong> If storing API responses locally (in your <code>ai/</code> folder or elsewhere), be aware that those files contain the full prompt and response. Apply appropriate access controls if the content is sensitive.</li>
+</ul>
+<hr>
+</section>
+<section id="maintenance" class="level1">
+<h1>5. Maintenance</h1>
+<p>Review and update this SOP when any of the following occur:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 52%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Trigger</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A task type is repeatedly misclassified</td>
+<td>Add or revise a row in the Boundary Cases table (Section 3)</td>
+</tr>
+<tr class="even">
+<td>A new recurring task type emerges</td>
+<td>Assess which mode it belongs to; add to the appropriate signal list</td>
+</tr>
+<tr class="odd">
+<td>The core decision rule proves insufficient for a new class of tasks</td>
+<td>Revise Section 2 and document the rationale</td>
+</tr>
+<tr class="even">
+<td>A downstream SOP (API workflow, browser workflow) changes in ways that affect mode choice</td>
+<td>Update decision criteria here to stay consistent</td>
+</tr>
+<tr class="odd">
+<td>This SOP has not been reviewed in 6 months</td>
+<td>Re-read and confirm it still reflects actual practice</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="quick-reference-card" class="level1">
+<h1>6. Quick Reference Card</h1>
+<pre><code>BROWSER                          API
+───────                          ───
+Exploratory / one-off            Recurring / reusable prompt
+Away from dev environment        Output feeds an artifact
+File upload for quick read       Structured file context
+Interactive debugging            Documented pipeline
+No archive needed                Reproducibility required
+                                 Sensitive research content
+                                 Teaching / demonstrating
+                                 Multi-model orchestration
+                                 Batch / cost-sensitive tasks</code></pre>
+<p><strong>If you’re copying a prompt from somewhere or copying a response to somewhere → API.</strong></p>
+<p><strong>If the task is done when the tab closes → Browser.</strong></p>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/brad-cannell\.github\.io\/my-ai-assistant\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "API vs Browser-Based AI Workflows"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2025-12-22"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">date-modified:</span><span class="co"> "2026-03-17"</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="an">version:</span><span class="co"> "2.0"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "Decision criteria and guidelines for choosing between browser-based AI interaction and direct API calls."</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [api, workflow, claude, chatgpt]</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">  eval: false</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu"># 1. Purpose</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>This document provides decision criteria and operational guidelines for choosing between browser-based AI interaction (Claude.ai) and direct API calls (via Chatlas in Quarto) for AI-assisted tasks. The goal is to minimize friction, maximize reproducibility where it matters, and avoid making the mode decision ad hoc.</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="fu"># 2. The Core Decision Rule</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>Before starting any AI-assisted task, ask one question:</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **"Will I need to find, reuse, or build on this interaction later?"**</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Answer <span class="pp">|</span> Default Mode <span class="pp">|</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------|-------------|</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> No — exploratory, one-off, or disposable <span class="pp">|</span> Browser <span class="pp">|</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Yes — recurring, archivable, or feeds an artifact <span class="pp">|</span> API <span class="pp">|</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Unsure <span class="pp">|</span> See Section 3 <span class="pp">|</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>If you find yourself copying a prompt *from* somewhere or copying a response *to* somewhere, that task belongs in the API workflow.</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Framing note:** The goal is not to migrate all AI usage to the API. The more useful question is: *"Which 20% of my AI workflows would benefit most from API-based reproducibility and control?"* Start there.</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="fu"># 3. Decision Criteria by Signal</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>Use these signals to resolve ambiguous cases. No single signal is decisive — weigh the pattern.</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Use the Browser When:</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The task is genuinely exploratory ("let me think out loud with Claude")</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>You expect to use the output once and not reference it again</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>You are away from your development environment (no access to repo/terminal)</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>You need to upload a file for quick extraction or summarization and have no pipeline for it</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The task is low-stakes and iteration speed matters more than documentation</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>You are troubleshooting or debugging interactively and expect many rapid back-and-forth exchanges</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Use the API When:</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>You have used a similar prompt before, or expect to use it again</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The output will be incorporated into a document, codebase, or artifact you are maintaining (EWB lesson, grant section, manuscript, R script)</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Reproducibility matters — you may need to document what was sent, what parameters were used, and what was returned</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The task involves file context that is structured and reusable (formatting guidelines, CST examples, style rules)</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>You are building or maintaining a pipeline (EWB lesson creation, batch content review)</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>You want parameter control (model selection, temperature, system prompt)</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The task involves sensitive research content where better data handling terms apply</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>You are teaching or demonstrating AI usage and want a documentable, transferable example</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The task would benefit from a model other than the browser default — e.g., a larger context window for full document analysis, or a faster/cheaper model for batch or repetitive work</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The task is high-volume or cost-sensitive and strategic model selection would meaningfully reduce cost or processing time</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="fu">## Boundary Cases</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Situation <span class="pp">|</span> Recommendation <span class="pp">|</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----------|---------------|</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Quick code fix, one function <span class="pp">|</span> Browser — unless it's part of a documented pipeline <span class="pp">|</span></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Drafting an email from a template <span class="pp">|</span> API — prompt is reusable; output may be archived <span class="pp">|</span></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Uploading a PDF for a one-time summary <span class="pp">|</span> Browser <span class="pp">|</span></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Uploading a file as structured context for ongoing work <span class="pp">|</span> API <span class="pp">|</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Brainstorming grant aims <span class="pp">|</span> Browser — then migrate key outputs to API doc or notes <span class="pp">|</span></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Refining specific aims language <span class="pp">|</span> API <span class="pp">|</span></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Asking "does this paragraph make sense?" <span class="pp">|</span> Browser <span class="pp">|</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Full manuscript section review <span class="pp">|</span> API <span class="pp">|</span></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="fu"># 4. Security Considerations</span></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>These practices apply regardless of which mode you use, but several are especially relevant to the mode decision.</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Never paste into any AI interface:** PHI, SSNs, IRB-restricted data, financial data, or any content governed by a Data Processing Agreement or Business Associate Agreement. Neither standard browser nor standard API access is an appropriate channel for this content without specific institutional agreements in place.</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Check institutional policy:** TCU and funding agencies may have guidance or requirements governing which AI tools are permissible for specific research or course contexts. Verify before using either mode for grant-related or IRB-adjacent work.</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**API keys:** Store in environment variables (<span class="in">`.Renviron`</span> for R, <span class="in">`.env`</span> for Python). Never commit keys to Git. Rotate periodically and immediately if exposure is suspected.</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Browser security:** Audit extensions regularly. Extensions with broad permissions can access conversation content. Consider a dedicated browser profile for AI work involving sensitive material.</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Opt out of training data use:** Disable conversation use for model training in browser settings where available. API usage under standard Anthropic terms does not use your data for training by default.</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Local logging:** If storing API responses locally (in your <span class="in">`ai/`</span> folder or elsewhere), be aware that those files contain the full prompt and response. Apply appropriate access controls if the content is sensitive.</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="fu"># 5. Maintenance</span></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>Review and update this SOP when any of the following occur:</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Trigger <span class="pp">|</span> Action <span class="pp">|</span></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|--------|</span></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A task type is repeatedly misclassified <span class="pp">|</span> Add or revise a row in the Boundary Cases table (Section 3) <span class="pp">|</span></span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A new recurring task type emerges <span class="pp">|</span> Assess which mode it belongs to; add to the appropriate signal list <span class="pp">|</span></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> The core decision rule proves insufficient for a new class of tasks <span class="pp">|</span> Revise Section 2 and document the rationale <span class="pp">|</span></span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A downstream SOP (API workflow, browser workflow) changes in ways that affect mode choice <span class="pp">|</span> Update decision criteria here to stay consistent <span class="pp">|</span></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> This SOP has not been reviewed in 6 months <span class="pp">|</span> Re-read and confirm it still reflects actual practice <span class="pp">|</span></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="fu"># 6. Quick Reference Card</span></span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a><span class="in">BROWSER                          API</span></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="in">───────                          ───</span></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="in">Exploratory / one-off            Recurring / reusable prompt</span></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="in">Away from dev environment        Output feeds an artifact</span></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="in">File upload for quick read       Structured file context</span></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="in">Interactive debugging            Documented pipeline</span></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="in">No archive needed                Reproducibility required</span></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="in">                                 Sensitive research content</span></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a><span class="in">                                 Teaching / demonstrating</span></span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="in">                                 Multi-model orchestration</span></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a><span class="in">                                 Batch / cost-sensitive tasks</span></span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>**If you're copying a prompt from somewhere or copying a response to somewhere → API.**</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>**If the task is done when the tab closes → Browser.**</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,13 @@
+[
+  {
+    "listing": "/index.html",
+    "items": [
+      "/vignettes/api-vs-browser.html",
+      "/vignettes/git-tags.html",
+      "/vignettes/prompt-format.html",
+      "/vignettes/uv-virtual-environments.html",
+      "/vignettes/venv-virtual-environments.html",
+      "/vignettes/python-and-chatlas.html"
+    ]
+  }
+]
