@@ -34,6 +34,7 @@ from chatlas import ChatAnthropic, ChatOpenAI
 from datetime import date
 from pathlib import Path
 import keyring
+import pickle
 import os
 ```
 
@@ -81,6 +82,8 @@ else:
 
 # Create Chat Object
 
+The `system_prompt` argument is optional. Omit it for a one-off conversation, or pass a string to set a persistent role or constraints. See [System Prompts](https://brad-cannell.github.io/my-ai-assistant/vignettes/system-prompts.html) for details.
+
 ## OpenAI
 
 ```{python}
@@ -106,17 +109,15 @@ print(chat)
 
 # Save Chat History
 
-See [Save Chat History](https://brad-cannell.github.io/my-ai-assistant/vignettes/python-and-chatlas.html#save-chat-history) in the Python and Chatlas vignette for full options, including JSON export, condensing, and reloading history.
+See [Saving and Resuming Chats](https://brad-cannell.github.io/my-ai-assistant/vignettes/save-and-resume-chats.html) for the full workflow. Save both formats: markdown for browsing, pickle for resuming.
 
 ```{python}
+# Markdown — for browsing and searching
 chat_history_path_md = conversation_folder_path / ("chat_history_" + today + ".md")
 chat.export(chat_history_path_md, overwrite=True)
-```
 
-# Render to HTML
-
-Click the **Preview** button in Positron, or run in the terminal:
-
-```bash
-quarto render "path/to/conversation.qmd"
+# Pickle — for resuming in a later session
+chat_history_path_pkl = conversation_folder_path / ("chat_history_" + today + ".pkl")
+with open(chat_history_path_pkl, "wb") as f:
+    pickle.dump(chat.get_turns(), f)
 ```

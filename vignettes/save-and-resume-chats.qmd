@@ -1,0 +1,153 @@
+---
+title: "Saving and Resuming Chats"
+date: "2026-03-17"
+date-modified: "2026-03-17"
+version: "1.0"
+description: "How to save chat history to disk and reliably resume a conversation in a later session using Chatlas."
+categories: [python, chatlas, workflow]
+format:
+  html:
+    toc: true
+    code-fold: false
+execute:
+  eval: false
+  echo: true
+---
+
+# Overview
+
+Chatlas conversation history lives in memory and is lost when the session ends. Saving it to disk lets you:
+
+- Return to a conversation in a later session and pick up where you left off
+- Archive what was sent and received for documentation or review
+- Search or browse past conversations
+
+Two file formats serve different purposes, and the recommended strategy is to save both every time:
+
+| Format | Purpose | Resume from it? |
+|--------|---------|-----------------|
+| `.md` (Markdown) | Human-readable; good for browsing and searching | No — not reliably |
+| `.pkl` (Pickle) | Machine-readable; preserves the Turn objects exactly | Yes |
+
+The short version: **save markdown for reading, save pickle for resuming**.
+
+---
+
+# The Two-File Workflow
+
+## Saving
+
+Run this at the end of any session you want to be able to return to.
+
+```python
+import pickle
+from pathlib import Path
+from datetime import date
+
+today = date.today().isoformat()
+conversation_folder_path = Path("path_to_folder")
+
+# Markdown — for browsing and searching later
+chat_history_path_md = conversation_folder_path / ("chat_history_" + today + ".md")
+chat.export(chat_history_path_md, overwrite=True)
+
+# Pickle — for resuming later
+chat_history_path_pkl = conversation_folder_path / ("chat_history_" + today + ".pkl")
+turns = chat.get_turns()
+with open(chat_history_path_pkl, "wb") as f:
+    pickle.dump(turns, f)
+```
+
+Include the date in the filename so multiple sessions produce distinct files that sort chronologically.
+
+## Resuming from a Pickle File
+
+To resume a conversation in a later session, re-create the chat object with the same provider, model, and system prompt, then restore the saved turns.
+
+```python
+import pickle
+from pathlib import Path
+from chatlas import ChatAnthropic  # or ChatOpenAI
+
+# Re-create the chat object — must match the original provider, model, and system prompt
+chat = ChatAnthropic(
+    model="claude-sonnet-4-6",
+    system_prompt=system_prompt  # omit if no system prompt was used
+)
+
+# Load and restore turns
+chat_history_path_pkl = Path("path_to_folder/chat_history_yyyy-mm-dd.pkl")
+with open(chat_history_path_pkl, "rb") as f:
+    turns = pickle.load(f)
+
+chat.set_turns(turns)
+
+# Verify the history loaded correctly
+print(chat)
+```
+
+After `set_turns()`, the chat object behaves as if the conversation just happened — you can continue with `chat.chat()` or open the interactive interface with `chat.app()`.
+
+::: callout-important
+**The provider and model must match.** Turns saved from a Claude session cannot be restored into an OpenAI chat object, and vice versa. Mismatched models from the same provider may also cause issues.
+:::
+
+::: callout-note
+**Pickle files are version-sensitive.** A `.pkl` file saved with one version of Python or Chatlas may not load correctly after a package upgrade. For long-term archives, the markdown export is more durable — just be aware that you cannot resume from it programmatically.
+:::
+
+---
+
+# Browsing and Searching Markdown Files
+
+The `.md` export from `chat.export()` contains the full conversation in readable form — system prompt, user messages, and model responses — formatted as Markdown with role headers. It cannot be loaded back into a chat object reliably, but it is useful for:
+
+- **Reviewing** what was sent and received without opening a Python session
+- **Grepping** across multiple saved conversations to find a past exchange
+- **Sharing** a conversation as a readable record
+
+```bash
+# Search across all saved markdown chat files
+grep -r "keyword" path_to_folder/ --include="*.md"
+```
+
+Or open the file directly in any text editor or Markdown viewer.
+
+---
+
+# File Naming Convention
+
+The examples in this repo use `{description}_{date}.{ext}`:
+
+```
+chat_history_2026-03-17.md
+chat_history_2026-03-17.pkl
+```
+
+For projects with multiple distinct conversations in the same folder, use a more descriptive prefix:
+
+```
+lesson_revisions_2026-03-17.md
+lesson_revisions_2026-03-17.pkl
+```
+
+Keep the `.md` and `.pkl` files for the same session identically named (except for the extension) so they are easy to find together.
+
+---
+
+# Quick Reference
+
+```python
+import pickle
+from pathlib import Path
+
+# --- Save (end of session) ---
+chat.export(path / "chat_history_yyyy-mm-dd.md", overwrite=True)
+with open(path / "chat_history_yyyy-mm-dd.pkl", "wb") as f:
+    pickle.dump(chat.get_turns(), f)
+
+# --- Resume (start of new session) ---
+chat = ChatAnthropic(model=model, system_prompt=system_prompt)
+with open(path / "chat_history_yyyy-mm-dd.pkl", "rb") as f:
+    chat.set_turns(pickle.load(f))
+```
