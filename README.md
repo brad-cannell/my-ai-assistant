@@ -1,155 +1,46 @@
 ---
 author: "Brad Cannell"
 date: "2025-12-22"
-updated: "2026-02-22"
+updated: "2026-03-17"
 ---
 
-# AI Assistant
+# My AI Assistant
 
-This project is for interacting with AI assistants via their respective APIs. 
+`my-ai-assistant` is a personal knowledge and workflow repository built around API-based interactions with LLMs like Claude and ChatGPT. At its core, the repo organizes reusable **prompt templates** (stored as Markdown files in `prompts/`) and **conversation workflows** (Quarto documents in `conversations/`), with Python and the [Chatlas](https://posit-dev.github.io/chatlas/) package powering most API calls.
 
-- Don't feel like you need to use the API for everything. You don't! 
-- Use the browser when it makes sense to do so.
-- A don't be afraid to use chat.app() for quick iteration.
+Beyond prompting, the repo includes a lightweight documentation site — using Quarto to render a set of **vignettes** that capture SOPs, guidelines, and worked examples for AI-assisted workflows.
 
-## Help
+**Published site:** <https://brad-cannell.github.io/my-ai-assistant/>
 
-- For help with using Python and Chatlas, see: `vignettes/Python and Chatlas.qmd`
+---
 
------
+## Repository Structure
 
-## Python Environment Setup (using uv)
-
-This project uses **uv** for dependency management and virtual environments.
-
-Do **not** commit or sync the `.venv/` directory. The environment is created locally on each machine.
-
-### First-time setup on a new computer
-
-```bash
-brew install uv          # install uv (macOS)
-uv venv                  # create the local virtual environment
-uv sync                  # install dependencies from uv.lock
+```
+my-ai-assistant/
+  conversations/    # Quarto (.qmd) conversation workflows
+  prompts/          # Reusable prompt templates (Markdown with YAML headers)
+  snippets/         # Reusable context chunks (descriptive text, not prompts)
+  vignettes/        # Documentation site source (published to GitHub Pages)
+  _quarto.yml       # Quarto site configuration
+  pyproject.toml    # Python dependencies (managed with uv)
 ```
 
-VS Code users should select the interpreter at `.venv/bin/python`.
+---
 
-All dependencies and versions are defined in `pyproject.toml` and `uv.lock`.
+## API Keys
 
-For details see `vignettes/UV Virtual Environments.qmd`.
+API keys are stored in the system keyring — never in git. See the [Keyring vignette](https://brad-cannell.github.io/my-ai-assistant/vignettes/keyring.html) for setup instructions.
 
------
+---
 
-# Get and Set API Keys
-API Keys (Using the keyring package)
-- ChatGPT: keyring::key_get("bradGPT")
-- Gemini: keyring::key_get("test-gemini-brad")
-- Claude: keyring::key_get("test-claude-brad")
+## Documentation
 
-## Price
+All workflow documentation lives in the published vignettes:
 
-| Company   |   Model  | Input Price (per M) | Output Price (per M) |
-|-----------|:--------:|:-------------------:|:--------------------:|
-| OpenAI    |    5.2   |        $1.75        |        $14.00        |
-| OpenAI    | 5.2-mini |        $0.18        |         $2.00        |
-| Google    |  Gemini  |  Free (no privacy)  |   Free (no privacy)  |
-| Anthropic | Opus 4.6 |        $5.00        |        $25.00        |
-| Anthropic | Opus 4.5 |        $5.00        |        $25.00        |
-
------
-
-# Structure
-AI Assistant/
-  conversations/
-  Project - .../
-  prompts/
-  scripts/
-  snippets/
-  vignettes/
-  .gitignore
-  AI Assistant.Rpoj
-  README.md
-  README.Rmd
-  
-## Conversations
-This folder contains saved conversations with AI assistants.
-
-## Projects
-Conversations, prompts, scripts, and snippets about a single topic or project can be grouped into project folders. All project folder names should begin with `Project -`
-
-## Prompts
-This folder contains saved prompts. Including:
-- One-off prompts used in the AI browser interface.
-- Prompts templates and prompts that will be reused.
-- One-off prompts passed in an API call should not be saved in this folder. They are already recorded in the conversation file.
-
-## Scripts
-Scripts are for helper functions and utility scripts.
-
-## Snippets
-Snippets aren't prompts - there is no request made of the AI assistant - they are reusable chunks of text, typically used for context in a prompt. For example, "About EWB".
-
-## Vignettes
-This folder contains user documentation written in the style of R Package vignettes in case we ever want to turn this into a package.
-  
------
-
-# Prompt Template
-
-## YAML Header Instructions
-
-Complete the YAML header for every saved prompt. These fields support organization, reuse, and future search, but should remain lightweight and human-readable.
-
-FIELD DESCRIPTIONS
-- title: A brief, human-readable description of what the prompt does. Written in Title Case.
-- id: Use a short, stable, human-readable identifier in lowercase snake_case.
-- task: The primary type of work the prompt performs (e.g., text_revision, code_review). Written in snake_case.
-- audience: The intended audience for the output (e.g., academic, student, developer). Written in snake_case.
-- interface: Interface used to interact with AI assistant (api, browser, both). Written in snake_case.
-- author: Name of the prompt author. Written in snake_case.
-- created: Date the prompt was first created (YYYY-MM-DD).
-- last_updated: Date of the most recent substantive revision (YYYY-MM-DD).
-- project: Associated project, course, or initiative, or null if broadly reusable. Written in snake_case.
-- domain: Subject area or disciplinary context (e.g., epidemiology, data_science, general). Written in snake_case.
-- tags: Optional keywords to support browsing and future search. Written in snake_case.
-
-ID GUIDELINES
-- id: Use a short, stable, human-readable identifier in lowercase snake_case.
-- Base the id on the prompt’s core purpose using a verb–object pattern
-  (e.g., rewrite_academic_tone, review_r_code_style).
-- Avoid dates, version numbers, model names, project names, or author names.
-- Treat the id as permanent; change it only if the prompt’s fundamental purpose changes.
-
-Avoid including model names or API parameters in the YAML header.
-
------
-
-# Conversation Template
-
-## YAML Header Instructions
-
-Complete the YAML header for every saved prompt. These fields support organization, reuse, and future search, but should remain lightweight and human-readable.
-
-FIELD DESCRIPTIONS
-- title: A brief, human-readable description of what the prompt does. Written in Title Case.
-- id: Use a short, stable, human-readable identifier in lowercase snake_case.
-- task: The primary type of work the prompt performs (e.g., text_revision, code_review). Written in snake_case.
-- audience: The intended audience for the output (e.g., academic, student, developer). Written in snake_case.
-- author: Name of the prompt author. Written in snake_case.
-- created: Date the prompt was first created (YYYY-MM-DD).
-- last_updated: Date of the most recent substantive revision (YYYY-MM-DD).
-- project: Associated project, course, or initiative, or null if broadly reusable. Written in snake_case.
-- domain: Subject area or disciplinary context (e.g., epidemiology, data_science, general). Written in snake_case.
-- tags: Optional keywords to support browsing and future search. Written in snake_case.
-
-ID GUIDELINES
-- id: Use a short, stable, human-readable identifier in lowercase snake_case.
-- Base the id on the prompt’s core purpose using a verb–object pattern
-  (e.g., rewrite_academic_tone, review_r_code_style).
-- Avoid dates, version numbers, model names, project names, or author names.
-- Treat the id as permanent; change it only if the prompt’s fundamental purpose changes.
-
-Avoid including model names or API parameters in the YAML header.
-  
------
-
+- [Python and Chatlas](https://brad-cannell.github.io/my-ai-assistant/vignettes/python-and-chatlas.html) — getting started with API calls
+- [Keyring](https://brad-cannell.github.io/my-ai-assistant/vignettes/keyring.html) — storing and retrieving API keys
+- [System Prompts](https://brad-cannell.github.io/my-ai-assistant/vignettes/system-prompts.html) — when and how to use system prompts
+- [Saving and Resuming Chats](https://brad-cannell.github.io/my-ai-assistant/vignettes/save-and-resume-chats.html) — pickle and markdown export strategy
+- [Prompt Format](https://brad-cannell.github.io/my-ai-assistant/vignettes/prompt-format.html) — YAML header conventions for prompts
+- [uv Virtual Environments](https://brad-cannell.github.io/my-ai-assistant/vignettes/uv-virtual-environments.html) — Python dependency management
