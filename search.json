@@ -1,234 +1,80 @@
 [
   {
-    "objectID": "vignettes/vignette-workflow.html",
-    "href": "vignettes/vignette-workflow.html",
-    "title": "Vignette Workflow",
+    "objectID": "vignettes/writing-prompts.html",
+    "href": "vignettes/writing-prompts.html",
+    "title": "Writing Effective Prompts",
     "section": "",
-    "text": "Vignettes are narrative, example-driven reference documents — a term borrowed from R packages, where vignettes serve as long-form guides that complement terse function documentation. In this repo, vignettes serve the same role: they document decisions, workflows, guidelines, and techniques that are too contextual or discursive to live in a code comment or README.\nA vignette is the right format when:\n\nA workflow involves multiple steps and decisions that benefit from explanation\nA guideline needs rationale, not just a rule\nA technique is used infrequently enough that you’ll need a refresher next time\nA decision was made deliberately and you want to document why\n\nVignettes are not conversation logs, analysis scripts, or prompt files. Those live in conversations/ and prompts/ respectively."
+    "text": "This vignette covers the content of prompts — how to write them clearly, when to use XML tags, and how to structure multi-part inputs. For conventions about prompt files (YAML headers, file naming), see Prompt Format. For when to create a prompt file at all, see Prompt File or Conversation Only?."
   },
   {
-    "objectID": "vignettes/vignette-workflow.html#why-quarto",
-    "href": "vignettes/vignette-workflow.html#why-quarto",
-    "title": "Vignette Workflow",
-    "section": "Why Quarto",
-    "text": "Why Quarto\nVignettes in this repo are written as Quarto documents (.qmd). Quarto was chosen because:\n\nIt supports both R and Python code chunks in the same document\nIt renders cleanly to HTML for browser-based reading\nIt integrates with Positron’s Viewer pane for local preview\nIt is not tied to the R package ecosystem, making it appropriate for a general-purpose mixed-language repo"
+    "objectID": "vignettes/writing-prompts.html#what-they-are",
+    "href": "vignettes/writing-prompts.html#what-they-are",
+    "title": "Writing Effective Prompts",
+    "section": "What They Are",
+    "text": "What They Are\nXML tags are paired labels that wrap a block of content, like this:\n&lt;document&gt;\nThe full text of the document goes here.\n&lt;/document&gt;\nThey are not actual XML — the model treats them as structural markers that define where one piece of content begins and ends. Claude is specifically trained to recognize and use them well."
   },
   {
-    "objectID": "vignettes/vignette-workflow.html#why-a-website-not-just-files",
-    "href": "vignettes/vignette-workflow.html#why-a-website-not-just-files",
-    "title": "Vignette Workflow",
-    "section": "Why a Website (Not Just Files)",
-    "text": "Why a Website (Not Just Files)\nMarkdown files can be read directly in any editor, but rendered HTML is easier to navigate, especially for documents with tables, callout blocks, code examples, and a table of contents. The Quarto website setup adds:\n\nA listing page that auto-discovers vignettes — no manual index to maintain\nA navbar for quick navigation\nConsistent formatting across all vignettes"
+    "objectID": "vignettes/writing-prompts.html#why-they-help",
+    "href": "vignettes/writing-prompts.html#why-they-help",
+    "title": "Writing Effective Prompts",
+    "section": "Why They Help",
+    "text": "Why They Help\nWithout a delimiter, an injected block of text can blur into the surrounding instructions. The model may not be certain where your instructions end and the content begins — especially when the injected text is long or contains its own headings, lists, or formatting.\nXML tags solve this cleanly:\n# Ambiguous — where do the instructions end and the content begin?\nuser_message = f\"Please review this lesson and identify any gaps: {lesson_content}\"\n\n# Clear — the injected content is unambiguously delimited\nuser_message = f\"\"\"\nPlease review the following lesson and identify any important gaps.\n\n&lt;lesson_content&gt;\n{lesson_content}\n&lt;/lesson_content&gt;\n\"\"\"\nThey are especially valuable when:\n\nInjecting a large block of text (a document, a lesson, a chapter, a dataset description)\nPassing multiple distinct inputs that the model should treat separately\nProviding few-shot examples that should be distinguished from instructions\nWriting a complex system prompt with multiple distinct sections"
   },
   {
-    "objectID": "vignettes/vignette-workflow.html#why-github-pages",
-    "href": "vignettes/vignette-workflow.html#why-github-pages",
-    "title": "Vignette Workflow",
-    "section": "Why GitHub Pages",
-    "text": "Why GitHub Pages\nThe rendered site is published automatically to GitHub Pages via a GitHub Actions workflow. Every push to main triggers a rebuild. This means the published site is always in sync with the repo without any manual deployment steps.\nThe live site is available at: https://brad-cannell.github.io/my-ai-assistant/"
+    "objectID": "vignettes/writing-prompts.html#when-to-skip-them",
+    "href": "vignettes/writing-prompts.html#when-to-skip-them",
+    "title": "Writing Effective Prompts",
+    "section": "When to Skip Them",
+    "text": "When to Skip Them\n\nThe prompt is a single sentence or short paragraph with no injected content\nThe context is obvious from plain prose — don’t add tags for their own sake\nOne-off exploratory questions where structure adds no clarity"
   },
   {
-    "objectID": "vignettes/vignette-workflow.html#copy-the-template",
-    "href": "vignettes/vignette-workflow.html#copy-the-template",
-    "title": "Vignette Workflow",
-    "section": "1. Copy the template",
-    "text": "1. Copy the template\nStart from _vignette-template.qmd in the vignettes/ folder. The leading underscore prevents it from being rendered as part of the site.\ncp vignettes/_vignette-template.qmd vignettes/your-vignette-name.qmd"
-  },
-  {
-    "objectID": "vignettes/vignette-workflow.html#follow-naming-conventions",
-    "href": "vignettes/vignette-workflow.html#follow-naming-conventions",
-    "title": "Vignette Workflow",
-    "section": "2. Follow naming conventions",
-    "text": "2. Follow naming conventions\nUse kebab-case, all lowercase, no spaces:\n\n\n\nPattern\nExample\n\n\n\n\n✅ Good\napi-vs-browser.qmd\n\n\n❌ Avoid\nAPI vs Browser.qmd, api_vs_browser.qmd\n\n\n\nThe filename becomes the URL, so spaces and mixed case create problems."
-  },
-  {
-    "objectID": "vignettes/vignette-workflow.html#fill-in-the-yaml-header",
-    "href": "vignettes/vignette-workflow.html#fill-in-the-yaml-header",
-    "title": "Vignette Workflow",
-    "section": "3. Fill in the YAML header",
-    "text": "3. Fill in the YAML header\nAt minimum, update these fields before writing any content:\n---\ntitle: \"Your Vignette Title\"\ndate: \"YYYY-MM-DD\"\ndate-modified: \"YYYY-MM-DD\"\nversion: \"1.0\"\ndescription: \"One sentence describing what this vignette covers.\"\ncategories: [relevant, categories, here]\n---\nSee existing vignettes for examples. The description and categories fields appear in the listing page on the site — keep them concise and accurate."
-  },
-  {
-    "objectID": "vignettes/vignette-workflow.html#write-the-content",
-    "href": "vignettes/vignette-workflow.html#write-the-content",
-    "title": "Vignette Workflow",
-    "section": "4. Write the content",
-    "text": "4. Write the content\nSee the comments inside _vignette-template.qmd for guidance on content structure, heading levels, callout types, and cross-references. The short version:\n\nStart with a # Overview or purpose statement\nUse # for top-level sections, ## for subsections\nUse prose for conceptual content, numbered steps for procedures\nUse ```bash for terminal commands, ```{python} or ```{r} for executable code chunks\nUse :::callout-note, :::callout-important, or :::callout-warning for asides and caveats"
-  },
-  {
-    "objectID": "vignettes/vignette-workflow.html#updating-content",
-    "href": "vignettes/vignette-workflow.html#updating-content",
-    "title": "Vignette Workflow",
-    "section": "Updating content",
-    "text": "Updating content\nWhen you revise a vignette:\n\nUpdate the content\nBump date-modified to today’s date\nIncrement version — minor version (1.0 → 1.1) for small refinements, major version (1.1 → 2.0) for structural changes or revised recommendations\n\nSee vignettes/git-tags.qmd for the full version numbering convention and the Git tagging workflow for marking significant versions."
-  },
-  {
-    "objectID": "vignettes/vignette-workflow.html#when-to-create-a-new-vignette-vs.-update-an-existing-one",
-    "href": "vignettes/vignette-workflow.html#when-to-create-a-new-vignette-vs.-update-an-existing-one",
-    "title": "Vignette Workflow",
-    "section": "When to create a new vignette vs. update an existing one",
-    "text": "When to create a new vignette vs. update an existing one\nUpdate an existing vignette when the new content is a natural extension of what’s already there. Create a new vignette when the topic is distinct enough to stand alone and be discovered independently."
-  },
-  {
-    "objectID": "vignettes/vignette-workflow.html#locally-positron-viewer-pane-or-browser",
-    "href": "vignettes/vignette-workflow.html#locally-positron-viewer-pane-or-browser",
-    "title": "Vignette Workflow",
-    "section": "Locally (Positron Viewer pane or browser)",
-    "text": "Locally (Positron Viewer pane or browser)\nFrom the repo root:\nquarto preview index.qmd\nThis renders all vignettes, starts a local dev server, and opens the site in Positron’s Viewer pane or your default browser. The preview hot-reloads on save — edits to any vignette are reflected immediately without restarting."
-  },
-  {
-    "objectID": "vignettes/vignette-workflow.html#online",
-    "href": "vignettes/vignette-workflow.html#online",
-    "title": "Vignette Workflow",
-    "section": "Online",
-    "text": "Online\nThe published site is rebuilt automatically on every push to main and is available at:\nhttps://brad-cannell.github.io/my-ai-assistant/\nNo manual deployment steps are needed. After pushing changes, allow 2–3 minutes for the GitHub Actions workflow to complete before the live site reflects your updates. Build status can be monitored in the Actions tab of the GitHub repository."
-  },
-  {
-    "objectID": "vignettes/uv-virtual-environments.html",
-    "href": "vignettes/uv-virtual-environments.html",
-    "title": "UV Virtual Environments",
+    "objectID": "vignettes/venv-virtual-environments.html",
+    "href": "vignettes/venv-virtual-environments.html",
+    "title": "Venv Virtual Environments",
     "section": "",
-    "text": "This vignette summarizes a clean, reproducible workflow for managing Python dependencies with uv, especially when working across multiple computers with a synced project folder (e.g., Box, Dropbox, OneDrive).\nFor the standard Python venv approach, see vignettes/venv-virtual-environments.qmd."
+    "text": "This vignette covers creating and managing Python virtual environments using the built-in venv tool in Positron. For a modern, cross-machine alternative with lockfile support, see vignettes/uv-virtual-environments.qmd."
   },
   {
-    "objectID": "vignettes/uv-virtual-environments.html#initialize-uv-in-the-project-root",
-    "href": "vignettes/uv-virtual-environments.html#initialize-uv-in-the-project-root",
-    "title": "UV Virtual Environments",
-    "section": "1. Initialize uv in the project root",
-    "text": "1. Initialize uv in the project root\nuv init\nCreates (or updates):\n\npyproject.toml — dependency intent\nNo virtual environment yet\n\nCommit pyproject.toml."
+    "objectID": "vignettes/venv-virtual-environments.html#why-this-matters-for-a-chat-api-project",
+    "href": "vignettes/venv-virtual-environments.html#why-this-matters-for-a-chat-api-project",
+    "title": "Venv Virtual Environments",
+    "section": "Why This Matters for a Chat / API Project",
+    "text": "Why This Matters for a Chat / API Project\nIf you install packages globally:\npip install openai pydantic rich\nThose versions become shared by every Python script on your machine — easy to accidentally upgrade or downgrade, and hard to reproduce later. This becomes painful when one project needs pydantic&lt;2 and another needs pydantic&gt;=2. A venv prevents this class of problems entirely."
   },
   {
-    "objectID": "vignettes/uv-virtual-environments.html#add-dependencies",
-    "href": "vignettes/uv-virtual-environments.html#add-dependencies",
-    "title": "UV Virtual Environments",
-    "section": "2. Add dependencies",
-    "text": "2. Add dependencies\nuv add pandas numpy matplotlib\nThis will:\n\nAdd dependencies to pyproject.toml\nGenerate uv.lock with exact versions\n\nCommit both pyproject.toml and uv.lock."
+    "objectID": "vignettes/venv-virtual-environments.html#method-1-command-palette-recommended",
+    "href": "vignettes/venv-virtual-environments.html#method-1-command-palette-recommended",
+    "title": "Venv Virtual Environments",
+    "section": "Method 1: Command Palette (Recommended)",
+    "text": "Method 1: Command Palette (Recommended)\nThis is the fastest way to have Positron create and automatically register the environment for your current workspace.\n\nOpen your project folder in Positron.\nOpen the Command Palette: Cmd+Shift+P (macOS) or Ctrl+Shift+P (Windows/Linux).\nType and select Python: Create Environment….\nSelect venv as the environment provider.\nChoose the Python interpreter version you want to use.\n\nPositron will create a .venv/ folder in your project root and automatically set it as the active interpreter for your workspace."
   },
   {
-    "objectID": "vignettes/uv-virtual-environments.html#create-a-local-virtual-environment",
-    "href": "vignettes/uv-virtual-environments.html#create-a-local-virtual-environment",
-    "title": "UV Virtual Environments",
-    "section": "3. Create a local virtual environment",
-    "text": "3. Create a local virtual environment\nuv venv\nCreates a .venv/ directory. This directory is machine-local and should not be synced."
+    "objectID": "vignettes/venv-virtual-environments.html#method-2-manual-terminal-setup",
+    "href": "vignettes/venv-virtual-environments.html#method-2-manual-terminal-setup",
+    "title": "Venv Virtual Environments",
+    "section": "Method 2: Manual Terminal Setup",
+    "text": "Method 2: Manual Terminal Setup\nIf you prefer the command line or need specific configurations:\n\nOpen the integrated terminal in Positron.\nCreate the venv:\n\nmacOS/Linux: python3 -m venv .venv\nWindows: python -m venv .venv\n\nActivate the venv:\n\nmacOS/Linux: source .venv/bin/activate\nWindows: .venv\\Scripts\\activate\n\nConnect to Positron: click the Python interpreter version in the top-right corner (or use Python: Select Interpreter in the Command Palette) and select the path to the new .venv."
   },
   {
-    "objectID": "vignettes/uv-virtual-environments.html#install-dependencies-from-the-lockfile",
-    "href": "vignettes/uv-virtual-environments.html#install-dependencies-from-the-lockfile",
-    "title": "UV Virtual Environments",
-    "section": "4. Install dependencies from the lockfile",
-    "text": "4. Install dependencies from the lockfile\nuv sync\nThis installs exactly the versions recorded in uv.lock.\nOn a second machine:\nuv venv\nuv sync"
-  },
-  {
-    "objectID": "vignettes/prompt-format.html",
-    "href": "vignettes/prompt-format.html",
-    "title": "Prompt Format",
+    "objectID": "vignettes/system-prompts.html",
+    "href": "vignettes/system-prompts.html",
+    "title": "System Prompts",
     "section": "",
-    "text": "In this project, prompts are treated as long-lived knowledge artifacts, not disposable strings. Writing prompts as Markdown documents with YAML headers supports this goal by balancing clarity, durability, and future extensibility with minimal overhead.\n\n\n\nEncourages clear, well-structured prompts that separate roles, context, tasks, and constraints\nImproves human readability, review, and collaboration\nIntegrates naturally with Git-based workflows, enabling meaningful diffs and version history\nSupports disciplined iteration over time, especially in academic and pedagogical settings\nRemains lightweight and tool-agnostic, avoiding lock-in to any specific platform or API\n\n\n\n\n\nCapture stable, high-level metadata about each prompt (purpose, audience, domain, status)\nImprove organization and discoverability without requiring tooling or automation\nEnable future capabilities such as filtering, indexing, logging, and semantic search\nKeep execution details and API-specific parameters out of the prompt definition\nAre human-readable first, remaining useful even if no parsing system is ever built\n\n\n\n\n\nPrompts are treated as maintainable assets, not transient inputs\nStructure is used to support thinking, not constrain it\nMetadata is included only where it provides clear, lasting value\nThe format should scale gracefully from manual use today to API-driven workflows tomorrow\n\nTogether, Markdown and YAML provide a simple, durable foundation for managing prompts as part of a larger, reproducible knowledge system while preserving flexibility as tools, models, and workflows evolve."
+    "text": "A system prompt sets persistent context for a conversation before the first user message is sent — defining the model’s role, tone, constraints, and any background it should carry throughout the session. This vignette covers when to use one, the two ways to supply one in Chatlas, and what to put in it.\nFor the conventions used to write and store reusable prompt files, see vignettes/prompt-format.qmd and prompts/template_prompt.md."
   },
   {
-    "objectID": "vignettes/prompt-format.html#why-markdown",
-    "href": "vignettes/prompt-format.html#why-markdown",
-    "title": "Prompt Format",
-    "section": "",
-    "text": "Encourages clear, well-structured prompts that separate roles, context, tasks, and constraints\nImproves human readability, review, and collaboration\nIntegrates naturally with Git-based workflows, enabling meaningful diffs and version history\nSupports disciplined iteration over time, especially in academic and pedagogical settings\nRemains lightweight and tool-agnostic, avoiding lock-in to any specific platform or API"
+    "objectID": "vignettes/system-prompts.html#option-1-inline-string",
+    "href": "vignettes/system-prompts.html#option-1-inline-string",
+    "title": "System Prompts",
+    "section": "Option 1: Inline String",
+    "text": "Option 1: Inline String\nFor a quick one-off framing that does not need to be saved or reused:\nfrom chatlas import ChatAnthropic\n\nchat = ChatAnthropic(\n    model=\"claude-sonnet-4-6\",\n    system_prompt=\"You are a concise technical writer. Respond in plain language suitable for a non-specialist audience.\"\n)"
   },
   {
-    "objectID": "vignettes/prompt-format.html#why-yaml-headers",
-    "href": "vignettes/prompt-format.html#why-yaml-headers",
-    "title": "Prompt Format",
-    "section": "",
-    "text": "Capture stable, high-level metadata about each prompt (purpose, audience, domain, status)\nImprove organization and discoverability without requiring tooling or automation\nEnable future capabilities such as filtering, indexing, logging, and semantic search\nKeep execution details and API-specific parameters out of the prompt definition\nAre human-readable first, remaining useful even if no parsing system is ever built"
-  },
-  {
-    "objectID": "vignettes/prompt-format.html#design-philosophy",
-    "href": "vignettes/prompt-format.html#design-philosophy",
-    "title": "Prompt Format",
-    "section": "",
-    "text": "Prompts are treated as maintainable assets, not transient inputs\nStructure is used to support thinking, not constrain it\nMetadata is included only where it provides clear, lasting value\nThe format should scale gracefully from manual use today to API-driven workflows tomorrow\n\nTogether, Markdown and YAML provide a simple, durable foundation for managing prompts as part of a larger, reproducible knowledge system while preserving flexibility as tools, models, and workflows evolve."
-  },
-  {
-    "objectID": "vignettes/api-vs-browser.html",
-    "href": "vignettes/api-vs-browser.html",
-    "title": "API vs Browser-Based AI Workflows",
-    "section": "",
-    "text": "Scope: The primary decision of whether a given AI-assisted task should use a browser-based interface or an API-based workflow. Does not cover choices made within the API category (e.g., interaction style, IDE tools, model selection), which are addressed in separate SOPs.\nInteraction modes in scope:\nTask domains: Research, grant writing, course development (Epi-Workbench), code assistance, and administrative tasks."
-  },
-  {
-    "objectID": "vignettes/api-vs-browser.html#use-the-browser-when",
-    "href": "vignettes/api-vs-browser.html#use-the-browser-when",
-    "title": "API vs Browser-Based AI Workflows",
-    "section": "Use the Browser When:",
-    "text": "Use the Browser When:\n\nThe task is genuinely exploratory (“let me think out loud with Claude”)\nYou expect to use the output once and not reference it again\nYou are away from your development environment (no access to repo/terminal)\nYou need to upload a file for quick extraction or summarization and have no pipeline for it\nThe task is low-stakes and iteration speed matters more than documentation\nYou are troubleshooting or debugging interactively and expect many rapid back-and-forth exchanges"
-  },
-  {
-    "objectID": "vignettes/api-vs-browser.html#use-the-api-when",
-    "href": "vignettes/api-vs-browser.html#use-the-api-when",
-    "title": "API vs Browser-Based AI Workflows",
-    "section": "Use the API When:",
-    "text": "Use the API When:\n\nYou have used a similar prompt before, or expect to use it again\nThe output will be incorporated into a document, codebase, or artifact you are maintaining (EWB lesson, grant section, manuscript, R script)\nReproducibility matters — you may need to document what was sent, what parameters were used, and what was returned\nThe task involves file context that is structured and reusable (formatting guidelines, CST examples, style rules)\nYou are building or maintaining a pipeline (EWB lesson creation, batch content review)\nYou want parameter control (model selection, temperature, system prompt)\nThe task involves sensitive research content where better data handling terms apply\nYou are teaching or demonstrating AI usage and want a documentable, transferable example\nThe task would benefit from a model other than the browser default — e.g., a larger context window for full document analysis, or a faster/cheaper model for batch or repetitive work\nThe task is high-volume or cost-sensitive and strategic model selection would meaningfully reduce cost or processing time"
-  },
-  {
-    "objectID": "vignettes/api-vs-browser.html#boundary-cases",
-    "href": "vignettes/api-vs-browser.html#boundary-cases",
-    "title": "API vs Browser-Based AI Workflows",
-    "section": "Boundary Cases",
-    "text": "Boundary Cases\n\n\n\n\n\n\n\nSituation\nRecommendation\n\n\n\n\nQuick code fix, one function\nBrowser — unless it’s part of a documented pipeline\n\n\nDrafting an email from a template\nAPI — prompt is reusable; output may be archived\n\n\nUploading a PDF for a one-time summary\nBrowser\n\n\nUploading a file as structured context for ongoing work\nAPI\n\n\nBrainstorming grant aims\nBrowser — then migrate key outputs to API doc or notes\n\n\nRefining specific aims language\nAPI\n\n\nAsking “does this paragraph make sense?”\nBrowser\n\n\nFull manuscript section review\nAPI"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "My AI Assistant",
-    "section": "",
-    "text": "A personal reference repository for AI assistant workflows, prompt templates, and helper functions for working with the Claude and OpenAI APIs in R and Python.\nSee the vignettes below for guidelines, SOPs, and worked examples.\n\n\n\n\n\n\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\n\nDescription\n\n\n\nDate\n\n\n\nCategories\n\n\n\n\n\n\n\n\nAPI vs Browser-Based AI Workflows\n\n\nDecision criteria for choosing between browser-based AI interaction and API-based interaction for a given task.\n\n\nDec 22, 2025\n\n\napi, workflow, claude, chatgpt\n\n\n\n\n\n\nGit Tags\n\n\nStrategies for tracking version history on individual files within a Git repo using tags and commit history.\n\n\nMar 17, 2026\n\n\ngit, version-control, workflow\n\n\n\n\n\n\nPrompt Format\n\n\nRationale and conventions for writing prompts as Markdown documents with YAML front matter.\n\n\nDec 22, 2025\n\n\nprompts, workflow, markdown\n\n\n\n\n\n\nUV Virtual Environments\n\n\nManaging Python dependencies and virtual environments with uv for reproducible, cross-machine workflows.\n\n\nJan 28, 2026\n\n\npython, virtual-environments, uv, workflow\n\n\n\n\n\n\nVenv Virtual Environments\n\n\nCreating and managing Python virtual environments using venv in Positron.\n\n\nJan 31, 2026\n\n\npython, virtual-environments, venv, positron, workflow\n\n\n\n\n\n\nVignette Workflow\n\n\nPurpose, rationale, and instructions for writing, maintaining, and viewing vignettes in this repo.\n\n\nMar 17, 2026\n\n\nworkflow, vignettes, quarto\n\n\n\n\n\n\nWorking with Python and Chatlas\n\n\nUsing Python and Chatlas to interact with AI assistants via the OpenAI API.\n\n\nJan 28, 2026\n\n\npython, chatlas, api, openai, workflow\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "vignettes/git-tags.html",
-    "href": "vignettes/git-tags.html",
-    "title": "Git Tags",
-    "section": "",
-    "text": "Scope: Strategies for tracking version history on individual files within a Git repo, and retrieving prior versions when needed. Oriented toward documents and scripts in an academic workflow (vignettes, SOPs, prompts, analysis files)."
-  },
-  {
-    "objectID": "vignettes/git-tags.html#background",
-    "href": "vignettes/git-tags.html#background",
-    "title": "Git Tags",
-    "section": "1. Background",
-    "text": "1. Background\nGit tracks changes at the commit level, not the file level. Every commit is a snapshot of the entire repo at a point in time. This means there is no native Git concept of “version 2.0 of this specific file” — but you can approximate it reliably using a combination of:\n\nVersion numbers embedded in the file itself (YAML front matter)\nGit tags scoped by naming convention to a specific file\nGit log filtered to a specific file to retrieve the full commit history for that file\n\nUsed together, these three tools give you a practical, lightweight versioning system for individual documents without requiring any additional infrastructure."
-  },
-  {
-    "objectID": "vignettes/git-tags.html#embedding-version-numbers-in-files",
-    "href": "vignettes/git-tags.html#embedding-version-numbers-in-files",
-    "title": "Git Tags",
-    "section": "2. Embedding Version Numbers in Files",
-    "text": "2. Embedding Version Numbers in Files\nThe simplest and most portable approach is to store the version number in the file’s own YAML front matter. This makes the version visible whenever you open the file, independent of any Git tooling.\n---\ntitle: \"My Document\"\ndate: \"2026-03-17\"\ndate-modified: \"2026-03-17\"\nversion: \"2.0\"\n---\nConventions for updating the version field are covered in Section 5. The key discipline is keeping the version in the file synchronized with the Git tag you create at the same time (see Section 3)."
-  },
-  {
-    "objectID": "vignettes/git-tags.html#tagging-a-specific-file-version",
-    "href": "vignettes/git-tags.html#tagging-a-specific-file-version",
-    "title": "Git Tags",
-    "section": "3. Tagging a Specific File Version",
-    "text": "3. Tagging a Specific File Version\nAfter committing a meaningful update to a file, create a Git tag named to identify both the file and the version. Tags point to commits, not files — but a consistent naming convention makes them behave like file-level version markers.\n\nWorkflow\n# 1. Make your edits to the file, then stage and commit\ngit add vignettes/api-vs-browser.qmd\ngit commit -m \"Revise api-vs-browser to v2.0\"\n\n# 2. Create a tag referencing the file and version\ngit tag sop-api-vs-browser-v2.0\n\n# 3. Push the commit and the tag to the remote\ngit push origin main\ngit push origin sop-api-vs-browser-v2.0\n\n\nTag Naming Convention\nUse the pattern: {file-identifier}-v{version}\n\n\n\nFile\nTag\n\n\n\n\nvignettes/api-vs-browser.qmd\nsop-api-vs-browser-v2.0\n\n\nvignettes/git-tags.qmd\ngit-tags-v1.0\n\n\nprompts/ewb-content-review.md\nprompt-ewb-content-review-v1.2\n\n\nR/clean-detect.R\nscript-clean-detect-v3.1\n\n\n\nThe file identifier does not need to match the filename exactly — it just needs to be unambiguous and consistent. Hyphens are preferred over underscores in tag names (Git allows both, but hyphens are conventional).\n\n\nListing All Tags for a File\ngit tag --list \"sop-api-vs-browser-*\""
-  },
-  {
-    "objectID": "vignettes/git-tags.html#retrieving-a-previous-version",
-    "href": "vignettes/git-tags.html#retrieving-a-previous-version",
-    "title": "Git Tags",
-    "section": "4. Retrieving a Previous Version",
-    "text": "4. Retrieving a Previous Version\nThere are two retrieval scenarios: viewing a prior version, and restoring it.\n\n4a. View a Prior Version Without Changing Anything\nUse a tag to view the file as it existed at that version. This does not affect your working directory.\n# View via tag\ngit show sop-api-vs-browser-v1.0:\"vignettes/api-vs-browser.qmd\"\n\n# Redirect output to a file for closer review\ngit show sop-api-vs-browser-v1.0:\"vignettes/api-vs-browser.qmd\" &gt; /tmp/api-vs-browser-v1.qmd\n\n\n4b. Find a Prior Version Without a Tag\nIf you did not tag a specific version, use git log filtered to the file to find the relevant commit hash.\n# List all commits that touched a specific file\ngit log --oneline -- vignettes/api-vs-browser.qmd\nOutput will look like:\na3f92c1 Revise api-vs-browser to v2.0\n7d84be0 Add security considerations section\n2c10fa4 Initial commit of api-vs-browser vignette\nUse the commit hash to view or restore the file:\n# View the file at a specific commit\ngit show 7d84be0:\"vignettes/api-vs-browser.qmd\"\n\n\n4c. Restore a Prior Version to Your Working Directory\nIf you want to roll back the file to a prior version:\n# Restore the file from a tag\ngit checkout sop-api-vs-browser-v1.0 -- vignettes/api-vs-browser.qmd\n\n# Or restore from a commit hash\ngit checkout 7d84be0 -- vignettes/api-vs-browser.qmd\nThis overwrites the current version of the file in your working directory. The change is staged but not committed — review it first, then commit if you want to keep it.\ngit diff --staged vignettes/api-vs-browser.qmd      # review the change\ngit commit -m \"Restore api-vs-browser to v1.0\"      # commit if correct\ngit restore --staged vignettes/api-vs-browser.qmd   # or discard if not"
-  },
-  {
-    "objectID": "vignettes/git-tags.html#version-number-conventions",
-    "href": "vignettes/git-tags.html#version-number-conventions",
-    "title": "Git Tags",
-    "section": "5. Version Number Conventions",
-    "text": "5. Version Number Conventions\nUse a two-part version number: {major}.{minor}, following these guidelines.\n\nWhen to Increment the Minor Version (x.1, x.2 …)\nIncrement the minor version for changes that refine or extend the document without changing its fundamental structure or purpose.\n\nAdding a new boundary case row to a decision table\nCorrecting a factual error or updating an outdated reference\nClarifying language without changing meaning\nAdding a new bullet to an existing list\nSmall structural improvements (reordering sections, improving headings)\n\nExamples: 1.0 → 1.1, 2.3 → 2.4\n\n\nWhen to Increment the Major Version (1.x → 2.0)\nIncrement the major version for changes that substantially alter the document’s scope, structure, or conclusions — changes where a reader familiar with the prior version would notice a meaningful difference.\n\nAdding or removing entire sections\nChanging the core recommendation or decision rule\nMerging content from another document\nRevising the document’s stated scope or purpose\nAny change significant enough that prior references to the document may no longer be accurate\n\nExamples: 1.1 → 2.0, 2.4 → 3.0\n\n\nStarting Version\nNew documents start at 1.0, not 0.1 or 0.9. A document committed to the repo is a document — there is no meaningful distinction between a “draft” and “version 1.0” for personal workflow documents. If it is not ready to commit, do not commit it.\n\n\nVersion Numbers for Different File Types\n\n\n\n\n\n\n\nFile Type\nVersion Tracking Approach\n\n\n\n\nSOPs and vignettes (.qmd)\nYAML front matter + Git tag\n\n\nPrompt files (.md)\nYAML front matter + Git tag\n\n\nR/Python scripts\nComment header + Git tag for major milestones only\n\n\nData files\nGit tag only (no front matter); consider a _provenance.md companion file\n\n\nQuarto conversation documents\nNo versioning needed — these are logs, not living documents\n\n\n\n\n\nWhat Not to Version\nNot every file needs explicit version numbers. Reserve the tagging workflow for files that are:\n\nActively revised over time\nReferenced by name from other documents or SOPs\nStable enough that prior versions have archival value\n\nOne-off analysis scripts, scratch files, and conversation logs do not benefit from explicit versioning — Git’s commit history is sufficient for those."
-  },
-  {
-    "objectID": "vignettes/git-tags.html#quick-reference",
-    "href": "vignettes/git-tags.html#quick-reference",
-    "title": "Git Tags",
-    "section": "6. Quick Reference",
-    "text": "6. Quick Reference\n\nTag a new version after committing\ngit tag {file-identifier}-v{version}\ngit push origin {file-identifier}-v{version}\n\n\nList all tags for a file\ngit tag --list \"{file-identifier}-*\"\n\n\nView a prior version (no changes to working directory)\ngit show {tag}:\"path/to/file.qmd\"\n\n\nFind prior versions without a tag\ngit log --oneline -- path/to/file.qmd\n\n\nRestore a prior version to working directory\ngit checkout {tag or hash} -- path/to/file.qmd"
+    "objectID": "vignettes/system-prompts.html#option-2-loaded-from-a-prompt-file",
+    "href": "vignettes/system-prompts.html#option-2-loaded-from-a-prompt-file",
+    "title": "System Prompts",
+    "section": "Option 2: Loaded from a Prompt File",
+    "text": "Option 2: Loaded from a Prompt File\nFor recurring tasks, save the system prompt in a Markdown file under prompts/ (see prompts/template_prompt.md for the standard format). Load it at runtime using the prompt_extract_system_prompt helper:\nfrom pathlib import Path\nfrom chatlas import ChatAnthropic\nfrom ewb_py_scripts import prompt_extract_system_prompt\n\nprompt_path = Path(\"prompts/your-prompt.md\")\nsystem_prompt = prompt_extract_system_prompt(prompt_path)\n\nchat = ChatAnthropic(\n    model=\"claude-sonnet-4-6\",\n    system_prompt=system_prompt\n)\nThis keeps the prompt definition in a versioned file separate from the conversation document."
   },
   {
     "objectID": "vignettes/python-and-chatlas.html",
@@ -263,7 +109,7 @@
     "href": "vignettes/python-and-chatlas.html#expose-api",
     "title": "Working with Python and Chatlas",
     "section": "Expose API",
-    "text": "Expose API\nAPI keys should never be hardcoded in a script or committed to Git. The standard approach in this repo is to store keys in the system keyring and retrieve them at runtime, then set them as environment variables for the duration of the session. This section handles that retrieval and confirms the key was found before proceeding."
+    "text": "Expose API\nAPI keys should never be hardcoded in a script or committed to Git. The standard approach in this repo is to store keys in the system keyring and retrieve them at runtime, then set them as environment variables for the duration of the session. This section handles that retrieval and confirms the key was found before proceeding. See vignettes/keyring.qmd for setup instructions."
   },
   {
     "objectID": "vignettes/python-and-chatlas.html#read-the-template-prompt",
@@ -385,31 +231,276 @@
     "text": "Adding Follow-up Messages\nTo extend the conversation beyond the initial prompt, include a user message in the input field:\n\nresponse = client.responses.create(\n    prompt={\n        \"id\": \"your-prompt-id\",\n        \"version\": \"1\",\n        \"variables\": {\n            \"variable_name\": \"variable_value\"\n        }\n    },\n    input=[{\"role\": \"user\", \"content\": your_content_variable}],\n)\n\nprint(response.output_text)\n\n\n\n\n\n\n\nNote\n\n\n\nThe version field pins your call to a specific version of the stored prompt. If you omit it, the call uses the latest published version, which means prompt changes in the dashboard will immediately affect your code. Pinning to a version is safer for production or reproducible workflows."
   },
   {
-    "objectID": "vignettes/venv-virtual-environments.html",
-    "href": "vignettes/venv-virtual-environments.html",
-    "title": "Venv Virtual Environments",
+    "objectID": "vignettes/prompt-format.html",
+    "href": "vignettes/prompt-format.html",
+    "title": "Prompt Format",
     "section": "",
-    "text": "This vignette covers creating and managing Python virtual environments using the built-in venv tool in Positron. For a modern, cross-machine alternative with lockfile support, see vignettes/uv-virtual-environments.qmd."
+    "text": "In this project, prompts are treated as long-lived knowledge artifacts, not disposable strings. Writing prompts as Markdown documents with YAML headers supports this goal by balancing clarity, durability, and future extensibility with minimal overhead.\n\n\n\nEncourages clear, well-structured prompts that separate roles, context, tasks, and constraints\nImproves human readability, review, and collaboration\nIntegrates naturally with Git-based workflows, enabling meaningful diffs and version history\nSupports disciplined iteration over time, especially in academic and pedagogical settings\nRemains lightweight and tool-agnostic, avoiding lock-in to any specific platform or API\n\n\n\n\n\nCapture stable, high-level metadata about each prompt (purpose, audience, domain, status)\nImprove organization and discoverability without requiring tooling or automation\nEnable future capabilities such as filtering, indexing, logging, and semantic search\nKeep execution details and API-specific parameters out of the prompt definition\nAre human-readable first, remaining useful even if no parsing system is ever built\n\n\n\n\n\nPrompts are treated as maintainable assets, not transient inputs\nStructure is used to support thinking, not constrain it\nMetadata is included only where it provides clear, lasting value\nThe format should scale gracefully from manual use today to API-driven workflows tomorrow\n\nTogether, Markdown and YAML provide a simple, durable foundation for managing prompts as part of a larger, reproducible knowledge system while preserving flexibility as tools, models, and workflows evolve."
   },
   {
-    "objectID": "vignettes/venv-virtual-environments.html#why-this-matters-for-a-chat-api-project",
-    "href": "vignettes/venv-virtual-environments.html#why-this-matters-for-a-chat-api-project",
-    "title": "Venv Virtual Environments",
-    "section": "Why This Matters for a Chat / API Project",
-    "text": "Why This Matters for a Chat / API Project\nIf you install packages globally:\npip install openai pydantic rich\nThose versions become shared by every Python script on your machine — easy to accidentally upgrade or downgrade, and hard to reproduce later. This becomes painful when one project needs pydantic&lt;2 and another needs pydantic&gt;=2. A venv prevents this class of problems entirely."
+    "objectID": "vignettes/prompt-format.html#why-markdown",
+    "href": "vignettes/prompt-format.html#why-markdown",
+    "title": "Prompt Format",
+    "section": "",
+    "text": "Encourages clear, well-structured prompts that separate roles, context, tasks, and constraints\nImproves human readability, review, and collaboration\nIntegrates naturally with Git-based workflows, enabling meaningful diffs and version history\nSupports disciplined iteration over time, especially in academic and pedagogical settings\nRemains lightweight and tool-agnostic, avoiding lock-in to any specific platform or API"
   },
   {
-    "objectID": "vignettes/venv-virtual-environments.html#method-1-command-palette-recommended",
-    "href": "vignettes/venv-virtual-environments.html#method-1-command-palette-recommended",
-    "title": "Venv Virtual Environments",
-    "section": "Method 1: Command Palette (Recommended)",
-    "text": "Method 1: Command Palette (Recommended)\nThis is the fastest way to have Positron create and automatically register the environment for your current workspace.\n\nOpen your project folder in Positron.\nOpen the Command Palette: Cmd+Shift+P (macOS) or Ctrl+Shift+P (Windows/Linux).\nType and select Python: Create Environment….\nSelect venv as the environment provider.\nChoose the Python interpreter version you want to use.\n\nPositron will create a .venv/ folder in your project root and automatically set it as the active interpreter for your workspace."
+    "objectID": "vignettes/prompt-format.html#why-yaml-headers",
+    "href": "vignettes/prompt-format.html#why-yaml-headers",
+    "title": "Prompt Format",
+    "section": "",
+    "text": "Capture stable, high-level metadata about each prompt (purpose, audience, domain, status)\nImprove organization and discoverability without requiring tooling or automation\nEnable future capabilities such as filtering, indexing, logging, and semantic search\nKeep execution details and API-specific parameters out of the prompt definition\nAre human-readable first, remaining useful even if no parsing system is ever built"
   },
   {
-    "objectID": "vignettes/venv-virtual-environments.html#method-2-manual-terminal-setup",
-    "href": "vignettes/venv-virtual-environments.html#method-2-manual-terminal-setup",
-    "title": "Venv Virtual Environments",
-    "section": "Method 2: Manual Terminal Setup",
-    "text": "Method 2: Manual Terminal Setup\nIf you prefer the command line or need specific configurations:\n\nOpen the integrated terminal in Positron.\nCreate the venv:\n\nmacOS/Linux: python3 -m venv .venv\nWindows: python -m venv .venv\n\nActivate the venv:\n\nmacOS/Linux: source .venv/bin/activate\nWindows: .venv\\Scripts\\activate\n\nConnect to Positron: click the Python interpreter version in the top-right corner (or use Python: Select Interpreter in the Command Palette) and select the path to the new .venv."
+    "objectID": "vignettes/prompt-format.html#design-philosophy",
+    "href": "vignettes/prompt-format.html#design-philosophy",
+    "title": "Prompt Format",
+    "section": "",
+    "text": "Prompts are treated as maintainable assets, not transient inputs\nStructure is used to support thinking, not constrain it\nMetadata is included only where it provides clear, lasting value\nThe format should scale gracefully from manual use today to API-driven workflows tomorrow\n\nTogether, Markdown and YAML provide a simple, durable foundation for managing prompts as part of a larger, reproducible knowledge system while preserving flexibility as tools, models, and workflows evolve."
+  },
+  {
+    "objectID": "vignettes/git-tags.html",
+    "href": "vignettes/git-tags.html",
+    "title": "Git Tags",
+    "section": "",
+    "text": "Scope: Strategies for tracking version history on individual files within a Git repo, and retrieving prior versions when needed. Oriented toward documents and scripts in an academic workflow (vignettes, SOPs, prompts, analysis files)."
+  },
+  {
+    "objectID": "vignettes/git-tags.html#background",
+    "href": "vignettes/git-tags.html#background",
+    "title": "Git Tags",
+    "section": "1. Background",
+    "text": "1. Background\nGit tracks changes at the commit level, not the file level. Every commit is a snapshot of the entire repo at a point in time. This means there is no native Git concept of “version 2.0 of this specific file” — but you can approximate it reliably using a combination of:\n\nVersion numbers embedded in the file itself (YAML front matter)\nGit tags scoped by naming convention to a specific file\nGit log filtered to a specific file to retrieve the full commit history for that file\n\nUsed together, these three tools give you a practical, lightweight versioning system for individual documents without requiring any additional infrastructure."
+  },
+  {
+    "objectID": "vignettes/git-tags.html#embedding-version-numbers-in-files",
+    "href": "vignettes/git-tags.html#embedding-version-numbers-in-files",
+    "title": "Git Tags",
+    "section": "2. Embedding Version Numbers in Files",
+    "text": "2. Embedding Version Numbers in Files\nThe simplest and most portable approach is to store the version number in the file’s own YAML front matter. This makes the version visible whenever you open the file, independent of any Git tooling.\n---\ntitle: \"My Document\"\ndate: \"2026-03-17\"\ndate-modified: \"2026-03-17\"\nversion: \"2.0\"\n---\nConventions for updating the version field are covered in Section 5. The key discipline is keeping the version in the file synchronized with the Git tag you create at the same time (see Section 3)."
+  },
+  {
+    "objectID": "vignettes/git-tags.html#tagging-a-specific-file-version",
+    "href": "vignettes/git-tags.html#tagging-a-specific-file-version",
+    "title": "Git Tags",
+    "section": "3. Tagging a Specific File Version",
+    "text": "3. Tagging a Specific File Version\nAfter committing a meaningful update to a file, create a Git tag named to identify both the file and the version. Tags point to commits, not files — but a consistent naming convention makes them behave like file-level version markers.\n\nWorkflow\n# 1. Make your edits to the file, then stage and commit\ngit add vignettes/api-vs-browser.qmd\ngit commit -m \"Revise api-vs-browser to v2.0\"\n\n# 2. Create a tag referencing the file and version\ngit tag sop-api-vs-browser-v2.0\n\n# 3. Push the commit and the tag to the remote\ngit push origin main\ngit push origin sop-api-vs-browser-v2.0\n\n\nTag Naming Convention\nUse the pattern: {file-identifier}-v{version}\n\n\n\nFile\nTag\n\n\n\n\nvignettes/api-vs-browser.qmd\nsop-api-vs-browser-v2.0\n\n\nvignettes/git-tags.qmd\ngit-tags-v1.0\n\n\nprompts/ewb-content-review.md\nprompt-ewb-content-review-v1.2\n\n\nR/clean-detect.R\nscript-clean-detect-v3.1\n\n\n\nThe file identifier does not need to match the filename exactly — it just needs to be unambiguous and consistent. Hyphens are preferred over underscores in tag names (Git allows both, but hyphens are conventional).\n\n\nListing All Tags for a File\ngit tag --list \"sop-api-vs-browser-*\""
+  },
+  {
+    "objectID": "vignettes/git-tags.html#retrieving-a-previous-version",
+    "href": "vignettes/git-tags.html#retrieving-a-previous-version",
+    "title": "Git Tags",
+    "section": "4. Retrieving a Previous Version",
+    "text": "4. Retrieving a Previous Version\nThere are two retrieval scenarios: viewing a prior version, and restoring it.\n\n4a. View a Prior Version Without Changing Anything\nUse a tag to view the file as it existed at that version. This does not affect your working directory.\n# View via tag\ngit show sop-api-vs-browser-v1.0:\"vignettes/api-vs-browser.qmd\"\n\n# Redirect output to a file for closer review\ngit show sop-api-vs-browser-v1.0:\"vignettes/api-vs-browser.qmd\" &gt; /tmp/api-vs-browser-v1.qmd\n\n\n4b. Find a Prior Version Without a Tag\nIf you did not tag a specific version, use git log filtered to the file to find the relevant commit hash.\n# List all commits that touched a specific file\ngit log --oneline -- vignettes/api-vs-browser.qmd\nOutput will look like:\na3f92c1 Revise api-vs-browser to v2.0\n7d84be0 Add security considerations section\n2c10fa4 Initial commit of api-vs-browser vignette\nUse the commit hash to view or restore the file:\n# View the file at a specific commit\ngit show 7d84be0:\"vignettes/api-vs-browser.qmd\"\n\n\n4c. Restore a Prior Version to Your Working Directory\nIf you want to roll back the file to a prior version:\n# Restore the file from a tag\ngit checkout sop-api-vs-browser-v1.0 -- vignettes/api-vs-browser.qmd\n\n# Or restore from a commit hash\ngit checkout 7d84be0 -- vignettes/api-vs-browser.qmd\nThis overwrites the current version of the file in your working directory. The change is staged but not committed — review it first, then commit if you want to keep it.\ngit diff --staged vignettes/api-vs-browser.qmd      # review the change\ngit commit -m \"Restore api-vs-browser to v1.0\"      # commit if correct\ngit restore --staged vignettes/api-vs-browser.qmd   # or discard if not"
+  },
+  {
+    "objectID": "vignettes/git-tags.html#version-number-conventions",
+    "href": "vignettes/git-tags.html#version-number-conventions",
+    "title": "Git Tags",
+    "section": "5. Version Number Conventions",
+    "text": "5. Version Number Conventions\nUse a two-part version number: {major}.{minor}, following these guidelines.\n\nWhen to Increment the Minor Version (x.1, x.2 …)\nIncrement the minor version for changes that refine or extend the document without changing its fundamental structure or purpose.\n\nAdding a new boundary case row to a decision table\nCorrecting a factual error or updating an outdated reference\nClarifying language without changing meaning\nAdding a new bullet to an existing list\nSmall structural improvements (reordering sections, improving headings)\n\nExamples: 1.0 → 1.1, 2.3 → 2.4\n\n\nWhen to Increment the Major Version (1.x → 2.0)\nIncrement the major version for changes that substantially alter the document’s scope, structure, or conclusions — changes where a reader familiar with the prior version would notice a meaningful difference.\n\nAdding or removing entire sections\nChanging the core recommendation or decision rule\nMerging content from another document\nRevising the document’s stated scope or purpose\nAny change significant enough that prior references to the document may no longer be accurate\n\nExamples: 1.1 → 2.0, 2.4 → 3.0\n\n\nStarting Version\nNew documents start at 1.0, not 0.1 or 0.9. A document committed to the repo is a document — there is no meaningful distinction between a “draft” and “version 1.0” for personal workflow documents. If it is not ready to commit, do not commit it.\n\n\nVersion Numbers for Different File Types\n\n\n\n\n\n\n\nFile Type\nVersion Tracking Approach\n\n\n\n\nSOPs and vignettes (.qmd)\nYAML front matter + Git tag\n\n\nPrompt files (.md)\nYAML front matter + Git tag\n\n\nR/Python scripts\nComment header + Git tag for major milestones only\n\n\nData files\nGit tag only (no front matter); consider a _provenance.md companion file\n\n\nQuarto conversation documents\nNo versioning needed — these are logs, not living documents\n\n\n\n\n\nWhat Not to Version\nNot every file needs explicit version numbers. Reserve the tagging workflow for files that are:\n\nActively revised over time\nReferenced by name from other documents or SOPs\nStable enough that prior versions have archival value\n\nOne-off analysis scripts, scratch files, and conversation logs do not benefit from explicit versioning — Git’s commit history is sufficient for those."
+  },
+  {
+    "objectID": "vignettes/git-tags.html#quick-reference",
+    "href": "vignettes/git-tags.html#quick-reference",
+    "title": "Git Tags",
+    "section": "6. Quick Reference",
+    "text": "6. Quick Reference\n\nTag a new version after committing\ngit tag {file-identifier}-v{version}\ngit push origin {file-identifier}-v{version}\n\n\nList all tags for a file\ngit tag --list \"{file-identifier}-*\"\n\n\nView a prior version (no changes to working directory)\ngit show {tag}:\"path/to/file.qmd\"\n\n\nFind prior versions without a tag\ngit log --oneline -- path/to/file.qmd\n\n\nRestore a prior version to working directory\ngit checkout {tag or hash} -- path/to/file.qmd"
+  },
+  {
+    "objectID": "vignettes/api-vs-browser.html",
+    "href": "vignettes/api-vs-browser.html",
+    "title": "API vs Browser-Based AI Workflows",
+    "section": "",
+    "text": "Scope: The primary decision of whether a given AI-assisted task should use a browser-based interface or an API-based workflow. Does not cover choices made within the API category. Once you have decided to use the API, the next decision is which tool to reach for — see Claude Code vs. Chatlas.\nInteraction modes in scope:\nTask domains: Research, grant writing, course development (Epi-Workbench), code assistance, and administrative tasks."
+  },
+  {
+    "objectID": "vignettes/api-vs-browser.html#use-the-browser-when",
+    "href": "vignettes/api-vs-browser.html#use-the-browser-when",
+    "title": "API vs Browser-Based AI Workflows",
+    "section": "Use the Browser When:",
+    "text": "Use the Browser When:\n\nThe task is genuinely exploratory (“let me think out loud with Claude”)\nYou expect to use the output once and not reference it again\nYou are away from your development environment (no access to repo/terminal)\nYou need to upload a file for quick extraction or summarization and have no pipeline for it\nThe task is low-stakes and iteration speed matters more than documentation\nYou are troubleshooting or debugging interactively and expect many rapid back-and-forth exchanges"
+  },
+  {
+    "objectID": "vignettes/api-vs-browser.html#use-the-api-when",
+    "href": "vignettes/api-vs-browser.html#use-the-api-when",
+    "title": "API vs Browser-Based AI Workflows",
+    "section": "Use the API When:",
+    "text": "Use the API When:\n\nYou have used a similar prompt before, or expect to use it again\nThe output will be incorporated into a document, codebase, or artifact you are maintaining (EWB lesson, grant section, manuscript, R script)\nReproducibility matters — you may need to document what was sent, what parameters were used, and what was returned\nThe task involves file context that is structured and reusable (formatting guidelines, CST examples, style rules)\nYou are building or maintaining a pipeline (EWB lesson creation, batch content review)\nYou want parameter control (model selection, temperature, system prompt)\nThe task involves sensitive research content where better data handling terms apply\nYou are teaching or demonstrating AI usage and want a documentable, transferable example\nThe task would benefit from a model other than the browser default — e.g., a larger context window for full document analysis, or a faster/cheaper model for batch or repetitive work\nThe task is high-volume or cost-sensitive and strategic model selection would meaningfully reduce cost or processing time"
+  },
+  {
+    "objectID": "vignettes/api-vs-browser.html#boundary-cases",
+    "href": "vignettes/api-vs-browser.html#boundary-cases",
+    "title": "API vs Browser-Based AI Workflows",
+    "section": "Boundary Cases",
+    "text": "Boundary Cases\n\n\n\n\n\n\n\nSituation\nRecommendation\n\n\n\n\nQuick code fix, one function\nBrowser — unless it’s part of a documented pipeline\n\n\nDrafting an email from a template\nAPI — prompt is reusable; output may be archived\n\n\nUploading a PDF for a one-time summary\nBrowser\n\n\nUploading a file as structured context for ongoing work\nAPI\n\n\nBrainstorming grant aims\nBrowser — then migrate key outputs to API doc or notes\n\n\nRefining specific aims language\nAPI\n\n\nAsking “does this paragraph make sense?”\nBrowser\n\n\nFull manuscript section review\nAPI"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "My AI Assistant",
+    "section": "",
+    "text": "A personal reference repository for AI assistant workflows, prompt templates, and helper functions for working with the Claude and OpenAI APIs in R and Python.\nSee the vignettes below for guidelines, SOPs, and worked examples.\n\n\n\n\n\n\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\n\nDescription\n\n\n\nDate\n\n\n\nCategories\n\n\n\n\n\n\n\n\nAPI vs Browser-Based AI Workflows\n\n\nDecision criteria for choosing between browser-based AI interaction and API-based interaction for a given task.\n\n\nDec 22, 2025\n\n\napi, workflow, claude, chatgpt\n\n\n\n\n\n\nClaude Code vs. Chatlas\n\n\nDecision criteria for choosing between Claude Code and Chatlas in Quarto once you have decided to use the API.\n\n\nMar 17, 2026\n\n\nworkflow, claude-code, chatlas, api\n\n\n\n\n\n\nGit Tags\n\n\nStrategies for tracking version history on individual files within a Git repo using tags and commit history.\n\n\nMar 17, 2026\n\n\ngit, version-control, workflow\n\n\n\n\n\n\nPrompt File or Conversation Only?\n\n\nDecision criteria for when to create a dedicated, reusable prompt file versus starting directly in a conversation document.\n\n\nMar 17, 2026\n\n\nworkflow, prompts, conversations\n\n\n\n\n\n\nPrompt Format\n\n\nRationale and conventions for writing prompts as Markdown documents with YAML front matter.\n\n\nDec 22, 2025\n\n\nprompts, workflow, markdown\n\n\n\n\n\n\nSaving and Resuming Chats\n\n\nHow to save chat history to disk and reliably resume a conversation in a later session using Chatlas.\n\n\nMar 17, 2026\n\n\npython, chatlas, workflow\n\n\n\n\n\n\nStoring API Keys with Keyring\n\n\nHow to securely store and retrieve API keys using the Python keyring package.\n\n\nMar 17, 2026\n\n\npython, api, security, workflow\n\n\n\n\n\n\nSystem Prompts\n\n\nWhat system prompts are, when to use them, and how to pass them to the chat object in Chatlas.\n\n\nMar 17, 2026\n\n\npython, chatlas, prompts, workflow\n\n\n\n\n\n\nUV Virtual Environments\n\n\nManaging Python dependencies and virtual environments with uv for reproducible, cross-machine workflows.\n\n\nJan 28, 2026\n\n\npython, virtual-environments, uv, workflow\n\n\n\n\n\n\nVenv Virtual Environments\n\n\nCreating and managing Python virtual environments using venv in Positron.\n\n\nJan 31, 2026\n\n\npython, virtual-environments, venv, positron, workflow\n\n\n\n\n\n\nVignette Workflow\n\n\nPurpose, rationale, and instructions for writing, maintaining, and viewing vignettes in this repo.\n\n\nMar 17, 2026\n\n\nworkflow, vignettes, quarto\n\n\n\n\n\n\nWorking with Python and Chatlas\n\n\nUsing Python and Chatlas to interact with AI assistants via the OpenAI API.\n\n\nJan 28, 2026\n\n\npython, chatlas, api, openai, workflow\n\n\n\n\n\n\nWriting Effective Prompts\n\n\nGuidelines for writing clear, well-structured prompts, with a focus on using XML tags to delimit injected content and organize complex instructions.\n\n\nMar 17, 2026\n\n\nprompts, workflow\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "vignettes/claude-code-vs-chatlas.html",
+    "href": "vignettes/claude-code-vs-chatlas.html",
+    "title": "Claude Code vs. Chatlas",
+    "section": "",
+    "text": "Scope: This vignette applies after you have decided to use the API rather than the browser (see API vs Browser-Based AI Workflows). The question here is which API workflow to use: Claude Code (an agentic CLI tool) or Chatlas in a Quarto conversation document.\nBoth tools use the Anthropic API and are billed per token. The difference is what each tool can do and what kind of output it produces.\n\n\nThe Core Decision Question\n\n“Is the task about acting on files in this repo, or about injecting external content into a conversation?”\n\n\n\n\n\n\n\n\nAnswer\nTool\n\n\n\n\nActing on files — read, edit, create, commit, run commands\nClaude Code\n\n\nInjecting external content — documents, lessons, chapters not in the repo\nChatlas in Quarto\n\n\nUnsure\nSee the signal lists below\n\n\n\n\n\n\nUse Claude Code When:\n\nThe task involves files or code already in the repo — reading, editing, creating, refactoring, or committing them\nYou want actions taken, not just text generated — file edits, shell commands, git operations\nYou are doing developer tasks: debugging, code review, documentation, repo organization\nOutput IS a file change — there is nothing to copy and paste elsewhere\nFast iteration matters and you want minimal setup — no Quarto document, no package imports\nYou want Claude to search and reason about the project structure and act on what it finds\nYou are exploring a prompt structure and plan to ask Claude Code to write the result to prompts/ when you are done\n\n\n\n\nUse Chatlas in Quarto When:\n\nYou are injecting large external content — a lesson file, a book chapter, a manuscript, a dataset description that lives outside the repo\nYou need a fully archivable, resumable conversation — the .pkl + .md two-file strategy (see Saving and Resuming Chats)\nOutput is prose or structured text that does not map to a file edit and may be pasted elsewhere\nYou need precise parameter control — specific model, max_tokens, temperature, or a structured system prompt loaded from prompts/\nThe conversation itself is the artifact — something you want to document, share, or return to programmatically\nYou are running a batch or pipeline workflow with structured inputs and outputs\nThe task involves content from outside the repo that Claude Code cannot access without manual pasting\n\n\n\n\nBoundary Cases\n\n\n\n\n\n\n\nSituation\nRecommendation\n\n\n\n\nReviewing a file in the repo\nClaude Code — it can read the file directly\n\n\nReviewing a document from Google Drive or Box\nChatlas — load the file in Python and inject it\n\n\nDrafting a new vignette or prompt file\nClaude Code — it can write and commit the file\n\n\nRevising lesson content across many lessons in a pipeline\nChatlas — structured, repeatable, archivable\n\n\nOne-off question about code in the repo\nClaude Code\n\n\nLong multi-turn conversation you want to resume later\nChatlas — Claude Code sessions are not resumable via pickle\n\n\nExploring what a good prompt might look like\nClaude Code — then promote the result to prompts/\n\n\nApplying a finalized, reusable prompt to many inputs\nChatlas\n\n\n\n\n\n\nThe “Promote to Prompt” Workflow\nClaude Code is a natural starting point for exploration — you can have a conversation, iterate quickly, and let it act on the repo. When you arrive at a prompt structure worth keeping, ask Claude Code to write it to prompts/ following the conventions in Prompt Format and commit it. From that point forward, load the prompt from prompts/ in a Chatlas conversation document.\nThis workflow bridges the two tools: Claude Code for exploration and authoring, Chatlas for repeatable, documented execution.\n\n\n\nQuick Reference\nCLAUDE CODE                         CHATLAS IN QUARTO\n───────────                         ─────────────────\nFiles in the repo                   External documents\nActions: edit, commit, run          Text generation only\nFast, minimal setup                 Structured, archivable\nOutput is a file change             Output is prose/content\nSessions not resumable              Resumable via pickle\nNo parameter control needed         Precise model/token control\nExploration → promote to prompts/   Finalized, reusable prompts"
+  },
+  {
+    "objectID": "vignettes/keyring.html",
+    "href": "vignettes/keyring.html",
+    "title": "Storing API Keys with Keyring",
+    "section": "",
+    "text": "Overview\nAPI keys must never be hardcoded in scripts or committed to Git. This vignette covers how to store API keys in the system keyring — a secure, OS-managed credential store — and retrieve them at runtime for use with the OpenAI and Anthropic APIs.\nFor how to use a retrieved key in a conversation workflow, see vignettes/python-and-chatlas.qmd.\n\n\n\nInstall Keyring\nIf keyring is not already installed in your environment:\nuv add keyring\nOr, if using a standard venv:\npip install keyring\n\n\n\nStore a Key (One-Time Setup)\nRun this once per machine per API key. It stores the key in the OS credential store (Keychain on macOS, Credential Manager on Windows, libsecret on Linux). You do not need to re-run this unless the key changes.\nimport keyring\n\nkeyring.set_password(\"service-name\", \"username\", \"your-api-key-here\")\nService names used in this repo:\n\n\n\nProvider\nService name\nUsername\n\n\n\n\nOpenAI\nbradGPT\nbrad\n\n\nAnthropic\nclaude-my-ai-assistant\nbrad\n\n\n\nFor example, to store your OpenAI key:\nimport keyring\n\nkeyring.set_password(\"bradGPT\", \"brad\", \"sk-...\")\nAnd to store your Anthropic key:\nimport keyring\n\nkeyring.set_password(\"claude-my-ai-assistant\", \"brad\", \"sk-ant-...\")\n\n\n\n\n\n\nImportant\n\n\n\nRun these in a scratch script or an interactive Python session — never in a file that gets committed to Git, since the key value will be visible in the source.\n\n\n\n\n\nRetrieve a Key at Runtime\nThe standard pattern in this repo retrieves the key from keyring and sets it as a temporary environment variable for the duration of the session:\nimport keyring\nimport os\n\n# OpenAI\nopenai_api = keyring.get_password(\"bradGPT\", \"brad\")\nif openai_api is not None:\n    os.environ['OPENAI_API_KEY'] = openai_api\n    print(\"OPENAI_API_KEY set.\")\nelse:\n    print(\"Could not retrieve OpenAI key from keyring.\")\n\n# Anthropic\nclaude_api = keyring.get_password(\"claude-my-ai-assistant\", \"brad\")\nif claude_api is not None:\n    os.environ['ANTHROPIC_API_KEY'] = claude_api\n    print(\"ANTHROPIC_API_KEY set.\")\nelse:\n    print(\"Could not retrieve Anthropic key from keyring.\")\nThe API client libraries (openai, anthropic, chatlas) automatically read from these environment variables, so no further configuration is needed.\n\n\n\nUpdate or Delete a Key\nTo update a key, call set_password again with the new value — it overwrites the existing entry:\nkeyring.set_password(\"bradGPT\", \"brad\", \"sk-new-key-here\")\nTo delete a key entirely:\nkeyring.delete_password(\"bradGPT\", \"brad\")\n\n\n\nQuick Reference\n\n\n\n\n\n\n\nAction\nCommand\n\n\n\n\nStore a key\nkeyring.set_password(\"service\", \"username\", \"key\")\n\n\nRetrieve a key\nkeyring.get_password(\"service\", \"username\")\n\n\nDelete a key\nkeyring.delete_password(\"service\", \"username\")\n\n\n\n\n\n\nProvider\nService name\nUsername\n\n\n\n\nOpenAI\nbradGPT\nbrad\n\n\nAnthropic\nclaude-my-ai-assistant\nbrad"
+  },
+  {
+    "objectID": "vignettes/prompt-vs-conversation.html",
+    "href": "vignettes/prompt-vs-conversation.html",
+    "title": "Prompt File or Conversation Only?",
+    "section": "",
+    "text": "Scope: This vignette applies to the Chatlas in Quarto path — after you have decided to use the API (see API vs Browser-Based AI Workflows) and have chosen Chatlas over Claude Code (see Claude Code vs. Chatlas). The question here is narrower: do you need a dedicated prompt file, or can you go straight to a conversation document?\n\n\nThe Core Decision Question\n\n“Will I reuse this prompt structure across multiple conversations or inputs?”\n\n\n\n\n\n\n\n\nAnswer\nPath\n\n\n\n\nNo — this task is one-off or context-specific\nStart directly in a conversation file\n\n\nYes — the same structure will be applied repeatedly\nCreate a prompt file in prompts/\n\n\nUnsure\nSee the signal lists below\n\n\n\nEither way, you are working in a Quarto conversation document and you will save your chat history. The only difference is whether a separate, reusable prompt file exists.\n\n\n\nTwo Templates\n\n\n\n\n\n\n\nTemplate\nWhen to use\n\n\n\n\nTemplate - Conversation - No Prompt.qmd\nNo prompt file; inline system prompt or none at all\n\n\nTemplate - Conversation - Chatlas.qmd\nLoads a system prompt and user message from a file in prompts/\n\n\n\n\n\n\nGo Straight to a Conversation File When:\n\nThe task is one-off, even if it is substantive — you will not run this same prompt structure again\nThe system prompt is short enough to write inline (a sentence or two)\nThe prompt is tightly coupled to a specific document, dataset, or artifact and would not generalize to other inputs\nYou are exploring or iterating and are not sure yet what the final prompt structure should be\nSpeed matters more than reusability right now\n\nIn these cases, use the No-Prompt template. If you need a system prompt, pass it as an inline string to the chat object. Save your chat history at the end of the session.\n\n\n\nCreate a Prompt File When:\n\nYou have used a structurally similar prompt before, or expect to use it again\nThe prompt will be applied to many different inputs (e.g., the same review task run on different lessons, papers, or datasets)\nThe prompt is complex — it has a multi-part system prompt, a structured user message with placeholders, or detailed constraints that would be unwieldy inline\nYou want to version-control the prompt independently from any specific conversation\nThe prompt is shared across a project or might be used by others\nYou are building a pipeline where the prompt is a stable component\n\nIn these cases, save the prompt to prompts/ following the conventions in Prompt Format, then load it from your conversation file using prompt_extract_system_prompt().\n\n\n\nBoundary Cases\n\n\n\n\n\n\n\nSituation\nRecommendation\n\n\n\n\nFirst time running a task you expect to repeat\nStart in a conversation file; if you reuse it, promote to a prompt file\n\n\nSystem prompt is one sentence\nInline — no prompt file needed\n\n\nSystem prompt has multiple sections and constraints\nPrompt file\n\n\nTask is one-off but the output feeds a recurring artifact\nConversation file; the artifact, not the prompt, is what recurs\n\n\nYou are adapting an existing prompt slightly for a new context\nFork the existing prompt file rather than writing inline\n\n\nYou are not sure the task will recur\nConversation file first; it’s easier to promote later than to clean up an unnecessary prompt file\n\n\n\n\n\n\nQuick Reference\nCONVERSATION FILE ONLY          PROMPT FILE + CONVERSATION\n──────────────────────          ──────────────────────────\nOne-off task                    Recurring task or structure\nInline or no system prompt      Complex, multi-part prompt\nContext-specific input          Applied to many inputs\nExploring / iterating           Stable, version-controlled\nSpeed matters now               Reuse matters more\nWhen in doubt, start with a conversation file. It is easy to promote a working inline prompt to a file in prompts/ once you know you will reuse it. It is harder to justify maintaining a prompt file you only ever used once."
+  },
+  {
+    "objectID": "vignettes/save-and-resume-chats.html",
+    "href": "vignettes/save-and-resume-chats.html",
+    "title": "Saving and Resuming Chats",
+    "section": "",
+    "text": "Chatlas conversation history lives in memory and is lost when the session ends. Saving it to disk lets you:\n\nReturn to a conversation in a later session and pick up where you left off\nArchive what was sent and received for documentation or review\nSearch or browse past conversations\n\nTwo file formats serve different purposes, and the recommended strategy is to save both every time:\n\n\n\n\n\n\n\n\nFormat\nPurpose\nResume from it?\n\n\n\n\n.md (Markdown)\nHuman-readable; good for browsing and searching\nNo — not reliably\n\n\n.pkl (Pickle)\nMachine-readable; preserves the Turn objects exactly\nYes\n\n\n\nThe short version: save markdown for reading, save pickle for resuming."
+  },
+  {
+    "objectID": "vignettes/save-and-resume-chats.html#saving",
+    "href": "vignettes/save-and-resume-chats.html#saving",
+    "title": "Saving and Resuming Chats",
+    "section": "Saving",
+    "text": "Saving\nRun this at the end of any session you want to be able to return to.\nimport pickle\nfrom pathlib import Path\nfrom datetime import date\n\ntoday = date.today().isoformat()\nconversation_folder_path = Path(\"path_to_folder\")\n\n# Markdown — for browsing and searching later\nchat_history_path_md = conversation_folder_path / (\"chat_history_\" + today + \".md\")\nchat.export(chat_history_path_md, overwrite=True)\n\n# Pickle — for resuming later\nchat_history_path_pkl = conversation_folder_path / (\"chat_history_\" + today + \".pkl\")\nturns = chat.get_turns()\nwith open(chat_history_path_pkl, \"wb\") as f:\n    pickle.dump(turns, f)\nInclude the date in the filename so multiple sessions produce distinct files that sort chronologically."
+  },
+  {
+    "objectID": "vignettes/save-and-resume-chats.html#resuming-from-a-pickle-file",
+    "href": "vignettes/save-and-resume-chats.html#resuming-from-a-pickle-file",
+    "title": "Saving and Resuming Chats",
+    "section": "Resuming from a Pickle File",
+    "text": "Resuming from a Pickle File\nTo resume a conversation in a later session, re-create the chat object with the same provider, model, and system prompt, then restore the saved turns.\nimport pickle\nfrom pathlib import Path\nfrom chatlas import ChatAnthropic  # or ChatOpenAI\n\n# Re-create the chat object — must match the original provider, model, and system prompt\nchat = ChatAnthropic(\n    model=\"claude-sonnet-4-6\",\n    system_prompt=system_prompt  # omit if no system prompt was used\n)\n\n# Load and restore turns\nchat_history_path_pkl = Path(\"path_to_folder/chat_history_yyyy-mm-dd.pkl\")\nwith open(chat_history_path_pkl, \"rb\") as f:\n    turns = pickle.load(f)\n\nchat.set_turns(turns)\n\n# Verify the history loaded correctly\nprint(chat)\nAfter set_turns(), the chat object behaves as if the conversation just happened — you can continue with chat.chat() or open the interactive interface with chat.app().\n\n\n\n\n\n\nImportant\n\n\n\nThe provider and model must match. Turns saved from a Claude session cannot be restored into an OpenAI chat object, and vice versa. Mismatched models from the same provider may also cause issues.\n\n\n\n\n\n\n\n\nNote\n\n\n\nPickle files are version-sensitive. A .pkl file saved with one version of Python or Chatlas may not load correctly after a package upgrade. For long-term archives, the markdown export is more durable — just be aware that you cannot resume from it programmatically."
+  },
+  {
+    "objectID": "vignettes/uv-virtual-environments.html",
+    "href": "vignettes/uv-virtual-environments.html",
+    "title": "UV Virtual Environments",
+    "section": "",
+    "text": "This vignette summarizes a clean, reproducible workflow for managing Python dependencies with uv, especially when working across multiple computers with a synced project folder (e.g., Box, Dropbox, OneDrive).\nFor the standard Python venv approach, see vignettes/venv-virtual-environments.qmd."
+  },
+  {
+    "objectID": "vignettes/uv-virtual-environments.html#initialize-uv-in-the-project-root",
+    "href": "vignettes/uv-virtual-environments.html#initialize-uv-in-the-project-root",
+    "title": "UV Virtual Environments",
+    "section": "1. Initialize uv in the project root",
+    "text": "1. Initialize uv in the project root\nuv init\nCreates (or updates):\n\npyproject.toml — dependency intent\nNo virtual environment yet\n\nCommit pyproject.toml."
+  },
+  {
+    "objectID": "vignettes/uv-virtual-environments.html#add-dependencies",
+    "href": "vignettes/uv-virtual-environments.html#add-dependencies",
+    "title": "UV Virtual Environments",
+    "section": "2. Add dependencies",
+    "text": "2. Add dependencies\nuv add pandas numpy matplotlib\nThis will:\n\nAdd dependencies to pyproject.toml\nGenerate uv.lock with exact versions\n\nCommit both pyproject.toml and uv.lock."
+  },
+  {
+    "objectID": "vignettes/uv-virtual-environments.html#create-a-local-virtual-environment",
+    "href": "vignettes/uv-virtual-environments.html#create-a-local-virtual-environment",
+    "title": "UV Virtual Environments",
+    "section": "3. Create a local virtual environment",
+    "text": "3. Create a local virtual environment\nuv venv\nCreates a .venv/ directory. This directory is machine-local and should not be synced."
+  },
+  {
+    "objectID": "vignettes/uv-virtual-environments.html#install-dependencies-from-the-lockfile",
+    "href": "vignettes/uv-virtual-environments.html#install-dependencies-from-the-lockfile",
+    "title": "UV Virtual Environments",
+    "section": "4. Install dependencies from the lockfile",
+    "text": "4. Install dependencies from the lockfile\nuv sync\nThis installs exactly the versions recorded in uv.lock.\nOn a second machine:\nuv venv\nuv sync"
+  },
+  {
+    "objectID": "vignettes/vignette-workflow.html",
+    "href": "vignettes/vignette-workflow.html",
+    "title": "Vignette Workflow",
+    "section": "",
+    "text": "Vignettes are narrative, example-driven reference documents — a term borrowed from R packages, where vignettes serve as long-form guides that complement terse function documentation. In this repo, vignettes serve the same role: they document decisions, workflows, guidelines, and techniques that are too contextual or discursive to live in a code comment or README.\nA vignette is the right format when:\n\nA workflow involves multiple steps and decisions that benefit from explanation\nA guideline needs rationale, not just a rule\nA technique is used infrequently enough that you’ll need a refresher next time\nA decision was made deliberately and you want to document why\n\nVignettes are not conversation logs, analysis scripts, or prompt files. Those live in conversations/ and prompts/ respectively."
+  },
+  {
+    "objectID": "vignettes/vignette-workflow.html#why-quarto",
+    "href": "vignettes/vignette-workflow.html#why-quarto",
+    "title": "Vignette Workflow",
+    "section": "Why Quarto",
+    "text": "Why Quarto\nVignettes in this repo are written as Quarto documents (.qmd). Quarto was chosen because:\n\nIt supports both R and Python code chunks in the same document\nIt renders cleanly to HTML for browser-based reading\nIt integrates with Positron’s Viewer pane for local preview\nIt is not tied to the R package ecosystem, making it appropriate for a general-purpose mixed-language repo"
+  },
+  {
+    "objectID": "vignettes/vignette-workflow.html#why-a-website-not-just-files",
+    "href": "vignettes/vignette-workflow.html#why-a-website-not-just-files",
+    "title": "Vignette Workflow",
+    "section": "Why a Website (Not Just Files)",
+    "text": "Why a Website (Not Just Files)\nMarkdown files can be read directly in any editor, but rendered HTML is easier to navigate, especially for documents with tables, callout blocks, code examples, and a table of contents. The Quarto website setup adds:\n\nA listing page that auto-discovers vignettes — no manual index to maintain\nA navbar for quick navigation\nConsistent formatting across all vignettes"
+  },
+  {
+    "objectID": "vignettes/vignette-workflow.html#why-github-pages",
+    "href": "vignettes/vignette-workflow.html#why-github-pages",
+    "title": "Vignette Workflow",
+    "section": "Why GitHub Pages",
+    "text": "Why GitHub Pages\nThe rendered site is published automatically to GitHub Pages via a GitHub Actions workflow. Every push to main triggers a rebuild. This means the published site is always in sync with the repo without any manual deployment steps.\nThe live site is available at: https://brad-cannell.github.io/my-ai-assistant/"
+  },
+  {
+    "objectID": "vignettes/vignette-workflow.html#copy-the-template",
+    "href": "vignettes/vignette-workflow.html#copy-the-template",
+    "title": "Vignette Workflow",
+    "section": "1. Copy the template",
+    "text": "1. Copy the template\nStart from _vignette-template.qmd in the vignettes/ folder. The leading underscore prevents it from being rendered as part of the site.\ncp vignettes/_vignette-template.qmd vignettes/your-vignette-name.qmd"
+  },
+  {
+    "objectID": "vignettes/vignette-workflow.html#follow-naming-conventions",
+    "href": "vignettes/vignette-workflow.html#follow-naming-conventions",
+    "title": "Vignette Workflow",
+    "section": "2. Follow naming conventions",
+    "text": "2. Follow naming conventions\nUse kebab-case, all lowercase, no spaces:\n\n\n\nPattern\nExample\n\n\n\n\n✅ Good\napi-vs-browser.qmd\n\n\n❌ Avoid\nAPI vs Browser.qmd, api_vs_browser.qmd\n\n\n\nThe filename becomes the URL, so spaces and mixed case create problems."
+  },
+  {
+    "objectID": "vignettes/vignette-workflow.html#fill-in-the-yaml-header",
+    "href": "vignettes/vignette-workflow.html#fill-in-the-yaml-header",
+    "title": "Vignette Workflow",
+    "section": "3. Fill in the YAML header",
+    "text": "3. Fill in the YAML header\nAt minimum, update these fields before writing any content:\n---\ntitle: \"Your Vignette Title\"\ndate: \"YYYY-MM-DD\"\ndate-modified: \"YYYY-MM-DD\"\nversion: \"1.0\"\ndescription: \"One sentence describing what this vignette covers.\"\ncategories: [relevant, categories, here]\n---\nSee existing vignettes for examples. The description and categories fields appear in the listing page on the site — keep them concise and accurate."
+  },
+  {
+    "objectID": "vignettes/vignette-workflow.html#write-the-content",
+    "href": "vignettes/vignette-workflow.html#write-the-content",
+    "title": "Vignette Workflow",
+    "section": "4. Write the content",
+    "text": "4. Write the content\nSee the comments inside _vignette-template.qmd for guidance on content structure, heading levels, callout types, and cross-references. The short version:\n\nStart with a # Overview or purpose statement\nUse # for top-level sections, ## for subsections\nUse prose for conceptual content, numbered steps for procedures\nUse ```bash for terminal commands, ```{python} or ```{r} for executable code chunks\nUse :::callout-note, :::callout-important, or :::callout-warning for asides and caveats"
+  },
+  {
+    "objectID": "vignettes/vignette-workflow.html#updating-content",
+    "href": "vignettes/vignette-workflow.html#updating-content",
+    "title": "Vignette Workflow",
+    "section": "Updating content",
+    "text": "Updating content\nWhen you revise a vignette:\n\nUpdate the content\nBump date-modified to today’s date\nIncrement version — minor version (1.0 → 1.1) for small refinements, major version (1.1 → 2.0) for structural changes or revised recommendations\n\nSee vignettes/git-tags.qmd for the full version numbering convention and the Git tagging workflow for marking significant versions."
+  },
+  {
+    "objectID": "vignettes/vignette-workflow.html#when-to-create-a-new-vignette-vs.-update-an-existing-one",
+    "href": "vignettes/vignette-workflow.html#when-to-create-a-new-vignette-vs.-update-an-existing-one",
+    "title": "Vignette Workflow",
+    "section": "When to create a new vignette vs. update an existing one",
+    "text": "When to create a new vignette vs. update an existing one\nUpdate an existing vignette when the new content is a natural extension of what’s already there. Create a new vignette when the topic is distinct enough to stand alone and be discovered independently."
+  },
+  {
+    "objectID": "vignettes/vignette-workflow.html#locally-positron-viewer-pane-or-browser",
+    "href": "vignettes/vignette-workflow.html#locally-positron-viewer-pane-or-browser",
+    "title": "Vignette Workflow",
+    "section": "Locally (Positron Viewer pane or browser)",
+    "text": "Locally (Positron Viewer pane or browser)\nFrom the repo root:\nquarto preview index.qmd\nThis renders all vignettes, starts a local dev server, and opens the site in Positron’s Viewer pane or your default browser. The preview hot-reloads on save — edits to any vignette are reflected immediately without restarting."
+  },
+  {
+    "objectID": "vignettes/vignette-workflow.html#online",
+    "href": "vignettes/vignette-workflow.html#online",
+    "title": "Vignette Workflow",
+    "section": "Online",
+    "text": "Online\nThe published site is rebuilt automatically on every push to main and is available at:\nhttps://brad-cannell.github.io/my-ai-assistant/\nNo manual deployment steps are needed. After pushing changes, allow 2–3 minutes for the GitHub Actions workflow to complete before the live site reflects your updates. Build status can be monitored in the Actions tab of the GitHub repository."
   }
 ]
