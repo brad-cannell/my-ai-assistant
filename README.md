@@ -44,3 +44,25 @@ All workflow documentation lives in the published vignettes:
 - [Saving and Resuming Chats](https://brad-cannell.github.io/my-ai-assistant/vignettes/save-and-resume-chats.html) — pickle and markdown export strategy
 - [Prompt Format](https://brad-cannell.github.io/my-ai-assistant/vignettes/prompt-format.html) — YAML header conventions for prompts
 - [uv Virtual Environments](https://brad-cannell.github.io/my-ai-assistant/vignettes/uv-virtual-environments.html) — Python dependency management
+
+---
+
+## Git Hooks
+
+This repo uses a tracked pre-commit hook stored in `.githooks/pre-commit`. On a new machine, activate it once with:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+### What the hook does
+
+When `README.md` is staged, the hook automatically updates the `updated:` date in the YAML front matter to today's date and re-stages the file before the commit is finalized.
+
+### Maintaining the hook
+
+The hook file lives at `.githooks/pre-commit` and is version-controlled like any other file. To modify its behavior, edit that file directly and commit the change. To add new hooks (e.g., `pre-push`, `commit-msg`), add them to `.githooks/` with executable permissions:
+
+```bash
+chmod +x .githooks/<hook-name>
+```
