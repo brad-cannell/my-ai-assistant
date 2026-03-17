@@ -2,299 +2,122 @@
 title: "API vs Browser-Based AI Workflows"
 output: rmarkdown::html_vignette
 date: "2025-12-22"
-updated: "2025-12-22"
+updated: "2026-03-17"
+version: "2.0"
 vignette: >
   %\VignetteIndexEntry{API vs Browser-Based AI Workflows}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-# Why Transition from Web Chat to API-Based AI Workflows
+# 1. Purpose
 
-## Context
-
-This vignette documents the rationale for transitioning from browser-based AI chat interfaces (ChatGPT, Claude, Gemini) to direct API-based interactions for academic research and teaching workflows.
-
-**User Profile:** Epidemiologist, gerontologist, data scientist, and professor with regular AI usage for professional writing, grant development, course materials, and code assistance (primarily R, occasionally Python).
+This document provides decision criteria and operational guidelines for choosing between browser-based AI interaction (Claude.ai) and direct API calls (via Chatlas in Quarto) for AI-assisted tasks. The goal is to minimize friction, maximize reproducibility where it matters, and avoid making the mode decision ad hoc.
 
 ---
 
-## Key Motivations for API Adoption
+# 2. The Core Decision Rule
 
-### 1. Multi-Model Orchestration (Primary Advantage)
+Before starting any AI-assisted task, ask one question:
 
-The ability to call multiple AI models within a single workflow is transformative for sophisticated academic use:
+> **"Will I need to find, reuse, or build on this interaction later?"**
 
-**Task-Specific Model Selection:**
-- **Claude Sonnet 4**: Complex reasoning, nuanced academic writing
-- **GPT-4o/4o-mini**: Fast structured tasks, JSON extraction, cost efficiency
-- **Gemini 1.5 Pro**: Massive context windows (1M tokens) for full document analysis
-- **Claude Haiku**: Ultra-fast classification and repetitive tasks
+| Answer | Default Mode |
+|--------|-------------|
+| No — exploratory, one-off, or disposable | Browser |
+| Yes — recurring, archivable, or feeds an artifact | API |
+| Unsure | See Section 3 |
 
-**Example Multi-Model Quarto Workflow:**
-```r
-# Use cheap model for 50 routine classifications
-classifications <- lapply(responses, query_gpt4o_mini)
+If you find yourself copying a prompt *from* somewhere or copying a response *to* somewhere, that task belongs in the API workflow.
 
-# Use Gemini for analyzing entire 80-page policy document
-policy_analysis <- query_gemini(paste(policy_text, prompt))
+> **Framing note:** The goal is not to migrate all AI usage to the API. The more useful question is: *"Which 20% of my AI workflows would benefit most from API-based reproducibility and control?"* Start there.
 
-# Use Claude for sophisticated synthesis
-final_report <- query_claude(paste(
-  "Integrate these analyses:", classifications, policy_analysis
-))
+---
+
+# 3. Decision Criteria by Signal
+
+Use these signals to resolve ambiguous cases. No single signal is decisive — weigh the pattern.
+
+# Use the Browser When:
+
+- The task is genuinely exploratory ("let me think out loud with Claude")
+- You expect to use the output once and not reference it again
+- You are away from your development environment (no access to repo/terminal)
+- You need to upload a file for quick extraction or summarization and have no pipeline for it
+- The task is low-stakes and iteration speed matters more than documentation
+- You are troubleshooting or debugging interactively and expect many rapid back-and-forth exchanges
+
+## Use the API When:
+
+- You have used a similar prompt before, or expect to use it again
+- The output will be incorporated into a document, codebase, or artifact you are maintaining (EWB lesson, grant section, manuscript, R script)
+- Reproducibility matters — you may need to document what was sent, what parameters were used, and what was returned
+- The task involves file context that is structured and reusable (formatting guidelines, CST examples, style rules)
+- You are building or maintaining a pipeline (EWB lesson creation, batch content review)
+- You want parameter control (model selection, temperature, system prompt)
+- The task involves sensitive research content where better data handling terms apply
+- You are teaching or demonstrating AI usage and want a documentable, transferable example
+- The task would benefit from a model other than the browser default — e.g., a larger context window for full document analysis, or a faster/cheaper model for batch or repetitive work
+- The task is high-volume or cost-sensitive and strategic model selection would meaningfully reduce cost or processing time
+
+## Boundary Cases
+
+| Situation | Recommendation |
+|-----------|---------------|
+| Quick code fix, one function | Browser — unless it's part of a documented pipeline |
+| Drafting an email from a template | API — prompt is reusable; output may be archived |
+| Uploading a PDF for a one-time summary | Browser |
+| Uploading a file as structured context for ongoing work | API |
+| Brainstorming grant aims | Browser — then migrate key outputs to API doc or notes |
+| Refining specific aims language | API |
+| Asking "does this paragraph make sense?" | Browser |
+| Full manuscript section review | API |
+
+---
+
+# 4. Security Considerations
+
+These practices apply regardless of which mode you use, but several are especially relevant to the mode decision.
+
+- **Never paste into any AI interface:** PHI, SSNs, IRB-restricted data, financial data, or any content governed by a Data Processing Agreement or Business Associate Agreement. Neither standard browser nor standard API access is an appropriate channel for this content without specific institutional agreements in place.
+- **Check institutional policy:** TCU and funding agencies may have guidance or requirements governing which AI tools are permissible for specific research or course contexts. Verify before using either mode for grant-related or IRB-adjacent work.
+- **API keys:** Store in environment variables (`.Renviron` for R, `.env` for Python). Never commit keys to Git. Rotate periodically and immediately if exposure is suspected.
+- **Browser security:** Audit extensions regularly. Extensions with broad permissions can access conversation content. Consider a dedicated browser profile for AI work involving sensitive material.
+- **Opt out of training data use:** Disable conversation use for model training in browser settings where available. API usage under standard Anthropic terms does not use your data for training by default.
+- **Local logging:** If storing API responses locally (in your `ai/` folder or elsewhere), be aware that those files contain the full prompt and response. Apply appropriate access controls if the content is sensitive.
+
+---
+
+# 5. Maintenance
+
+Review and update this SOP when any of the following occur:
+
+| Trigger | Action |
+|---------|--------|
+| A task type is repeatedly misclassified | Add or revise a row in the Boundary Cases table (Section 3) |
+| A new recurring task type emerges | Assess which mode it belongs to; add to the appropriate signal list |
+| The core decision rule proves insufficient for a new class of tasks | Revise Section 2 and document the rationale |
+| A downstream SOP (API workflow, browser workflow) changes in ways that affect mode choice | Update decision criteria here to stay consistent |
+| This SOP has not been reviewed in 6 months | Re-read and confirm it still reflects actual practice |
+
+---
+
+# 6. Quick Reference Card
+
+```
+BROWSER                          API
+───────                          ───
+Exploratory / one-off            Recurring / reusable prompt
+Away from dev environment        Output feeds an artifact
+File upload for quick read       Structured file context
+Interactive debugging            Documented pipeline
+No archive needed                Reproducibility required
+                                 Sensitive research content
+                                 Teaching / demonstrating
+                                 Multi-model orchestration
+                                 Batch / cost-sensitive tasks
 ```
 
-**Cost Optimization:**
-- GPT-4o mini: $0.15 per 1M input tokens
-- Claude Haiku: $0.25 per 1M input tokens  
-- Claude Sonnet 4: $3.00 per 1M input tokens
-- Strategic model selection can reduce costs from $50 to $5 for the same workflow
+**If you're copying a prompt from somewhere or copying a response to somewhere → API.**
 
-**Ensemble Validation:**
-Query multiple models for high-stakes work (grant proposals, IRB applications) to identify consensus recommendations and reduce model-specific bias.
-
-### 2. Reproducibility & Documentation
-
-**Web Chat Limitations:**
-- No version control
-- Manual copy-paste required
-- No audit trail
-- Cannot reliably re-run analyses
-
-**API Advantages:**
-- Embed AI calls directly in Quarto/R Markdown documents
-- Full conversation becomes part of version-controlled code
-- Reproducible: rerun the .qmd file, get the same analysis
-- Automatic logging: prompt + response + model + timestamp + cost
-
-**Example:**
-```r
-# In reproducible Quarto document
-lit_review <- query_claude(
-  "Synthesize recent findings on social determinants of healthy aging...",
-  model = "claude-sonnet-4-20250514"
-)
-```
-
-Output becomes part of rendered document, fully traceable.
-
-### 3. Prompt Management & Knowledge Organization
-
-**Current State:** Local text files with limited search/organization
-
-**API-Enabled Future:**
-- Structured prompt libraries with version control (Git)
-- Metadata tagging (project, course, use case)
-- Searchable archives linking prompts → responses → artifacts
-- Semantic search via embedding APIs
-- Integration with knowledge management systems (Obsidian, Roam)
-
-**Example Structure:**
-```r
-prompts <- list(
-  grant_methods = "You are an expert methodologist...",
-  code_review = "Review this R code for...",
-  course_activity = "Design a 20-minute active learning..."
-)
-# Version controlled, tagged, searchable
-```
-
-### 4. Security & Privacy Improvements
-
-**Web Chat Risks:**
-- Browser extensions can access all conversation content
-- Chat data retained for model improvement (varies by provider)
-- Account compromise exposes full conversation history
-
-**API Advantages:**
-- No browser layer (eliminates extension exposure)
-- Stronger contractual privacy commitments (OpenAI/Anthropic APIs explicitly prohibit training on API data)
-- Direct control over logging and data retention
-- Local processing integrated with R/Python scripts
-
-**Important Note:** For truly sensitive data (HIPAA, IRB-restricted), neither standard web chat nor standard APIs are appropriate without specific Data Processing Agreements or Business Associate Agreements.
-
-### 5. Pedagogical & Professional Development
-
-As someone teaching programming and data science:
-- Growing need to teach applied AI usage, APIs, automation
-- API fluency valuable for future course development
-- Enables teaching critical AI literacy through model comparison
-- Demonstrates reproducible research practices
-
-**Teaching Applications:**
-```r
-# Class demo: Show how different models interpret ambiguous questions
-question <- "What is the relationship between X and Y?"
-
-claude_answer <- query_claude(question)
-gpt_answer <- query_openai(question)
-gemini_answer <- query_gemini(question)
-
-# Discussion: Why differences? What does this reveal about AI limitations?
-```
-
----
-
-## When API Workflows Are Worth the Investment
-
-### High Value Use Cases:
-
-| Use Case | Approach | Rationale |
-|----------|----------|-----------|
-| **Automated batch processing** | API | Process 100 student essays overnight |
-| **Reproducible analysis** | API (in Quarto) | Embed AI calls in literate programming |
-| **Multi-model validation** | API | Ensemble approaches for high-stakes work |
-| **Course material generation** | API | Reusable templates, version control |
-| **Long document analysis** | API | Leverage Gemini's 1M token context |
-| **Cost-sensitive workflows** | API | Strategic model selection saves money |
-
-### Low Value Use Cases (Stick with Web Chat):
-
-- Email drafting and casual brainstorming
-- Exploratory conversations requiring high interactivity
-- One-off code debugging
-- Image generation (specialized UIs are optimized)
-- Ad-hoc tasks without reproducibility needs
-
----
-
-## Implementation Roadmap
-
-### Phase 1: Foundation (Week 1-2)
-1. Complete API quickstart tutorials (OpenAI, Anthropic, Google)
-2. Set up API access and secure key management
-3. Create basic wrapper functions in R:
-
-```r
-library(httr2)
-
-query_claude <- function(prompt, model = "claude-sonnet-4-20250514") {
-  response <- request("https://api.anthropic.com/v1/messages") |>
-    req_headers(
-      "x-api-key" = Sys.getenv("ANTHROPIC_API_KEY"),
-      "anthropic-version" = "2023-06-01"
-    ) |>
-    req_body_json(list(
-      model = model,
-      max_tokens = 1024,
-      messages = list(list(role = "user", content = prompt))
-    )) |>
-    req_perform() |>
-    resp_body_json()
-  
-  return(response$content[[1]]$text)
-}
-```
-
-### Phase 2: First Multi-Model Document (Week 3-4)
-1. Select one current analysis/project
-2. Identify 3-4 distinct tasks suited to different models
-3. Build a Quarto document orchestrating multiple APIs
-4. Compare output quality and costs
-
-### Phase 3: Optimization (Month 2)
-1. Add cost tracking and logging to wrapper functions
-2. Benchmark performance: which model for which task type?
-3. Build reusable prompt library (15-20 core prompts)
-4. Set up structured logging (CSV or SQLite)
-
-### Phase 4: Teaching Integration (Month 3)
-1. Develop class demo showing multi-model comparison
-2. Create student exercises using APIs
-3. Incorporate into data science curriculum
-
----
-
-## Expected Costs & Time Investment
-
-### Learning Curve:
-- Basic competency: 4-8 hours (following SDK documentation)
-- Integrated workflow: 10-20 hours (reusable functions, logging)
-- Advanced automation: Ongoing
-
-### Financial Costs:
-- Typical academic usage: **$5-15/month** (vs. $20/month for ChatGPT Plus)
-- Intelligent multi-model strategy:
-  - 30 simple tasks (GPT-4o mini): $0.50/month
-  - 15 moderate tasks (Claude Sonnet): $6/month
-  - 5 complex tasks (Claude Opus): $3/month
-  - **Total: ~$10/month**
-
-### Return on Investment:
-- Time savings from batch processing
-- Improved reproducibility and documentation
-- Cost optimization through strategic model selection
-- Enhanced teaching capabilities
-- Professional skill development
-
----
-
-## Realistic Hybrid Approach
-
-**Recommendation:** Strategic hybridity rather than wholesale migration
-
-**Continue using web chat for:**
-- Email drafting and brainstorming (70% of current usage)
-- Exploratory conversations
-- Quick one-off tasks
-- High-interactivity needs
-
-**Adopt APIs for:**
-- Recurring workflows requiring reproducibility
-- Multi-model orchestration tasks
-- Batch processing
-- Teaching demonstrations
-- Security-sensitive work (within appropriate boundaries)
-
-**Key Insight:** The question isn't "Should I switch?" but rather "Which 20% of my AI workflows would benefit most from API-based reproducibility and control?"
-
----
-
-## Critical Success Factor: Multi-Model Capability
-
-**Without multi-model orchestration:** API workflows offer incremental benefits (security, reproducibility) but may not justify the learning curve for all users.
-
-**With multi-model orchestration:** You gain strategic flexibility, cost optimization, and methodological rigor impossible in web chat interfaces. This becomes essential infrastructure for sophisticated academic AI usage.
-
-**Conclusion:** For technically sophisticated academic users who value reproducibility and teach programming/data science, the multi-model capability alone justifies API adoption. You're not just switching interfaces—you're upgrading to a fundamentally more powerful research paradigm.
-
----
-
-## Security Best Practices
-
-Regardless of approach:
-
-- **Never paste:** PHI, SSNs, financial data, IRB-restricted content into any AI interface
-- **API keys:** Store in environment variables (`.Renviron`), never commit to Git, rotate periodically  
-- **Browser security:** Audit extensions, use dedicated profiles for AI work
-- **Opt out:** Disable training data use in web chat settings where available
-- **Local logging:** Encrypt sensitive folders if storing API responses locally
-- **Institutional policy:** Check university guidance on AI tool usage; some require DPAs
-
----
-
-## Additional Resources
-
-- **API Documentation:**
-  - [Anthropic (Claude)](https://docs.anthropic.com)
-  - [OpenAI](https://platform.openai.com/docs)
-  - [Google (Gemini)](https://ai.google.dev/docs)
-
-- **R Packages:**
-  - `ellmer`: Makes it easy to use large language models (LLM) from R.
-  - `httr2`: Modern HTTP client
-  - `openai`: Unofficial OpenAI wrapper
-  - Custom wrappers recommended for full control
-
-- **Python SDKs:**
-  - `anthropic`: Official Anthropic SDK
-  - `openai`: Official OpenAI SDK
-  - `google-generativeai`: Official Google SDK
-
----
-
-**Document Purpose:** This vignette serves as foundational documentation for understanding the strategic rationale behind transitioning to API-based AI workflows. It should be referenced when making decisions about tool adoption, teaching curriculum development, and research methodology documentation.
-
-**Source:** https://claude.ai/chat/d805644a-b951-4ce1-831b-690245eef1a7
+**If the task is done when the tab closes → Browser.**
