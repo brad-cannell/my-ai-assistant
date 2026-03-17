@@ -1,0 +1,174 @@
+---
+title: "Vignette Workflow"
+date: "2026-03-17"
+date-modified: "2026-03-17"
+version: "1.0"
+description: "Purpose, rationale, and instructions for writing, maintaining, and viewing vignettes in this repo."
+categories: [workflow, vignettes, quarto]
+format:
+  html:
+    toc: true
+    code-fold: false
+execute:
+  eval: false
+  echo: true
+---
+
+# Purpose
+
+Vignettes are narrative, example-driven reference documents — a term borrowed from R packages, where vignettes serve as long-form guides that complement terse function documentation. In this repo, vignettes serve the same role: they document decisions, workflows, guidelines, and techniques that are too contextual or discursive to live in a code comment or README.
+
+A vignette is the right format when:
+
+- A workflow involves multiple steps and decisions that benefit from explanation
+- A guideline needs rationale, not just a rule
+- A technique is used infrequently enough that you'll need a refresher next time
+- A decision was made deliberately and you want to document why
+
+Vignettes are not conversation logs, analysis scripts, or prompt files. Those live in `conversations/` and `prompts/` respectively.
+
+---
+
+# Rationale for This Workflow
+
+## Why Quarto
+
+Vignettes in this repo are written as [Quarto](https://quarto.org) documents (`.qmd`). Quarto was chosen because:
+
+- It supports both R and Python code chunks in the same document
+- It renders cleanly to HTML for browser-based reading
+- It integrates with Positron's Viewer pane for local preview
+- It is not tied to the R package ecosystem, making it appropriate for a general-purpose mixed-language repo
+
+## Why a Website (Not Just Files)
+
+Markdown files can be read directly in any editor, but rendered HTML is easier to navigate, especially for documents with tables, callout blocks, code examples, and a table of contents. The Quarto website setup adds:
+
+- A listing page that auto-discovers vignettes — no manual index to maintain
+- A navbar for quick navigation
+- Consistent formatting across all vignettes
+
+## Why GitHub Pages
+
+The rendered site is published automatically to GitHub Pages via a GitHub Actions workflow. Every push to `main` triggers a rebuild. This means the published site is always in sync with the repo without any manual deployment steps.
+
+The live site is available at:
+<https://brad-cannell.github.io/my-ai-assistant/>
+
+---
+
+# Writing a New Vignette
+
+## 1. Copy the template
+
+Start from `_vignette-template.qmd` in the `vignettes/` folder. The leading underscore prevents it from being rendered as part of the site.
+
+```bash
+cp vignettes/_vignette-template.qmd vignettes/your-vignette-name.qmd
+```
+
+## 2. Follow naming conventions
+
+Use kebab-case, all lowercase, no spaces:
+
+| Pattern | Example |
+|---|---|
+| ✅ Good | `api-vs-browser.qmd` |
+| ❌ Avoid | `API vs Browser.qmd`, `api_vs_browser.qmd` |
+
+The filename becomes the URL, so spaces and mixed case create problems.
+
+## 3. Fill in the YAML header
+
+At minimum, update these fields before writing any content:
+
+```yaml
+---
+title: "Your Vignette Title"
+date: "YYYY-MM-DD"
+date-modified: "YYYY-MM-DD"
+version: "1.0"
+description: "One sentence describing what this vignette covers."
+categories: [relevant, categories, here]
+---
+```
+
+See existing vignettes for examples. The `description` and `categories` fields appear in the listing page on the site — keep them concise and accurate.
+
+## 4. Write the content
+
+See the comments inside `_vignette-template.qmd` for guidance on content structure, heading levels, callout types, and cross-references. The short version:
+
+- Start with a `# Overview` or purpose statement
+- Use `#` for top-level sections, `##` for subsections
+- Use prose for conceptual content, numbered steps for procedures
+- Use ` ```bash ` for terminal commands, ` ```{python} ` or ` ```{r} ` for executable code chunks
+- Use `:::callout-note`, `:::callout-important`, or `:::callout-warning` for asides and caveats
+
+---
+
+# Maintaining Vignettes
+
+## Updating content
+
+When you revise a vignette:
+
+1. Update the content
+2. Bump `date-modified` to today's date
+3. Increment `version` — minor version (`1.0 → 1.1`) for small refinements, major version (`1.1 → 2.0`) for structural changes or revised recommendations
+
+See `vignettes/git-tags.qmd` for the full version numbering convention and the Git tagging workflow for marking significant versions.
+
+## When to create a new vignette vs. update an existing one
+
+Update an existing vignette when the new content is a natural extension of what's already there. Create a new vignette when the topic is distinct enough to stand alone and be discovered independently.
+
+---
+
+# Committing and Pushing Vignettes
+
+Do not run `quarto preview` or `quarto render` before committing. The
+GitHub Actions workflow renders and publishes the site automatically on
+every push to `main` — committing local render output is unnecessary and
+risks pushing stale or out-of-sync files.
+
+The correct workflow is:
+
+1. Write or edit `.qmd` files locally
+2. Use `quarto preview index.qmd` for local review only
+3. Commit and push only source files — `.qmd` files, `_quarto.yml`, and `index.qmd`
+4. GitHub Actions handles rendering and deployment automatically
+
+Confirm that `_site/` is listed in `.gitignore`. The rendered output in
+`_site/` is a build artifact and should never be committed.
+```
+
+**Commit message:**
+```
+Add committing and pushing guidance to vignette-workflow.qmd
+
+Clarifies that quarto preview is for local review only, that _site/
+should be gitignored, and that GitHub Actions handles all rendering
+and deployment on push to main.
+
+---
+
+# Viewing Vignettes
+
+## Locally (Positron Viewer pane or browser)
+
+From the repo root:
+
+```bash
+quarto preview index.qmd
+```
+
+This renders all vignettes, starts a local dev server, and opens the site in Positron's Viewer pane or your default browser. The preview hot-reloads on save — edits to any vignette are reflected immediately without restarting.
+
+## Online
+
+The published site is rebuilt automatically on every push to `main` and is available at:
+
+<https://brad-cannell.github.io/my-ai-assistant/>
+
+No manual deployment steps are needed. After pushing changes, allow 2–3 minutes for the GitHub Actions workflow to complete before the live site reflects your updates. Build status can be monitored in the **Actions** tab of the GitHub repository.
