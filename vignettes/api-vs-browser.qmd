@@ -1,13 +1,17 @@
 ---
 title: "API vs Browser-Based AI Workflows"
-output: rmarkdown::html_vignette
 date: "2025-12-22"
-updated: "2026-03-17"
+date-modified: "2026-03-17"
 version: "2.0"
-vignette: >
-  %\VignetteIndexEntry{API vs Browser-Based AI Workflows}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+description: "Decision criteria and guidelines for choosing between browser-based AI interaction and direct API calls."
+categories: [api, workflow, claude, chatgpt]
+format:
+  html:
+    toc: true
+    code-fold: true
+execute:
+  eval: false
+  echo: true
 ---
 
 # 1. Purpose
@@ -38,7 +42,7 @@ If you find yourself copying a prompt *from* somewhere or copying a response *to
 
 Use these signals to resolve ambiguous cases. No single signal is decisive — weigh the pattern.
 
-# Use the Browser When:
+## Use the Browser When:
 
 - The task is genuinely exploratory ("let me think out loud with Claude")
 - You expect to use the output once and not reference it again
