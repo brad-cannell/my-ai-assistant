@@ -98,6 +98,8 @@ chat = ChatAnthropic(model=model)
 
 # Conversation
 
+- Or type `chat.app()` in the console.
+
 ```{python}
 chat.chat("Your message here.", echo='none')
 ```
