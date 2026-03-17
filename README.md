@@ -40,6 +40,8 @@ All workflow documentation lives in the published vignettes:
 
 - [Python and Chatlas](https://brad-cannell.github.io/my-ai-assistant/vignettes/python-and-chatlas.html) — getting started with API calls
 - [Keyring](https://brad-cannell.github.io/my-ai-assistant/vignettes/keyring.html) — storing and retrieving API keys
+- [API vs Browser-Based AI Workflows](https://brad-cannell.github.io/my-ai-assistant/vignettes/api-vs-browser.html) — when to use the browser vs the API
+- [Prompt File or Conversation Only?](https://brad-cannell.github.io/my-ai-assistant/vignettes/prompt-vs-conversation.html) — when to create a reusable prompt file vs going straight to a conversation
 - [System Prompts](https://brad-cannell.github.io/my-ai-assistant/vignettes/system-prompts.html) — when and how to use system prompts
 - [Saving and Resuming Chats](https://brad-cannell.github.io/my-ai-assistant/vignettes/save-and-resume-chats.html) — pickle and markdown export strategy
 - [Prompt Format](https://brad-cannell.github.io/my-ai-assistant/vignettes/prompt-format.html) — YAML header conventions for prompts
