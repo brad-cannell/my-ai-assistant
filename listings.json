@@ -3,12 +3,18 @@
     "listing": "/index.html",
     "items": [
       "/vignettes/api-vs-browser.html",
+      "/vignettes/claude-code-vs-chatlas.html",
       "/vignettes/git-tags.html",
+      "/vignettes/prompt-vs-conversation.html",
       "/vignettes/prompt-format.html",
+      "/vignettes/save-and-resume-chats.html",
+      "/vignettes/keyring.html",
+      "/vignettes/system-prompts.html",
       "/vignettes/uv-virtual-environments.html",
       "/vignettes/venv-virtual-environments.html",
       "/vignettes/vignette-workflow.html",
-      "/vignettes/python-and-chatlas.html"
+      "/vignettes/python-and-chatlas.html",
+      "/vignettes/writing-prompts.html"
     ]
   }
 ]
