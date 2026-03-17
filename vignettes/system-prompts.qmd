@@ -1,0 +1,110 @@
+---
+title: "System Prompts"
+date: "2026-03-17"
+date-modified: "2026-03-17"
+version: "1.0"
+description: "What system prompts are, when to use them, and how to pass them to the chat object in Chatlas."
+categories: [python, chatlas, prompts, workflow]
+format:
+  html:
+    toc: true
+    code-fold: false
+execute:
+  eval: false
+  echo: true
+---
+
+# Overview
+
+A system prompt sets persistent context for a conversation before the first user message is sent — defining the model's role, tone, constraints, and any background it should carry throughout the session. This vignette covers when to use one, the two ways to supply one in Chatlas, and what to put in it.
+
+For the conventions used to write and store reusable prompt files, see `vignettes/prompt-format.qmd` and `prompts/template_prompt.md`.
+
+---
+
+# When to Use a System Prompt
+
+| Situation | System prompt? |
+|-----------|---------------|
+| One-off, exploratory conversation | No — omit it; start the chat without one |
+| Recurring task with a consistent role or set of constraints | Yes — write one and save it to `prompts/` |
+| Quick one-off with some useful framing | Yes — pass a brief inline string |
+
+The No Prompt conversation template (`conversations/Template - Conversation - No Prompt.qmd`) is designed for cases where no system prompt is needed. For recurring tasks, use the Chatlas template (`conversations/Template - Conversation - Chatlas.qmd`) which loads a system prompt from `prompts/`.
+
+::: callout-note
+Omitting the `system_prompt` argument is fine — Chatlas will use the provider's default behavior. You do not need to pass an empty string.
+:::
+
+---
+
+# Passing a System Prompt in Chatlas
+
+The `system_prompt` parameter is set when creating the chat object. It applies to the entire conversation.
+
+## Option 1: Inline String
+
+For a quick one-off framing that does not need to be saved or reused:
+
+```python
+from chatlas import ChatAnthropic
+
+chat = ChatAnthropic(
+    model="claude-sonnet-4-6",
+    system_prompt="You are a concise technical writer. Respond in plain language suitable for a non-specialist audience."
+)
+```
+
+## Option 2: Loaded from a Prompt File
+
+For recurring tasks, save the system prompt in a Markdown file under `prompts/` (see `prompts/template_prompt.md` for the standard format). Load it at runtime using the `prompt_extract_system_prompt` helper:
+
+```python
+from pathlib import Path
+from chatlas import ChatAnthropic
+from ewb_py_scripts import prompt_extract_system_prompt
+
+prompt_path = Path("prompts/your-prompt.md")
+system_prompt = prompt_extract_system_prompt(prompt_path)
+
+chat = ChatAnthropic(
+    model="claude-sonnet-4-6",
+    system_prompt=system_prompt
+)
+```
+
+This keeps the prompt definition in a versioned file separate from the conversation document.
+
+---
+
+# What to Put in a System Prompt
+
+A system prompt typically includes some combination of:
+
+- **Role** — what the model should act as ("You are a statistician reviewing epidemiologic methods...")
+- **Constraints** — what it must or must not do ("Do not add new information. Preserve original meaning.")
+- **Output format** — how the response should be structured ("Return your response as a Markdown list.")
+- **Background context** — standing information the model should have for the whole session
+
+Keep system prompts focused. A single, well-defined role is more reliable than a long list of competing instructions.
+
+The prompt template in `prompts/template_prompt.md` provides a structured starting point with `# SYSTEM PROMPT` and `# USER MESSAGE` sections.
+
+---
+
+# Quick Reference
+
+```python
+# No system prompt (one-off conversation)
+chat = ChatAnthropic(model="claude-sonnet-4-6")
+
+# Inline system prompt
+chat = ChatAnthropic(
+    model="claude-sonnet-4-6",
+    system_prompt="Your role description here."
+)
+
+# System prompt loaded from a file
+system_prompt = prompt_extract_system_prompt(Path("prompts/your-prompt.md"))
+chat = ChatAnthropic(model="claude-sonnet-4-6", system_prompt=system_prompt)
+```
