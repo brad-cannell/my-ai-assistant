@@ -2,8 +2,8 @@
 title: "API vs Browser-Based AI Workflows"
 date: "2025-12-22"
 date-modified: "2026-03-17"
-version: "2.0"
-description: "Decision criteria and guidelines for choosing between browser-based AI interaction and direct API calls."
+version: "2.1"
+description: "Decision criteria for choosing between browser-based AI interaction and API-based interaction for a given task."
 categories: [api, workflow, claude, chatgpt]
 format:
   html:
@@ -14,9 +14,26 @@ execute:
   echo: true
 ---
 
+**Scope:** The primary decision of whether a given AI-assisted task should use a browser-based interface or an API-based workflow. Does not cover choices made within the API category (e.g., interaction style, IDE tools, model selection), which are addressed in separate SOPs.
+
+**Interaction modes in scope:**
+
+| Mode | Examples |
+|------|---------|
+| Browser chat | Claude.ai, ChatGPT web |
+| Direct API calls | `chat$chat()` via Chatlas in Quarto |
+| IDE-integrated chat | OpenAI Codex, Claude Code in Positron |
+| Hybrid API/interactive | `chat$app()` via Chatlas in Positron |
+
+**Task domains:** Research, grant writing, course development (Epi-Workbench), code assistance, and administrative tasks.
+
+---
+
 # 1. Purpose
 
-This document provides decision criteria and operational guidelines for choosing between browser-based AI interaction (Claude.ai) and direct API calls (via Chatlas in Quarto) for AI-assisted tasks. The goal is to minimize friction, maximize reproducibility where it matters, and avoid making the mode decision ad hoc.
+This document provides decision criteria for choosing between browser-based AI interaction and API-based interaction for a given task. The goal is to minimize friction, maximize reproducibility where it matters, and avoid making the mode decision ad hoc.
+
+**What this SOP does not cover:** Once you have decided to use the API, a separate set of decisions follows — which interaction style to use (`chat$chat()` vs. `chat$app()`), which tool to reach for (Chatlas in Quarto, Claude Code, Codex), and which model to select. Those choices are governed by a separate SOP. The framework here applies at the higher level: browser or API?
 
 ---
 

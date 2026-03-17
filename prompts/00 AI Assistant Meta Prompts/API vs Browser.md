@@ -136,12 +136,24 @@ I would like to limit this scope of this SOP to deciding to use the API vs the b
 
 Additionally, please rewrite section 7, Maintenance, to decision scope only.
 
----
+------------------------------------------------------------------------
 
 # Follow-up: Tagging Specific Files
 
 How do I attach a version number to the SOP in git? Not a version number for the entire repo, just for the SOP Rmd file.
 
----
+------------------------------------------------------------------------
 
 I'll use the approach you suggested, combining options 1 and 2. Here is the path and file name for the vignetter we've been working on: '/Users/bradcannell/Desktop/Git/AI/my-ai-assistant/vignettes/API vs Browser.Rmd'. I'm calling version 2.0 because it's a major revision to the previous version.
+
+------------------------------------------------------------------------
+
+# Follow-up: Codex, Claude Code, and chat.app()
+
+I'm steering this conversation back toward `api-vs-browser.qmd` now. This file implicitly assumes that the choice is binary - browser *or* API, and that there is only one type of interaction within those two categories is homogeneous. I don't think either assumptions is correct.
+
+I sometimes use OpenAi's Codex and Anthropic's Claude Code from my IDE (Positron).
+
+Additionally, when interacting with ChatGPT or Claude through the API, I sometimes submit prewritten text through `chat.chat(user_message)` calls, but I sometimes use `chat.app()` to mimic the experience of interacting through the browser in my IDE.
+
+Should we acknowledge this in the SOP? And if so, how deep should we go into it?
