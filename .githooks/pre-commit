@@ -1,0 +1,8 @@
+#!/bin/bash
+# Auto-update the "updated" date in README.md when it is staged for commit.
+
+if git diff --cached --name-only | grep -q "^README.md$"; then
+  TODAY=$(date +%Y-%m-%d)
+  sed -i '' "s/^updated: .*/updated: \"$TODAY\"/" README.md
+  git add README.md
+fi
