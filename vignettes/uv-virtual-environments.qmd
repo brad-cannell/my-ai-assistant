@@ -1,0 +1,196 @@
+---
+title: "UV Virtual Environments"
+date: "2026-01-28"
+date-modified: "2026-01-28"
+version: "1.0"
+description: "Managing Python dependencies and virtual environments with uv for reproducible, cross-machine workflows."
+categories: [python, virtual-environments, uv, workflow]
+format:
+  html:
+    toc: true
+    code-fold: false
+execute:
+  eval: false
+  echo: true
+---
+
+# Overview
+
+This vignette summarizes a clean, reproducible workflow for managing Python dependencies with **`uv`**, especially when working across multiple computers with a synced project folder (e.g., Box, Dropbox, OneDrive).
+
+For the standard Python `venv` approach, see `vignettes/venv-virtual-environments.qmd`.
+
+---
+
+# Why `uv`
+
+- Virtual environments are **not portable** across machines
+- Synced folders change absolute paths, breaking `.venv`
+- `uv` makes environments **easy to recreate, fast, and deterministic**
+
+Core idea:
+
+> **Do not sync the virtual environment. Sync the dependency definitions instead.**
+
+---
+
+# One-Time Setup (per machine)
+
+Install `uv`:
+
+```bash
+brew install uv
+```
+
+Verify:
+
+```bash
+uv --version
+```
+
+---
+
+# Project Setup
+
+## 1. Initialize `uv` in the project root
+
+```bash
+uv init
+```
+
+Creates (or updates):
+
+- `pyproject.toml` — dependency intent
+- No virtual environment yet
+
+Commit `pyproject.toml`.
+
+## 2. Add dependencies
+
+```bash
+uv add pandas numpy matplotlib
+```
+
+This will:
+
+- Add dependencies to `pyproject.toml`
+- Generate `uv.lock` with exact versions
+
+Commit **both** `pyproject.toml` and `uv.lock`.
+
+---
+
+# Virtual Environment Workflow
+
+## 3. Create a local virtual environment
+
+```bash
+uv venv
+```
+
+Creates a `.venv/` directory. This directory is **machine-local** and should not be synced.
+
+## 4. Install dependencies from the lockfile
+
+```bash
+uv sync
+```
+
+This installs **exactly** the versions recorded in `uv.lock`.
+
+On a second machine:
+
+```bash
+uv venv
+uv sync
+```
+
+---
+
+# `.gitignore` / Sync Rules
+
+Exclude the virtual environment:
+
+```
+.venv/
+__pycache__/
+```
+
+Sync and version control:
+
+```
+pyproject.toml
+uv.lock
+```
+
+---
+
+# VS Code / Positron Configuration (Recommended)
+
+Create or update `.vscode/settings.json`:
+
+```json
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python.terminal.activateEnvironment": true
+}
+```
+
+Then select the interpreter once:
+
+- Command Palette → **Python: Select Interpreter**
+- Choose `.venv/bin/python`
+
+---
+
+# Python Version Pinning (Optional but Recommended)
+
+In `pyproject.toml`:
+
+```toml
+[project]
+requires-python = ">=3.11,<3.13"
+```
+
+This prevents subtle version mismatches across machines.
+
+---
+
+# Managing Dependencies
+
+All project dependencies should be managed with **`uv`**. Do not use `pip install` directly — it will not update the lockfile and can break reproducibility across machines.
+
+To add a new package:
+
+```bash
+uv add <package-name>
+```
+
+This automatically updates `pyproject.toml`, updates `uv.lock`, and installs the package into the local `.venv`.
+
+To re-sync the environment at any time:
+
+```bash
+uv sync
+```
+
+---
+
+# Mental Model
+
+| File / Directory | Role |
+|---|---|
+| `.venv/` | Disposable, local build artifact — do not sync |
+| `pyproject.toml` | Dependency intent — sync and commit |
+| `uv.lock` | Exact, reproducible state — sync and commit |
+| `uv sync` | Fast, deterministic rebuild from lockfile |
+
+---
+
+# Typical Daily Commands
+
+```bash
+uv add <package>   # add a dependency
+uv sync            # install/update environment
+uv venv            # recreate environment if needed
+```
