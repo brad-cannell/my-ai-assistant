@@ -1,0 +1,94 @@
+---
+title: "Claude Code vs. Chatlas"
+date: "2026-03-17"
+date-modified: "2026-03-17"
+version: "1.0"
+description: "Decision criteria for choosing between Claude Code and Chatlas in Quarto once you have decided to use the API."
+categories: [workflow, claude-code, chatlas, api]
+format:
+  html:
+    toc: true
+    code-fold: false
+execute:
+  eval: false
+  echo: true
+---
+
+**Scope:** This vignette applies after you have decided to use the API rather than the browser (see [API vs Browser-Based AI Workflows](api-vs-browser.html)). The question here is which API workflow to use: Claude Code (an agentic CLI tool) or Chatlas in a Quarto conversation document.
+
+Both tools use the Anthropic API and are billed per token. The difference is what each tool can do and what kind of output it produces.
+
+---
+
+# The Core Decision Question
+
+> **"Is the task about acting on files in this repo, or about injecting external content into a conversation?"**
+
+| Answer | Tool |
+|--------|------|
+| Acting on files — read, edit, create, commit, run commands | Claude Code |
+| Injecting external content — documents, lessons, chapters not in the repo | Chatlas in Quarto |
+| Unsure | See the signal lists below |
+
+---
+
+# Use Claude Code When:
+
+- The task involves files or code **already in the repo** — reading, editing, creating, refactoring, or committing them
+- You want **actions taken**, not just text generated — file edits, shell commands, git operations
+- You are doing **developer tasks**: debugging, code review, documentation, repo organization
+- Output IS a file change — there is nothing to copy and paste elsewhere
+- Fast iteration matters and you want **minimal setup** — no Quarto document, no package imports
+- You want Claude to **search and reason about the project structure** and act on what it finds
+- You are **exploring a prompt structure** and plan to ask Claude Code to write the result to `prompts/` when you are done
+
+---
+
+# Use Chatlas in Quarto When:
+
+- You are **injecting large external content** — a lesson file, a book chapter, a manuscript, a dataset description that lives outside the repo
+- You need a **fully archivable, resumable conversation** — the `.pkl` + `.md` two-file strategy (see [Saving and Resuming Chats](save-and-resume-chats.html))
+- Output is **prose or structured text** that does not map to a file edit and may be pasted elsewhere
+- You need **precise parameter control** — specific model, `max_tokens`, temperature, or a structured system prompt loaded from `prompts/`
+- The **conversation itself is the artifact** — something you want to document, share, or return to programmatically
+- You are running a **batch or pipeline workflow** with structured inputs and outputs
+- The task involves content from **outside the repo** that Claude Code cannot access without manual pasting
+
+---
+
+# Boundary Cases
+
+| Situation | Recommendation |
+|-----------|----------------|
+| Reviewing a file in the repo | Claude Code — it can read the file directly |
+| Reviewing a document from Google Drive or Box | Chatlas — load the file in Python and inject it |
+| Drafting a new vignette or prompt file | Claude Code — it can write and commit the file |
+| Revising lesson content across many lessons in a pipeline | Chatlas — structured, repeatable, archivable |
+| One-off question about code in the repo | Claude Code |
+| Long multi-turn conversation you want to resume later | Chatlas — Claude Code sessions are not resumable via pickle |
+| Exploring what a good prompt might look like | Claude Code — then promote the result to `prompts/` |
+| Applying a finalized, reusable prompt to many inputs | Chatlas |
+
+---
+
+# The "Promote to Prompt" Workflow
+
+Claude Code is a natural starting point for exploration — you can have a conversation, iterate quickly, and let it act on the repo. When you arrive at a prompt structure worth keeping, ask Claude Code to write it to `prompts/` following the conventions in [Prompt Format](prompt-format.html) and commit it. From that point forward, load the prompt from `prompts/` in a Chatlas conversation document.
+
+This workflow bridges the two tools: Claude Code for exploration and authoring, Chatlas for repeatable, documented execution.
+
+---
+
+# Quick Reference
+
+```
+CLAUDE CODE                         CHATLAS IN QUARTO
+───────────                         ─────────────────
+Files in the repo                   External documents
+Actions: edit, commit, run          Text generation only
+Fast, minimal setup                 Structured, archivable
+Output is a file change             Output is prose/content
+Sessions not resumable              Resumable via pickle
+No parameter control needed         Precise model/token control
+Exploration → promote to prompts/   Finalized, reusable prompts
+```

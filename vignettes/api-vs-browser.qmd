@@ -14,7 +14,7 @@ execute:
   echo: true
 ---
 
-**Scope:** The primary decision of whether a given AI-assisted task should use a browser-based interface or an API-based workflow. Does not cover choices made within the API category (e.g., interaction style, IDE tools, model selection), which are addressed in separate SOPs.
+**Scope:** The primary decision of whether a given AI-assisted task should use a browser-based interface or an API-based workflow. Does not cover choices made within the API category. Once you have decided to use the API, the next decision is which tool to reach for — see [Claude Code vs. Chatlas](claude-code-vs-chatlas.html).
 
 **Interaction modes in scope:**
 
@@ -33,7 +33,7 @@ execute:
 
 This document provides decision criteria for choosing between browser-based AI interaction and API-based interaction for a given task. The goal is to minimize friction, maximize reproducibility where it matters, and avoid making the mode decision ad hoc.
 
-**What this SOP does not cover:** Once you have decided to use the API, a separate set of decisions follows — which interaction style to use (`chat$chat()` vs. `chat$app()`), which tool to reach for (Chatlas in Quarto, Claude Code, Codex), and which model to select. Those choices are governed by a separate SOP. The framework here applies at the higher level: browser or API?
+**What this SOP does not cover:** Once you have decided to use the API, the next decision is which tool to use — Claude Code or Chatlas in Quarto. That choice is covered in [Claude Code vs. Chatlas](claude-code-vs-chatlas.html). The framework here applies only at the higher level: browser or API?
 
 ---
 
