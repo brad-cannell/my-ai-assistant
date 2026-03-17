@@ -1,0 +1,94 @@
+---
+title: "Prompt File or Conversation Only?"
+date: "2026-03-17"
+date-modified: "2026-03-17"
+version: "1.0"
+description: "Decision criteria for when to create a dedicated, reusable prompt file versus starting directly in a conversation document."
+categories: [workflow, prompts, conversations]
+format:
+  html:
+    toc: true
+    code-fold: false
+execute:
+  eval: false
+  echo: true
+---
+
+**Scope:** This vignette applies after you have already decided to use the API (see [API vs Browser-Based AI Workflows](api-vs-browser.html)). The question here is narrower: do you need a dedicated prompt file, or can you go straight to a conversation document?
+
+---
+
+# The Core Decision Question
+
+> **"Will I reuse this prompt structure across multiple conversations or inputs?"**
+
+| Answer | Path |
+|--------|------|
+| No — this task is one-off or context-specific | Start directly in a conversation file |
+| Yes — the same structure will be applied repeatedly | Create a prompt file in `prompts/` |
+| Unsure | See the signal lists below |
+
+Either way, you are working in a Quarto conversation document and you will save your chat history. The only difference is whether a separate, reusable prompt file exists.
+
+---
+
+# Two Templates
+
+| Template | When to use |
+|----------|-------------|
+| `Template - Conversation - No Prompt.qmd` | No prompt file; inline system prompt or none at all |
+| `Template - Conversation - Chatlas.qmd` | Loads a system prompt and user message from a file in `prompts/` |
+
+---
+
+# Go Straight to a Conversation File When:
+
+- The task is one-off, even if it is substantive — you will not run this same prompt structure again
+- The system prompt is short enough to write inline (a sentence or two)
+- The prompt is tightly coupled to a specific document, dataset, or artifact and would not generalize to other inputs
+- You are exploring or iterating and are not sure yet what the final prompt structure should be
+- Speed matters more than reusability right now
+
+In these cases, use the No-Prompt template. If you need a system prompt, pass it as an inline string to the chat object. Save your chat history at the end of the session.
+
+---
+
+# Create a Prompt File When:
+
+- You have used a structurally similar prompt before, or expect to use it again
+- The prompt will be applied to many different inputs (e.g., the same review task run on different lessons, papers, or datasets)
+- The prompt is complex — it has a multi-part system prompt, a structured user message with placeholders, or detailed constraints that would be unwieldy inline
+- You want to version-control the prompt independently from any specific conversation
+- The prompt is shared across a project or might be used by others
+- You are building a pipeline where the prompt is a stable component
+
+In these cases, save the prompt to `prompts/` following the conventions in [Prompt Format](prompt-format.html), then load it from your conversation file using `prompt_extract_system_prompt()`.
+
+---
+
+# Boundary Cases
+
+| Situation | Recommendation |
+|-----------|----------------|
+| First time running a task you expect to repeat | Start in a conversation file; if you reuse it, promote to a prompt file |
+| System prompt is one sentence | Inline — no prompt file needed |
+| System prompt has multiple sections and constraints | Prompt file |
+| Task is one-off but the output feeds a recurring artifact | Conversation file; the artifact, not the prompt, is what recurs |
+| You are adapting an existing prompt slightly for a new context | Fork the existing prompt file rather than writing inline |
+| You are not sure the task will recur | Conversation file first; it's easier to promote later than to clean up an unnecessary prompt file |
+
+---
+
+# Quick Reference
+
+```
+CONVERSATION FILE ONLY          PROMPT FILE + CONVERSATION
+──────────────────────          ──────────────────────────
+One-off task                    Recurring task or structure
+Inline or no system prompt      Complex, multi-part prompt
+Context-specific input          Applied to many inputs
+Exploring / iterating           Stable, version-controlled
+Speed matters now               Reuse matters more
+```
+
+**When in doubt, start with a conversation file.** It is easy to promote a working inline prompt to a file in `prompts/` once you know you will reuse it. It is harder to justify maintaining a prompt file you only ever used once.
