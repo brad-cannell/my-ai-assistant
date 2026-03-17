@@ -170,3 +170,14 @@ Thank you! I think we have a solid first version of the solution here. How do I 
 --- 
 
 # Follow-up: SOP
+
+It appears to be working now! 
+
+Please write a brief new vignette that summarizes:
+1. The purpose of vignettes.
+2. Our rationale for the workflow we chose.
+3. Instructions for writing, maintaining, and viewing vignettes.
+
+---
+
+Do I need to run quarto preview or quarto render before committing and pushing the new vignettes?
