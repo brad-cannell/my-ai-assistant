@@ -44,6 +44,7 @@ All workflow documentation lives in the published vignettes:
 - [Prompt File or Conversation Only?](https://brad-cannell.github.io/my-ai-assistant/vignettes/prompt-vs-conversation.html) — when to create a reusable prompt file vs going straight to a conversation
 - [System Prompts](https://brad-cannell.github.io/my-ai-assistant/vignettes/system-prompts.html) — when and how to use system prompts
 - [Saving and Resuming Chats](https://brad-cannell.github.io/my-ai-assistant/vignettes/save-and-resume-chats.html) — pickle and markdown export strategy
+- [Writing Effective Prompts](https://brad-cannell.github.io/my-ai-assistant/vignettes/writing-prompts.html) — XML tags, injected content, and prompt structure
 - [Prompt Format](https://brad-cannell.github.io/my-ai-assistant/vignettes/prompt-format.html) — YAML header conventions for prompts
 - [uv Virtual Environments](https://brad-cannell.github.io/my-ai-assistant/vignettes/uv-virtual-environments.html) — Python dependency management
 

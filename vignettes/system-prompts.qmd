@@ -90,6 +90,8 @@ Keep system prompts focused. A single, well-defined role is more reliable than a
 
 The prompt template in `prompts/template_prompt.md` provides a structured starting point with `# SYSTEM PROMPT` and `# USER MESSAGE` sections.
 
+For guidance on writing prompt content — including when and how to use XML tags to structure complex prompts and delimit injected text — see [Writing Effective Prompts](writing-prompts.html).
+
 ---
 
 # Quick Reference
