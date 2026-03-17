@@ -1,0 +1,176 @@
+---
+title: "Writing Effective Prompts"
+date: "2026-03-17"
+date-modified: "2026-03-17"
+version: "1.0"
+description: "Guidelines for writing clear, well-structured prompts, with a focus on using XML tags to delimit injected content and organize complex instructions."
+categories: [prompts, workflow]
+format:
+  html:
+    toc: true
+    code-fold: false
+execute:
+  eval: false
+  echo: true
+---
+
+# Overview
+
+This vignette covers the content of prompts — how to write them clearly, when to use XML tags, and how to structure multi-part inputs. For conventions about prompt *files* (YAML headers, file naming), see [Prompt Format](prompt-format.html). For when to create a prompt file at all, see [Prompt File or Conversation Only?](prompt-vs-conversation.html).
+
+---
+
+# XML Tags
+
+## What They Are
+
+XML tags are paired labels that wrap a block of content, like this:
+
+```
+<document>
+The full text of the document goes here.
+</document>
+```
+
+They are not actual XML — the model treats them as structural markers that define where one piece of content begins and ends. Claude is specifically trained to recognize and use them well.
+
+## Why They Help
+
+Without a delimiter, an injected block of text can blur into the surrounding instructions. The model may not be certain where your instructions end and the content begins — especially when the injected text is long or contains its own headings, lists, or formatting.
+
+XML tags solve this cleanly:
+
+```python
+# Ambiguous — where do the instructions end and the content begin?
+user_message = f"Please review this lesson and identify any gaps: {lesson_content}"
+
+# Clear — the injected content is unambiguously delimited
+user_message = f"""
+Please review the following lesson and identify any important gaps.
+
+<lesson_content>
+{lesson_content}
+</lesson_content>
+"""
+```
+
+They are especially valuable when:
+
+- Injecting a large block of text (a document, a lesson, a chapter, a dataset description)
+- Passing multiple distinct inputs that the model should treat separately
+- Providing few-shot examples that should be distinguished from instructions
+- Writing a complex system prompt with multiple distinct sections
+
+## When to Skip Them
+
+- The prompt is a single sentence or short paragraph with no injected content
+- The context is obvious from plain prose — don't add tags for their own sake
+- One-off exploratory questions where structure adds no clarity
+
+---
+
+# Tag Naming Conventions
+
+Use short, lowercase, descriptive names that match the content type. There is no enforced standard — consistency within a project matters more than any particular naming scheme.
+
+| Purpose | Example tag |
+|---------|-------------|
+| A document or file being reviewed | `<document>`, `<text>`, `<lesson_content>` |
+| Background context | `<context>`, `<background>` |
+| Few-shot examples | `<examples>`, `<example>` |
+| Constraints or rules | `<constraints>` |
+| Expected output format | `<output_format>` |
+| A specific artifact (match your content) | `<chapter>`, `<abstract>`, `<code>` |
+
+Name tags after the *content*, not the role it plays in your reasoning. `<lesson_content>` is clearer than `<input>`.
+
+---
+
+# Structuring Injected Content in User Messages
+
+The most common use case is wrapping a variable block of text in an f-string user message:
+
+```python
+user_message = f"""
+I have a lesson on conditional operations in R and a related book chapter.
+Please read both and list important concepts that appear in the chapter but are missing from the lesson.
+
+<lesson>
+{lesson_content}
+</lesson>
+
+<chapter>
+{chapter_content}
+</chapter>
+"""
+```
+
+When passing multiple documents, give each its own tag so the model can clearly distinguish them.
+
+---
+
+# Structuring Complex System Prompts
+
+For short system prompts, plain prose is fine. For longer ones with multiple distinct sections, XML tags can help the model parse which part is which:
+
+```
+You are an expert academic editor specializing in public health writing.
+
+<role>
+Review the provided text and suggest revisions that improve clarity and concision
+without changing the scientific meaning.
+</role>
+
+<constraints>
+- Preserve all technical terminology
+- Do not introduce new claims or interpretations
+- Return the revised text only, without commentary
+</constraints>
+```
+
+This is optional — Markdown headers (`##`) work too. Use whichever makes the prompt easiest to read and maintain. The key is consistency within a prompt file.
+
+---
+
+# How XML Tags Fit the Prompt File Structure
+
+The prompt template (`prompts/template_prompt.md`) uses Markdown headers to separate the `# SYSTEM PROMPT` and `# USER MESSAGE` sections, and Markdown subheadings (`## Context`, `## Task`, `## Constraints`) within each section. This top-level structure is for *humans reading the file*.
+
+XML tags operate at the *model* level — they are part of the content passed to the API, not the file's navigational structure. The two work together:
+
+```markdown
+# USER MESSAGE
+
+## Context
+
+The text comes from an epidemiologic methods section.
+
+## Task
+
+Rewrite the provided text to be more formal and concise.
+
+<text>
+{{text}}
+</text>
+```
+
+The `## Context` and `## Task` headings help you (the author) navigate the file. The `<text>` tag helps the model locate the injected content at runtime after placeholder substitution.
+
+---
+
+# Quick Reference
+
+```
+USE XML TAGS WHEN:                     SKIP TAGS WHEN:
+─────────────────                      ───────────────
+Injecting a large text block           Short, simple prompt
+Multiple distinct inputs               No injected content
+Few-shot examples                      Context is clear from prose
+Complex, multi-section system prompt   One-off exploratory question
+```
+
+**Name tags after the content, not the slot** — `<lesson_content>` over `<input>`.
+
+**One tag pair per distinct input** — if you are passing three documents, use three tag pairs.
+
+**Consistent casing** — lowercase throughout; avoid mixing `<Document>` and `<document>`.
