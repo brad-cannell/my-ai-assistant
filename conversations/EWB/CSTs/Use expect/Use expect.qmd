@@ -1,0 +1,250 @@
+---
+title: "Should we use testthat expect_ Functions?"
+id: use_expect_
+author: brad_cannell
+date: 2026-01-28
+date-modified: 2026-01-28
+audience: course_authors
+category: lesson_development
+tags:
+  - r
+  - csts
+  - test_that
+  - unit_testing
+format:
+  html:
+    toc: true
+    embed-resources: true
+execute:
+  eval: false
+---
+
+# Overview
+
+- This conversation is about getting assistance with writing code submission tests for EWB lessons using the native `expect_` functions.
+
+# Prerequisites
+- Create a new virtual environment (venv).
+- Install Packages:
+  - pip install keyring
+  - pip install openai
+  - pip install jupyter
+  - pip install -U chatlas
+- pip freeze > requirements.txt
+
+# Load Packages
+
+```{python}
+import os
+import keyring
+from openai import OpenAI
+import sys
+import json
+from pathlib import Path
+import chatlas as ctl
+from datetime import date
+```
+
+# File Paths and Environment Variables
+
+- Set today's date.
+- Set the course name.
+- Set the path to the lesson folder.
+- Set the path to the lesson file. 
+- Get the content of the lesson file.
+- Set the path to the lesson revision prompt.
+- Set the model to inject into the API calls. See available models at: https://platform.openai.com/docs/models.
+
+They are passed to the AI assistant below.
+
+```{python}
+model = "gpt-5-nano-2025-08-07"
+today = date.today().isoformat()
+
+# Conversation
+conversation_folder_path = Path("conversations/CSTs/Use expect/")
+
+# Prompt
+prompt_folder_path = Path("prompts/Courses/testthat/use_expect/")
+prompt_path = prompt_folder_path / "Use expect.md"
+```
+
+# Load helper functions
+
+Run in terminal:
+- `cd "/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/AI Assistant/py_scripts"`
+- `python -m pip install -e .`
+
+```{python}
+# Load functions from py_scripts/ewb_py_scripts
+from ewb_py_scripts import (
+    prompt_extract_system_prompt,
+    prompt_extract_user_message,
+    prompt_fill_placeholders,
+)
+```
+
+# Expose API
+
+This assumes you've already created an API key on [openai's website](https://platform.openai.com/api-keys), and that you saved the API key in keyring using `keyring.set_password("API Name", "User", "API Key")`.
+
+```{python}
+# Retrieve the password from the system keyring
+openai_api = keyring.get_password("ewb-course-development", "brad")
+
+if openai_api is not None:
+    # Set the retrieved value as a temporary environment variable
+    os.environ['OPENAI_API_KEY'] = openai_api
+    print("Environment variable 'OPENAI_API_KEY' set successfully within the script.")
+else:
+    print("Could not retrieve password from keyring.")
+```
+
+# Read the Template Prompt
+
+```{python}
+# Raw system (developer) section of the prompt template.
+system_prompt = prompt_extract_system_prompt(prompt_path)
+
+# Raw user message section of the prompt template.
+user_message_raw = prompt_extract_user_message(prompt_path)
+
+# Inject course and lesson name into user message
+# user_message = prompt_fill_placeholders(
+#     text = user_message_raw,
+#     replacements = {
+#         "lesson_name": lesson_name,
+#         "course_name": course_name,
+#     },
+# )
+```
+
+# Create Chat Object
+
+```{python}
+chat = ctl.ChatOpenAI(
+    model = model,
+    system_prompt = system_prompt
+)
+```
+
+# Pass the user message to the AI Assistant
+
+```{python}
+chat.chat(user_message_raw, echo='none')
+```
+
+## Response
+
+```{python}
+#| echo: false
+print(chat)
+```
+
+# Create a Prompt for Converting CSTs
+
+```{python}
+user_message="""
+Thank you for the guidance. As part of my migration plan, I would like ChatGPT to pass existing CSTs to ChatGPT. Then, I would like ChatGPT to help me convert them to expect_* style. Will you please generate a reuseable prompt for that purpose?
+"""
+```
+
+```{python}
+chat.chat(user_message, echo='none')
+```
+
+## Response
+
+```{python}
+#| echo: false
+print(chat)
+```
+
+# Pass the entire file
+
+```{python}
+user_message="""
+It would be even better if I could just pass the entire contents of the lesson to ChatGPT in markdown format. Then, ChatGPT could locate the test blocks in it's own, and return updated CSTs for all test blocks in the lesson.
+"""
+```
+
+```{python}
+chat.chat(user_message, echo='none')
+```
+
+## Response
+
+```{python}
+#| echo: false
+print(chat)
+```
+
+# Follow-up and Refinement
+
+A section for optional follow-up questions and refinements. 
+- Optionally, create a fork of the chat. `import copy; chat_fork = copy.deepcopy(chat)`
+- Asks follow-up questions in interactive mode - `chat.app()`.
+
+# Conclusions 2026-01-28
+
+- I think there's enough there for me to create a prompt.
+- I'm not going to use all of it, but I'll use some of it.
+- Next steps:
+  - Write a prompt to upadate individual CSTs.
+  - Write a prompt to update all existing test blocks in a lesson file.
+  - I also need to add additional COL code submission questions to the Descriptive Analysis I lessons.
+
+# Save Chat History
+
+Optional, but necessary to return to the conversation later.
+
+```{python}
+# Export chat history as a markdown file
+# This version is easier to pass back to to the chat object in the future.
+chat_history_path_md = (conversation_folder_path / ("Use_expect_chat_history_" + today + ".md"))
+chat.export(chat_history_path_md, overwrite=True)
+
+# Export chat history as an HTML file
+chat_history_path_html = (conversation_folder_path / ("Use_expect_chat_history_" + today + ".html"))
+chat.export(chat_history_path_html, overwrite=True)
+
+# Export chat history as a json file
+# Useful for saving/loading the history to/from a database or file.
+# chat_history_path_json = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + today + ".json"))
+# with open(chat_history_path_json, "w", encoding="utf-8") as f:
+#     json.dump(
+#         [json.loads(x) for x in turns_json],
+#         f,
+#         indent=2,
+#         ensure_ascii=False
+#     )
+```
+
+## Condense
+
+You can also optionally condense the history by asking the LLM to summarize it. This is useful if you want to keep the context of the conversation, but don’t want to provide the entire history to the model on each new submission.
+
+```{python}
+# chat.chat("Can you summarize our conversation so far?")
+# chat.set_turns([chat.get_last_turn()])
+```
+
+## Load chat history
+
+To optionally load the chat history later.
+
+```{python}
+# Import chat history as a md file
+# chat_history_path_md = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + "yyyy-mm-dd" + ".md"))
+# history_md = chat_history_path_md.read_text(encoding="utf-8")
+
+# Import chat history as a json file
+# chat_history_path_json = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + "yyyy-mm-dd" + ".json"))
+# history_json = json.loads(chat_history_path_json.read_text(encoding="utf-8"))
+```
+
+# Render to HTML
+
+Render to HTML (Optional)
+- Click the Preview button.
+- Type `quarto render "path/Lesson Revisions.qmd"` in the terminal.

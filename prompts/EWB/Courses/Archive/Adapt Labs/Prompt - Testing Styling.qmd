@@ -1,0 +1,77 @@
+---
+title: "Testing Markdown Styling"
+author: Brad Cannell
+date: 2025-04-18
+date-modified: 2025-04-18
+notes: 
+  - Use a Quarto document instead of a plain MD document for the outline in 
+    RStudio.
+details:
+  - I want ChatGPT to restyle markdown for me in accordance with my EWB
+    style guide.
+  - The prompt below assumes that I'm in the EWB project on ChatGPT, and 
+    therefore, don't need to explain what EWB is or pass along all of the 
+    formatting rules contained in the style guide.
+---
+
+# Initial prompt
+
+Please update the formatting of the text in the attached Quarto markdown document in accordance with the style guide...
+
+<!-- left off here -->
+
+---
+title: [Add title here]
+author: Brad Cannell
+date: [Add today's date]
+date-modified: [Add today's date]
+type: [Add lesson type]
+---
+
+Where:
+- The title will be provided below.
+    - Please ensure that a title is provided, and prompt me to provide one if I forget.
+- The lesson type will be provided below.
+    - Please ensure that a lesson type is provided, and prompt me to provide one if I forget.
+    - Please ensure that the lesson type is one of: "written"", "video"", "coding"", "col", "lab", or "culminating". Please notify me if a different value is provided for the lesson type.
+    - If the lesson type is "lab", please prefix the title with "Lab:".
+    
+Please don't change anything else about the Quarto markdown document.
+
+When you have completed the steps above, please create an downloadable Quarto markdown document with the updated YAML header.
+    
+Title = Data Transfer
+Type = lab
+
+# Prompt two: separate instructions and attachment
+
+Later, I'm going to attach a Quarto markdown document.
+
+Please update the YAML header in the attached Quarto markdown document (i.e., remove everything from the first `---` to the second `---`) and replace it with a new YAML header that uses this pattern:
+
+---
+title: [Add title here]
+author: Brad Cannell
+date: [Add today's date]
+date-modified: [Add today's date]
+type: [Add lesson type]
+---
+
+Where:
+- The title will be provided when I attach the Quarto markdown document.
+    - Please ensure that a title is provided, and prompt me to provide one if I forget.
+- The lesson type will be provided in the Quarto markdown document.
+    - Please ensure that a lesson type is provided, and prompt me to provide one if I forget.
+    - Please ensure that the lesson type is one of: "written"", "video"", "coding"", "col", "lab", or "culminating". Please notify me if a different value is provided for the lesson type.
+    - If the lesson type is "lab", please prefix the title with "Lab:".
+    
+Please don't change anything else about the Quarto markdown document.
+
+When you have completed the steps above, please create an downloadable Quarto markdown document with the updated YAML header.
+
+## Attachment
+
+[Add attachment and the text below]
+    
+Title = Data Transfer
+Type = lab

@@ -1,0 +1,189 @@
+---
+title: "Categories and Tags"
+id: categories_and_tags
+author: "Brad Cannell"
+date: "2025-12-23"
+date-modified: "2025-12-22"
+audience: "Course Authors"
+category: "Course Development"
+tags: NULL
+format:
+  html:
+    embed-resources: true
+execute:
+  eval: false
+---
+
+# Overview
+
+This wiki page is to help course authors appropriately use request and assign tags.
+- **2025-12-23:** 
+  - I downloaded an existing ClickUp Doc draft of this SOP (ClickUp-Categories and Tags-20251223110159.md). 
+  - I made some adjustments to the ClickUp draft to create an initial draft SOP to pass to the AI assistant.
+  - My goal today is to create a "good enough" set of guidelines for using tags. The tagging system isn't finalized yet. We are still waiting on:
+    - [Tags: Course Authors View Tag List](https://trello.com/c/7GLitlrp/114-tags-course-authors-view-tag-list)
+    - [Tags: Type to Search for Tags](https://trello.com/c/5LnNpNdV/115-tags-type-to-search-for-tags)
+    - [Tags: Tag Lessons Instead of Courses](https://trello.com/c/mCQyAXYf/116-tags-tag-lessons-instead-of-courses)
+    - [Wiki: Add Images to Course Author Wiki Pages](https://trello.com/c/JRvkjSdH/117-add-images-to-course-author-wiki-pages)
+
+# Load Packages
+
+```{r}
+library(ellmer)
+```
+
+# Retrieve the API key and Expose it to ellmer
+
+```{r}
+Sys.setenv(GOOGLE_API_KEY = keyring::key_get("ewb-wiki"))
+Sys.setenv(ANTHROPIC_API_KEY = keyring::key_get("test-claude-brad"))
+Sys.setenv(OPENAI_API_KEY = keyring::key_get("ewb-wiki-openai"))
+```
+
+# Initial Draft
+
+2025-12-23: 
+  - I downloaded an existing ClickUp Doc draft of this SOP (ClickUp-Categories and Tags-20251223110159.md). 
+  - I made some adjustments to the ClickUp draft to create an initial draft SOP to pass to the AI assistant.
+  - My goal today is to create a "good enough" set of guidelines for using tags. The tagging system isn't finalized yet.
+  
+## System prompt
+  
+```{r}
+system_prompt <- paste(
+  "You are a technical writer with expertise in writing standard operating procedures (SOPs),",
+  "guidelines, knowledge bases, and wikis for organizations.",
+  "Your task is to revise the provided draft wiki page for clarity, accuracy, and usability.",
+  "Use the provided context for background understanding only.",
+  "Do NOT rewrite or summarize the background context unless explicitly instructed.",
+  "Write in a clear, professional, instructional tone appropriate for course authors.",
+  sep = " "
+)
+```
+
+## Create chat object
+
+```{r}
+chat <- chat_google_gemini(
+  system_prompt = system_prompt,
+  model = "gemini-2.5-pro",
+  echo = "none"
+)
+```
+
+## Create user message
+
+### Context
+
+```{r}
+# Read About EWB (raw, including YAML if present)
+about_ewb_raw <- readLines(here::here('about_ewb.md'), warn = FALSE)
+
+# Read About Me (raw, including YAML if present)
+about_me_raw <- readLines(here::here('about_me.md'), warn = FALSE)
+
+# Read the draft wiki page (this file does NOT have YAML)
+draft_raw <- readLines(here::here('conversations', 'Wiki Page - Tags', 'Initial Draft.md'), warn = FALSE)
+```
+
+#### Function for removing the yaml header
+
+```{r}
+# This function removes a YAML header if it exists at the top of a markdown file.
+# A YAML header is assumed to:
+#   - start with '---' on the first line
+#   - end with the next '---'
+strip_yaml_header <- function(lines) {
+  
+  # Check whether the first non-empty line is a YAML start marker
+  first_non_empty <- which(nzchar(trimws(lines)))[1]
+  
+  if (!is.na(first_non_empty) && trimws(lines[first_non_empty]) == "---") {
+    
+    # Find the line number of the closing YAML delimiter
+    yaml_end <- which(trimws(lines) == "---")[-1][1]
+    
+    # Return everything *after* the YAML block
+    return(lines[(yaml_end + 1):length(lines)])
+    
+  } else {
+    
+    # If no YAML header is present, return the original lines unchanged
+    return(lines)
+  }
+}
+
+# For testing
+# strip_yaml_header(about_me)
+```
+
+Strip YAML from context files
+
+```{r}
+about_ewb_clean <- strip_yaml_header(about_ewb_raw)
+about_me_clean  <- strip_yaml_header(about_me_raw)
+```
+
+Collapse each section into a single string
+
+```{r}
+about_ewb_text <- paste(about_ewb_clean, collapse = "\n")
+about_me_text  <- paste(about_me_clean, collapse = "\n")
+draft_text     <- paste(draft_raw, collapse = "\n")
+```
+
+Combine into one structured prompt string
+
+```{r}
+# Build the final prompt with explicit section labels
+prompt_text <- paste(
+  "## Context: About Epi-Workbench (EWB)\n",
+  about_ewb_text,
+  "\n\n---\n\n",
+  "## Context: About the Author\n",
+  about_me_text,
+  "\n\n---\n\n",
+  "## Draft Wiki Page: Categories and Tags\n",
+  draft_text,
+  sep = ""
+)
+```
+
+Checkpoint — inspect the prompt
+
+```{r}
+# Print the first ~80 lines to verify structure and labeling
+# cat("===== BEGIN PROMPT PREVIEW =====\n")
+# cat(paste(head(strsplit(prompt_text, "\n")[[1]], 80), collapse = "\n"))
+# cat("\n===== END PROMPT PREVIEW =====\n")
+```
+
+Create a combined user message
+
+```{r}
+# --------------------------------------------
+# Step 2: Define the user message
+# --------------------------------------------
+
+# The user message contains the actual material to work with.
+# This wraps the structured prompt string created earlier.
+user_message <- paste(
+  "Please revise the following wiki page based on the provided context.\n\n",
+  prompt_text,
+  sep = ""
+)
+```
+
+## Send the request to the API
+
+```{r}
+response <- chat$chat(user_message)
+```
+
+## Response
+
+Write the response to a markdown file for review.
+
+```{r}
+writeLines(response, "gemini_draft_01.md")
+```

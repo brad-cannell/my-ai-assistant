@@ -1,3 +1,11 @@
+---
+title: "About the AI Assistant Repo"
+author: "Brad Cannell"
+date: 2026-03-17
+date-modified: 2026-03-17
+tags: []
+---
+
 # About My AI Assistant
 
 `my-ai-assistant` is a personal knowledge and workflow repository built around API-based interactions with LLMs like Claude and ChatGPT. At its core, the repo organizes reusable **prompt templates** (stored as Markdown files in a `prompts/` folder) and **conversation workflows** (Quarto documents that mix prose and code in a `conversations/` folder), with Python and the Chatlas package powering most API calls.

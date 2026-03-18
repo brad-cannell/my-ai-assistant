@@ -1,0 +1,30 @@
+# =============================================================================
+Synthesis Alternatives
+2025-12-15
+Brad Cannell
+# =============================================================================
+
+I have been using online software called Synthesia (https://www.synthesia.io/?r=0) to create training videos. My typical workflow is to:
+
+1. Create a draft training video in PowerPoint.
+2. Open Synthesia and create a training video based on the PowerPoint draft.
+3. Use Synthesia's graphics, music, video library, and AI Voiceover tools to make the training videos look better.
+4. Download an MP4 version of the final video, and download captions as a .srt file.
+5. Upload the MP4 version of the video and captions to Vimeo.
+6. Embed the Vimeo version of the training video on my website.
+
+Synthesia and this process has worked pretty well, but it's also pretty expensive. I am currently paying $818.69 per year for Synthisia.
+
+Before renewing my annual subscription for Synthesia in a couple of weeks, I'd like some help researching alternatives that are either cheaper than Synthesia, but performs just as well, or is better than Synthesia for roughly the same price.
+
+Some critical needs to consider:
+- Ability to create training videos from scratch. Either by uploading a PowerPoint presentation or by using a built-in video creation/editing tool.
+- Create an AI Voiceover from a script.
+- A music library.
+- A image library or the ability to generate images using AI.
+- A video library or the ability to generate videos using AI.
+- The ability to create templates.
+- The ability to download videos as MP4 files.
+- The ability to download caption files for the video.
+
+Please help me research Synthesia alternatives, and come up with a plan for moving forward. 

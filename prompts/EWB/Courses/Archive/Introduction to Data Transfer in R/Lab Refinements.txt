@@ -1,0 +1,23 @@
+# =============================================================================
+Lab Refinedments
+Date: 2025-05-01
+Updated: 2025-05-01
+Brad Cannell
+Details
+  - This prompt is the one we used to do the bulk of the conversion from the
+    Intro to R format to the EWB format. That was done with "Adapt Labs".
+  - This prompt is just to help me make some final refinements to the content,
+    not the format, of the lab. 
+# =============================================================================
+
+The Overview section currently says, "The NTRHD is part of a study about the association between chocolate eating habits and academic ability. The study took place at multiple schools, chosen at random, from around the region. Graduate students administered the surveys to students at each school, recorded survey responses electronically, and then emailed them to us. Now, we need your help importing the data into R, doing a little bit of data cleaning, and saving the data again once it’s ready for analysis.
+
+Additionally, we need you to download, clean, and save some NHANES data on alcohol use.
+
+By the end of this lab, we will have imported, cleaned, and saved three chocolate-survey files and two NHANES alcohol‑use tables so they are ready for analysis."
+
+To me, the NHANES part, "Additionally, we need you to download, clean, and save some NHANES data on alcohol use", feels forced and comes from completely out of the blue. I'm wondering if:
+
+1. Is this a problem?
+2. Can we rephrase the overview section to make the NHANES portion of the lab seem more natural?
+3. If wording won't fix that issue, what should we do?

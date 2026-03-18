@@ -1,0 +1,12 @@
+# =============================================================================
+Lesson Help Template
+Date: 2025-10-07
+Updated: 2025-10-07
+Brad Cannell
+# =============================================================================
+
+# Help with Lesson Content
+
+I'm creating a lesson titled "Installing and Running R Locally" for the Epi-Workbench course titled "Introduction to Coding Tools and Best Practices in R".
+
+I'm going to pass you some excerpts from the lesson and I'd like your recommendations for improving them.

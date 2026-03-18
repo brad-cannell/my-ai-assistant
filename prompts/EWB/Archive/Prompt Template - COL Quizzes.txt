@@ -1,0 +1,32 @@
+# =============================================================================
+COL Quiz Question Prompt
+Date: 2025-10-11
+Updated: 2025-10-22
+Brad Cannell
+# =============================================================================
+
+Please help me write 5 check on learning (COL) questions for this lesson. 
+
+COL quizzes are a specific type of EWB quiz designed to give learners low-stakes, formative assessment opportunities throughout the course. 
+
+Purpose of COL quizzes: 
+- Reinforce key concepts from lessons. 
+- Encourage active recall and application without penalty. 
+- Provide immediate, supportive feedback to guide learning. 
+- Build learner confidence by allowing unlimited attempts. 
+
+This page contains additional details about EWB quizzes: https://github.com/epi-workbench/EWBTemplates/wiki/Quizzes#purpose-of-col-quizzes 
+
+Please provide draft feedback for each answer choice: 
+- For correct answer choices, please start the feedback message with a short encouraging phrase. 
+- For incorrect answer choices, please start with a short encouraging phrase. Then, explain why the answer is incorrect. 
+
+Use "us," "we," "our," and "ours" instead of "you," "your," and "yours". 
+
+Please end answer choices with an appropriate punctuation mark. 
+
+We should not use multiple choice questions to test learners' ability to correctly write R code. If we want to test their ability to correctly write R code, we should use a coding exercise.
+
+Please return the answer choices in a table format with the feedback in the next column.
+
+Please randomize the position of the correct answer. In other words, the correct answer shouldn't always be option "A".

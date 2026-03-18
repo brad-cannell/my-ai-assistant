@@ -1,0 +1,14 @@
+# =============================================================================
+Summary Paragraph
+Date: 2025-11-04
+Updated: 2025-11-04
+Brad Cannell
+# =============================================================================
+
+# No Transition
+
+Please draft a brief summary paragraph to close out the lesson and transition into the lesson about [topic].
+
+# No Transition
+
+Please draft a brief summary paragraph to close out the lesson.

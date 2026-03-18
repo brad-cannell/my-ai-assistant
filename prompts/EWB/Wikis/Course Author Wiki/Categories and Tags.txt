@@ -1,0 +1,12 @@
+# =============================================================================
+Prompt Template for Creating Wiki Pages
+2025-12-14
+Brad Cannell
+# =============================================================================
+
+I need to create a new page for the Epi-Workbench Instructor Wiki (https://dev.epi-workbench.com/EPI-Wiki). 
+
+The page is about course metadata: categories, subcategories, and tags.
+
+Here's what I have written so far: 
+

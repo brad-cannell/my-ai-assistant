@@ -1,0 +1,12 @@
+# =============================================================================
+Using R Pipes
+Date: 2025-11-04
+Updated: 2025-11-04
+Brad Cannell
+# =============================================================================
+
+# Help with Lesson Content
+
+I'm creating a lesson titled "Using R Pipes" for the Epi-Workbench course titled "Introduction to Coding Tools and Best Practices in R".
+
+I'm going to pass you some excerpts from the lesson and I'd like your recommendations for improving them.

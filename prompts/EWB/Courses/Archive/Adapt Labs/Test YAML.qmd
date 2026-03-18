@@ -1,0 +1,9 @@
+---
+title: Test YAML
+author: Brad Cannell
+date: 2025-04-09
+date-modified: 2025-04-16
+type: Lab
+---
+
+Testing YAML

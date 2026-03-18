@@ -1,11 +1,9 @@
 ---
-title: ADR Version of About Me
-id: about_me_adr
+title: "Brad Cannell Bio - ADR Version"
 author: "Brad Cannell"
-created: 2025-12-27
-last_updated: 2025-12-27
-project: project_adr_sharepoint
-tags: NULL
+date: 2025-12-27
+date-modified: 2026-03-17
+tags: []
 ---
 
 Brad Cannell, PhD, MPH is an epidemiologist, gerontologist, data scientist, and professor at Texas Christian University (TCU). He is also the Associate Dean for Research (ADR) of Harris College of Nursing and Health Sciences at TCU.

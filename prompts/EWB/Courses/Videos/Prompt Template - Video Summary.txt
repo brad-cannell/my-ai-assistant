@@ -1,0 +1,17 @@
+
+2026-01-27: Convert this to Markdown.
+
+# =============================================================================
+Summarize Videos from Script Files
+Date: 2025-05-11
+Updated: 2025-05-11
+Brad Cannell
+# =============================================================================
+
+In this chat, I would like your help with finalizing a video for the [lesson] lesson of the [course] course. 
+
+Here is the script from the current version of the video. Please write a very brief summary description of the video using 150 words or less.
+
+# =============================================================================
+
+Please generate a bulleted list of key takeaways from the video.

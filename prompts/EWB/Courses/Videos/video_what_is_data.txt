@@ -1,0 +1,26 @@
+# =============================================================================
+Video: What is Data?
+2025-01-13
+Brad Cannell
+# =============================================================================
+
+# Extract slide notes
+
+We are creating a video lesson called "What is Data?" The video will be based on a set of narrated PowerPoint slides, where the slide notes contain the narration script. The attached PowerPoint file contains the slide notes. Please extract the slide notes and display them to me.
+
+# Editing slide notes
+
+We are creating a video lesson called "What is Data?" The video will be based on a set of narrated PowerPoint slides, where the slide notes contain the narration script. The attached PDF file contains the slide notes. Please review them and offer suggestions for refining and improving them. Specifically, consider the following traits.
+
+1. Spelling and grammar.
+
+2. Conciseness. Generally, we don't want any given slide to be on screen for more than 10 to 15 seconds. If a given slide will likely take longer than that to narrate, please make it more concise or break it up into multiple slides.
+
+
+3. Tone. Please review the script's language and tone using the guidelines in the project instructions.
+
+4. Sometimes, we copied the text for the slide notes from the R4Epi textbook. There may be instances where the text still refers to textbook elements instead of Epi-Workbench course elements. For example, it may say “chapter” instead of “course” or “module”. Additionally, it may say "this book" instead of "at Epi-Workbench." Please revise the text to reference the Epi-Workbench course instead of the R4Epi textbook.
+
+5. Other recommendations for making the text more informative and better suited to learner's needs.
+
+ 
