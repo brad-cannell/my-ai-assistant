@@ -1,13 +1,9 @@
 ---
 title: Template Prompt for EWB Code Submission Tests (CSTs) - Step 1 - Instructions
 id: template_prompt_cst_instructions
-task: code_review
-audience: academic
 author: brad_cannell
 created: 2026-01-17
 last_updated: 2026-02-01
-project: null
-domain: lesson_development
 tags:
   - ewb
   - csts

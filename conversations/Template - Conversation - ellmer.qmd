@@ -1,10 +1,8 @@
 ---
 title: "Chat Template"
-id: chat_template
 author: brad_cannell
 date: "2025-12-23"
 date-modified: "2025-12-23"
-audience: course_authors
 category: course_development
 tags:
   - tag1

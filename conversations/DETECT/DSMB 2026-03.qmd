@@ -1,12 +1,9 @@
 ---
 title: Review Documents for March 2026 DSMB Meeting
-id: dsmb_review_2026_03
 author: brad_cannell
 date: 2026-02-22
 date-modified: 2026-02-22
-audience: academic
 interface: api
-domain: research
 tags:
   - detect_rpc
   - dsmb

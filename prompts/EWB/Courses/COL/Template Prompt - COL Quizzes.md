@@ -1,14 +1,10 @@
 ---
 title: Template Prompt for EWB COL Quizzes
 id: template_prompt_col_quizzes
-task: quiz_questions
-audience: course_author
 interface: api
 author: brad_cannell
 created: 2025-10-11
 last_updated: 2025-12-30
-project: null
-domain: lesson_development
 tags:
   - quiz_questions
 ---

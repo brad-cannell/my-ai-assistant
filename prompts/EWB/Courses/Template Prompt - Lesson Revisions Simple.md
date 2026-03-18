@@ -1,14 +1,10 @@
 ---
 title: Template Prompt for EWB Lesson Revisions - Super Simple Version
 id: template_prompt_lesson_revisions_simple
-task: text_revision
-audience: course_author
 interface: api
 author: brad_cannell
 created: 2025-06-19
 last_updated: 2026-01-20
-project: null
-domain: lesson_development
 tags:
   - ewb
 ---

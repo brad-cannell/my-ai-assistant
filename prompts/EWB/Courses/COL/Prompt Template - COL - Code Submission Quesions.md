@@ -4,9 +4,7 @@ id: generate_code_submission_col_from_lesson
 date: brad_cannell
 created: 2026-01-28
 date-modified: 2026-01-28
-audience: developer
 interface: both
-project: none
 tags:
   - col
   - quizzes

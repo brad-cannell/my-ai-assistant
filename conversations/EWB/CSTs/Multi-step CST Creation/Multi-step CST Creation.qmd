@@ -1,10 +1,8 @@
 ---
 title: "Experimenting with a New Multi-step CST Creation Workflow that Uses testthat Expectations"
-id: multi_step_cst_creation
 author: brad_cannell
 date: 2026-01-29
 date-modified: 2026-03-17
-audience: course_authors
 category: lesson_development
 tags:
   - r

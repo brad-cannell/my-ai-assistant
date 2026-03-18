@@ -2,14 +2,10 @@
 title: Using the API vs the Browser
 id: using_api_vs_browser
 author: brad_cannell
-task: exploriation
-audience: developer
 interface: browser
 author: Brad Cannell
 date: 2026-03-17
 date-modified: 2026-03-17
-project: AI Assistant
-domain: meta
 tags:
   - api
   - ai

@@ -1,13 +1,9 @@
 ---
 title: CST Workflow - Step 1 - Simulate Learner Responses
 id: cst_simulate_learner_responses
-task: code_review
-audience: academic
 author: brad_cannell
 created: 2026-01-31
 last_updated: 2026-02-15
-project: null
-domain: lesson_development
 tags:
   - ewb
   - csts
