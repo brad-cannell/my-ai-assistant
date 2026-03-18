@@ -3,7 +3,6 @@ title: Viewing Vignettes
 id: viewing_vignettes
 author: brad_cannell
 interface: browser
-author: Brad Cannell
 date: 2026-03-17
 date-modified: 2026-03-17
 tags:

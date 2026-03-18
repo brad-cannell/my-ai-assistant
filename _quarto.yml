@@ -4,6 +4,8 @@ project:
   render:
     - index.qmd
     - vignettes/*.qmd
+    - prompts-listing.qmd
+    - conversations-listing.qmd
 
 website:
   title: "My AI Assistant"

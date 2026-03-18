@@ -1,0 +1,18 @@
+---
+title: "Conversation Archive"
+date: "2026-03-18"
+date-modified: "2026-03-18"
+description: "Browsable archive of all conversation documents."
+listing:
+  contents: "conversations/**/*.qmd"
+  type: table
+  fields: [title, date, tags]
+  sort: "date desc"
+  filter-ui: true
+  sort-ui: true
+format:
+  html:
+    toc: false
+---
+
+Archive of AI conversation documents. Sorted by date, most recent first. Use the search box to filter by title or tags.

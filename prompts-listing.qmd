@@ -1,0 +1,27 @@
+---
+title: "Prompt Library"
+date: "2026-03-18"
+date-modified: "2026-03-18"
+description: "Browsable index of all reusable prompt templates."
+listing:
+  contents:
+    - title: "Using the API vs the Browser"
+      path: "prompts/00 AI Assistant Meta Prompts/API vs Browser.md"
+      categories: [api, ai, sop]
+    - title: "Search My AI Assistant"
+      path: "prompts/00 AI Assistant Meta Prompts/Search.md"
+      categories: []
+    - title: "Viewing Vignettes"
+      path: "prompts/00 AI Assistant Meta Prompts/Viewing Vignettes.md"
+      categories: [api, ai, sop]
+  type: table
+  fields: [title, categories]
+  sort: "title asc"
+  filter-ui: true
+  sort-ui: true
+format:
+  html:
+    toc: false
+---
+
+Reusable prompt templates organized by project and topic. Use the search box to filter by title or tags.
