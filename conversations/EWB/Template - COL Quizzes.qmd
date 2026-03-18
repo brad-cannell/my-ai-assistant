@@ -1,0 +1,234 @@
+---
+title: "COL - {{Lesson Name}}"
+id: col_{{lesson_name}}
+author: brad_cannell
+date: {{YYYY-MM-DD}}
+date-modified: {{YYYY-MM-DD}}
+audience: course_authors
+category: lesson_development
+tags:
+  - r
+  - col
+format:
+  html:
+    toc: true
+    embed-resources: true
+execute:
+  eval: true # Switch to false to run interactively
+---
+
+# Overview
+
+- Create COL questions for the lesson.
+- Currently, the task section begins with "When you are ready, I'm going to pass you the content of an EWB lesson." I did this because I'm not sure how to upload the lesson file using ellmer yet. This was my workaround. 
+
+# Prerequisites
+- **Git Pull** to make sure you have the most current version of the prompts.
+- Install in the system kernel. The virtual environments cause too many problems with Box.
+- `import sys`
+- `print(sys.executable)` Path the Python interpreter that is actually running the code. 
+- Terminal: `which pip` Pip that will be used to install Python packages
+- Terminal: `/usr/local/bin/python3 -m pip install keyring openai anthropic jupyter -U chatlas shiny`
+
+# Load Packages
+
+```{python}
+from chatlas import ChatAnthropic
+from openai import OpenAI
+from httpcore import stream
+from datetime import date
+from pathlib import Path
+import chatlas as ctl
+import anthropic
+import keyring
+import json
+import os
+```
+
+# File Paths and Environment Variables
+
+They are passed to the AI assistant below.
+
+```{python}
+# OpenAI Models: https://platform.openai.com/docs/models
+# Anthropic Models: https://platform.claude.com/docs/en/about-claude/models/overview
+model = "gpt-5.2-2025-12-11"
+
+# Today's date
+today = date.today().isoformat()
+
+# Course and lesson name
+# By default, these are injected from Convert Chapters.qmd
+# They can also be altered manually.
+course_name = "{{Course Name}}"
+lesson_name = "{{Lesson Name}}"
+
+# Lessone file and folder paths
+# By default, these are injected from Convert Chapters.qmd
+# They can also be altered manually.
+lesson_file_path = Path("{{lesson_file_path}}")
+lesson_folder_path = lesson_file_path.parent
+
+# Lesson content
+lesson_content = (lesson_file_path).read_text(encoding="utf-8")
+
+# Prompt paths
+path_template_prompt_col = '/Users/bradcannell/Desktop/Git/AI/ewb-ai-assistant/prompts/Courses/COL/Template Prompt - COL Quizzes.md'
+```
+
+```{python}
+# Check that all paths exist
+paths_to_check = {
+    "lesson_file_path": lesson_file_path,
+    "lesson_folder_path": lesson_folder_path,
+    "path_template_prompt_col": Path(path_template_prompt_col),
+}
+
+for name, path in paths_to_check.items():
+    if not path.exists():
+        raise FileNotFoundError(f"Path not found — {name}: {path}")
+    print(f"✓  {name}: {path}")
+```
+
+# Load helper functions
+
+Run in terminal:
+- `/usr/local/bin/python3 -m pip install --editable "/Users/bradcannell/Desktop/Git/AI/ewb-ai-assistant/py_scripts"`
+- Restart interpreter.
+
+```{python}
+# Load functions from py_scripts/ewb_py_scripts
+from ewb_py_scripts import (
+    prompt_extract_system_prompt,
+    prompt_extract_user_message,
+    prompt_fill_placeholders,
+)
+```
+
+# Expose API
+
+This assumes you've already created an API key on [openai's website](https://platform.openai.com/api-keys), and that you saved the API key in keyring using `keyring.set_password("API Name", "User", "API Key")`.
+
+```{python}
+# Retrieve the password from the system keyring
+openai_api = keyring.get_password("ewb-course-development", "brad")
+
+if openai_api is not None:
+    # Set the retrieved value as a temporary environment variable
+    os.environ['OPENAI_API_KEY'] = openai_api
+    print("Environment variable 'OPENAI_API_KEY' set successfully within the script.")
+else:
+    print("Could not retrieve password from keyring.")
+```
+
+# Read the Template Prompt
+
+```{python}
+# Raw system (developer) section of the prompt template.
+system_prompt = prompt_extract_system_prompt(path_template_prompt_col)
+
+# Raw user message section of the prompt template.
+user_message_raw = prompt_extract_user_message(path_template_prompt_col)
+
+# Inject course and lesson name into user message
+user_message = prompt_fill_placeholders(
+    text = user_message_raw,
+    replacements = {
+        "lesson_content": lesson_content,
+        "lesson_specific_guidance": "None" # Optionally replace with lesson specific guidance/ideas
+    },
+)
+```
+
+# Create Chat Object
+
+```{python}
+chat = ctl.ChatOpenAI(
+    model = model,
+    system_prompt = system_prompt
+)
+```
+
+# Pass the Template Prompt to the AI Assistant
+
+```{python}
+chat.chat(user_message, echo='none')
+```
+
+# Review the COL questions
+
+```{python}
+chat.get_last_turn()
+```
+
+# Follow-up and Refinement
+
+A section for optional follow-up questions and refinements. 
+- Optionally, create a fork of the chat. `import copy; chat_fork = copy.deepcopy(chat)`
+- Asks follow-up questions in interactive mode - `chat.app()`.
+
+# Optionally write the COL questions to an md File for Review
+
+- Writing them to markdown and then previewing them as HTML works better than rendering them directly to html.
+
+```{python}
+(lesson_folder_path / "ai" / ("col_questions_" + today + ".md")).write_text(
+    str(chat.get_last_turn()),
+    encoding='utf-8'
+)
+```
+
+# Save Chat History
+
+Optional, but necessary to return to the conversation later.
+
+```{python}
+# Export chat history as a markdown file
+# This version is easier to pass back to to the chat object in the future.
+# chat_history_path_md = (lesson_folder_path / "ai" / ("col_history_" + today + ".md"))
+# chat.export(chat_history_path_md, overwrite=True)
+
+# Export chat history as an HTML file
+# chat_history_path_html = (lesson_folder_path / "ai" / ("col_history_" + today + ".html"))
+# chat.export(chat_history_path_html, overwrite=True)
+
+# Export chat history as a json file
+# Useful for saving/loading the history to/from a database or file.
+# chat_history_path_json = (lesson_folder_path / "ai" / ("lesson_spelling_grammar_" + today + ".json"))
+# with open(chat_history_path_json, "w", encoding="utf-8") as f:
+#     json.dump(
+#         [json.loads(x) for x in turns_json],
+#         f,
+#         indent=2,
+#         ensure_ascii=False
+#     )
+```
+
+## Condense
+
+You can also optionally condense the history by asking the LLM to summarize it. This is useful if you want to keep the context of the conversation, but don’t want to provide the entire history to the model on each new submission.
+
+```{python}
+# chat.chat("Can you summarize our conversation so far?")
+# chat.set_turns([chat.get_last_turn()])
+```
+
+## Load chat history
+
+To optionally load the chat history later.
+
+```{python}
+# Import chat history as a md file
+# chat_history_path_md = (lesson_folder_path / "ai" / ("col_history_" + "yyyy-mm-dd" + ".md"))
+# history_md = chat_history_path_md.read_text(encoding="utf-8")
+
+# Import chat history as a json file
+# chat_history_path_json = (lesson_folder_path / "ai" / ("col_history_" + "yyyy-mm-dd" + ".json"))
+# history_json = json.loads(chat_history_path_json.read_text(encoding="utf-8"))
+```
+
+# Render to HTML
+
+Render to HTML (Optional)
+- Click the Preview button.
+- Type `quarto render "path/Lesson Revisions.qmd"` in the terminal.

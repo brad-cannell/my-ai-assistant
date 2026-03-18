@@ -1,0 +1,70 @@
+# =============================================================================
+Email to Dhanish about the maintenance contract.
+2025-03-31
+Brad Cannell
+# =============================================================================
+
+# About Epi-Workbench
+
+We are creating a web-based business called "Epi-Workbench." Epi-Workbench is an online platform offering interactive courses in epidemiology, data science, and artificial intelligence specifically designed for people working in public health and other health professions and, to a lesser extent, members of the general public who are interested in learning more about health research. With beginner to advanced-level courses, Epi-Workbench combines real-person instruction with hands-on coding exercises and integrated AI tools for a comprehensive learning experience. Learners can develop skills in statistical programming, applied statistical analyses, and scientific communication—all from the convenience of their browser, with no installation required.
+
+I am the confounder of Epi-Workbench.
+
+# Current issue
+
+I received a proposal for maintenance and support services from the Chief Technical Officer at Elementz, which is the development firm I contract with to help me build the Epi-Workbench web platform. The email the proposal was attached to says:
+
+"Hi Brad,
+
+Attached is the proposal for the support of EPI-Workbench, Please go
+through it and let me know what you think.
+
+I hope we can continue to work together to make it a success.
+
+BTW: We have added support of the Hidden code block as discussed in the
+previous email, and done the bug fix on the same file upload for the course
+lesson getting duplicated.
+
+We have brainstormed on the idea of having a different environment for
+different courses.
+
+We are testing the multiple docker image setup for supporting courses with
+different dependencies, because it seems to be a scalable approach and easy
+to maintain on the long run, instead of going with multiple renv.
+
+Thank you,
+Dhanish Vijayan"
+
+I like Dhanish and I want to continue working with him. However, $2,000 is more than I can afford to may right now for at least the following reasons:
+
+1. We don't have any paying customers yet, and we are likely to be at least 90 days away from launching a production version of the platform that we could use to attract customers.
+
+2. We can't launch the production version of the site without any content. Unfortunately, I'm the only person on the team who can build content right now, and I'm also working a full-time job during the day. And I really wasn't able to build course content until this week because I didn't understand how the coding lesson tests worked until last week.
+
+Even thought it would be difficult for me to afford the proposed $2,000 per month fee, I would like to continue working with Elementz and Dhanish. I think they've done a pretty good job so far. Additionally, I don't currently have the technical expertise to take over the tasks they've been managing myself, and I don't have any other backup plan. Can you suggest some alternative paths forward that I can propose?
+
+# Email response
+
+Thanks for your suggestions. They're great. Here is the draft email I have so far:
+
+"Hey Dhanish,
+
+Thanks for sending over the support proposal and continuing to move things forward. I really appreciate everything you and the team are doing.
+
+I reviewed the plan, and I’d love to continue working with you and Elementz. That said, I want to be transparent: $2,000/month for six months is just more than I can commit to right now, especially since we’re still pre-revenue and about 90+ days out from a public launch. I’ve only just gotten to the point where I can actively build content, which is our main bottleneck. I don’t want to lose momentum or your support, but I need to figure out a way to get through the next few months without overextending financially.
+
+I definitely want to continue working with Elementz and don’t want to lose momentum, so I’d love to explore whether we can:
+
+- Scale down the plan temporarily to just critical bug fixes and essential maintenance (e.g., ~$750/month).
+
+- Use prepaid hourly blocks (e.g., 10 hours for $1,000).
+
+ - Delay full support and work on a per-task or emergency basis until we get closer to production. Since we're not live yet and there's no active user base, maybe we don’t need ongoing support just yet. Could we put the full support plan on hold and work together on a per-task basis for any urgent items during the next 60–90 days?
+
+I’m also open to other creative solutions you might prefer, including deferring some costs until launch. Let me know your thoughts—I’m confident we can figure out something that works for both sides.
+
+Thanks again,
+Brad"
+
+
+

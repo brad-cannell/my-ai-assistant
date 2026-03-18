@@ -1,0 +1,640 @@
+---
+title: "Make Prompt - COL Code Submission Questions"
+id: make_prompt_col_code_submission_questions
+author: brad_cannell
+date: 2026-01-27
+date-modified: 2026-01-27
+audience: developers
+category: make_prompt
+tags:
+  - ai
+  - promps
+  - quizzes
+  - col
+  - coding exercises
+format:
+  html:
+    toc: true
+    embed-resources: true
+execute:
+  eval: false
+---
+
+# Overview
+
+- The purpose of this conversation is to get help with writing a prompt.
+-   I have a prompt about writing multiple choice questions. However, I also want to create COL practice questions that require students to write code.
+-   I want the code to be very similar to can existing exercise code chunk.
+
+- Install Packages:
+  - pip install keyring
+  - pip install openai
+  - pip install jupyter
+  - pip install -U chatlas
+- pip freeze > requirements.txt
+
+# Load Packages
+
+```{python}
+import os
+import keyring
+from openai import OpenAI
+import sys
+import json
+from pathlib import Path
+import chatlas as ctl
+from datetime import date
+```
+
+# File Paths and Environment Variables
+
+- Set today's date.
+- Set the course name.
+- Set the path to the lesson folder.
+- Set the path to the lesson file. 
+- Get the content of the lesson file.
+- Set the path to the lesson revision prompt.
+- Set the model to inject into the API calls. See available models at: https://platform.openai.com/docs/models.
+
+They are passed to the AI assistant below.
+
+```{python}
+today = date.today().isoformat()
+template_prompt_write_prompts_path = '/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/AI Assistant/prompts/Make Prompts/Template Prompt - Write Prompts.md'
+template_prompt_path = Path('/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/AI Assistant/prompts/Template Prompt.md')
+template_prompt_content = template_prompt_path.read_text(encoding="utf-8")
+model = "gpt-5-nano-2025-08-07"
+```
+
+# Load helper functions
+
+Run in terminal:
+- `cd "/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/AI Assistant/py_scripts"`
+- `python -m pip install -e .`
+
+```{python}
+# Load functions from py_scripts/ewb_py_scripts
+from ewb_py_scripts import (
+    prompt_extract_system_prompt,
+    prompt_extract_user_message,
+    prompt_fill_placeholders,
+)
+```
+
+# Expose API
+
+This assumes you've already created an API key on [openai's website](https://platform.openai.com/api-keys), and that you saved the API key in keyring using `keyring.set_password("API Name", "User", "API Key")`.
+
+```{python}
+# Retrieve the password from the system keyring
+openai_api = keyring.get_password("ewb-course-development", "brad")
+
+if openai_api is not None:
+    # Set the retrieved value as a temporary environment variable
+    os.environ['OPENAI_API_KEY'] = openai_api
+    print("Environment variable 'OPENAI_API_KEY' set successfully within the script.")
+else:
+    print("Could not retrieve password from keyring.")
+```
+
+# Read the Template Prompt
+
+```{python}
+# Raw system (developer) section of the prompt template.
+system_prompt = prompt_extract_system_prompt(template_prompt_write_prompts_path)
+
+# Raw user message section of the prompt template.
+user_message_raw = prompt_extract_user_message(template_prompt_write_prompts_path)
+```
+
+## Customize the prompt
+
+### Additional context
+
+Context you want to add to the prompt in addition to "About Me" and "About EWB", which are already included.
+
+```{python}
+additional_context = """
+All EWB lessons are saved locally in Quarto markdown files (.qmd). In addition to explanatory text, lesson files contain code blocks and check on learning (COL) questions.
+
+### Quick Code Block Reference
+
+The EWB platform supports several types of code blocks, each serving a specific purpose:
+
+1.  **Initial Code Blocks** (`{r,type=initial}`): Used for setup code required when the lesson loads. Not visible to learners.
+2.  **Exercise Code Blocks** (`{r}`): Used for executable code where learners write, edit, and submit their solutions.
+3.  **Solution Code Blocks** (`{r,type=solution}`): Used to document the correct solution for an exercise. Not visible to learners.
+4.  **Hidden Code Blocks** (`{r,type=hide}`):Used during development to run or test code locally, including Code Submission Tests (CSTs). Not visible to learners.
+5.  **Test Code Blocks** (`{r,type=test}`): Used to define CSTs that evaluate learner submissions. Not visible to learners.
+6.  **Non-Evaluated Code Blocks** (`{r, type=noeval}`): Used to let learners run code that is not checked for correctness with CSTs.
+7.  **Verbatim Code Blocks** (`r`): Used to display code to learners for reference only. These blocks are not executable.
+
+### Exercise Code Blocks
+
+-   Exercise code blocks are where learners **write**, **edit**, and **submit** code.\
+-   No special syntax is required in the code block header to designate an exercise code block.\
+-   These blocks should usually include **code scaffolding** (described in detail below) to guide learners.\
+-   The left edge of exercise code blocks is **shaded red** until the exercise is successfully completed, at which point it turns **green**. This provides a **visual cue** indicating which exercises still need to be completed before moving on to the next lesson.
+
+#### Example exercise code block syntax
+
+\```` markdown
+Assign the value 15 to an R object named `x`.
+
+\```{r}
+x <- ____
+\```
+\````
+
+#### Writing exercise code blocks
+
+A unique strength of the EWB platform is that it allows learners to **write**, **edit**, and **submit** code while receiving **real-time feedback**. When designed well, this feature makes lessons engaging, thought-provoking, and fun. When designed poorly, it can lead to frustration and disengagement.
+
+So, how do we ensure that learners have a **positive, thought-provoking experience** instead of a frustrating one? The following guidelines will help you design effective exercise code blocks that strike the right balance between challenge and support.
+
+##### 1. Clear instructions
+
+Clear instructions are the foundation of a good coding exercise. They should outline **what the learner needs to do** in a way that is **friendly, specific, and appropriately challenging**. Poorly written instructions can quickly turn an exercise from engaging to frustrating.
+
+For example, suppose learners have already created a data frame called `census` and a factor variable `region_f`. Now, we want them to calculate the number of observations within each level of `region_f`. There are many ways to phrase this — some better than others:
+
+-   **Too terse:**\
+    *"Calculate the frequency of `region_f`."*\
+    This is vague and unfriendly. Instead, use a more inviting tone:\
+    *"Next, let's see how many states fall into each region. To do this, we'll…"*
+
+-   **Overly technical:**\
+    *"Describe the marginal frequency distribution of the `region_f` factor vector."*\
+    While technical terminology is important, introduce it gently and only when needed. For novices, use approachable language first and define jargon as it appears.
+
+-   **Too vague:**\
+    Instructions can also fail by omitting critical details. Vagueness can occur in several ways:
+
+    -   **With regard to the process:**\
+        *"Next, let's determine the number of states that fall into each region of the United States by calculating the number of observations that fall into each category of the `region_f` column of the `census` data frame."*\
+        These instructions clearly state **what** to analyze, but say little about **how** to perform the analysis (e.g., manually vs. using a specific function) or **what format** the result should take (e.g., a table, a list, a chart). Missing process details may be obvious in some contexts — for example, if the entire lesson is about using the `table()` function — but always question assumptions about what learners can infer.
+
+    -   **With regard to the data:**\
+        *"Next, let's determine the number of states that fall into each region of the United States using the `table()` function."*\
+        These instructions explain the **process** to use but fail to clarify **which dataset or variable** should be analyzed. Perhaps the `census` data frame is the only data available and its contents have been thoroughly discussed, making the omission harmless — but you should always verify whether this is the case.
+
+    -   **With regard to the result/outcome:**\
+        *"Next, let's analyze the `region_f` column of the `census` data frame."*\
+        These instructions mention **what to analyze** and even imply that some process should be applied, but they do not specify **what form the output should take**. Should the learner produce a table of counts, a bar chart, a list, or something else entirely? Without clear expectations about the result, learners may arrive at correct answers that still fail tests or feel uncertain about whether they’ve completed the task correctly.
+
+-   **Overly prescriptive (no room for thinking):**\
+    *"Type `table(census$region_f)` into the code block below."*\
+    This tells learners exactly what to do, leaving no space for reasoning. While such instructions can be appropriate when introducing a brand-new concept, they should be used sparingly.
+
+> \[!NOTE\]\
+> Of course, context matters. These guidelines on writing instructions are generally applicable, but there are exceptions. For example, instructions that would be overly technical in an introductory lesson may be perfectly appropriate in an advanced one. Similarly, if only one dataset or method is in play, reiterating those details may be unnecessary. Always consider the **lesson’s context, audience, and level of scaffolding** when deciding how much detail to include.
+
+###### To summarize
+
+When writing instructions: - Use a **friendly and encouraging** tone.\
+- Include enough detail to avoid confusion, but not so much that you remove all critical thinking.\
+- Avoid unnecessary jargon, or explain it the first time it appears (at least).\
+- Ensure instructions specify the **data**, the **process**, and the **expected result**, unless these are already clear from context.\
+- Adjust the level of guidance depending on **lesson complexity** and **learner experience**.
+
+##### 2. Code scaffolding
+
+Code scaffolding is the fully or partially completed solution to the coding exercise that is pre-written into exercise code blocks. Along with clear instructions, scaffolding helps learners form a mental model of the solution they are working toward.
+
+Exercise code blocks can be presented to learners in three ways:
+
+###### 1. Complete code scaffolding (no modification code blocks)
+
+An exercise code block may include the **fully complete** solution when the learner opens the lesson. For example:
+
+\```` markdown
+Next, submit the code below to determine the number of states that fall into each region of the United States using the factor version of the `region` column we created above.
+
+\```{r}
+census |> count(region_f)
+\```
+\````
+
+In this case, learners do not need to modify the code — they only need to run it.
+
+Use complete scaffolding when:
+
+1.  **Introducing a new concept** for the first time, where the focus is on showing the correct code and result rather than having learners write it. Include explanatory text about what the code does and why the result matters.\
+2.  The code uses an **already-covered concept** as an intermediate step that is necessary to progress but not central to the lesson's learning objective. In these cases, the learner still needs to **run the code**, and the system still needs to **verify that it was executed correctly** to avoid issues in later blocks. However, there is no need for the learner to spend significant time thinking about or discussing this code at this point in the lesson.
+
+With this additional context, instructions can often be shorter and more focused.
+
+###### 2. **Partial code scaffolding**
+
+An exercise block may also include **part** of the expected solution, with blanks indicating where learners must fill in code. Use four underscores (`____`) to represent each blank. For example:
+
+\```` markdown
+Next, let's determine the number of states that fall into each region of the United States using the factor version of the `region` column we created above.
+
+\```{r}
+census |> count(____)
+\```
+\````
+
+Here, learners know to use `census` and `count()`; their task is to identify the correct column. Alternatively, to test knowledge of the correct function:
+
+\```` markdown
+Next, let's determine the number of states that fall into each region of the United States using the factor version of the `region` column we created above. Please replace the blank in the code below with the function from the `dplyr` package we've been using to calaculate the count of observations within each level of a categorical variable.
+
+\```{r}
+census |> ____(region_f)
+\```
+\````
+
+> \[!WARNING\] - Each exercise code block within a lesson **must be unique**. - CSTs may not work correctly if two blocks contain the same code. - You can vary the number of underscores (`____` vs. `_____`) to differentiate otherwise identical blocks. - Using different variables (e.g., `region_f` vs. `age_60_f`) also ensures uniqueness, even with the same number of underscores.
+
+###### 3. No code scaffolding
+
+Finally, an exercise block may include **no** solution code when first presented. In this case, the block contains only underscores:
+
+\```` markdown
+Next, let's determine the number of states that fall into each region of the United States by calculating the number of observations that fall into each category of the `region_f` column of the `census` data frame.
+
+\```{r}
+____
+\```
+\````
+
+> \[!WARNING\] - Exercise blocks cannot be completely empty or the parser will return: `Code Block not found`. - If multiple empty blocks are needed, vary the number of underscores in each.
+
+Empty code blocks provide the greatest challenge but also carry the most risk:
+
+-   Learners may become frustrated when they are unsure which solution is expected.
+-   Course authors must account for a wide range of possible solutions when writing CSTs.
+
+For example, all of the following could be considered correct for the prompt above:
+
+\```` markdown
+Next, let's determine the number of states that fall into each region of the United States by calculating the number of observations that fall into each category of the `region_f` column of the `census` data frame.
+
+\```{r}
+table(census$region_f)
+\```
+
+\```{r}
+table(census["region_f"])
+\```
+
+\```{r}
+table(census[["region_f"]])
+\```
+
+\```{r}
+census |> count(region_f)
+\```
+
+\```{r}
+census |> CrossTable(region_f)
+\```
+\````
+
+Slightly narrowing the solution space (e.g., through partial scaffolding) often results in a better learner experience and simpler CSTs.
+
+###### To summarize
+
+-   **Complete scaffolding (No Modification Code Blocks:** Use when introducing new concepts or including intermediate steps that are not the main focus.
+
+-   **Partial scaffolding:** Use most often. It guides learners while still requiring them to think critically.
+
+-   **No scaffolding:** Use sparingly, as it increases ambiguity and complexity for both learners and authors.
+
+##### 3. More code blocks over longer code blocks
+
+As a general rule, it’s better to design lessons with **more** exercise code blocks, each focusing on a **limited number of concepts**, rather than a few long, complicated blocks that test many concepts at once.
+
+Terms like "long," "complicated," and "many concepts" are inherently subjective, but the following rules of thumb can help:
+
+-   If you need **more than three blanks** in your partially scaffolded code, consider breaking it into multiple blocks.
+-   If you require **more than five CSTs** to check correctness, or if your CSTs become difficult to write or debug, the exercise may be testing too much at once. Breaking it into smaller steps simplifies both authoring and learning.
+
+###### Example: Too long
+
+\```` markdown
+Next, let's determine the number of states that fall into each region of the United States using the factor version of the `region` column we created above, and then plot our results. But first, make sure to load the R package we've been using to create plots.
+
+\```{r}
+# Load the package
+library(____)
+
+# Calculate frequencies
+census |> ____(____)
+
+# Plot the result
+____(census) +
+  ____(aes(____ = region_f))
+\```
+\````
+
+This single block tests **three separate skills** — loading a package, counting frequencies, and creating a plot — each of which could be its own learning step. Multiple blanks increase complexity, and writing CSTs for all possible solutions becomes cumbersome.
+
+###### Example: Better — split into three blocks
+
+\```` markdown
+In this lesson, we are going to create some plots. Do you remember which package we use to create plots in R? Please replace the blank below with the correct package name.
+
+\```{r}
+library(____)
+\```
+
+Next, let's determine the number of states that fall into each region of the United States by calculating the number of observations that fall into each category of the `region_f` column of the `census` data frame.
+
+\```{r}
+census |> ____(____)
+\```
+
+Finally, let's plot the number of states that fall into each region of the United States as a bar plot.
+
+\```{r}
+____(census) +
+  ____(aes(____ = region_f))
+\```
+\````
+
+By splitting the exercise into three focused blocks, learners can concentrate on one concept at a time. This approach simplifies CST writing, reduces ambiguity, and supports a smoother learning experience.
+
+### Check-on-Learning (COL) Quizzes
+
+COL quizzes are short, low-stakes assessments embedded throughout each course. They help learners quickly check their understanding of key concepts introduced in written lessons, videos, or coding exercises. Learners can take each quiz as many times as they like, promoting practice and confidence without penalty.
+
+#### Question Types
+
+The EWB quiz builder supports several types of questions. Authors should choose the type that best aligns with the learning objective.
+
+##### Single choice
+- Multiple-choice with **one correct answer**.  
+- Use this type for **True/False** questions.  
+  - Answer choices must be exactly `True` and `False`, in that order.  
+  - Do not use alternative forms such as `TRUE`, `FALSE`, or lowercase.
+
+##### Multiple choice
+- Multiple-choice with **one or more correct answers**.  
+- Learners must select all correct answers to receive credit.
+
+##### Matching
+- Learners match items in a list on the **right** to items in a list on the **left**.  
+- **Distractors are not supported**; every left-side item must have a corresponding right-side item.
+
+##### Numerical
+- Learners enter a **numeric value**.  
+- Authors can set a **tolerance** for correctness (default = 0).  
+  - Example: Correct answer `2` with tolerance `0.5` accepts values from `1.5` to `2.5`.
+
+##### Fill in the blank
+- Authors create a statement with blanks (`[]`) that learners must complete.  
+- Example:  
+  - Statement: `A data frame with dimensions 3x5 has [] rows and [] columns.`  
+  - Correct answers: `3`, `5`.
+
+##### Code Submission
+- These are exercise code blocks used as COL questions.
+- Learners complete a code block that is either fully or partially scaffolded.
+- Grade with `testthat`-style code submission tests (CSTs).
+"""
+```
+
+### Task specifics
+
+Instructions to add to the `## Task` section of the template in addition to "Help me write a prompt for ChatGPT."
+
+```{python}
+task_specifics = """
+The purpose of the prompt is to ask ChatGPT to help me write a prompt for creating code submission COL questions.
+coding exercises that I can embed in EWB lessons to give learners a chance to practice the concepts and techniques being taught.
+
+The goal is to be able to pass ChatGPT this prompt, along with the contents of a lesson file. Then, ChatGPT will locate all of the coding exrcises in the lesson. Then, ChatGPT will suggest 2-5 code submission COL questions that reinforce the coding exercises in the lesson.
+
+The coding exercises should be similar, by not identical to, existing coding exercises. 
+
+For example, if the lesson has  the following coding exrcise:
+
+\````markdown
+Assign the value 2 to an object named `x`.
+\```(r)
+x <- 2
+\```
+
+Then, a code submission COL question might be:
+
+\````markdown
+Assign the value 10 to an object named `my_val`.
+\```(r)
+my_val <- 10
+\```
+"""
+```
+
+### Constraints and Formatting
+
+We are passing the model our format template `AI Assistant/prompts/Template Prompt.md`.
+
+List any other important constraints or rules. 
+- Preserve the original meaning 
+- Avoid adding new information 
+- Maintain an academic tone 
+- Primary Language: R (Tidyverse)
+- Citation Style: APA 7th Edition 
+
+```{python}
+additional_constraints_formatting = """
+- None
+"""
+```
+
+```{python}
+user_message = prompt_fill_placeholders(
+    text = user_message_raw,
+    replacements = {
+        "additional_context": additional_context,
+        "task_specifics": task_specifics,
+        "template_prompt": template_prompt_content,
+        "additional_constraints_formatting": additional_constraints_formatting
+    },
+)
+```
+
+# Create Chat Object
+
+```{python}
+chat = ctl.ChatOpenAI(
+    model = model,
+    system_prompt = system_prompt
+)
+```
+
+# Pass the Template Prompt to the AI Assistant
+
+```{python}
+chat.chat(user_message, echo='none')
+```
+
+## Response
+
+```{python}
+#| echo: false
+print(chat)
+```
+
+`````markdown
+---
+title: Generate Code Submission COL Questions From Lesson
+id: generate_code_submission_col_from_lesson
+task: code_generation
+audience: developer
+interface: both
+author: brad_cannell
+created: 2026-01-28
+last_updated: 2026-01-28
+project: epi_workbench
+domain: data_science
+tags:
+  - education
+  - qu ato
+  - code_submission
+  - r
+  - ep idemiology
+---
+
+# Overview (optional)
+This prompt enables an AI to scan a Quarto Markdown lesson file for coding exercises and automatically generate 2–5 code submission COL (Code Submission) questions per exercise. Each generated COL question should reinforce the original concept without duplicating the exact solution from the lesson. The output should be formatted as Epi-Workbench (EWB) exercise blocks plus accompanying test blocks (CSTs) suitable for the platform, using R with the tidyverse and testthat for CSTs.
+
+# SYSTEM PROMPT
+
+You are a helpful assistant that creates Code Submission COL questions for Epi-Workbench lessons.
+
+- Input: A lesson file (Quarto Markdown, .qmd) containing one or more coding exercises. Each coding exercise is an executable R code block (e.g., an exercise block with {r} or a block that includes scaffolding such as underscores) and is described in plain language text preceding or accompanying the code block.
+- Output: For each coding exercise found, generate 2–5 code submission COL questions that reinforce the same concept but are not identical to the original exercise. Each COL question must be delivered as a pair of blocks:
+  1) A Code Submission exercise block for learners to complete (R code). Use the EWB scaffolding conventions:
+     - Use {r} for the code block.
+     - Provide scaffolding as needed:
+       - Complete scaffolding (fully filled) for introducing a concept, or
+       - Partial scaffolding using blanks (____) to indicate missing code. Each blank should be represented by underscores, and different blocks should vary the number of underscores to ensure uniqueness.
+       - No scaffolding (just blanks) is allowed in isolation; if used, ensure at least one non-blank line is present in the block to avoid an empty block.
+     - Ensure each exercise block is unique (e.g., different variable names, different values, or different functions) so that CSTs can reliably distinguish them.
+     - Do not reveal the exact solution to the learner in these blocks.
+  2) A Test Code block (CST) using testthat to evaluate the learner’s submission.
+     - Use a separate code block with the header {r, type=test} (or {r,type=test}) for CSTs.
+     - Include one or more test_that calls that validate the learner’s submitted object(s) and behavior.
+     - The tests should be robust but not overly brittle; they should verify the intended learning outcome (e.g., correct class, correct value, correct transformation) without depending on the exact previous answer.
+
+- Data and context alignment:
+  - Each new COL question should reference the same dataset and variable names used in the corresponding exercise, when possible.
+  - If the original exercise uses a specific dataset and variable (e.g., census$region_f), refer to the same concept but you may slightly change names (e.g., region_f2) to ensure uniqueness across questions. The tests should still validate the intended outcome (e.g., a count per category, a summary statistic, etc.).
+
+- Uniqueness and CSTs:
+  - Every exercise block generated must be unique. Do not reuse identical code blocks across COL questions.
+  - CSTs (test blocks) must be distinct and correspond to their associated exercise blocks.
+  - The left edge of any exercise code block should appear red in the EWB UI until the student completes the exercise (indicating it’s an Open exercise). This is achieved by proper scaffolding and the platform’s rendering.
+
+- Formatting:
+  - Deliver blocks in Markdown as separate consecutive blocks.
+  - Use the same Markdown rendering conventions as EWB (three backticks with {r} for code blocks and {r,type=test} for CSTs).
+  - Do not include extraneous explanation outside the blocks; present only the generated COL blocks for each exercise, in order.
+
+- Output language and framework:
+  - Primary language: R
+  - Libraries: tidyverse, and testthat for CSTs
+  - Output style: Markdown blocks with the appropriate header in each block, no external links or verbose narration.
+
+- Practical guidance:
+  - If an exercise block is already fully scaffolded, you may still create 2–5 additional COL questions by varying the data or the requested operation slightly (e.g., change the target variable, use a different aggregation, or change the required output format) while keeping the concept intact.
+  - If the lesson contains multiple exercises, ensure you generate 2–5 COL questions per exercise and present them sequentially.
+
+- End-of-output rule:
+  - Do not include any preface or meta-commentary. Present only the generated COL blocks, grouped per original exercise.
+
+# User Message
+
+Context: You will be provided with the contents of a lesson file. The lesson contains one or more coding exercises, each typically presented as an explanatory text block followed by an R code block (e.g., a small data transform, count, plot, or model-related task). For example, a lesson might include:
+
+````markdown
+Assign the value 2 to an object named `x`.
+```{r}
+x <- 2
+```
+````
+
+Task: Locate all coding exercises within the lesson and produce 2–5 code submission COL questions for each exercise. Each COL question should reinforce the same concept as the exercise but should not duplicate the exact solution. For example, if the exercise assigns x <- 2, a corresponding COL question might ask the learner to assign a different value to a similarly named object, or perform a related operation using a different value.
+
+Constraints & Formatting:
+- Output should be a set of Markdown blocks, each consisting of:
+  - A code submission exercise block (```{r}) with scaffolding (complete, partial, or no scaffolding as appropriate). Use underscores (____) to indicate blanks for partial scaffolding. Ensure blocks are unique across questions.
+  - A corresponding test block (```{r,type=test}) containing testthat tests that validate the learner's submission.
+- The code in the learner-facing block should not reveal the exact solution.
+- The test block must be hidden (type=test) and must validate the intended learning outcome.
+- Each exercise pair should target the same conceptual topic as the original exercise but with variation to prevent direct copying.
+- If the lesson has no coding exercises, return nothing.
+
+Format: Markdown blocks only (no extra commentary). The blocks should reference the same data/variable names where applicable, but you may vary such names to ensure uniqueness.
+
+Output: Provide the generated 2–5 COL questions for each coding exercise found in the provided lesson. Ensure the generated content is self-contained and ready to embed in EWB lessons.
+
+---
+
+If you provide the lesson content to me, I will output the corresponding 2–5 code submission COL questions in the exact format above.
+`````
+
+# Follow-up and Refinement
+
+A section for optional follow-up questions and refinements. 
+- Optionally, create a fork of the chat. `import copy; chat_fork = copy.deepcopy(chat)`
+- Asks follow-up questions in interactive mode - `chat.app()`.
+
+# Save Chat History
+
+Optional, but necessary to return to the conversation later.
+
+```{python}
+# Export chat history as a markdown file
+# This version is easier to pass back to to the chat object in the future.
+chat_history_path_md = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + today + ".md"))
+chat.export(chat_history_path_md, overwrite=True)
+
+# Export chat history as an HTML file
+chat_history_path_html = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + today + ".html"))
+chat.export(chat_history_path_html, overwrite=True)
+
+# Export chat history as a json file
+# Useful for saving/loading the history to/from a database or file.
+# chat_history_path_json = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + today + ".json"))
+# with open(chat_history_path_json, "w", encoding="utf-8") as f:
+#     json.dump(
+#         [json.loads(x) for x in turns_json],
+#         f,
+#         indent=2,
+#         ensure_ascii=False
+#     )
+```
+
+## Condense
+
+You can also optionally condense the history by asking the LLM to summarize it. This is useful if you want to keep the context of the conversation, but don’t want to provide the entire history to the model on each new submission.
+
+```{python}
+# chat.chat("Can you summarize our conversation so far?")
+# chat.set_turns([chat.get_last_turn()])
+```
+
+## Load chat history
+
+To optionally load the chat history later.
+
+```{python}
+# Import chat history as a md file
+# chat_history_path_md = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + "yyyy-mm-dd" + ".md"))
+# history_md = chat_history_path_md.read_text(encoding="utf-8")
+
+# Import chat history as a json file
+# chat_history_path_json = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + "yyyy-mm-dd" + ".json"))
+# history_json = json.loads(chat_history_path_json.read_text(encoding="utf-8"))
+```
+
+# Render to HTML
+
+Render to HTML (Optional)
+- Click the Preview button.
+- Type `quarto render "path/Lesson Revisions.qmd"` in the terminal.

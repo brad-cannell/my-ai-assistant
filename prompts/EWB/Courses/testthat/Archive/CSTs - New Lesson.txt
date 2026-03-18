@@ -1,0 +1,148 @@
+# =============================================================================
+Template for Writing CSTs
+Date: 2025-07-04
+Updated: 2025-11-04
+Brad Cannell
+- Template for writing CSTs.
+- This version gives ChatGPT more detailed instructions.
+# =============================================================================
+
+# =============================================================================
+# Prompt 1: General Instructions for ChatGPT
+# =============================================================================
+
+I'm working on a new EWB lesson called "Insert_Lesson_Name".
+
+I want your help writing [testthat](https://testthat.r-lib.org/index.html) Code Submission Tests (CSTs) for one or more coding exercises in this lesson.
+
+The tests we write will run on the EWB platform and will have access to these two variables:
+
+1. `learner_code`: A character string containing the learner’s full submitted code.
+
+2. `learner_env`: An environment where that code has already been evaluated.
+
+Please follow these instructions when writing test code:
+
+- Instead of using `expect_*()` with `info =`, write all custom failure messages using the `fail()` function inside an `if (...)` or `else if (...)` block. Only call `succeed()` or `expect_true(TRUE)` at the end of a successful branch to pass the test.
+
+- Match the test code structure shown below exactly.
+
+```{r, type=hide}
+# Hidden Block for Local Testing Only
+# -----------------------------------------------------------------------------
+
+# Setup the simulated learner environment
+learner_env <- new.env()
+rm(list = ls(envir = learner_env), envir = learner_env)
+
+# Simulated learner submissions
+correct <- '[INSERT]'
+wrong_1 <- '[INSERT]'
+
+# Set the active submission
+learner_code <- correct
+
+# Gracefully evaluate code (prevents early error from stopping tests)
+try(eval(parse(text = learner_code), envir = learner_env), silent = TRUE)
+```
+
+```{r, type=test}
+# 1 - Check that `____` was replaced with something
+test_that(desc = "All blanks `____` were replaced", {
+  if (grepl("____", learner_code, fixed = TRUE)) {
+    fail("It looks like your submission still contains `____`. Please replace `____` to complete the code.")
+  } else {
+    succeed()
+  }
+})
+
+# 2 - Check ...
+test_that(desc = "Concise statement of the test's purpose", {
+  if (condition 1) {
+    fail("Meaningful failure message")
+  } else {
+    succeed()
+  }
+})
+```
+
+- When simulating incorrect learner submissions in the hidden code block, please use descriptive names like wrong_function_used, not wrong_1. However, they should all begin with the word "wrong".
+
+- The first thing the learner will see in the toast is TEST FAILED: followed by a description of the test that failed. The description is taken from the desc argument to the test_that() function used to write the CST. The description should be a concise statement of the CST's purpose.
+
+- The custom failure messages:
+  - Are short (ideally 1–2 lines).
+  - Identify where the problem is, but not necessarily what the correct answer is.
+  - Are guiding, not giving. Think nudge, don't solve.
+  - Are consistent across exercises, so learners know what to expect.
+  - Often prefer questions over statements
+  - Avoid revealing the solution unless it's a simple mechanical error (e.g., typo or missing object), avoid showing exact code in feedback.
+  - Use the `glue` package to inject dynamic feedback when helpful.
+
+- In general, we prefer breaking up CSTs into multiple `testthat` blocks with a narrower focus to long `testhat` blocks that test lots of things. We will show some concrete examples in the docs.
+
+When you are ready, I'll pass you information about coding exercises I need your help writing CSTs for.
+
+# =============================================================================
+# Prompt 2: Write CST
+# =============================================================================
+
+The instructions we will give the learner are: ""
+
+The code scaffolding with will give them is: ""
+
+The solution we are looking for is: ""
+
+Please write some CSTs for this scenario.
+
+# =============================================================================
+# Prompt 3: Next Exercise/Task
+# =============================================================================
+
+Now, please help me write the CSTs for another coding exercise.
+
+The instructions we will give the learner are: ""
+
+The code scaffolding with will give them is: ""
+
+The solution we are looking for is: ""
+
+
+
+
+# =============================================================================
+# Prompt for a new chat
+# =============================================================================
+
+Please help me write [testthat](https://testthat.r-lib.org/index.html) Code Submission Tests (CSTs) for the code exercise above.
+
+The instructions we will give the student are: ""
+
+The code scaffolding with will give them is: ""
+
+The solution we are looking for is: ""
+
+Please write some CSTs for this scenario.
+
+
+
+## Follow up prompts (optional - may not be needed)
+
+- Please break test_test() blocks that test multiple different characteristics of the submitted code into separate test_test() blocks where possible.
+
+- Please generate some simulated incorrect learner submissions we can use for testing.
+
+- Please suggest some hints for this coding exercise. 
+
+
+# =============================================================================
+# Prompt for following code blocks
+# =============================================================================
+
+I need to write another set of CSTs for the next exercise code block in this lesson.
+
+The instructions we will give the student are: ""
+
+The code scaffolding with will give them is: ""
+
+The solution we are looking for is: ""

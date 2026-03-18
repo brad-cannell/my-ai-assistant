@@ -1,0 +1,67 @@
+
+2026-01-27: Convert this to Markdown.
+
+
+# =============================================================================
+Template for Writing CST Hints
+Date: 2025-07-04
+Updated: 2025-11-04
+Brad Cannell
+# =============================================================================
+
+# =============================================================================
+# Prompt 1: First time in a lesson
+# =============================================================================
+
+Please help me write hints for the exercise above.
+
+Please use this syntax exactly:
+
+<!-- HINT:
+[TITLE=Here is a Title,POINTS=33]
+Hints provide supportive nudges that guide learners toward the solution without giving away the answer.
+
+[TITLE=Here is a Another Title, POINTS=33]
+- Hint titles should be brief and written in title case.
+- Hints can be broken up into bullets.
+
+[TITLE=Solution, POINTS=100]
+- The final hint will be the solution. It should remove the remainder of the points.
+- The solution should be written inside of code fences. For example:
+```
+x <- "hint"
+```
+-->
+
+Hint titles are optional but encouraged, especially when a coding exercise includes multiple, non-sequential hints. A well-written title helps learners choose the hint that best aligns with the part of the task they’re struggling with — reducing confusion and improving efficiency.
+
+Title Content Guidelines
+- Write in title case
+- Keep it brief — no more than a few words
+- Use titles that describe which part of the code block or task the hint applies to (e.g., a specific blank, argument, or step)
+- Avoid vague, conversational, or numbered titles unless they aid clarity
+
+Epi-Workbench uses Knowledge Points (KP) to reward persistence and reduce the pressure of getting things right on the first try. Learners are only penalized for the hints they view, and there's a built-in safeguard that prevents their KP from going negative.
+
+To ensure consistency and fairness across exercises, please follow these scoring rules:
+- Hints can be viewed in any order.
+- Learners are only penalized for hints they open.
+- The maximum total KP deduction is always 100, regardless of how many hints are viewed.
+- Each hint should specify its point deduction using the [POINTS=...] tag.
+- A hint's point deduction = 100 / total number of hints in that exercise.
+- Always include a final solution hint with [TITLE=Solution, POINTS=100].
+- Even if all hints are viewed, the total KP deduction is capped at 100.
+
+Hints should guide, not give away. Whenever possible, frame hints as leading questions that encourage critical thinking and recall. However, when a concept is new or particularly complex, it's okay to be more direct.
+- Use questions when learners should be expected to reason or recall:
+  - "Did you remember to group the data before summarizing?"
+- Use directives when the focus is syntax or when getting stuck would feel arbitrary:
+  - "Use the n() function to count the number of rows in each group."
+- Avoid giving full answers unless the goal is to reduce frustration and keep momentum in early or scaffolded exercises.
+
+# =============================================================================
+# Prompt 2: Subsequent uses
+# =============================================================================
+
+Please help me write hints for the exercise above.
+

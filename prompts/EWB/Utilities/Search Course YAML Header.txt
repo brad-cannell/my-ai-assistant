@@ -1,0 +1,25 @@
+# =============================================================================
+Search Course Directory for Keywords in the YAML Header
+2025-12-14
+Brad Cannell
+
+The code that resulted from this prompt is in: '/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/Courses/utility_search_yaml_header_keywords.R'
+# =============================================================================
+
+Please provide me with R code to recursively search the YAML header of every Quarto file in a given directory for the keywords "data" and "installation". The code should return the paths to the files that contain the keywords.
+
+Every Quarto file in the directory starts with a YAML header that looks something like the following:
+
+---
+title: "What is Data?"
+author: "Brad Cannell"
+date: "2025-01-24"
+date-modified: "2025-12-09"
+type: "Video Lesson"
+category: "Programming Concepts"
+subcategory: "R Programming"
+tags:
+  - data
+---
+
+I need to find all of the files that have the words "data" or "installation" in the "tags:" section of the YAML header.

@@ -1,0 +1,531 @@
+---
+title: "Adapt Lab for EWB"
+author: Brad Cannell
+date: 2025-04-21
+date-modified: 2025-04-21
+notes: 
+  - Use a Quarto document instead of a plain MD document for the outline in 
+    RStudio.
+  - For best results walk through this prompt iteratively. Do not submit the 
+    entire prompt at once.
+details:
+  - The prompt will pre-process and adapt lab files for EWB.
+---
+
+# Initial Request
+
+When prompted, I will attach a .qmd (Quarto markdown) file that contains a lab assignment from my university course, Introduction to R Programming and Data Management (Intro to R).
+
+I’d like your help adapting the attached lab for delivery on the Epi-Workbench platform.
+
+Specifically, you should complete a series of adaptation steps, which I will provide one at a time.
+
+Do not take any action until I attach the file.
+
+
+<!-- 
+Notes to Brad:
+- Next time you use these prompts to convert a lab file, consider using steps 11 and 12 FIRST.
+- The file is less cluttered and the changes are easier to see.
+- We can ask ChatGPT for feedback on the overall direction of the lab before making changes to the coding exercises.
+- We haven't written the "Skills Required to Complete This Lab" section yet.
+
+If it doesn't work well for some reason, you can always just document that in the YAML header and go back to running them as steps 11 and 12.
+
+If it does work well, then reorganize the steps in this file.
+-->
+
+
+
+# Step 1: Update the YAML header
+
+Please update the YAML header in the attached `.qmd` (Quarto markdown) document.
+
+Specifically:
+- Remove everything from the first `---` to the second `---`.
+- Replace it with a new YAML header using the following format:
+
+````yaml
+---
+title: [Add title here]
+author: Brad Cannell
+date: [Add today's date]
+date-modified: [Add today's date]
+type: [Add lesson type]
+---
+````
+
+Guidelines:
+
+- The title will be provided below.
+  - If it is missing, prompt me to provide one.
+- The lesson type will also be provided below.
+  - If it is missing, prompt me to provide one.
+  - Valid lesson types include: "written", "video", "coding", "col", "lab", or "culminating".
+  - If a different value is provided, notify me.
+  - If the lesson type is "lab", prefix the title with "Lab:".
+
+Do not make any other changes to the markdown document.
+
+Provided values for this step:
+Title = R Data Transfer
+Type = lab
+
+Please provide a link to download the `.qmd` (Quarto markdown) document.
+
+<!--
+Notes to author:
+- At this point, stop and review the downloaded file.
+- The updated YAML header should be the only difference between the original Quarto file and the updated Quarto file.
+-->
+
+# Step 2: Add an Initial Code Block
+
+- Add an initial code block to the file, located immediately below the YAML header.
+- There should be exactly one line break between the YAML header and the initial code block.
+- There should be exactly one line break below the initial code block.
+- The code block should load the `testwhat` package using the following R code:
+
+````
+```{r, type=initial}
+library(testwhat)
+```
+````
+
+- Initial code blocks are described in the `Coding Lesson Authoring Guide.qmd` file, which has been uploaded to the Project files for this ChatGPT project.
+
+Please do not make any additional changes to the file in this step.
+
+Please provide a link to download the `.qmd` (Quarto markdown) document.
+
+<!--
+Notes to author:
+- At this point, stop and review the downloaded file.
+- The new initial code block should be the only difference between the original Quarto file and the updated Quarto file.
+-->
+
+# Step 3: Move the Overview Section
+
+If the attached file includes an "Overview" section, please update it as follows:
+
+- Move the overview section to be located immediately below the initial code block.
+- Ensure there is exactly one line break between the initial code block and the section heading.
+
+Please do not make any additional changes to the file in this step.
+
+Please provide a link to download the `.qmd` (Quarto markdown) document.
+
+<!--
+Notes to author:
+- At this point, stop and review the downloaded file.
+-->
+
+# Step 4: Update the "Load Packages" Section
+
+If the attached file includes a "Load packages" section, please update it as follows:
+
+- Change the section heading to: `Load Required Packages`
+- Replace the explanatory text below the heading with the following:
+
+  > It’s best practice to load all necessary packages at the top of our file, and all of the packages that need to be loaded to complete exercises on the EWB platform are already installed.  
+  >  
+  > Please click the submit button in the code block below to load the R packages needed to complete this lab exercise.
+
+- Ensure there is exactly one line break between the section heading and the explanatory text.
+- Remove all other text previously included in the "Load packages" section.
+- Remove the `label:` code block option from the code block in the "Load packages" section if it exists.
+- Remove the `warn.conficts = FALSE` argument from all calls to the `library()` function. Additionally, remove any code comments that refer to the `warn.conflicts` argument.
+- Do not change any other code inside the code block.
+
+## Example: Load packages code block
+
+If the attached markdown document contains something like:
+
+````
+# Load packages
+
+Remember, it's considered a best practice to load all the packages that your file will use up at the top of the file. If you have not yet installed a package, you will need to do so by running `install.packages("package name")` in the R console. For example, to install the `dplyr` package, you would run `install.packages("dplyr")`. However, you typically **do not** want to type the code to install the package here in your Quarto file because you only need to install the package once on a given computer. Not every time you run your R code.
+
+```{r}
+#| label: load-packages
+library(dplyr, warn.conflicts = FALSE) # The "warn.conflicts" part is optional
+library(readxl)
+library(readr)
+library(haven)
+```
+````
+
+The updated file should block should be modified to look like this:
+
+````
+# Load Required Packages
+
+It’s best practice to load all necessary packages at the top of our file, and all of the packages that need to be loaded to complete exercises on the EWB platform are already installed. 
+
+Please click the submit button in the code block below to load the R packages needed to complete this lab exercise.
+
+```{r}
+library(dplyr)
+library(readxl)
+library(readr)
+library(haven)
+```
+````
+
+Please do not make any additional changes to the file in this step.
+
+Please provide a link to download the `.qmd` (Quarto markdown) document.
+
+<!--
+Notes to author:
+- At this point, stop and review the downloaded file.
+-->
+
+# Step 5: Remove `eval: false` Code Blocks
+
+Please remove any code blocks from the file that contain the the `eval: false` code block option. For example:
+
+````
+```{r}
+#| eval: false
+
+# Incorrect: chocolate_study_1.xls is not a csv file.
+choco_1 <- read_csv("Chocolate Study 1.xls")
+```
+````
+
+Additionally, remove any lines in code blocks that contain the comment:
+- `# For Dr. Cannell's computer.`
+
+After removing the code blocks and comments, also remove any extra empty lines left behind. There should be exactly one line break above each remaining exercise code block.
+
+Please do not make any additional changes to the file in this step.
+
+Please provide a link to download the `.qmd` (Quarto markdown) document.
+
+<!--
+Notes to author:
+- At this point, stop and review the downloaded file.
+-->
+
+# Step 6: Create a Solution Code Block
+
+For each exercise code block in the file:
+
+- Create a corresponding solution code block immediately below each exercise block, separated by exactly one line break.
+- Identify exercise code blocks by locating those that:
+    - Begin with a line that matches exactly: ```` ```{r} ````
+    - End with a line that matches exactly: ```` ``` ````
+
+- For each identified block:
+    - Copy the entire block verbatim, including both backtick lines and all contents.
+    - Do not make any changes inside the exercise code block.
+    - Create the solution code block directly underneath it, and change only the header to include the `type=solution` option.
+
+## Example: Solution code block
+
+Attached Quarto markdown document contains:
+
+````
+```{r}
+x <- 15
+```
+````
+
+The solution block should be added like this:
+
+````
+```{r}
+x <- 15
+```
+
+```{r, type=solution}
+x <- 15
+```
+````
+
+Please do not make any additional changes to the file in this step.
+
+Please provide a link to download the `.qmd` (Quarto markdown) document.
+
+<!--
+Notes to author:
+- At this point, stop and review the downloaded file.
+-->
+
+# Step 7: Create a Hidden Code Block for Local Testing
+
+For each exercise code block:
+- Add a hidden code block immediately below the solution code block, separated by exactly one line break.
+- The hidden code block must use the `type=hide` option in the code block header.
+
+The contents of each hidden block should follow this pattern:
+
+````markdown
+```{r, type=hide}
+# Hidden Code Block
+# Run local tests that are hidden from students.
+# No error = no problem.
+
+# Solution code
+# Make sure to add single quotes around quoted text.
+solution <- [Add solution code here]
+
+# Simulate a student submission
+# Make sure to add single quotes around quoted text.
+correct <- [Add submission code here]
+
+# Setup the exercise state
+setup_state(
+  sol_code = solution,
+  stu_code = correct
+)
+
+# Submission correctness test (SCT)
+[Add submission correctness test here]
+```
+````
+
+## Replacement Instructions:
+
+- Replace `[Add solution code here]` with the exact contents of the solution code block.
+    - Wrap the code in single or double quotes (e.g., `solution <- "x <- 15"`).
+- Replace `[Add submission code here]` with the same code as above, again wrapped in quotes.
+- Replace `[Add submission correctness test here]` with a submission correctness test (SCT) from the `testwhat` package.
+
+## SCT Notes:
+
+- All SCTs must begin with `ex() |>` verbatim.
+- Refer to the official `testwhat` documentation: [https://datacamp.github.io/testwhat/](https://datacamp.github.io/testwhat/)
+- Also consult the `testwhat Glossary.qmd` file uploaded to this project for specific examples and usage tips.
+
+Please do not make any other changes to the file in this step.
+
+Please provide a link to download the updated `.qmd` (Quarto markdown) document.
+  
+<!--
+Currently, the SCTs that ChatGPT is writing don't work. Not only that, but in many cases the way the current code chunks are written doesn't translate well to EWB.
+
+We might want to pause here.
+- Download the current version of the Quarto file so that we can return to that state if needed.
+- Update the exercise code chunks. In some cases, we may want to break them up into multiple chunks.
+- Work through the SCTs with ChatGPT one at a time to get them working.
+- We could also try using Gemini. It seemed to do a little bit better before.
+
+After we have the SCTs working, we can proceed with the steps below. 
+-->
+
+# Step 8: Create test code blocks
+
+I'm attaching the latest version of the Quarto markdown document here. Please help me continue adapting it for delivery on the Epi-Workbench platform. Specifically:
+- Please create a test code block below each hidden code block - separated by a single line break.
+- The test code block will use the `type=test` code block option in the code block header.
+- The test code block should contain the SCT from the hidden code block immediately above.
+
+To add the SCTs to the test code blocks, please:
+- Parse each hidden block.
+- Detect the line `# Submission correctness test (SCT)` (case-insensitive).
+- Copy every subsequent line—including comments, blank lines, and multi-line pipes — up to but not including the hidden block’s closing.
+- Create/replace the corresponding `type=test` block with that full chunk (one blank line above it).
+- Do not modify the contents of the hidden code block.
+- Leave everything else untouched.
+
+## Example: Test code block
+
+The hidden block contains:
+
+````
+```{r, type=hide}
+# Hidden Code Block
+# Run local tests that are hidden from students.
+# No error = no problem.
+
+# Solution code
+solution <- "library(dplyr)"
+
+# Simulate a student submission
+submission <- "library(dplyr)"
+
+# Setup the exercise state
+setup_state(
+  sol_code = solution,
+  stu_code = submission
+)
+
+# Submission correctness test (SCT)
+ex() %>% check_library("dplyr")
+```
+````
+
+The test block should be added like this: 
+
+````
+```{r, type=hide}
+# Hidden Code Block
+# Run local tests that are hidden from students.
+# No error = no problem.
+
+# Solution code
+solution <- "library(dplyr)"
+
+# Simulate a student submission
+submission <- "library(dplyr)"
+
+# Setup the exercise state
+setup_state(
+  sol_code = solution,
+  stu_code = submission
+)
+
+# Submission correctness test (SCT)
+ex() %>% check_library("dplyr")
+```
+
+```{r, type=test}
+ex() %>% check_library("dplyr")
+```
+````
+
+# Step 9: Generate tailored hints
+
+I'm attaching the latest version of a Quarto markdown document. For each `type=solution` block:
+
+1. Inspect the solution code and determine what the learner must do (e.g., import a fixed-width file with `read_fwf()`, convert `alq121` to a factor with specific levels/labels, etc.).
+
+2. Below the corresponding `type=test` block, insert a `<!-- HINT:… -->` section with 3-5 hints that:
+- Hint 1 – concept-level clue (what overall task is required).
+- Hint 2 – point to the correct function or helper.
+- Hint 3 – nudge about critical arguments / values.
+- Final hint – show the full solution line(s).
+
+3. Distribute 100 KP evenly, except for the final hint. The final hint should always be worth 100 KP.
+
+4. Use the exact hint syntax:
+
+````
+<!-- HINT:
+[POINTS=25]
+-   Concept-level clue …
+
+[POINTS=25]
+-   Function-level clue …
+
+[POINTS=25]
+-   Argument-level clue …
+
+[TITLE=Solution, POINTS=100]
+-   `full solution code`
+-->
+````
+
+Important: Write each hint set in plain language that references the variable names, functions, and argument names specific to that exercise. Do not reuse generic wording across exercises.
+
+<!-- 
+The prompt above will add a useable set of hints to begin with. Many of them can be improved on, though. You may have to go back and do that manually.
+-->
+
+# Step 10: "Skills Required to Complete This Lab" section
+
+<!-- 
+I'm not sure that I actually want to add this section to the labs.
+-->
+
+- Please inspect the entire Quarto markdown document and determine what high-level skills the learner must use in order to complete all of the exercises contained in the document.
+- Please add a new section to the Quarto markdown document.
+- Please begin the new section with the following section header: `# Skills Required to Complete This Lab`.
+- Place the new section after the full Overview block:
+  - Find the first level-one heading that comes after `# Overview` (or the end of file if there is none). Insert the new `# Skills Required to Complete This Lab` header immediately before that next level-one header, leaving exactly one blank line above and below.
+- Please add a bulleted list of 3 to 8 skills the learner will need to successfully complete all of the exercises.
+
+# Step 11: Update text formatting
+
+Please re-format the narrative (non-code) parts of the attached Quarto file to comply with the `Coding Lesson Authoring Guide.qmd` uploaded to the Project files for this ChatGPT Project. Please follow the steps below.
+
+1. Follow the Coding Lesson Authoring Guide for tone, spacing, and inline-code style.
+2. Bold ⇒ back-ticks: A file path or file name is any bolded term that
+  - A file path or file name is any bolded term that
+    - contains a dot-extension (`.csv`, `.xls`, `.txt`, `.qmd`, etc.), or
+    - contains an underscore (`_`).
+3. Replace all instances of "**filename**" with "`filename`" (back-ticks). For example, "**my_data**" should be changed to "`my_data`".
+4. Do not modify code inside fenced code blocks.
+5. Verification: After replacements, search narrative text for
+   - `\*\*[A-Za-z0-9._-]+\.[A-Za-z]{2,4}\*\*`, or
+   - `\*\*[A-Za-z0-9._-]+_[A-Za-z0-9._-]*\*\*`.
+   - If any matches remain, fix them and re-scan before returning the file.
+   
+# Step 12: Offer suggestions for content improvement
+
+The attached .qmd (Quarto markdown) file contains a lab assignment from my university course, Introduction to R Programming and Data Management (Intro to R), that we adapted for delivery on the Epi-Workbench platform.
+
+- Please offer suggestions for improving the content of the narrative text portions of the file. The narrative text portions of the file exist outside of fenced code blocks.
+- Improvements may include fixing grammatical and spelling errors, improving the clarity of the writing, and improving the pedagogical value of the writing.
+
+<!--
+I wonder if it wouldn't make more sense to do this step first.
+The file is less cluttered and the changes are easier to see.
+We haven't written the "Skills Required to Complete This Lab" section yet.
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+# Archive
+
+Stuff I'm not currently using, but don't want to delete yet.
+
+## Step X: Add scaffolding to the exercise code blocks
+
+The exercise code blocks on the Epi-Workbench platform are designed to guide learning through scaffolding. Rather than providing complete solutions, these blocks will offer a basic code structure that learners must then complete by writing the necessary solution code. Please turn the code in the exercise code blocks into scaffolded code. For example:
+
+### Example: Scaffolded exercise code block
+
+The original exercise code block contains:
+
+````
+```{r}
+x <- 15
+```
+````
+
+The scaffolded exercise code block might look like this:
+
+````
+```{r}
+_ <- __
+```
+````
+
+<!--
+I'm struggling to get this to work correctly right now. Meaning, ChatGPT either removes none of the code (e.g., `str(choco_1)`) or it removes too much of the code. For example:
+
+`
+__ <- read_fwf(
+  "__",
+  __ = fwf_widths(
+    __ = c(__, __, __, __, __, __, __, __, __, __, __, __, __, __, __, __, __, __, __, __, __),
+    __ = c(
+      "__", "__", "__", "__", "__", "__", "__", "__", 
+      "__", "__", "__", "__", "__", "__", "__", "__", 
+      "__", "__", "__", "__", "__"
+    )
+  ),
+  __ = __,
+  __ = "__"
+)
+`
+
+We might be able to train it to do a better job through examples. However, I think the best approach -- at least for now -- might be to do the scaffolding manually. So, We might want to pause here.
+- Download the current version of the Quarto file so that we can return to that state if needed.
+- Scaffold the code manually.
+- Upload the updated lab file. Ask ChatGPT not to modify it at this time. I will provide further instructions later.
+
+After we have the SCTs working, we can proceed with the steps below. 
+-->

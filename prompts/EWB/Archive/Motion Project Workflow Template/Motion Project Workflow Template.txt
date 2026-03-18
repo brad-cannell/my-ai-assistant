@@ -1,0 +1,53 @@
+# =============================================================================
+Trying out Motion's AI-assisted project workflow template
+2025-01-08
+Brad Cannell
+# =============================================================================
+
+# About me
+
+I am an epidemiologist, gerontologist, data scientist, and associate professor at the University of Texas Health Science Center. I am passionate about researching healthy aging and late-life quality of life and applying that understanding to improving the health of older adults and communities. Specifically, I have published research focusing on the preservation of physical and cognitive function, living and aging with disability, and detecting and preventing elder mistreatment. I also have a passion for data science and digital epidemiology. I'm committed to the idea of learning about -- and positively impacting -- health outcomes using a data-driven approach. My expertise includes scientific writing – I have published more than 45 peer-reviewed journal articles, two textbook chapters, and one textbook; grant writing – I have secured more than $27 million in grant funding for research; project management – I have been the principal or co-investigator on multiple trials and observational studies in community and healthcare settings; teaching – I have taught 8 different courses at 3 different universities; public speaking – I have given numerous presentations and trainings; and data science – I am fluent in all major statistical programming languages. 
+
+# About Epi-Workbench
+
+We are creating web-based business called "Epi-Workbench." Epi-Workbench is an online platform offering interactive courses in epidemiology, data science, and artificial intelligence, specifically designed for health professionals. With courses ranging from beginner to advanced levels, Epi-Workbench combines real-person instruction with hands-on coding exercises and integrated AI tools for a comprehensive learning experience. Learners can develop skills in statistical programming, applied statistical analyses, and scientific communication—all from the convenience of their browser, with no installation required.
+
+
+# About the project
+
+I previously wrote a free, open-source textbook called "R for Epidemiology," or "R4Epi" for short. The courses in Epi-Workbench will be based on the content in R4Epi. R4Epi currently consists of eight parts: "Getting Started," "Coding Tools and Best Practices," "Data Transfer," "Descriptive Analysis," "Data Management," "Repeated Operations," "Collaboration," and "Presenting Results." Those eight parts contain a total of 40 chapters.
+
+R4Epi is written with R markdown files (.Rmd) and compiled with the R package called "bookdown." I want to convert the book to use Quarto markdown files (.qmd) instead of R markdown files. Here are the steps we need to complete to convert each chapter from R markdown to Quarto:
+
+1. In the R4Epi Quarto repo, create a new folder in chapters for the chapter we are converting. Give the folder the same name as the chapter.
+
+2. Move the .Rmd file over and change the file extension to .qmd.
+
+3. Move images and other media to the folder you created above.
+
+4. For each code chunk: 
+
+	a. Change the code chunk options to Quarto format. At least, it should have a "label" and "echo" option. The find and replace tool can be helpful with all of these.
+
+		i. Prefix the label with the chapter name. For example: "#| label: installing_r_and_rstudio_screenshot_cran."
+
+		ii. After the chapter prefix, use the name of the media file being used in the code chunk, if applicable.
+
+		iii. Set echo to false with: "#| echo: false"
+
+		iv. Don't forget to remove the old code chunk options. For example: "{r screenshot-cran, echo=FALSE}."
+
+	b. Update the file paths for media files you moved over above.
+
+5. Look at the Planner board to see if changes need to be made to the chapter.
+Add links into the chapters #130
+
+6. Change all "I" language to "we" language when speaking as the author(s). For example, change "In this chapter, I cover how to ..." to ""In this chapter, we cover how to ...""
+
+7. Change some bolded words to glossary entries.
+
+8. Convert notes and warnings to Quarto's built-in call-out boxes.
+
+9. Remove images at the beginning of chapters, summaries at the end, etc., if they exist.
+
+10. Add the chapter to _quarto.yml.

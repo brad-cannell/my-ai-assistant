@@ -1,0 +1,209 @@
+---
+title: "Testing Code Blocks"
+author: Brad Cannell
+date: 2025-04-18
+date-modified: 2025-04-18
+notes: 
+  - Use a Quarto document instead of a plain MD document for the outline in 
+    RStudio.
+details:
+  - The prompt below assumes that I'm in the EWB project on ChatGPT, and 
+    therefore, don't need to explain what EWB is or pass along all of the formatting rules
+    contained in the style guide.
+  - I got the best results with ChatGPT 04-mini-high.
+  - So far, I can only get this to work if I give it instructions one step at a time.
+  - Additionally, the SCTs almost never work yet.
+---
+
+# Attach Coding Lesson Authoring Guide
+
+I'm attaching a Quarto markdown document titled, "Coding Lesson Authoring Guide.qmd". Please use it as a resource in this chat.
+
+-----
+
+# Initial prompt
+
+Later, will attach a coding exercise from the "Introduction to R Programming and Data Management" I teach at a university as a Quarto markdown document. Please help adapt the Quarto markdown document for use as a coding exercise on the Epi-Workbench platform. The Quarto markdown document contains one or more code blocks, which we will refer to as "exercise code blocks."
+
+Please execute the following steps each time you encounter an exercise code block:
+
+## Step 1: Create a solution code block
+
+- Create a solution code block below the exercise code block - separated by a single line break.
+- Whenever you see a code block that begins with exactly `{r}` and ends with a line that’s exactly "```", copy that entire block—including both back‑tick lines—verbatim.
+- Detect the start of an exercise block with a regex like ^```\\{r\\}\\s*$ and its end with ^```\\s*$. Everything between (and including) those two lines is the exercise block.
+- Do not change anything inside the exercise block. Only add new code fences below it.
+- The solution code block should be identical to the exercise code block except that it will use the `type=solution` code block option in the code block header. 
+
+### Example
+
+Attached Quarto markdown document contains:
+
+````
+```{r}
+x <- 15
+```
+````
+
+The solution block should be added like this:
+
+````
+```{r}
+x <- 15
+```
+
+```{r, type=solution}
+x <- 15
+```
+````
+
+## Step 2: Create a hidden code block for local testing
+
+- Create a hidden code block below the solution code block - separated by a single line break.
+- The hidden code block will use the `type=hide` code block option in the code block header.
+- The contents of the hidden code block should follow this pattern:
+
+```{r, type=hide}
+# Hidden Code Block
+# Run local tests that are hidden from students.
+# No error = no problem.
+
+# Solution code
+solution <- [Add solution code here]
+
+# Simulate a student submission
+submission <- [Add submission code here]
+
+# Setup the exercise state
+setup_state(
+  sol_code = solution,
+  stu_code = submission
+)
+
+# Submission correctness test (SCT)
+[Add submission correctness test here]
+```
+
+Additionally:
+- Please replace `[Add solution code here]` with the code from the solution code block.
+  - The solution code must be wrapped in single or double quotes. For example, `solution <- "x <- 15"` instead of `solution <- x <- 15`.
+- Please replace `[Add submission code here]` with the code from the solution code block.
+  - The submission code must be wrapped in single or double quotes. For example, `submission <- "x <- 15"` instead of `submission <- x <- 15`.
+- Please replace `[Add submission correctness test here]` with a submission correctness test (SCT) from the `testwhat` package.
+  - The documentation for the `testwhat` package is available at: https://datacamp.github.io/testwhat/
+  - All SCTs should begin with `ex() |>` verbatim.
+
+## Step 3: Create a test code block
+
+- Create a test code block below the hidden code block - separated by a single line break.
+- The test code block will use the `type=test` code block option in the code block header.
+- The test code block should contain the SCT from the hidden code block immediately above.
+
+### Example
+
+The hidden block contains:
+
+````
+```{r, type=hide}
+# Hidden Code Block
+# Run local tests that are hidden from students.
+# No error = no problem.
+
+# Solution code
+solution <- "library(dplyr)"
+
+# Simulate a student submission
+submission <- "library(dplyr)"
+
+# Setup the exercise state
+setup_state(
+  sol_code = solution,
+  stu_code = submission
+)
+
+# Submission correctness test (SCT)
+ex() %>% check_library("dplyr")
+```
+````
+
+The test block should be added like this: 
+
+````
+```{r, type=hide}
+# Hidden Code Block
+# Run local tests that are hidden from students.
+# No error = no problem.
+
+# Solution code
+solution <- "library(dplyr)"
+
+# Simulate a student submission
+submission <- "library(dplyr)"
+
+# Setup the exercise state
+setup_state(
+  sol_code = solution,
+  stu_code = submission
+)
+
+# Submission correctness test (SCT)
+ex() %>% check_library("dplyr")
+```
+
+```{r, type=test}
+ex() %>% check_library("dplyr")
+```
+````
+
+## Step 4: Create hints
+
+- Write a set of hints for learners below the test code block - separated by a single line break and using the appropriate hint syntax.
+- Please write 2-5 hints that are progressively more helpful to learners.
+- The final hint should contain the complete solution.
+- Each exercise code block is worth 100 knowledge points (KP).
+ - Each hint should deduct 100 / [total number of hints] KP.
+ - Please calculate the KP deduction for each hint and add it to the hint using the `[POINTS=X]` syntax.
+- Please write hints using the syntax from "Coding Lesson Authoring Guide.qmd".
+
+### Example
+
+Incorrect hint syntax:
+
+````
+> [!hint] **Hint 1 [POINTS=-25]**
+> Make sure the object `x` exists before trying to print it.
+
+> [!hint] **Hint 2 [POINTS=-25]**
+> Remember that `print()` is the function used to display objects in R.
+
+> [!hint] **Hint 3 [POINTS=-25]**
+> Inside `print()`, include the object name: `print(x)`.
+
+> [!hint] **Hint 4 [POINTS=-25]**
+> **Solution:** `print(x)`
+````
+
+Correct hint syntax: 
+
+````
+<!-- HINT:
+[POINTS=-25]
+- Make sure the object `x` exists before trying to print it.
+
+[POINTS=-25]
+- Remember that `print()` is the function used to display objects in R.
+
+[POINTS=-25]
+- Inside `print()`, include the object name: `print(x)`.
+
+[TITLE=Solution, POINTS=-25]
+- `print(x)`
+-->
+````
+
+## Other instructions
+    
+- Please don't change anything else about the Quarto markdown document.
+- When you have completed the steps above, please create an updated Quarto markdown document that I can download.
+
+

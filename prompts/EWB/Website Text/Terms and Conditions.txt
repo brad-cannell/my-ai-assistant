@@ -1,0 +1,241 @@
+# =============================================================================
+Write our Privacy Policy
+2024-11-11
+Brad Cannell
+# =============================================================================
+
+# About Epi-Workbench
+
+We are creating web-based business called "Epi-Workbench." Epi-Workbench is an online platform offering interactive courses in epidemiology, data science, and artificial intelligence, specifically designed for health professionals. With courses ranging from beginner to advanced levels, Epi-Workbench combines real-person instruction with hands-on coding exercises and integrated AI tools for a comprehensive learning experience. Learners can develop skills in statistical programming, applied statistical analyses, and scientific communication—all from the convenience of their browser, with no installation required.
+
+# Request
+
+Write the content for Epi-Workbench's terms and conditions page that is based on DataCamp.com's privacy policy, which says:
+
+"DataCamp, Inc. (together with our affiliates, “DataCamp”, “we”, or “us”) provides an online education service on the DataCamp website located at https://www.datacamp.com/ and a mobile application (collectively, the “Site”, and the Site, together with any products and services provided by DataCamp, the “Service”). By registering on the Site or by visiting, browsing, or using the DataCamp Service in any way, you (“user” or “you”) accept these Terms of Use (the “Terms”), which forms a binding agreement between you and DataCamp.
+
+THESE TERMS SET FORTH LEGALLY BINDING TERMS AND CONDITIONS THAT GOVERN YOUR USE OF THE SERVICE. BY ACCESSING OR USING THE SITE OR SERVICE, YOU ARE ACCEPTING THESE TERMS ON YOUR OWN BEHALF OR ON BEHALF OF A COMPANY OR OTHER LEGAL ENTITY. IF YOU ARE ENTERING THESE TERMS ON BEHALF OF A COMPANY, YOU REPRESENT AND WARRANT THAT YOU HAVE THE RIGHT, AUTHORITY, AND CAPACITY TO BIND SUCH ENTITY AND ITS AFFILIATES TO THESE TERMS, IN WHICH CASE THE TERMS “YOU” OR “USER” SHALL REFER TO SUCH ENTITY AND ITS AFFILIATES. IF YOU ARE A BUSINESS USER OR A CLASSROOMS USER (AS SUCH TERMS ARE DEFINED BELOW), THEN THESE TERMS WILL APPLY TO YOU TO THE EXTENT THEY ARE APPLICABLE TO USERS. FOR CLARITY, IF YOUR COMPANY HAS SEPARATELY EXECUTED A MASTER SERVICES AGREEMENT (“MSA”) OR ORDER FORM WITH US AND YOU ARE AUTHORIZED BY SUCH COMPANY TO CREATE A BUSINESS PLAN (AS DEFINED BELOW), THESE UPDATED TERMS OF USE APPLY ONLY TO THE EXTENT AUTHORIZED BY YOUR COMPANY'S MSA OR ORDER FORM. 
+
+YOU MAY NOT ACCESS OR USE THE SITE OR SERVICE IF YOU ARE NOT AT LEAST 16 YEARS OLD (UNLESS YOU ARE A CLASSROOMS USER). IF YOU ARE UNDER 18 YEARS OLD (OR THE AGE OF MAJORITY IN THE JURISDICTION FROM WHICH YOU ARE ACCESSING THE SITE OR SERVICE ), THEN YOU MAY ONLY ACCESS THE SITE OR SERVICE IF YOU HAVE YOUR PARENT OR LEGAL GUARDIAN’S CONSENT. IF YOU DO NOT HAVE THE AUTHORITY TO BIND YOUR COMPANY, OR IF YOU DO NOT AGREE WITH ALL OF THE TERMS AND CONDITIONS SET FORTH IN THESE TERMS, DO NOT ACCEPT THESE TERMS AND YOU MAY NOT ACCESS AND/OR USE THE SITE OR SERVICE.
+
+1. Account
+1.1 Account Creation
+In order to use certain features of the Service, you must register for an account (“Account”) and provide certain information about yourself. You represent and warrant that: (a) all registration information you submit is truthful and accurate, and (b) you will maintain the accuracy of such information. You agree that all account information you provide is governed by our Privacy Policy and you consent to all actions we take with respect to your information consistent with our Privacy Policy. Our Privacy Policy forms a part of these Terms. You may delete your Account at any time, for any reason, by following the instructions on the Service. DataCamp may suspend or terminate your Account in accordance with Section 6.
+
+1.2 Access Through a SNS
+If you access the Site through a social networking service (“SNS”), you may link your Account with your SNS account. This will allow DataCamp to access your SNS account, subject to the applicable terms and conditions that govern your use of each SNS account. You represent that you are entitled to disclose your SNS account login information to DataCamp and/or grant DataCamp access to your SNS account as set forth herein and that doing so does not breach any provisions of the applicable SNS account. By granting DataCamp access to any SNS accounts, you understand that DataCamp may access, use, make available, and store (if applicable) any information, data, text, software, music, sound, photographs, graphics, video, messages, tags and/or other materials accessible on your SNS account in and through the Service. You may disable the connection between your Account and your SNS account at any time by accessing the “Account” section of the Service.
+
+1.3 Account Responsibilities
+You are responsible for maintaining the confidentiality of your Account login information and for all activities that occur under your Account. You agree to immediately notify DataCamp of any unauthorized use, or suspected unauthorized use of your Account or any other breach of security. DataCamp cannot and will not be liable for any loss or damage arising from your failure to comply with the above requirements.
+
+2. DataCamp Plans and Purchase Terms
+2.1 Plans
+The features and price of your access to the Service is determined by the subscription plan and account type you register for, purchase, renew, or change into (each, a “Plan”)—to review the features and price associated with DataCamp’s Plans, please visit https://www.datacamp.com/pricing.
+
+2.2 Free plan
+If you sign-up for a free plan (“Free Plan”) through our Site, DataCamp grants you a non-transferable, non-exclusive, revocable, limited license to use and access the Service in strict accordance with these Terms. We reserve the right, in our absolute discretion, to withdraw or to modify your access to the Service at any time without prior notice and with no liability.
+
+2.3 Individual Plan
+If you purchase an individual subscription plan (“Individual Plan”), DataCamp grants you a non-transferable, non-exclusive, revocable, limited license to use and access the Service solely for your own personal use for the subscription term selected (the “Individual Term”) in strict accordance with these Terms.
+
+2.4 Business Plan
+(a) Business License
+If you purchase a business subscription plan (“Business Plan”) through our Site or through a separate DataCamp provided order form (“Order Form”), DataCamp grants you a non-transferable, non-exclusive, revocable, limited license to use and access the Service for the subscription term selected (the “Business Term”) in strict accordance with these Terms.
+
+(b) Seats
+The Business Plan allows employees or affiliate employees to register as users (a “Business User”), each Business User will be able to register for an Account and use and access the Service (a “Seat”). Each Seat is to be used solely by the named Business User and may not be shared amongst multiple employees, affiliate employees, contractors, agents, or other individuals. Except if explicitly indicated in a separate agreement or Order Form, the Seats granted under these Terms are not transferable to any other individual for any reason, and you will take all commercially reasonable steps to prevent your Business Users from granting access to the Service to any other individuals. As a Business Plan subscription holder, you represent and warrant that you have obtained all necessary consents, approvals, or other authorizations from your Business Users and have provided appropriate notices for the collection and use of such users’ User Content (as defined below) by DataCamp in accordance with these Terms.
+
+(c) Transfer
+You acknowledge and agree that the Seats granted under these Terms are specific to the individual Business Users you designate. The Individual Business Subscriptions granted under these Terms are not transferable to any other individual for any reason, with the exception that a Business Plan subscriber can transfer up to 20% of their Seats within the Business Term to new Business Users. You will take all commercially reasonable steps to prevent your Business Users from granting access to the Service to any other individuals.
+
+(d) Additional Seats
+As a Business Plan subscription holder you may purchase additional Seats during the Business Term at the then-current price. The use of the Service is conditioned upon timely payment of each Seat added, which will be prorated for the number of days remaining in your then-current Business Term.
+
+(e) Publicity
+As a Business Plan subscription holder, you agree that we may include your name in a list of customers and identify that you are a user of DataCamp. We may post your company name and logo on our Site and promotional materials provided that such use may be for informational purposes only in marketing efforts, and for no other purpose.
+
+2.5 Classrooms Plan
+If you sign-up for a classrooms plan (“Classrooms Plan”) through our Site, DataCamp grants you a non-transferable, non-exclusive, revocable, limited license to use and access the Service for 6 months (the “Classrooms Term”) in strict accordance with these Terms. The Classrooms Plan can only be used in an educational setting by professors, teachers or instructors. The Classrooms Plan allows students to register as users (a “Classrooms User”), each Classrooms User will be able to register for an Account and use and access the Service (a “Seat”) during the Classrooms Term. We reserve the right, in our absolute discretion, to determine your eligibility for a Classrooms Plan and to withdraw or to modify your access to the Service at any time without prior notice and with no liability. As a Classrooms Plan subscription holder, you represent and warrant that (1) you have obtained all necessary consents, approvals, or other authorizations from your Classrooms Users (including any applicable parental consents); (2) you have provided appropriate notices for the collection and use of such users’ User Content by DataCamp in accordance with these Terms; and (3) each Classrooms User is at least 13 years old.
+
+2.6 Fees
+The License (Individual or Business) is expressly conditioned on timely payment of the then-applicable license fee (“Subscription Fee”). We may include a separate charge for any applicable sales, use, value-added, or excise taxes, and any other similar taxes, duties or charges of any kind. We will remit taxes collected, if any, to the appropriate taxing authority. If payment is not received within the required time period, we may suspend your access to the Service until payment is received. Except as set forth in the Terms, all Subscription fees are non-refundable. We reserve the right to increase or decrease any Subscription Fee at any time; however, to the extent you have paid your Subscription Fee in advance, the increase or decrease will not become effective for your Plan until the end of your current Term or your next renewal.
+
+2.7 Auto-Renewal for Subscription Services
+Unless you opt out of auto-renewal, your Subscription will be automatically extended following any subscription term, for the same period of time as the subscription term, at the then-current rate. To change or terminate your Subscription, go to your Account page or reach out to DataCamp Support via our contact page. If you terminate your Subscription during the subscription term, you may use your Subscription until the end of the then-current term and your Subscription will not be renewed after the then-current term expires. However, you won’t be eligible for a prorated refund of any portion of the Subscription Fee paid for the then-current subscription term.
+
+3. Trial Subscriptions and Beta Releases
+From time to time, DataCamp may provide you with a Free Plan or a DataCamp Service on a trial basis at no charge (a “Trial Subscription”) or with access to features and functionality designated as pilot, unreleased, limited release, non-production, early access, in development, or in “alpha” or “beta” or by a similar description (collectively, “Beta Releases”), which are optional for you to use, any may be subject to supplemental terms that will be presented to you. You may choose to try such Trial Subscriptions and Beta Releases at your sole risk.
+
+DataCamp may use good faith efforts in its discretion to assist You with Trial Subscriptions or Beta Releases. Nevertheless, and without limiting the other disclaimers and limitations in these Terms, you agree that any Trial Subscriptions or Beta Releases are provided on an “as is” and “as available” basis, to the fullest extent of the law, without any warranty, support, maintenance, storage or indemnity obligations from DataCamp of any kind. You acknowledge and agree that Beta Releases, by their nature, have not been fully tested and may contain bugs, errors, omissions, which may not be corrected by DataCamp and that Beta Releases may undergo significant changes prior to release of the generally available final versions. DataCamp makes no promises that future versions of Beta Releases will be released or will be available under the same commercial or other terms. DataCamp may terminate your right to use any Trial Subscriptions or Beta Releases at any time for any reason. YOU ACKNOWLEDGE AND AGREE THAT DATACAMP WILL HAVE NO LIABILITY FOR ANY HARM OR DAMAGE ARISING OUT OF OR IN CONNECTION WITH A TRIAL SUBSCRIPTION OR A BETA RELEASE.
+
+4. Usage of the Service
+4.1 Restrictions
+The License granted is subject to the following restrictions: (a) you will not license, sell, rent, lease, transfer, assign, distribute, host, or otherwise commercially exploit the Service, in whole or in part, or any content displayed on the Service; (b) you will not modify, make derivative works of, disassemble, reverse compile or reverse engineer any part of the Service; (c) you will not access or use the Service in order to build a similar or competitive website, product, or service; and (d) except as expressly stated herein or specifically enabled as a feature of the Service, no part of the Service may be copied, reproduced, distributed, republished, downloaded, displayed, posted or transmitted in any form or by any means. All copyright and other proprietary notices on the Service (or on any content displayed on the Service) must be retained on all copies thereof.
+
+4.2 Limits
+We reserve the right to monitor use of the Service and to deactivate or terminate your rights to use the Service (including your Account) if your usage behavior exceeds normal limits, as determined in our sole discretion.
+
+For the avoidance of doubt, activating in excess of 10,000 Business Users pursuant to our unlimited plans, such as Data Literacy and Unlimited plans, will be deemed to be a breach of the foregoing limits and will result, in addition to termination of your rights to use the Service, in additional fees and charges to you.
+
+4.3 Modification
+DataCamp reserves the right, at any time without notice or liability, to change or eliminate any content or feature or restrict the use of any portion of the Service. Your only right with respect to any dissatisfaction is to cease use of the Service. Unless otherwise indicated, any future release, update, or other addition to functionality of the Service will be subject to these Terms.
+
+4.4 Availability of Service
+You recognize that the traffic of data through the Internet may cause delays during your use of or access to the Service, and accordingly, you agree not to hold us liable or make any claims against us for delays that are ordinary in the course of Internet use. You further acknowledge and accept that the Service may not be available due to such delays, delays caused by our upgrading, modification, or standard maintenance of the Service, or any other delays outside of our control.
+
+4.5 No Support or Maintenance
+You acknowledge and agree that DataCamp will have no obligation to provide you with any support or maintenance in connection with the Service.
+
+5. Payment terms
+5.1 Payment
+Subscription holders agree to pay the monthly, annual, or course fee specified when you purchase a Subscription. Depending on where you transact with us, the type of payment method used, and where your payment method was issued, your transaction with us may be subject to foreign exchange fees or differences in prices because of exchange rates and other geographic-specific pricing. Any agreement you have with your payment provider will govern your use of your specified payment method. You agree that we may accumulate charges incurred and submit them as one or more aggregate charges during or at the end of each billing cycle. Your failure to terminate and/or continued use of your Subscription reaffirms that we are authorized to charge you for that Subscription. We may submit those charges for payment and you will be responsible for such charges. This does not waive our right to seek payment directly from you.
+
+5.2 Billing Authorization
+You may be asked to provide a credit, charge or debit card number from a card issuer that we accept in order to activate your Subscription – your authorizations in this Section also apply to our payment processor and any other company who acts as a billing agent for us. You hereby authorize us to charge your specified payment method on a monthly or annual basis, in advance, for recurring Subscriptions, and to charge in advance for any course based or other subscription models, and/or to place a hold on your payment method with respect to any unpaid charges for Subscriptions. You authorize the issuer of your selected payment method to pay any amounts described herein without requiring a signed receipt. You authorize us to continue to attempt to charge and/or place holds with respect to all sums described herein, or any portion thereof, to your payment method until such amounts are paid in full. You agree to provide updated payment information upon request and any time the information you previously provided is no longer valid. You acknowledge and agree that neither DataCamp, nor any DataCamp agent, will have any liability whatsoever for any insufficient funds or other charges incurred by you as a result of attempts to charge, and/or place holds on, your specified payment method as contemplated by these Terms. If you provide a debit card number instead of a credit card number, you authorize all charges described herein to be applied to such debit card unless and until you provide a credit card number.
+
+5.3 Third-Party Payment Processors
+You agree to pay us, through our payment processors, all charges at the prices then in effect for any purchase in accordance with the applicable payment terms presented to you at the time of purchase. You agree to make payment using the payment method you provide when you sign up for a Subscription. We reserve the right to correct, or to instruct our payment processor or financing partner to correct, any errors or mistakes, even if payment has already been requested or received.
+
+5.4 Invoice Payment
+As a Business Plan subscription holder, if you choose to be invoiced (or choose to have a third-party payment provider or reseller be invoiced on your behalf) your Subscription Fee will be invoiced as of the subscription start date when the Seats are activated (“Start Date”). You hereby agree that the Subscription Fee is due as of the invoice date, payable within thirty (30) days of said date and according to the instructions on the invoice.
+
+6. Termination and Cancellation
+6.1 Termination
+You agree that we may deactivate or terminate your rights to use the Service (including your Account) or terminate your Plan (i) if we believe that you have breached or acted inconsistently with these Terms and (ii) at any time for any reason at our sole discretion if you are a subscription holder under a Free Plan or a Classrooms Plan. You agree that any such deactivation or termination for the foregoing reasons may be effected without prior notice to you and that we will not be liable to you or any third party for any deactivation of your Account or termination of your Plan.
+
+6.2 Cancellation Individual Plan
+Your Individual Plan may be cancelled at any time via your user Account settings page or reach out to DataCamp Support via our contact page. After cancellation, your Individual Plan will remain active to the end of your then-current Individual Term to the extent your Subscription Fee is paid. We will not offer refunds on any fees or charges related to your Individual Plan—this includes any partially used or unused periods for which you have already paid. Your obligation to pay fees continues through the end of your Individual Term.
+
+6.3 Cancellation Business Plan
+(a) Cause
+We or the Business Plan subscription holder may cancel the Business Plan or any Order Form prior to its expiration if the other party breaches these Terms or an Order Form and fails to cure said breach within thirty (30) days after receipt of notice thereof. Except for instances arising from our uncured breach, all Subscription Fees or charges related to your Business Plan are non-refundable and all unpaid fees are due and payable immediately upon cancellation.
+
+(b) Convenience
+A Business Plan may be cancelled for convenience at least prior 30 days prior to the expiration of the then-current Business Term via your account settings page or by notice to us. After cancellation, your Business Plan will remain active to the end of your then-current Business Term to the extent your Subscription Fee is paid. In the event of any termination for convenience all portions of the Subscription Fee are completely non-refundable. Your obligation to pay fees continues through the end of your Business Term.
+
+6.4 Post-termination or cancellation
+These Terms will continue in effect until termination or expiration of your Account or Plan. Upon termination or expiration your rights under these Terms, your Account and right to access and use the Service will terminate immediately. Termination or expiration may involve deletion of your User Content associated with your Account. DataCamp will not have any liability whatsoever to you for any termination of your rights under these Terms, including for termination of your Account or deletion of your User Content. Even after your rights under these Terms are terminated, the following Sections will remain in effect: 6, 7.1, 8, 10 through 16.
+
+7. Intellectual property
+7.1 Ownership
+Excluding any User Content that you may provide, you acknowledge that all intellectual property rights, including copyrights, patents, trademarks, and trade secrets, in the Service and its content, including without limitation any statistical analyses on your data and information resulting from your or your users’ use of the Service (“Statistical Data”) are owned by DataCamp or DataCamp’s suppliers (“Proprietary Materials”). For clarity, DataCamp will only use Statistical Data in an anonymized, deidentified or aggregated form without specifying you as the source of any Statistical Data. Neither these Terms nor your access to the Service transfers to you or any third party any rights, title or interest in or to such Proprietary Materials, except for the limited license in Section 2. DataCamp and its suppliers reserve all rights not granted in these Terms. The License granted you by these Terms is a right of use and access of the Service through the Site and mobile application only, and does not grant to you any right to download or store any Proprietary Materials in any medium, other than (i) that downloadable content that may be provided for certain courses, including exercise files, slides, and sample code, (ii) files that are automatically cached by your web browser for display purposes, and (iii) a copy of the mobile application for your mobile device solely for your own, personal use.
+
+7.2 Rights
+We represent, warrant, and covenant that: (i) we have and will have all rights, titles, licenses, intellectual property, permissions and approvals necessary in connection with our performance under these Terms to grant you the License granted hereunder; and (ii) neither the Service, nor the provision or utilization thereof as contemplated under these Terms, will infringe, violate, trespass or in any manner contravene or breach or constitute the unauthorized use or misappropriation of any intellectual property of any third party, provided that this clause will not apply to the extent any such infringement, violation, trespass or contravention, breach, or unauthorized use or misappropriation of any intellectual property is caused by a combination of the Service with User Content or any materials, software, devices, or other things that are not under Datacamp’s control.
+
+8. User Content
+8.1 User Content
+User Content means any information and content that a user submits to, or uses with, the Service (e.g., content in the user’s profile or postings). You are solely responsible for your User Content. You assume all risks associated with use of your User Content, including any reliance on its accuracy, completeness or usefulness by others, or any disclosure of your User Content that personally identifies you or any third party. You hereby represent and warrant that your User Content does not and will not violate the Restrictions in Section 8.3. You may not represent or imply to others that your User Content is in any way provided, sponsored or endorsed by DataCamp. DataCamp is not obligated to backup any User Content, and your User Content may be deleted at any time without prior notice. You are solely responsible for creating and maintaining your own backup copies of your User Content if you desire.
+
+8.2 License
+You hereby grant (and represent, warrant and covenant that you have the right to grant) DataCamp an irrevocable (except where prohibited by law), non-exclusive, royalty-free and fully-paid-up, worldwide license to reproduce, distribute, publicly display and perform, prepare derivative works of, incorporate into other works, and otherwise use and exploit your User Content, and to grant sublicenses of the foregoing rights, in connection with the Service through any medium, whether alone or in combination with other content or materials, in any manner and by any means, method or technology, whether now known or hereafter created. You hereby irrevocably waive (and agree to cause to be waived) any claims and assertions of moral rights or attribution with respect to your User Content.
+
+8.3 Restrictions
+(a) You will not use the Service to collect, upload, transmit, display, or distribute any User Content (i) that violates any third-party right, including any copyright, trademark, patent, trade secret, moral right, privacy right, right of publicity, or any other intellectual property or proprietary right; (ii) that is unlawful, harassing, abusive, tortious, threatening, harmful, invasive of another’s privacy, vulgar, defamatory, false, intentionally misleading, trade libelous, pornographic, obscene, patently offensive, promotes racism, bigotry, hatred, or physical harm of any kind against any group or individual or is otherwise objectionable; (iii) that is harmful to minors in any way; or (iv) that is in violation of any law, regulation, or obligations or restrictions imposed by any third party.
+
+(b) In addition, you agree not to: (i) upload, transmit, or distribute to or through the Service any computer viruses, worms, or any software intended to damage or alter a computer system or data; (ii) send through the Service unsolicited or unauthorized advertising, promotional materials, junk mail, spam, chain letters, pyramid schemes, or any other form of duplicative or unsolicited messages, whether commercial or otherwise; (iii) use the Service to harvest, collect, gather or assemble information or data regarding other users, including e-mail addresses, without their consent; (iv) interfere with, disrupt, or create an undue burden on servers or networks connected to the Service, or violate the regulations, policies or procedures of such networks; (v) attempt to gain unauthorized access to the Service (or to other computer systems or networks connected to or used together with the Service), whether through password mining or any other means; (vi) harass or interfere with any other user’s use and enjoyment of the Service; or (vi) use software or automated agents or scripts to produce multiple accounts on the Service, or to generate automated searches, requests, or queries to (or to strip, scrape, or mine data from) the Service (provided, however, that we conditionally grant to the operators of public search engines revocable permission to use spiders to copy materials from the Service for the sole purpose of and solely to the extent necessary for creating publicly available searchable indices of the materials, but not caches or archives of such materials, subject to the parameters set forth in our robots.txt file).
+
+(c) You also acknowledge and agree that the Service is not intended to hold any Sensitive Information. You represent and warrant that you will not use our Service to transmit, upload, collect, manage, or otherwise process any Sensitive Information. WE WILL NOT BE LIABLE FOR ANY DAMAGES THAT MAY RESULT FROM YOUR USE OF THE SERVICE IN TRANSMITTING, COLLECTING, MANAGING, OR PROCESSING ANY SENSITIVE INFORMATION. “Sensitive Information” means any passwords, credit card or debit card information, personal financial account information, personal health information, social security numbers, passport numbers, driver’s license numbers, employment records, physical or mental health condition or information, any information that would classify as “Special Categories of Information” under EU data protection laws, or any other information that would be subject to the US Health Insurance Portability and Accountability Act (HIPAA), the Payment Card Industry Data Security Standards (PCI DSS), or other laws, regulations, or industry standards designed to protect similar information.
+
+8.4 Enforcement
+We reserve the right (but have no obligation) to review any User Content, and to investigate and/or take appropriate action against you in our sole discretion if you violate any Restrictions or any other provision of these Terms. Such action may include removing or modifying your User Content, terminating your Account in accordance with Section 6, and/or reporting you to law enforcement authorities.
+
+8.5 Feedback
+If you provide DataCamp with any feedback or suggestions regarding the Service (“Feedback”), you hereby assign to DataCamp all rights in such Feedback and agree that DataCamp will have the right to use and fully exploit such Feedback and related information in any manner it deems appropriate. DataCamp will treat any Feedback you provide to DataCamp as non-confidential and non-proprietary. You agree that you will not submit to DataCamp any information or ideas that you consider to be confidential or proprietary.
+
+9. Third-Party Links & Ads; Other Users
+9.1 Third-Party Links & Ads
+The Service may contain links to third-party websites, content and services, and/or display advertisements for third parties (collectively, “Third-Party Links & Ads”). Such Third-Party Links & Ads are not under the control of DataCamp, and DataCamp is not responsible for any Third-Party Links & Ads. DataCamp provides access to these Third-Party Links & Ads only as a convenience to you, and does not review, approve, monitor, endorse, warrant, or make any representations with respect to Third-Party Links & Ads. You use all Third-Party Links & Ads at your own risk, and should apply a suitable level of caution and discretion in doing so. When you click on any of the Third-Party Links & Ads, the applicable third party’s terms and policies apply, including the third party’s privacy and data gathering practices. You should make whatever investigation you feel necessary or appropriate before proceeding with any transaction in connection with such Third-Party Links & Ads.
+
+9.2 Other Users
+Each Service user is solely responsible for its own User Content. We make no guarantees regarding the accuracy, currency, suitability, or quality of any User Content. Your interactions with other Service users are solely between you and such users. You agree that DataCamp will not be responsible for any loss or damage incurred as the result of any such interactions. If there is a dispute between you and any Service user, we are under no obligation to become involved.
+
+10. Indemnification
+You agree to indemnify and hold DataCamp (and its officers, employees, and agents) harmless, including costs and attorneys’ fees, from any claim or demand made by any third party due to or arising out of (a) your use of the Service, (b) your violation of these Terms, (c) your violation of applicable laws or regulations or (d) your User Content. DataCamp reserves the right, at your expense, to assume the exclusive defense and control of any matter for which you are required to indemnify us, and you agree to cooperate with our defense of these claims. You agree not to settle any indemnifiable matter without our prior written consent. DataCamp will use reasonable efforts to notify you of any such claim, action or proceeding upon becoming aware of it.
+
+11. Data Privacy
+To the extent DataCamp acts as a “Data Processor” or a “Service Provider” on your company’s behalf by processing User Content that is considered “personal data” subject to the General Data Protection Regulation (EU) 2016/679 or that is considered “personal information” subject to the California Consumer Privacy Act, you and DataCamp will be subject to and comply with the DataCamp Data Processing Addendum ("DPA"), which is incorporated into and forms an integral part of these Terms. The DPA sets out the parties’ obligations with respect to data protection and security when processing your User Content in connection with the Service.
+
+12. Disclaimers
+EXCEPT AS EXPRESSLY PROVIDED IN THESE TERMS, THE SERVICE IS PROVIDED ON AN “AS-IS” AND “AS AVAILABLE” BASIS, AND DATACAMP (AND OUR SUPPLIERS) EXPRESSLY DISCLAIM ANY WARRANTIES AND CONDITIONS OF ANY KIND, WHETHER EXPRESS, IMPLIED, OR STATUTORY, INCLUDING ALL WARRANTIES OR CONDITIONS OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, QUIET ENJOYMENT, ACCURACY, OR NON-INFRINGEMENT. WE (AND OUR SUPPLIERS) MAKE NO WARRANTY THAT THE SERVICE WILL MEET YOUR REQUIREMENTS, WILL BE AVAILABLE ON AN UNINTERRUPTED, TIMELY, SECURE, OR ERROR-FREE BASIS, OR WILL BE ACCURATE, RELIABLE, FREE OF VIRUSES OR OTHER HARMFUL CODE, COMPLETE, LEGAL, OR SAFE. IF APPLICABLE LAW REQUIRES ANY WARRANTIES WITH RESPECT TO THE SERVICE, ALL SUCH WARRANTIES ARE LIMITED IN DURATION TO NINETY (90) DAYS FROM THE DATE OF FIRST USE.
+
+SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES, SO THE ABOVE EXCLUSION MAY NOT APPLY TO YOU. SOME JURISDICTIONS DO NOT ALLOW LIMITATIONS ON HOW LONG AN IMPLIED WARRANTY LASTS, SO THE ABOVE LIMITATION MAY NOT APPLY TO YOU.
+
+13. Limitation of Liability
+13.1 Exclusion of Consequential and Related Damages
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT WILL DATACAMP (OR OUR SUPPLIERS) BE LIABLE TO YOU OR ANY THIRD PARTY FOR ANY LOST PROFITS, LOST DATA, COSTS OF PROCUREMENT OF SUBSTITUTE PRODUCTS, OR ANY INDIRECT, CONSEQUENTIAL, EXEMPLARY, INCIDENTAL, SPECIAL OR PUNITIVE DAMAGES ARISING FROM OR RELATING TO THESE TERMS OR YOUR USE OF, OR INABILITY TO USE, THE SERVICE, EVEN IF DATACAMP HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. ACCESS TO, AND USE OF, THE SERVICE IS AT YOUR OWN DISCRETION AND RISK, AND YOU WILL BE SOLELY RESPONSIBLE FOR ANY DAMAGE TO YOUR DEVICE OR COMPUTER SYSTEM, OR LOSS OF DATA RESULTING THEREFROM.
+
+13.2 Monetary Cap on Liability
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, OUR LIABILITY TO YOU FOR ANY DAMAGES ARISING FROM OR RELATED TO THIS AGREEMENT (FOR ANY CAUSE WHATSOEVER AND REGARDLESS OF THE FORM OF THE ACTION), WILL AT ALL TIMES BE LIMITED TO A MAXIMUM OF THE AMOUNTS PAID TO US BY YOU IN THE TWELVE (12) MONTHS PRIOR TO THE EVENT GIVING RISE TO THE CLAIM. THE EXISTENCE OF MORE THAN ONE CLAIM WILL NOT ENLARGE THIS LIMIT. YOU AGREE THAT OUR SUPPLIERS WILL HAVE NO LIABILITY OF ANY KIND ARISING FROM OR RELATING TO THIS AGREEMENT.
+
+13.3 Independent Allocation of Risk
+EACH PROVISION OF THESE TERMS THAT PROVIDES FOR A LIMITATION OF LIABILITY, DISCLAIMER OF WARRANTIES, OR EXCLUSION OF DAMAGES IS TO ALLOCATE THE RISKS OF THESE TERMS BETWEEN THE PARTIES. THIS ALLOCATION IS REFLECTED IN THE PRICING OFFERED BY DATACAMP TO YOU AND IS AN ESSENTIAL ELEMENT OF THE BASIS OF THE BARGAIN BETWEEN THE PARTIES. EACH OF THESE PROVISIONS IS SEVERABLE AND INDEPENDENT OF ALL OTHER PROVISIONS OF THESE TERMS. THE LIMITATIONS IN THIS SECTION WILL APPLY EVEN IF ANY LIMITED REMEDY SPECIFIED IN THIS AGREEMENT IS FOUND TO HAVE FAILED ITS ESSENTIAL PURPOSE.
+
+13.4 Prohibition of Limitation of Liability and Disclaimer of Implied Warranties
+SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES OR LIMITATION OF LIABILITY FOR INCIDENTAL OR CONSEQUENTIAL DAMAGES, SO THE ABOVE LIMITATION OR EXCLUSION MAY NOT APPLY TO YOU. IN THESE JURISDICTIONS, DATACAMP’S LIABILITY WILL BE LIMITED TO THE GREATEST EXTENT PERMITTED BY LAW.
+
+14. Copyright Policy
+DataCamp respects the intellectual property of others and asks that users of our Service do the same. In connection with the Service, we have adopted and implemented a policy respecting copyright law that provides for the removal of any infringing materials and for the termination, in appropriate circumstances, of users of our Service who are repeat infringers of intellectual property rights, including copyrights. If you believe that one of our users is, through the use of our Service, unlawfully infringing the copyright(s) in a work, and wish to have the allegedly infringing material removed, the following information in the form of a written notification (pursuant to 17 U.S.C. § 512(c)) must be provided to our designated Copyright Agent:
+
+your physical or electronic signature;
+identification of the copyrighted work(s) that you claim to have been infringed;
+identification of the material on our services that you claim is infringing and that you request us to remove;
+sufficient information to permit us to locate such material;
+your address, telephone number, and e-mail address;
+a statement that you have a good faith belief that use of the objectionable material is not authorized by the copyright owner, its agent, or under the law; and
+a statement that the information in the notification is accurate, and under penalty of perjury, that you are either the owner of the copyright that has allegedly been infringed or that you are authorized to act on behalf of the copyright owner.
+Please note that, pursuant to 17 U.S.C. § 512(f), any misrepresentation of material fact in a written notification automatically subjects the complaining party to liability for any damages, costs and attorney’s fees incurred by us in connection with the written notification and allegation of copyright infringement.
+
+The designated Copyright Agent for DataCamp is: Jelle Carcan
+
+Designated Agent: DataCamp Inc.
+
+Address of Agent: 1 Pennsylvania Plaza, Suite 2014, New York, NY 10119, US
+
+Contact: DataCamp Support.
+
+15. Federal government end use provision
+If You are a U.S. federal government department or agency or contracting on behalf of such department or agency, the Service is a “Commercial Item” as that term is defined at 48 C.F.R. §2.101, consisting of “Commercial Computer Software” and “Commercial Computer Software Documentation”, as those terms are used in 48 C.F.R. §12.212 or 48 C.F.R. §227.7202. Consistent with 48 C.F.R. §12.212 or 48 C.F.R. §227.7202-1 through 227.7202-4, as applicable, the Service is licensed to you with only those rights as provided under these Terms.
+
+16. General
+16.1 Changes
+These Terms are subject to occasional revision, and if we make any substantial changes, we notify you by sending you an e-mail to the last e-mail address you provided to us (if any), and/or by prominently posting notice of the changes on this page and elsewhere in the Service. In the event that the last e-mail address that you have provided us is not valid, or for any reason is not capable of delivering to you the notice described above, our dispatch of the e-mail containing such notice will nonetheless constitute effective notice of the changes described in the notice. Any changes to these Terms will be effective upon the earlier of thirty (30) calendar days following our dispatch of an e-mail notice to you (if applicable) or thirty (30) calendar days following our posting of notice of the changes on this page and in the Service. These changes will be effective immediately for new users of the Service. Continued use of the Service following notice of such changes will indicate your acknowledgement of such changes and agreement to be bound by the terms and conditions of such changes.
+
+16.2 Governing Law and Jurisdiction
+These Terms are governed by and will be construed in accordance with the laws of the New York, without reference to its choice or conflicts of law principles.
+
+16.3 Dispute Resolution
+If any dispute should arise with regard to these Terms (i) the parties agree to first work in good faith to resolve such dispute, and neither party may commence any action with regard to such dispute until thirty (30) days have passed from the time such party has provided notice to the other party of the nature of such dispute, provided that nothing herein will prevent us from seeking injunctive relief in the event of your actual or threatened breach of any terms of these Terms; (ii) the party prevailing in such dispute, whether by out-of-court settlement or final judicial determination, will be entitled to recover from the non-prevailing party all costs and expenses of such dispute incurred by such prevailing party, including without limitation reasonable attorneys’ fees.
+
+16.4 Export Compliance and Anti-Corruption
+The Service may be subject to U.S. export control laws and may be subject to export or import regulations in other countries. You agree not to export, reexport, or transfer, directly or indirectly, any U.S. technical data acquired from DataCamp, or any products utilizing such data, in violation of the United States export laws or regulations. You represent that (a) you are not named on any U.S. government denied-party list and (b) you have not received or been offered any illegal or improper bribe, kickback, payment, gift, or thing of value in connection with your purchase or use of our Service (excluding any reasonable gifts provided in the ordinary course of business).
+
+16.5 Notice
+Any notice which may be required to be given under these Terms, will be given: (i) to you via e-mail to the e-mail address you maintain in your account settings or by notifying you electronically by displaying the notice in the Service; (ii) to us in any commercially reasonable manner, including certified mail, return receipt requested, e-mail, or any other customary means of communication at the applicable mailing address in Section 16.10, as may be updated from time to time. Any notice given otherwise than in accordance with this Section will be deemed ineffective.
+
+16.6 Entire Terms
+These Terms constitute the entire agreement between you and us regarding the use of the Service. To the extent that you have entered into a Business Plan subscription through a master service agreement, an Order Form or any other written agreement fully executed and signed by an authorized representative of DataCamp that contain terms that directly conflict with any terms of these Terms, then the conflicted terms set forth in such other agreement will control. Our failure to exercise or enforce any right or provision of these Terms will not operate as a waiver of such right or provision. The section titles in these Terms are for convenience only and have no legal or contractual effect. The word “including” means “including without limitation”. The word “may” means “has the right, but not the obligation, to”. If any provision of these Terms is, for any reason, held to be invalid or unenforceable, the other provisions of these Terms will be unimpaired and the invalid or unenforceable provision will be deemed modified so that it is valid and enforceable to the maximum extent permitted by law.
+
+16.7 Contractor
+Your relationship to DataCamp is that of an independent contractor, and neither party is an agent or partner of the other.
+
+16.8 Assignment
+These Terms, and your rights and obligations herein, may not be assigned, subcontracted, delegated, or otherwise transferred by you without DataCamp’s prior written consent, and any attempted assignment, subcontract, delegation, or transfer in violation of the foregoing will be null and void. DataCamp may freely assign these Terms. The terms and conditions set forth in these Terms will be binding upon assignees.
+
+16.9 Copyright/Trademark Information
+Copyright © 2021 DataCamp, Inc. All rights reserved. All trademarks, logos and service marks (“Marks”) displayed on the Service are our property or the property of other third parties. You are not permitted to use these Marks without our prior written consent or the consent of such third party which may own the Marks.
+
+16.10 Contact Information
+DataCamp, Inc.
+
+Address: 1 Pennsylvania Plaza, Suite 2014, New York, NY 10119, US
+
+Contact: DataCamp Support.
+
+Previous Versions
+
+DataCamp Terms of Use (June 13, 2018 – May 16, 2021)"
+
+Replace all instances of "DataCamp" with Epi-Workbench. The URL for Epi-Workbench is "https://www.epi-workbench.com" and Epi-Workbench is headquartered in Fort Worth, TX. Our contact email address is contact@epi-workbench.com.
+
+ 

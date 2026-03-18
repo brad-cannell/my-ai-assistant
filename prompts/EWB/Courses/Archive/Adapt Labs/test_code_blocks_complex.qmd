@@ -1,0 +1,214 @@
+---
+title: "Lab: R Data Transfer"
+author: "Brad Cannell"
+date: "2025-04-17"
+date-modified: "2025-04-17"
+type: "Lab"
+---
+
+```{r, type=initial}
+# Load libraries
+library(testwhat)
+library(dplyr, warn.conflicts = FALSE)
+library(readxl)
+library(readr)
+library(haven)
+```
+
+# Overview
+
+The NTRHD is part of a study about the association between chocolate eating habits and academic ability. The study took place at multiple schools, chosen at random, from around the region. Graduate students administered the surveys to students at each school, recorded survey responses electronically, and then emailed them to us. Now, we need your help importing the data into R, doing a little bit of data cleaning, and saving the data again once it’s ready for analysis. 
+
+Additionally, we need you to download, clean, and save some NHANES data on alcohol use.
+
+# Skills Required to Complete This Lab
+
+<!-- Update with ChatGPT -->
+
+In order to complete this lab, we will need to be able to:
+
+- Skill 1
+- Skill 2
+
+# Task 1: Load Required Packages
+
+Remember, it’s best practice to load all necessary packages at the top of your file, and all of the packages that need to be loaded to complete exercises on the EWB platform are already installed.
+
+```{r}
+library(dplyr)
+library(readxl)
+library(readr)
+library(haven)
+```
+
+# Task 2
+
+Click the links below to download the raw data files to your computer. Take a look at them. Notice their file type and contents.
+
+* [chocolate study 1.xls](https://dev.epi-workbench.com/instructor/download/media/f8be6b49-ba2f-4889-b1b2-15032f5b4c39)   
+* [chocolate study 2.csv](https://dev.epi-workbench.com/instructor/download/media/5db4f476-2939-4028-b3ea-d131e6095b57)
+* [chocolate study 3.txt](https://dev.epi-workbench.com/instructor/download/media/a5551235-920a-4022-abfe-23be1d0e22c1)
+
+# Task 3
+
+<!-- This is probably too much explanation for the lab. I will take some of it out after I know I've added it to a lesson in the Data Transfer course. -->
+
+Next, we want to import these datasets into our R session one at a time. Remember that we can generally do so using the following pattern:
+
+`new_object_name` + `<-` + `read_` fucntion + `file path` in quotes.
+
+The first file above is called `chocolate study 1`, its a Microsoft Excel file (`.xls`), and the file path is `https://dev.epi-workbench.com/instructor/download/media/f8be6b49-ba2f-4889-b1b2-15032f5b4c39`. Following the pattern above, we could import `chocolate study 1.xls` using the following code:
+
+````r
+```{r}
+chocolate_study_1 <- read_excel("https://dev.epi-workbench.com/instructor/download/media/f8be6b49-ba2f-4889-b1b2-15032f5b4c39")
+```
+````
+
+There is nothing "wrong" with using the code above to import `chocolate study 1.xls`. However, the file path is long and cumbersome. Wouldn't it be nice if we could shorten it and make it easier to work with?
+
+This is a common issue for programers and a common way of dealing with it is to save the file path in the R Global Environment as a character string and then pass that character string object to the data import function in place of the file path.
+
+Here's how we would use this method to rewrite the code above. First, we would save the file path in the R Global Environment as a character string.
+
+````r
+```{r}
+# Wrap the file path in quotes.
+path <- "https://dev.epi-workbench.com/instructor/download/media/f8be6b49-ba2f-4889-b1b2-15032f5b4c39"
+```
+````
+
+> [!danger] **Warning**  
+> Make sure to type the file path inside of single or double quotes. Otherwise, R will return an error like "Error: unexpected '/' in "path <- /"".
+
+```{r}
+path <- "/Users/bradcannell/Dropbox/Datasets/Chocolate/Chocolate Study 1.xls"
+```
+
+Second, we would pass the `path` _object_ to the `read_excel()` function instead of the literal file path.
+
+````r
+```{r}
+# Do NOT wrap the word "path" in quotes.
+choco_1 <- read_excel(path)
+```
+````
+
+> [!danger] **Warning**  
+> Make sure NOT to place quotes around the word "path" in the file import code. Otherwise, R will think that "path" is the literal file path.
+
+> [!note] **Note**  
+> In the example code above, we named the R object containing the file path "path". However, there isn't anything magic about using the word "path". We could have named it "file_path", "chocolate_study_1_path", "chocolate_study_1_xls", or any other valid R object name -- following our R object naming best practices, of course. 😁'
+
+Now, let's put this method into practice. Please complete the code in the code block below to save the `chocolate study 1.xls` file path in the R Global Environment as a character string. Please name the R object containing the character string `path`.
+
+```{r}
+path <- "https://dev.epi-workbench.com/instructor/download/media/f8be6b49-ba2f-4889-b1b2-15032f5b4c39"
+```
+
+# Task 7
+
+Import **Chocolate Study 3.txt** into your R global environment as **choco_3**. Make sure to tell R how to correctly identify missing values in the raw data.
+
+## Question 5
+
+Which of the following code chunks will correctly import the **Chocolate Study 3.txt** data into your R global environment?
+
+```{r}
+#| eval: false
+
+# Incorrect: read_table will not correctly handle values that include spaces 
+# such as "Flower Grove" in the school column.
+choco_3 <- read_table("Chocolate Study 3.txt")
+```
+
+```{r}
+#| eval: false
+
+# Incorrect: This code does not tell R how to correctly identify missing values in the raw data.
+choco_3 <- read_fwf(
+  "Chocolate Study 3.txt",
+  col_positions = fwf_widths(
+    widths    = c(5, 9, 8, 4, 6, 13, 9, 9, 6, 6, 6, 6, 6, 6, 8, 7, 7, 7, 7, 9, 6),
+    col_names = c(
+      "uin", "last", "first", "age", "grade", "school", "parent", "marry", 
+      "math1", "math2", "math3", "read1", "read2", "read3", "overall", "choco1", 
+      "choco2", "choco3", "extra1", "extra2", "veggie"
+    )
+  ),
+  skip = 1,
+  na.rm = TRUE
+)
+```
+
+```{r}
+#| eval: false
+
+# Incorrect: This code gives column start values instead of column widths
+choco_3 <- read_fwf(
+  "Chocolate Study 3.txt",
+  col_positions = fwf_widths(
+    widths    = c(
+      1, 6, 15, 23, 27, 33, 46, 55, 64, 70, 76, 82, 88, 94, 100, 108, 115, 122, 
+      129, 136, 145
+    ),
+    col_names = c(
+      "uin", "last", "first", "age", "grade", "school", "parent", "marry", 
+      "math1", "math2", "math3", "read1", "read2", "read3", "overall", "choco1", 
+      "choco2", "choco3", "extra1", "extra2", "veggie"
+    )
+  ),
+  skip = 1,
+  na = "."
+)
+```
+
+```{r}
+#| eval: false
+
+# Correct
+choco_3 <- read_fwf(
+  "Chocolate Study 3.txt",
+  col_positions = fwf_widths(
+    widths    = c(5, 9, 8, 4, 6, 13, 9, 9, 6, 6, 6, 6, 6, 6, 8, 7, 7, 7, 7, 9, 6),
+    col_names = c(
+      "uin", "last", "first", "age", "grade", "school", "parent", "marry", 
+      "math1", "math2", "math3", "read1", "read2", "read3", "overall", "choco1", 
+      "choco2", "choco3", "extra1", "extra2", "veggie"
+    )
+  ),
+  skip = 1,
+  na = "."
+)
+```
+
+```{r}
+# For Dr. Cannell's computer.
+choco_3 <- read_fwf(
+  "/Users/bradcannell/Dropbox/Datasets/Chocolate/Chocolate Study 3.txt",
+  col_positions = fwf_widths(
+    widths    = c(5, 9, 8, 4, 6, 13, 9, 9, 6, 6, 6, 6, 6, 6, 8, 7, 7, 7, 7, 9, 6),
+    col_names = c(
+      "uin", "last", "first", "age", "grade", "school", "parent", "marry", 
+      "math1", "math2", "math3", "read1", "read2", "read3", "overall", "choco1", 
+      "choco2", "choco3", "extra1", "extra2", "veggie"
+    )
+  ),
+  skip = 1,
+  na = "."
+)
+```
+
+# Task 8
+
+View the structure of **choco_3** using the `str()` function.
+
+```{r}
+str(choco_3)
+```
+
+## Question 6
+
+The **choco_3** data frame contains ____ rows and ____ columns.
+
+* The **choco_3** data frame contains 10 rows and 21 columns.

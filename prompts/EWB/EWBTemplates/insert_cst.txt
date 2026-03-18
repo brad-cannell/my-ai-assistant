@@ -1,0 +1,33 @@
+# =============================================================================
+insert_cst
+2025-08-20
+Brad Cannell
+# =============================================================================
+
+# Step 1: Create the function.
+
+We have created functions that will insert some templated code at the current position of the cursor in RStudio. For example, `insert_cst_blanks()`.
+
+I would like to create function called `insert_cst()` that will launch an RStudio admin that allows users to interactively select code templates, like `insert_cst_blanks()`, at the current position of the cursor.
+
+So, this would sort of be a wrapper function for existing code template functions.
+
+
+# Step 2. Create a unit test.
+
+Please help me create a unit test for this function. Please begin the R script containing the unit tests with the following header:
+
+# ===========================================================================
+# Unit tests for the [function name]() function.
+# ===========================================================================
+
+
+
+# Step 3. Create Roxygen2 documentation.
+
+Please write function documentation using roxygen2.
+
+
+# Step 4. NEWS.md
+
+Please write an entry for NEWS.md about this new function.

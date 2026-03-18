@@ -1,0 +1,93 @@
+# =============================================================================
+Template for Writing CSTs
+Date: 2025-07-04
+Updated: 2025-07-04
+Brad Cannell
+- Not only is ChatGPT doing a great job of writing the tests, it is also doing a great job of coming up with simulated incorrect student submissions.
+- I also asked ChatGPT to help me write one or more prompts that I can use to ask for your help writing testthat tests for each new EWB lesson I'm working on. Here is what ChatGPT came up with.
+# =============================================================================
+
+# =============================================================================
+# Prompt 1: When ChatGPT has already been helping you write the question/task.
+# =============================================================================
+
+Please help me write [testthat](https://testthat.r-lib.org/index.html) Code Submission Tests (CSTs) for the code exercise above.
+
+The tests we write will run on the EWB platform and will have access to these two variables:
+
+1. `student_code`: A character string containing the student’s full submitted code.
+
+2. `student_env`: An environment where that code has already been evaluated.
+
+Please follow these instructions when writing test code:
+
+- Instead of using `expect_*()` with `info =`, write all custom failure messages using the `fail()` function inside an `if (...)` or `else if (...)` block. Only call `succeed()` or `expect_true(TRUE)` at the end of a successful branch to pass the test.
+
+- Match the test code structure shown below exactly.
+
+```{r, type=hide}
+# Hidden Block for Local Testing Only
+# -----------------------------------------------------------------------------
+
+# Setup the simulated student environment
+student_env <- new.env()
+rm(list = ls(envir = student_env), envir = student_env)
+
+# Simulated student submissions
+correct <- '[INSERT]'
+wrong_1 <- '[INSERT]'
+
+# Set the active submission
+student_code <- correct
+
+# Gracefully evaluate code (prevents early error from stopping tests)
+try(eval(parse(text = student_code), envir = student_env), silent = TRUE)
+
+# Code Submission Tests (CSTs)
+# -----------------------------------------------------------------------------
+
+# 1 - Check that `____` was replaced with something
+test_that("Did you replace the blanks in the code block?", {
+  if (grepl("____", student_code, fixed = TRUE)) {
+    fail("It looks like your submission still contains `____`. Please replace `____` to complete the code.")
+  } else {
+    succeed()
+  }
+})
+
+# 2 - Check ...
+test_that("Description that will be meaningful to learners", {
+  if (condition 1) {
+    fail("Meaningful failure message")
+  } else {
+    succeed()
+  }
+}) 
+```
+
+- When simulating incorrect answers, please use descriptive names like wrong_function_used, not wrong_1.
+
+- The first argument to the `test_that()` function is a string that will print on the screen when learners submit their code. It should be phrased in the form of a friendly question. For example, if the learner is supposed the create a data frame object named `my_df`, this text might say: "Did you name the data frame `my_df` exactly?"
+
+- The custom failure messages:
+  - Are short (ideally 1–2 lines).
+  - Identify where the problem is, but not necessarily what the correct answer is.
+  - Are guiding, not giving. Think nudge, don't solve.
+  - Are consistent across exercises, so learners know what to expect.
+  - Often prefer questions over statements
+  - Avoid revealing the solution unless it's a simple mechanical error (e.g., typo or missing object), avoid showing exact code in feedback.
+  - Use the `glue` package to inject dynamic feedback when helpful.
+
+- In general, we prefer breaking up CSTs into multiple `testthat` blocks with a narrower focus to long `testhat` blocks that test lots of things. We will show some concrete examples in the docs.
+
+For this coding exercise, the following submission should be considered correct:
+
+form_20
+
+print(form_20)
+
+# =============================================================================
+# Prompt 2: Next Exercise/Task
+# =============================================================================
+
+Now, please help me write another CST for this exercise.

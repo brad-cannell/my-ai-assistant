@@ -13,7 +13,7 @@ This is a prompt stem for working on My AI Assistant. I frequently use it with C
 # USER MESSAGE
 
 ## Context
-This project is called "My AI Assistant". You can read more about it at `snippets/about_my_ai_assistant.md`. I would like your help with making some updates.
+This project is called "My AI Assistant". You can read more about it at `snippets/About My AI Assistant.md`. I would like your help with making some updates.
 
 ## Task
 State clearly what the model should do.

@@ -1,0 +1,21 @@
+# =============================================================================
+Course Template
+Date: 2025-05-01
+Updated: 2025-05-01
+Brad Cannell
+# =============================================================================
+
+# About this course
+
+I'm creating a course for Epi-Workbench titled...
+
+In this course, ...
+
+# Course topics
+
+...
+
+# Prerequisites
+
+...
+

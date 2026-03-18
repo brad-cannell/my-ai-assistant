@@ -1,0 +1,13 @@
+# =============================================================================
+Introduction To The R Programming Language
+Date: 2025-04-11
+Updated: 2025-06-19
+Brad Cannell
+# =============================================================================
+
+# About this course
+
+I'm creating a course for Epi-Workbench titled "R Fundamentals" This is a high-level introduction to the R programming language for non-programmers.
+
+I'm attaching a course overview document to this chat. Please offer suggestions for improvement.
+

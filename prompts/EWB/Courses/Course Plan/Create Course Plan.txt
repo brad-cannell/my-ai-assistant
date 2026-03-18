@@ -1,0 +1,73 @@
+# =============================================================================
+Create a Course Plan
+Date: 2025-04-30
+Updated: 2025-04-30
+Brad Cannell
+# =============================================================================
+
+# Background
+
+I teach a university course title, "Introduction to R Programming and Data Management." The course aims to provide students with hands-on experience in R programming and data management. The students should be familiar with basic concepts in epidemiology and biostatistics. Previous experience in using SAS, Stata or SPSS is helpful, but not required. Topics include downloading and installing R, basic programming concepts, basic programming best practices, R packages and environments, R data structures, data transfer, creating and manipulating data, visualizing data, conditional operations, working with multiple data frames, restructuring data frames, repeated/iterative operations, writing functions, basic analyses used in epidemiology, and techniques for presenting results to various audiences. Special emphasis will be given to using the Tidyverse family of R packages.
+
+The primary hub for the course is the [Canvas Learning Management System](https://www.instructure.com/canvas).
+
+That course uses the R for Epidemiology (R4Epi) textbook, which is freely available online at https://www.r4epi.com/, supplementary readings, and the following 5 types of assignments.
+
+1. Readings (0% of final grade): These are the primary mode of content delivery. They should be fun. If they aren’t fun, I want students to let me know so that I can try to make them fun.
+
+2. Check on learning (COL) quizzes (30% of final grade): Students complete a short reading comprehension quiz in each learning module. The goal of COL quizzes is simply to assess basic comprehension of the assigned materials and provide students with feedback early in the module when the stakes are low. Students may complete COL quizzes as many times as they like. Only the highest score counts.
+
+3. Lab assignments (30% of final grade): Each module will include a lab assignment. They are an opportunity for students to practice applying that module’s concepts with the help of the instructor (via written feedback). Students may complete lab assignments as many times as they like. Only the highest score counts.
+
+4. Weekly module quizzes (40% of final grade): Each module will include a quiz to be completed independently on Canvas. These quizzes provide an opportunity for students to self-assess their progress while working independently. They also provide the instructor with an opportunity to assess each student's progress.
+
+# Request
+
+I would like help with converting my Introduction to R Programming and Data Management, and my R4Epi textbook (www.r4epi.com), into courses for Epi-Workbench.
+
+For some EWB course, particularly the more basic ones, we may want to combine multiple R4Epi chapters together.
+
+Because EWB is a web-based platform that doesn't require learners to download or install anything, my plan was to skip the following R4Epi chapters: "1. Installing R and RStudio", and 3. Navigating the RStudio Interface". My plan is also to create a course -- possibly called "Getting Started" -- that teaches learners how to use the EWB platform. In that course, we will also acknowledge that there is a tradeoff for the convenience that comes with the EWB platform -- learners don't get practice installing R, installing and interacting with an IDE (like RStudio), and installing R packages. We may also provide them with links to the R4Epi chapters above as a reference for doing so, but not as part of an EWB course.
+
+However, I don't want to worry about the EWB "Getting Started" course yet. I want to do that later after we've completed several substantive courses and have a better understanding of what learners need to know to successfully use the EWB platform. At this point, I don't feel like I know what needs to be included in the Getting Started course because we don't have any complete courses on the EWB platform and the platform itself is still in development and undergoing minor changes.
+
+# Attachments
+
+To help, I'm attaching the following files:
+
+- intro.r.private.zip. This is a zip file containing markdown versions of every module quiz from my Introduction to R Programming and Data Management course (which could map to culminating exercises in EWB).
+
+	- Modules 1, 11, 12, and 15 don't yet have a standalone module quiz; although, I would eventually like to create them for EWB. Module 2 does have a standalone module quiz, but it is in the form of a traditional quiz with multiple choice questions rather than a coding exercise. For my Introduction to R Programming and Data Management course, learners completed all of the traditional quizzes (not coding exercises) in the Canvas Learning Management System. To provide the module 2 quiz, I opened the quiz in Canvas and printed the screen as a PDF. I'm attaching that PDF here. 
+
+- intro.r.public.zip. This is a zip file containing markdown versions of every lab from my Introduction to R Programming and Data Management course.
+
+- Introduction to R Programming and Data Management-20250501T030327Z-1-001.zip. This is a zip file containing the contents of my Introduction to R Programming and Data Management course files from Google Drive (e.g., course module descriptions, labs, and quizzes). 
+
+- Organizing Courses.docx. This is a document that outlines my initial plan for mapping R4Epi to EWB. 
+
+- r4epi.zip. This is a zip file containing all of the R4Epi chapters as markdown files.
+
+
+
+
+# Skill path
+
+I think I want to start by grouping all of the existing "Introduction to R Programming and Data Management" topics and content into a single learning path.
+
+# Courses
+
+Here is my initial plan for mapping R4Epi chapters to EWB courses.
+
+| EWB Course                                        | R4Epi Chapter(s)                                                                                                                                                                                                                                                                                                                                                                                                                                      | Notes                                                                                               |
+|---------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
+| Getting Started                                   | 6. Asking Questions                                                                                                                                                                                                                                                                                                                                                                                                                                   | This course primarily contain new content (i.e., not found in R4Epi) about using the EWB platform.  |
+| R Fundamentals                                    | 2. What is R?<br>4. Speaking R’s Language<br>5. Let’s Get Programming                                                                                                                                                                                                                                                                                                                                                                                 |                                                                                                     |
+| Introduction to R Coding Tools and Best Practices | 7. R Scripts<br>8. Quarto Files<br>9. R projects<br>10. Coding Best Practices<br>11. Using Pipes                                                                                                                                                                                                                                                                                                                                                      |                                                                                                     |
+| Introduction to R Data Transfer                   | 12. Introduction to Data Transfer<br>13. File Paths<br>14. Importing Plain Text Files<br>15. Importing Binary Files<br>17. Exporting Data                                                                                                                                                                                                                                                                                                             |                                                                                                     |
+| Introduction to Descriptive Analysis in R         | 18. Introduction to Descriptive Analysis<br>19. Numerical Descriptions of Categorical Variables<br>20. Measures of Central Tendency<br>21. Measures of Dispersion<br>22. Describing the Relationship Between a Continuous Outcome and a Continuous Predictor<br>23. Describing the Relationship Between a Continuous Outcome and a Categorical Predictor<br>24. Describing the Relationship Between a Categorical Outcome and a Categorical Predictor |                                                                                                     |
+| Introduction to Data Management in R              | 25. Introduction to Data Management<br>26. Creating and Modifying Columns<br>27. Subsetting Data Frames<br>28. Working with Dates<br>29. Working with Character Strings<br>30. Conditional Operations<br>31. Working with Multiple Data Frames<br>32. Restructuring Data Frames                                                                                                                                                                       |                                                                                                     |
+| Introduction to Repeated Operations in R          | 33. Introduction to Repeated Operations<br>34. Writing Functions<br>35. Column-wise Operations in dplyr<br>36. Writing For Loops                                                                                                                                                                                                                                                                                                                      |                                                                                                     |
+
+Notice that many of the EWB courses start with "Introduction to..." I did this because I intended to create new courses in the future that cover many of these topics in greater depth.
+
+Additionally, notice that I've added some variation of "in R" to all of the EWB course titles. I did this because I intend to create a Python language version of these courses in the future.

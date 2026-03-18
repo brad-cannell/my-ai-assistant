@@ -1,0 +1,267 @@
+---
+title: "Lab: Descriptive Analysis II"
+format:
+  html:
+    embed-resources: true
+---
+
+# Load packages
+
+Remember, it's considered a best practice to load all the packages that your file will use up at the top of the file. If you have not yet installed a package, you will need to do so by running `install.packages("package name")` in the R console. For example, to install the `dplyr` package, you would run `install.packages("dplyr")`. However, you typically **do not** want to type the code to install the package here in your Quarto file because you only need to install the package once on a given computer. Not every time you run your R code.
+
+```{r}
+#| label: load-packages
+library(dplyr, warn.conflicts = FALSE) # The "warn.conflicts" part is optional
+library(readr)
+library(ggplot2)
+library(meantables)
+library(freqtables)
+```
+
+# Overview
+
+In this week’s lab, you will practice describing relationships between variables. Specifically, you will practice basic descriptive techniques appropriate for analysis of a continuous predictor variable and a continuous outcome variable, a categorical predictor variable and a continuous outcome variable, or a categorical predictor variable and a categorical outcome variable. Practice by completing the tasks below using the **WHAS 500** data set.
+
+# Task 1 
+
+Please use the following links to download the **WHAS 500** data to your computer and view the codebook:
+
+* [Click here to view/download the WHAS 500 data codebook](https://www.dropbox.com/s/hx37w38ruytjwi9/WHAS%20500%20Description.pdf?dl=0). Look over the codebook to learn a little bit about the data you will be working with.
+
+* [Click here to view/download the WHAS 500 data](https://www.dropbox.com/s/c14gqhjbny0mlra/whas500.txt?dl=0).
+
+# Task 2
+
+Import **whas500.txt** into your R global environment as **whas500**.
+
+```{r}
+whas500 <- read_table("/Users/bradcannell/Library/CloudStorage/Dropbox/Datasets/WHAS/whas500.txt", 
+  col_types = cols(
+    id        = col_character(), 
+    age       = col_integer(), 
+    gender    = col_integer(), 
+    hr        = col_integer(), 
+    sysbp     = col_integer(), 
+    diasbp    = col_integer(), 
+    cvd       = col_integer(), 
+    afb       = col_integer(), 
+    sho       = col_integer(), 
+    chf       = col_integer(), 
+    av3       = col_integer(), 
+    miord     = col_integer(), 
+    mitype    = col_integer(), 
+    year      = col_integer(), 
+    admitdate = col_date(format = "%m/%d/%y"), 
+    disdate   = col_date(format = "%m/%d/%y"), 
+    fdate     = col_date(format = "%m/%d/%y"), 
+    los       = col_integer(), 
+    dstat     = col_integer(), 
+    lenfol    = col_integer(), 
+    fstat     = col_integer()
+  )
+)
+```
+
+## Notes for students
+
+1. The integer column type just tells R that the numbers in these columns don't have any fractional parts. For example, 1 instead of 1.4. Numbers with fractional parts, like 1.4, have to be stored as doubles. If you try to store them as an integer, the fractional part will be dropped. For example: 
+
+```{r}
+as.integer(1.4)
+```
+
+However, it doesn't really matter if you store an integer as an integer or a double. For example: 
+
+```{r}
+as.integer(1)
+```
+
+```{r}
+as.double(1)
+```
+
+The only advantage to storing it as an integer is that it requires slightly less memory.
+
+2. Notice that we had to tell R what format the dates variables were stored in. Later, in the module on working with non-standard data, we will learn all about date formats. For this lab, it doesn't matter if we imported `admitdate`, `disdate`, `fdate` as date columns or character columns. If you want to read ahead, you can view the [chapter in R4Epi on working with dates](https://www.r4epi.com/working-with-dates.html).
+
+# Task 3
+
+View the structure of **whas500** using the `str()` function or the `glimpse()` function.
+
+```{r}
+glimpse(whas500)
+```
+
+## Question 1
+
+The **whas500** data frame contains ____ rows and ____ columns.
+
+* The **whas500** data frame contains 500 rows and 22 columns.
+
+# Task 4
+
+Use the `cor.test()` function to explore the relationship between **age** and **initial heart rate**
+
+Examine the correlation coefficient and p-value.
+
+```{r}
+cor.test(whas500$age, whas500$hr)
+```
+
+## Questions 2
+
+Is there a positive, negative, or no correlation between **age** and **initial heart rate**?
+
+* The correlation coefficient is 0.1491366, which indicates a weak positive correlation. 
+
+## Questions 3
+
+The p-value returned by the `cor.text()` function is ________ . Please copy and paste the entire value.
+
+* The p-value is 0.0008223. We can interpret this p-value as an indication that we would be pretty unlikely to calculate a correlation coefficient of 0.1491366 or larger (in absolute terms) in our sample if there is truly no relationship between **age** and **initial heart rate** in the population from which this sample was drawn. This conclusion is valid if all the assumptions implied in the analysis we chose apply to the population we are studying (e.g. a linear relationship), and the sample was collected without bias.   
+
+# Task 5
+
+Explore the relationship between **age** and **initial heart rate** by creating a scatter plot. Make sure to add an OLS regression line. View this scatter plot again by **gender**.
+
+```{r}
+ggplot(whas500, aes(age, hr)) +
+  geom_jitter() +
+  geom_smooth(method = "lm") +
+  theme_classic()
+```
+
+```{r}
+ggplot(whas500, aes(age, hr)) +
+  geom_jitter() +
+  geom_smooth(method = "lm") +
+  facet_wrap(vars(gender)) +
+  theme_classic()
+```
+
+## Question 4
+
+Based on the scatter plot, is there an apparent relationship between **age** and **initial heart rate**? 
+
+* Based on the scatter plot, it appears as though there may be a weak relationship between **age** and **initial heart rate**. 
+
+# Task 6 
+
+Calculate mean **bmi** within levels of **gender**.
+
+```{r}
+#| message: false
+
+## Using dplyr
+whas500 |> 
+  group_by(gender) |> 
+  summarise(mean_bmi = mean(bmi))
+```
+
+```{r}
+#| message: false
+
+## Using meantables
+whas500 |> 
+  group_by(gender) |> 
+  mean_table(bmi)
+```
+
+## Note for students
+
+* Notice that I use the `message=FALSE` option in my R code chunk above. I do this because dplyr version 1.0 gives you a message that says "`summarise()` ungrouping output (override with `.groups` argument)" when you use `group_by()` with `summarise()`. I don't find that message useful or informative, so I suppress it with the `message=FALSE` option.
+
+## Question 5
+
+Is the mean **bmi** for females lower than the mean **bmi** for males? 
+
+* The mean **bmi** for females (gender == 1) is 27.2689. The mean **bmi** for males (gender == 0) is 25.6311. Therefore, the mean **bmi** for females is not lower than the mean **bmi** for males.    
+
+# Task 7 
+
+Produce side-by-side histograms of **sysbp** comparing **gender**.
+
+```{r}
+ggplot(whas500, aes(sysbp)) +
+  geom_histogram(bins = 20) +
+  facet_wrap(vars(gender)) +
+  theme_classic()
+```
+
+## Question 6
+
+Is the systolic blood pressure normally distributed in both genders?
+
+* Systolic blood pressure values do not look perfectly normally distributed in either of these histograms. However, real data generally never looks perfectly normally distributed. I think most people who spend a lot of time working with data would agree that these values are "close enough" to normally distributed for most purposes. 
+
+* Students often ask me how close to perfectly normally distributed is "close enough". Unfortunately, I'm not going to be able to give you a satisfying answer. There is no specific rule or criteria that I'm aware of. Rather, whether this data is "close enough" will depend on what you want to do with it next. Are you going to model this data in a way that assumes the data is normally distributed? How tolerant is that particular model to data that isn't quite perfectly normally distributed? How large is your sample size? How precise do your conclusions need to be? All of these things will affect whether or not "close enough" is close enough. In practice, most models that we use in epidemiology (e.g., linear regression) are pretty tolerant of "normally distributed" data that isn't perfectly normally distributed. 
+	
+# Task 8 
+
+Produce a boxplot of **bmi** comparing **gender**.
+
+```{r}
+ggplot(whas500) +
+  geom_boxplot(aes(x = gender, y = bmi, group = gender)) +
+  theme_classic()
+```
+
+## Note for students
+
+* Notice that we had to add `group = gender` to the `aes()` function nested inside the `geom_boxplot()` function. Alternatively, we could have gotten the same result by moving the complete `aes()` function up to be nested inside of the `ggplot()` function (`ggplot(whas500, aes(x = gender, y = bmi, group = gender))`). My choice to put it nest it in the `geom_boxplot()` function is purely personal preference.
+
+* We had to do this because the **gender** variable currently has a type of double. Meaning it can take on any real number. Therefore, `ggplot()` won't assume that `0` and `1` are categories by default. Therefore, if we don't include `group = gender` we get a message that says, "`Continuous x aesthetic -- did you forget aes(group=...)?`". More importantly, we get a single boxplot instead of two boxplots side-by-side. 
+
+* Later, we will learn how to recode this variable so that R automatically knows it is a categorical variable.   
+
+## Question 7
+
+Based on the boxplots, what can we conclude about the relationship between **bmi** and **gender** in our sample?
+
+* Based on the boxplots, we conclude that **bmi** is higher, on average, in females  (albeit only slightly) than males in our sample.
+
+# Task 9 
+
+Create a two-way frequency table for cohort year and history of cardiovascular disease.
+
+```{r}
+# Using gmodels
+gmodels::CrossTable(whas500$year, whas500$cvd)
+```
+
+```{r}
+# Using freqtables
+whas500 |> 
+  freq_table(year, cvd) |> 
+  # Make the results easier to read --- 
+  # Use select() to keep only the columns I'm interested in
+  select(row_var:n_row, percent_row) |> 
+  # Use filter() to see only the rows corresponding to people who had CVD.
+  filter(col_cat == 1)
+```
+
+```{r}
+# Using freqtables
+whas500 |> 
+  freq_table(cvd, year) |> 
+  select(row_var:n_row, percent_row) |> 
+  filter(row_cat == 1)
+```
+
+## Questions 8
+
+8. What proportion of people from the cohort year 1999 reported a history of cardiovascular disease?
+
+* 138 out of 188 (0.734) people from the cohort year 1999 reported a history of cardiovascular disease.
+
+## Questions 9
+
+Which cohort year had the highest percentage of people reporting cardiovascular disease?
+
+* 73.8% of people from cohort year 1997 reported a history of cardiovascular disease. 73.4% of people from cohort year 1999 reported a history of cardiovascular disease. 78.3% of people from cohort year 2001 reported a history of cardiovascular disease. Therefore, cohort year 2001 had the highest percentage of people reporting cardiovascular disease. 
+
+## Questions 10
+
+Of those reporting a history of cardiovascular disease, what percentage was in the cohort year 1997?
+
+* Of the 375 people who reported a history of cardiovascular disease, 118 (31.5%) were in cohort year 1997.

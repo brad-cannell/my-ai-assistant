@@ -1,0 +1,112 @@
+---
+title: "Testing YAML Header"
+author: Brad Cannell
+date: 2025-04-18
+date-modified: 2025-04-18
+notes: 
+  - Use a Quarto document instead of a plain MD document for the outline in 
+    RStudio.
+details:
+  - The prompt below assumes that I'm in the EWB project on ChatGPT, and 
+    therefore, don't need to explain what EWB is or pass along all of the 
+    formatting rules contained in the style guide.
+tests:
+  - I tested without a title.
+  - I tested without a type.
+  - I tested an impermissible type.
+  - I tested two different Quarto documents as attachments (to ensure 
+    ChatGPT wasn't just learning what to do with that specific attachment).
+      - lab_data_transfer.qmd and lab_descriptive_analysis_II.qmd
+  - I tested delaying the attachment of the Quarto file.
+---
+
+# Initial prompt
+
+Please update the YAML header in the attached Quarto markdown document (i.e., remove everything from the first `---` to the second `---`) and replace it with a new YAML header that uses this pattern:
+
+---
+title: [Add title here]
+author: Brad Cannell
+date: [Add today's date]
+date-modified: [Add today's date]
+type: [Add lesson type]
+---
+
+Where:
+- The title will be provided below.
+    - Please ensure that a title is provided, and prompt me to provide one if I forget.
+- The lesson type will be provided below.
+    - Please ensure that a lesson type is provided, and prompt me to provide one if I forget.
+    - Please ensure that the lesson type is one of: "written"", "video"", "coding"", "col", "lab", or "culminating". Please notify me if a different value is provided for the lesson type.
+    - If the lesson type is "lab", please prefix the title with "Lab:".
+    
+Please don't change anything else about the Quarto markdown document.
+
+When you have completed the steps above, please create an downloadable Quarto markdown document with the updated YAML header.
+    
+Title = Data Transfer
+Type = lab
+
+# Prompt two: separate instructions and attachment
+
+Later, I'm going to attach a Quarto markdown document.
+
+Please update the YAML header in the attached Quarto markdown document (i.e., remove everything from the first `---` to the second `---`) and replace it with a new YAML header that uses this pattern:
+
+---
+title: [Add title here]
+author: Brad Cannell
+date: [Add today's date]
+date-modified: [Add today's date]
+type: [Add lesson type]
+---
+
+Where:
+- The title will be provided when I attach the Quarto markdown document.
+    - Please ensure that a title is provided, and prompt me to provide one if I forget.
+- The lesson type will be provided in the Quarto markdown document.
+    - Please ensure that a lesson type is provided, and prompt me to provide one if I forget.
+    - Please ensure that the lesson type is one of: "written"", "video"", "coding"", "col", "lab", or "culminating". Please notify me if a different value is provided for the lesson type.
+    - If the lesson type is "lab", please prefix the title with "Lab:".
+    
+Please don't change anything else about the Quarto markdown document.
+
+When you have completed the steps above, please create an downloadable Quarto markdown document with the updated YAML header.
+
+## Attachment
+
+[Add attachment and the text below]
+    
+Title = Data Transfer
+Type = lab
+
+# Prompt for Gemini
+
+<!-- Gemini can't accept Quarto files as an input or generate Quarto files as an output. Use plain markdown instead for now. -->
+
+Please update the YAML header in the attached markdown document (i.e., remove everything from the first `---` to the second `---`) and replace it with a new YAML header that uses this pattern:
+
+---
+title: [Add title here]
+author: Brad Cannell
+date: [Add today's date]
+date-modified: [Add today's date]
+type: [Add lesson type]
+---
+
+Where:
+- The title will be provided below.
+    - Please ensure that a title is provided, and prompt me to provide one if I forget.
+- The lesson type will be provided below.
+    - Please ensure that a lesson type is provided, and prompt me to provide one if I forget.
+    - Please ensure that the lesson type is one of: "written"", "video"", "coding"", "col", "lab", or "culminating". Please notify me if a different value is provided for the lesson type.
+    - If the lesson type is "lab", please prefix the title with "Lab:".
+    
+Please don't change anything else about the markdown document.
+
+When you have completed the steps above, please create an downloadable markdown document with the updated YAML header.
+
+Please do not print the contents for the document to the screen.
+    
+Title = Data Transfer
+Type = lab

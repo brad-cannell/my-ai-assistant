@@ -1,0 +1,14 @@
+# =============================================================================
+NTRHD
+Date: 2025-05-01
+Updated: 2025-05-01
+Brad Cannell
+# =============================================================================
+
+The exercises, labs, and quizzes from my "Introduction to R Programming and Data Management" university course often refer to tasks that need to be completed by the NTRHD (North Texas Regional Health Department). The NTRHD was a fictitious organization I made up to make my course materials feel a little bit more realistic to my students. And giving the fictitious organization an affiliation with Texas made sense when I was teaching in the State of Texas. However, Our goal is for Epi-Workbench to have a global audience. Therefore, I think it might be a good idea to replace all references to NTRHD in the study materials with a different fictitious organization. 
+
+With that in mind, I would like your help making two decisions:
+
+1. Should we replace all references to NTRHD in the study materials with a different fictitious organization, or should we simply remove all references to any fictitious organization. For example, instead of starting the Overview section of an assignment with something like, "The NTRHD is part of a study about the association between...", we would write something like, "In this lab assignment we will investigate the association between..."
+
+2. If replace all references to NTRHD in the study materials with a different fictitious organization, what fictitious organization name should we use?

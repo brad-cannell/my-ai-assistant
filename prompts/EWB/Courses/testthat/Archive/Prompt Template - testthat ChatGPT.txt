@@ -1,0 +1,88 @@
+# =============================================================================
+Template for Writing testthat Tests
+Date: 2025-06-18
+Updated: 2025-06-18
+Brad Cannell
+- Not only is ChatGPT doing a great job of writing the tests, it is also doing a great job of coming up with simulated incorrect student submissions.
+- I also asked ChatGPT to help me write one or more prompts that I can use to ask for your help writing testthat tests for each new WEB lesson I'm working on. Here is what ChatGPT came up with.
+# =============================================================================
+
+# =============================================================================
+# Prompt 1: General Purpose (open-ended)
+# =============================================================================
+
+I'm working on a new EWB lesson called "Insert_Lesson_Name".
+
+I want your help writing [testthat](https://testthat.r-lib.org/index.html) Code Submission Tests (CSTs) for one or more coding exercises in this lesson. I’ll provide you with:
+
+- The instructions we’ll give the student
+
+- The code scaffolding we’ll give the student
+
+- The correct solution we expect the student to submit
+
+The tests we write will run on the EWB platform and will only have access to two variables:
+
+1. `student_code`: A character string containing the student’s full submitted code.
+
+2. `student_env`: An environment where that code has already been evaluated.
+
+Please follow these instructions when writing test code:
+
+- Do not create or modify any objects in `student_env` beyond what is submitted by the student.
+
+- Instead of using `expect_*()` with `info =`, write all custom failure messages using the `fail()` function inside an `if (...)` or `else if (...)` block. Only call `succeed()` or `expect_true(TRUE)` at the end of a successful branch to pass the test.
+
+- Match the test code structure shown below exactly
+
+```{r, type=hide}
+# Hidden Block for Local Testing Only
+# -----------------------------------------------------------------------------
+
+# Setup the simulated student environment
+student_env <- new.env()
+rm(list = ls(envir = student_env), envir = student_env)
+
+# Simulated student submissions
+correct <- '[INSERT]'
+wrong_1 <- '[INSERT]'
+
+# Set the active submission
+student_code <- correct
+
+# Gracefully evaluate code (prevents early error from stopping tests)
+try(eval(parse(text = student_code), envir = student_env), silent = TRUE)
+
+# Tests
+# -----------------------------------------------------------------------------
+
+# 1 - Check ...
+test_that("Description that will be meaningful to learners", {
+  if (condition 1) {
+    fail("Meaningful failure message")
+  } else {
+    succeed()
+  }
+}) 
+```
+
+When simulating incorrect answers, please use descriptive names like wrong_function_used, not wrong_1.
+
+
+# =============================================================================
+# Prompt 2: Scaffolded Code Exercise (with structure example)
+# =============================================================================
+
+I need to write another set of CSTs for the next exercise code block in this lesson.
+
+- Instructions to student: "Insert_Instructions"
+
+- Code scaffold: "Insert_Scaffold"
+
+- Expected solution: "Insert_Solution"
+
+# =============================================================================
+# Prompt 3: Custom Expectation-Aware
+# =============================================================================
+
+I'm developing a new EWB exercise and I’d like to use one or more custom expectations (e.g., `ewb_expect_library_call()` or `ewb_expect_any_library_call()`). I’ll share the instructions, scaffold, and solution. Please help me write the appropriate `testthat` code that uses custom expectations where applicable, and falls back to standard `expect_*()` functions where not. Assume student code is in `student_code`, parsed as `expr` or `exprs`, and evaluated in `student_env`.

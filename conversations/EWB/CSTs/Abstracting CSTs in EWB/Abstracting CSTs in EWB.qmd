@@ -1,0 +1,326 @@
+---
+title: "Abstracting CSTs in EWB"
+id: abstracting_csts_in_ewb
+author: brad_cannell
+date: 2026-01-28
+date-modified: 2026-01-28
+audience: course_authors
+category: lesson_development
+tags:
+  - r
+  - csts
+  - test_that
+  - unit_testing
+format:
+  html:
+    toc: true
+    embed-resources: true
+execute:
+  eval: false
+---
+
+# Overview
+
+- Conversation about editing the language in this lesson.
+
+# Prerequisites
+- Create a new virtual environment (venv).
+- Install Packages:
+  - pip install keyring
+  - pip install openai
+  - pip install jupyter
+  - pip install -U chatlas
+- pip freeze > requirements.txt
+
+# Load Packages
+
+```{python}
+import os
+import keyring
+from openai import OpenAI
+import sys
+import json
+from pathlib import Path
+import chatlas as ctl
+from datetime import date
+```
+
+# File Paths and Environment Variables
+
+- Set today's date.
+- Set the course name.
+- Set the path to the lesson folder.
+- Set the path to the lesson file. 
+- Get the content of the lesson file.
+- Set the path to the lesson revision prompt.
+- Set the model to inject into the API calls. See available models at: https://platform.openai.com/docs/models.
+
+They are passed to the AI assistant below.
+
+```{python}
+today = date.today().isoformat()
+model = "gpt-5-nano-2025-08-07"
+```
+
+# Load helper functions
+
+Run in terminal:
+- `cd "/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/AI Assistant/py_scripts"`
+- `python -m pip install -e .`
+
+```{python}
+# Load functions from py_scripts/ewb_py_scripts
+from ewb_py_scripts import (
+    prompt_extract_system_prompt,
+    prompt_extract_user_message,
+    prompt_fill_placeholders,
+)
+```
+
+# Expose API
+
+This assumes you've already created an API key on [openai's website](https://platform.openai.com/api-keys), and that you saved the API key in keyring using `keyring.set_password("API Name", "User", "API Key")`.
+
+```{python}
+# Retrieve the password from the system keyring
+openai_api = keyring.get_password("ewb-course-development", "brad")
+
+if openai_api is not None:
+    # Set the retrieved value as a temporary environment variable
+    os.environ['OPENAI_API_KEY'] = openai_api
+    print("Environment variable 'OPENAI_API_KEY' set successfully within the script.")
+else:
+    print("Could not retrieve password from keyring.")
+```
+
+# Read the Template Prompt
+
+Not using a template.
+
+# Create Chat Object
+
+```{python}
+chat = ctl.ChatOpenAI(
+    model = model,
+    system_prompt = "You are an R developer and instructional designer with deep expertise in writing testthat-based Code Submission Tests (CSTs) for educational platforms."
+)
+```
+
+# Pass the user message to the AI Assistant
+
+```{python}
+user_message="""
+# About Epi-Workbench (EWB)
+
+We are creating a web-based business called "Epi-Workbench." Epi-Workbench is an online platform offering interactive courses in epidemiology, data science, and artificial intelligence specifically designed for people working in public health and other health professions and, to a lesser extent, members of the general public who are interested in learning more about health research. With beginner to advanced-level courses, Epi-Workbench combines real-person instruction with hands-on coding exercises and integrated AI tools for a comprehensive learning experience. Learners can develop skills in statistical programming, applied statistical analyses, and scientific communication—all from the convenience of their browser, with no installation required.
+
+Currently, the hands-on coding exercises embedded in EWB lessons are typically made up of a sequence of four code blocks, each serving a specific purpose:
+
+1. Exercise Code Blocks ({r}): Used for executable code where learners write, edit, and submit their solutions. The only blocks that are visible to learners on the EWB platform.
+2. Solution Code Blocks ({r,type=solution}): Used to document the correct solution for an exercise. Not visible to learners.
+3. Hidden Code Blocks ({r,type=hide}):Used during development to run or test code locally, including Code Submission Tests (CSTs). Not visible to learners.
+4. Test Code Blocks ({r,type=test}): Used to define CSTs that evaluate learner submissions. Not visible to learners.
+
+The process is working; however, the code blocks take up a lot of space in the lesson files. This doesn't affect the learner experience, but it makes the lesson files harder for the course authors to read.
+
+I am trying to come up with a system for abstracting the hidden code blocks out of the lesson files.
+- They take up a lot of space and they make the lessons hard to read and edit.
+- I think we might be able to use a full unit testing approach like we would use for package development.
+  - R Packages, Testing Basics: https://r-pkgs.org/testing-basics.html
+  - testthat Documentation: https://testthat.r-lib.org/
+  
+## Possible workflow
+
+- Create a "tests" directory
+- Wrap test code block CSTs in a function
+- In the tests directory, write out all of the correct/incorrect scenarios
+- Pass the scenarios to the function containing all of the CSTs
+- Run the tests:
+   - for all lessons
+   - for all CSTs in one lesson
+   - for all CSTs in on coding exercise
+   
+### Possible directory structure
+Lesson Project Root
+|_ 01 Intro/
+  |_ Intro.qmd
+|_ tests/testthat
+  |_ test-intro.R
+     test_that("Coding exercise 1", {...})
+     test_that("Coding exercise 2", {...})
+
+So, we will unit test the tests. It may be time consuming, but it should also be robust, and make the lesson files more readable.
+
+Start with a baby example. Abstract from an existing lesson.
+
+## Example
+
+### In Intro.qmd
+
+\```{r}
+____ <- 2
+\```
+
+\```{r, type=solution}
+x <- 2
+\```
+
+\```{r, type=hide}
+testthat::test_file("tests/testthat/test-intro.R")
+\```
+
+\```{r, type=test}
+intro_task_01 <- function() {
+  
+  # 1 - Check that `____` was replaced with something
+  test_that(desc = "Did you fill in all of the blanks?", {
+    if (grepl("____", learner_code, fixed = TRUE)) {
+      fail("It looks like your submission still contains `____`. Make sure to replace all three blanks with the required values.")
+    } else {
+      succeed()
+    }
+  })
+}
+\```
+
+## In test-intro.R
+
+\```{r}
+library(testthat)
+
+# Task 1. Assing 2 to x
+test_that("Task 1 CSTs", {
+  x <- 2
+  expect_no_error(intro_task_01())
+  
+  x <- 1
+  expect_error(intro_task_01())
+})
+\```
+
+## Questions about the example above
+
+There are clearly some issues with the workflow above. 
+
+- I don't know if the test block CSTs will work on EWB if I wrap them in a function.
+
+- The code in the hidden block - `testthat::test_file("tests/testthat/test-intro.R")` - will probably run just fine, but:
+  - How do I make test-intro.R aware of the CSTs in the test block below below?
+    - It seems really inefficient and error-prone to copy and paste them into test-intro.R.
+    - Maybe I could use readlines() or something inside of test-intro.R. 
+      - That could be a lot of parsing, messy, and hard to read.
+    - Maybe I don't need to. Isn't that the point of wrapping the CSTs in a function?
+      - But, how do I make test-intro.R aware of intro_task_01()?
+      - This isn't a package were I can load all functions.
+
+- How do I pass the simulated learner responses to the CSTs in test-intro.R?
+
+Please help me thing through this approach and suggest some next steps.
+"""
+```
+
+```{python}
+chat.chat(user_message, echo='none')
+```
+
+## Response
+
+Review the response, but there typically isn't a good reason to save it. It's just some version of ChatGPT repeating back the instructions from the first prompt.
+
+```{python}
+#| echo: false
+print(chat)
+```
+
+# Pass the Lesson Text to the AI Assistant
+
+```{python}
+#| echo: false
+chat.chat(lesson_content, echo='none')
+```
+
+# Write the Revised Lesson Text to a Markdown File for Review
+
+```{python}
+(lesson_folder_path / "ai" / ("revised_lesson_content_" + today + ".md")).write_text(
+    str(chat.get_last_turn()),
+    encoding='utf-8'
+)
+```
+
+# Follow-up and Refinement
+
+A section for optional follow-up questions and refinements. 
+- Optionally, create a fork of the chat. `import copy; chat_fork = copy.deepcopy(chat)`
+- Asks follow-up questions in interactive mode - `chat.app()`.
+
+## Section - Summary
+
+Optionally, ask for a lesson summary.
+
+```{python}
+prompt_summary = "Please write a brief summary paragraph to wrap up this lesson."
+chat.chat(prompt_summary, echo='none')
+```
+
+### Response
+
+```{python}
+#| echo: false
+print(chat)
+```
+
+# Save Chat History
+
+Optional, but necessary to return to the conversation later.
+
+```{python}
+# Export chat history as a markdown file
+# This version is easier to pass back to to the chat object in the future.
+chat_history_path_md = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + today + ".md"))
+chat.export(chat_history_path_md, overwrite=True)
+
+# Export chat history as an HTML file
+chat_history_path_html = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + today + ".html"))
+chat.export(chat_history_path_html, overwrite=True)
+
+# Export chat history as a json file
+# Useful for saving/loading the history to/from a database or file.
+# chat_history_path_json = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + today + ".json"))
+# with open(chat_history_path_json, "w", encoding="utf-8") as f:
+#     json.dump(
+#         [json.loads(x) for x in turns_json],
+#         f,
+#         indent=2,
+#         ensure_ascii=False
+#     )
+```
+
+## Condense
+
+You can also optionally condense the history by asking the LLM to summarize it. This is useful if you want to keep the context of the conversation, but don’t want to provide the entire history to the model on each new submission.
+
+```{python}
+# chat.chat("Can you summarize our conversation so far?")
+# chat.set_turns([chat.get_last_turn()])
+```
+
+## Load chat history
+
+To optionally load the chat history later.
+
+```{python}
+# Import chat history as a md file
+# chat_history_path_md = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + "yyyy-mm-dd" + ".md"))
+# history_md = chat_history_path_md.read_text(encoding="utf-8")
+
+# Import chat history as a json file
+# chat_history_path_json = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + "yyyy-mm-dd" + ".json"))
+# history_json = json.loads(chat_history_path_json.read_text(encoding="utf-8"))
+```
+
+# Render to HTML
+
+Render to HTML (Optional)
+- Click the Preview button.
+- Type `quarto render "path/Lesson Revisions.qmd"` in the terminal.

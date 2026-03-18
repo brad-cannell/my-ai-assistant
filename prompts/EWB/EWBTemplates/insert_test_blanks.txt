@@ -1,0 +1,49 @@
+# =============================================================================
+insert_test_blanks
+2025-08-20
+Brad Cannell
+# =============================================================================
+
+# Step 1: Create the function.
+
+I am creating a function that inserts some templated code at the current position of the cursor in RStudio. 
+
+Here is the code I would like to insert:
+
+# 1 - Check that `____` was replaced with something
+test_that("All blanks `____` were replaced", {
+  if (grepl("____", learner_code, fixed = TRUE)) {
+    fail("It looks like your submission still contains `____`. Please replace `____` to complete the code.")
+  } else {
+    succeed()
+  }
+})
+
+Please help me turn this into a function called: insert_test_blanks
+
+
+
+# Step 1b (optional): Make interactive.
+
+Please help me add the following interactive components to this function:
+
+
+
+# Step 2. Create a unit test.
+
+Please help me create a unit test for this function. Please begin the R script containing the unit tests with the following header:
+
+# ===========================================================================
+# Unit tests for the [function name]() function.
+# ===========================================================================
+
+
+
+# Step 3. Create Roxygen2 documentation.
+
+Please write function documentation using roxygen2.
+
+
+# Step 4. NEWS.md
+
+Please write an entry for NEWS.md about this new function.
