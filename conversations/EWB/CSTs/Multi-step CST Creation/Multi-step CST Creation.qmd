@@ -3,7 +3,7 @@ title: "Experimenting with a New Multi-step CST Creation Workflow that Uses test
 id: multi_step_cst_creation
 author: brad_cannell
 date: 2026-01-29
-date-modified: 2026-01-29
+date-modified: 2026-03-17
 audience: course_authors
 category: lesson_development
 tags:
@@ -86,12 +86,13 @@ Template_Prompt_CST_02_CST = path_Template_Prompt_CST_02_CST.read_text(encoding=
 
 # Load helper functions
 
-Run in terminal: 
-- `uv add --editable "/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/AI Assistant/py_scripts"`
+Run in terminal:
+- `/usr/local/bin/python3 -m pip install --editable "/Users/bradcannell/Desktop/Git/AI/my-ai-assistant/py_scripts"`
+- Restart interpreter.
 
 ```{python}
-# Load functions from py_scripts/ewb_py_scripts
-from ewb_py_scripts import (
+# Load functions from py_scripts/py_scripts
+from py_scripts import (
     prompt_extract_system_prompt,
     prompt_extract_user_message,
     prompt_fill_placeholders,
