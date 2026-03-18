@@ -1,10 +1,8 @@
 ---
 title: "Abstracting CSTs in EWB"
-id: abstracting_csts_in_ewb
 author: brad_cannell
 date: 2026-01-28
 date-modified: 2026-03-17
-audience: course_authors
 category: lesson_development
 tags:
   - r

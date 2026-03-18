@@ -1,12 +1,9 @@
 ---
 title: <short, human-readable title>
-id: <unique_prompt_id>
 author: brad_cannell
 date: yyyy-mm-dd
 date-modified: yyyy-mm-dd
-audience: <academic | student | developer | clinician>
 interface: api
-domain: <e.g., epidemiology | data_science | general>
 tags:
   - tag
 format:

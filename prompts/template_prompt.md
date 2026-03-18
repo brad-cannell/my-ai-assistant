@@ -1,14 +1,10 @@
 ---
 title: <short, human-readable title>
 id: <unique_prompt_id>
-task: <e.g., text_revision | code_review | explanation>
-audience: <academic | student | developer | clinician>
 interface: <api | browser | both >
 author: "Brad Cannell"
 created: <YYYY-MM-DD>
 last_updated: <YYYY-MM-DD>
-project: <project_name_or_null>
-domain: <e.g., epidemiology | data_science | general>
 tags:
   - tag1
   - tag2

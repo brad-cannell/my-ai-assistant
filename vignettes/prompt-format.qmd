@@ -1,7 +1,7 @@
 ---
 title: "Prompt Format"
 date: "2025-12-22"
-date-modified: "2025-12-22"
+date-modified: "2026-03-18"
 version: "1.0"
 description: "Rationale and conventions for writing prompts as Markdown documents with YAML front matter."
 categories: [prompts, workflow, markdown]
@@ -28,7 +28,7 @@ In this project, prompts are treated as **long-lived knowledge artifacts**, not 
 
 ## Why YAML Headers
 
-- Capture **stable, high-level metadata** about each prompt (purpose, audience, domain, status)
+- Capture **stable, high-level metadata** about each prompt (title, status, tags)
 - Improve **organization and discoverability** without requiring tooling or automation
 - Enable future capabilities such as filtering, indexing, logging, and semantic search
 - Keep execution details and API-specific parameters **out of the prompt definition**

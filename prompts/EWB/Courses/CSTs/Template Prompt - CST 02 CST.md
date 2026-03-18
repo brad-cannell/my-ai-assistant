@@ -1,13 +1,9 @@
 ---
 title: Template Prompt for EWB Code Submission Tests (CSTs) - Step 2 - Pass the Code
 id: template_prompt_cst_code
-task: code_review
-audience: academic
 author: brad_cannell
 created: 2026-01-17
 last_updated: 2026-01-17
-project: null
-domain: lesson_development
 tags:
   - ewb
   - csts

@@ -1,10 +1,8 @@
 ---
 title: "Make Prompt - COL Code Submission Questions"
-id: make_prompt_col_code_submission_questions
 author: brad_cannell
 date: 2026-01-27
 date-modified: 2026-01-27
-audience: developers
 category: make_prompt
 tags:
   - ai

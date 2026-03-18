@@ -1,14 +1,10 @@
 ---
 title: ADR SharePoint Welcome Screen
 id: adr_welcome
-task: text_revision
-audience: academic
 status: draft
 author: "Brad Cannell"
 created: 2025-12-27
 last_updated: 2025-12-27
-project: adr_sharepoint
-domain: academia
 tags:
   - tag1
   - tag2

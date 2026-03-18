@@ -1,13 +1,9 @@
 ---
 title: Revise Template Prompt for EWB Code Submission Tests (CSTs)
 id: revise_template_prompt_writing_prompts
-task: text_revision
-audience: developer
 author: brad_cannell
 created: 2026-01-17
 last_updated: 2026-01-17
-project: ai_assistant
-domain: ai
 tags:
   - ai
   - prompts

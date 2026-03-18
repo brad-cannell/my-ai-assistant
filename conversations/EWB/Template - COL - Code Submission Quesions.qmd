@@ -1,10 +1,8 @@
 ---
 title: "COL - Code Submission Questions"
-id: col_code_submission_questions
 author: brad_cannell
 date: yyyy-mm-dd
 date-modified: yyyy-mm-dd
-audience: course_authors
 category: lesson_development
 tags:
   - r

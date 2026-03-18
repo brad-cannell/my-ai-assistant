@@ -1,14 +1,10 @@
 ---
 title: "Shared Leadership Plan for the Center for Neurodegenerative Disease"
 id: prompt_shared_leadership_plan_cnd
-task: text_revision
-audience: academic
 interface: both
 author: "Brad Cannell"
 created: 2026-01-28
 last_updated: 2026-01-28
-project: center_for_neurodegenerative_disease
-domain: administration
 tags:
   - cnd
 ---

@@ -1,10 +1,8 @@
 ---
 title: "Lesson - {{Lesson Name}}"
-id: lesson_{{lesson_name}}
 author: brad_cannell
 date: {{YYYY-MM-DD}}
 date-modified: {{YYYY-MM-DD}}
-audience: course_authors
 category: lesson_development
 tags:
   - r

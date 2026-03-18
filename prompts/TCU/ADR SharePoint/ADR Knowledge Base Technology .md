@@ -1,14 +1,10 @@
 ---
 title: ADR Knowledge Base Technology
 id: adr_knowledge_base_technology
-task: text_revision
-audience: academic
 status: draft
 author: "Brad Cannell"
 created: 2025-12-27
 last_updated: 2025-12-27
-project: adr_sharepoint
-domain: academia
 tags:
   - knowledge_base
   - sharepoint
