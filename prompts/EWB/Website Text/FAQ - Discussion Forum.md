@@ -1,5 +1,5 @@
 ---
-title: FAQ: Discussion Forum
+title: "FAQ: Discussion Forum"
 id: faq_discussion_forum
 status: draft
 author: "Brad Cannell"

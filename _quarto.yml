@@ -4,6 +4,8 @@ project:
   render:
     - index.qmd
     - vignettes/*.qmd
+    - prompts-listing.qmd
+    - conversations-listing.qmd
 
 website:
   title: "My AI Assistant"
@@ -11,6 +13,10 @@ website:
     left:
       - href: index.qmd
         text: "Home"
+      - href: prompts-listing.qmd
+        text: "Prompts"
+      - href: conversations-listing.qmd
+        text: "Conversations"
     right:
       - icon: github
         href: https://github.com/brad-cannell/my-ai-assistant

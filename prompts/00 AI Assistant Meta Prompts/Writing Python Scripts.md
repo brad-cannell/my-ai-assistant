@@ -12,18 +12,12 @@ last_updated: 2026-03-17
 
 # USER MESSAGE
 
-## Context
-
 This project is called "My AI Assistant". You can read more about it at `snippets/About My AI Assistant.md`.
 
 One of my current pain points is filling out all the metadata at the top of conversation and prompt template files.
 
 How can I make the process of creating a new conversation Quarto document, including the filling in the yaml metadata (e.g., title and dates), more automated?
 
-## Task
+---
 
-Please create a function for loading and filling out a conversation template.
-
-## Constraints & Formatting
-List any important constraints or rules.
-- 
+# Follow-up: 

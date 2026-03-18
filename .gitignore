@@ -85,3 +85,6 @@ wheels/
 # =============================================================================
 
 _site/
+
+# Generated search index (rebuild with: python py_scripts/build_index.py)
+search-index.json

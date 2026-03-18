@@ -3,7 +3,7 @@ title: "Chat Template"
 author: brad_cannell
 date: "2025-12-23"
 date-modified: "2025-12-23"
-category: course_development
+source_prompt: null  # id of the source prompt file, if applicable
 tags:
   - tag1
   - tag2

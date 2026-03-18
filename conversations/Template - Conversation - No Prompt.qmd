@@ -4,6 +4,7 @@ author: brad_cannell
 date: yyyy-mm-dd
 date-modified: yyyy-mm-dd
 interface: api
+source_prompt: null  # id of the source prompt file, if applicable
 tags:
   - tag
 format:
