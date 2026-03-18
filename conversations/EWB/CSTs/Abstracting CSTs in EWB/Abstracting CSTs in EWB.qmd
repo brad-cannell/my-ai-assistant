@@ -3,7 +3,7 @@ title: "Abstracting CSTs in EWB"
 id: abstracting_csts_in_ewb
 author: brad_cannell
 date: 2026-01-28
-date-modified: 2026-01-28
+date-modified: 2026-03-17
 audience: course_authors
 category: lesson_development
 tags:
@@ -65,12 +65,12 @@ model = "gpt-5-nano-2025-08-07"
 # Load helper functions
 
 Run in terminal:
-- `cd "/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/AI Assistant/py_scripts"`
-- `python -m pip install -e .`
+- `/usr/local/bin/python3 -m pip install --editable "/Users/bradcannell/Desktop/Git/AI/my-ai-assistant/py_scripts"`
+- Restart interpreter.
 
 ```{python}
-# Load functions from py_scripts/ewb_py_scripts
-from ewb_py_scripts import (
+# Load functions from py_scripts/py_scripts
+from py_scripts import (
     prompt_extract_system_prompt,
     prompt_extract_user_message,
     prompt_fill_placeholders,
