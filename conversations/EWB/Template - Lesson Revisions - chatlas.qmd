@@ -89,7 +89,7 @@ for name, path in paths_to_check.items():
     print(f"✓  {name}: {path}")
 ```
 
-# Load helper functions
+# Load Helper Functions
 
 Run in terminal:
 - `/usr/local/bin/python3 -m pip install --editable "/Users/bradcannell/Desktop/Git/AI/my-ai-assistant/py_scripts"`

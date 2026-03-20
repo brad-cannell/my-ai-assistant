@@ -73,7 +73,7 @@ lesson_content = (lesson_folder_path / (lesson_name + ".qmd")).read_text(encodin
 path_template_prompt_col_code_submission = '/Users/bradcannell/Desktop/Git/ewb-ai-assistant/prompts/Courses/COL/Prompt Template - COL - Code Submission Quesions.md'
 ```
 
-# Load helper functions
+# Load Helper Functions
 
 Run in terminal:
 - `/usr/local/bin/python3 -m pip install --editable "/Users/bradcannell/Desktop/Git/AI/my-ai-assistant/py_scripts"`
