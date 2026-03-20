@@ -21,31 +21,21 @@ execute:
 - Conversation about editing the language in this lesson.
 
 # Prerequisites
-- **Git Pull** to make sure you have the most current version of the prompts.
-- Install in the system kernel. The virtual environments cause too many problems with Box.
-- `import sys`
-- `print(sys.executable)` Path the Python interpreter that is actually running the code. 
-- Terminal: `which pip` Pip that will be used to install Python packages
-- Terminal: `/usr/local/bin/python3 -m pip install keyring openai anthropic jupyter -U chatlas shiny`
+
+See [Working with Python and Chatlas](https://brad-cannell.github.io/my-ai-assistant/vignettes/python-and-chatlas.html) for setup instructions (virtual environment, package installation, API key management).
 
 # Load Packages
 
 ```{python}
-from chatlas import ChatAnthropic
-from openai import OpenAI
-from httpcore import stream
+from chatlas import ChatAnthropic, ChatOpenAI
 from datetime import date
 from pathlib import Path
-import chatlas as ctl
-import anthropic
 import keyring
-import json
+import pickle
 import os
 ```
 
 # File Paths and Environment Variables
-
-They are passed to the AI assistant below.
 
 ```{python}
 # OpenAI Models: https://platform.openai.com/docs/models
@@ -62,7 +52,7 @@ today = date.today().isoformat()
 course_name = "{{Course Name}}"
 lesson_name = "{{Lesson Name}}"
 
-# Lessone file and folder paths
+# Lesson file and folder paths
 # By default, these are injected from Convert Chapters.qmd
 # They can also be altered manually.
 lesson_file_path = Path("{{lesson_file_path}}")
@@ -89,14 +79,11 @@ for name, path in paths_to_check.items():
     print(f"✓  {name}: {path}")
 ```
 
-# Load Helper Functions
+# Load helper functions
 
-Run in terminal:
-- `/usr/local/bin/python3 -m pip install --editable "/Users/bradcannell/Desktop/Git/AI/my-ai-assistant/py_scripts"`
-- Restart interpreter.
+See [Python Helper Functions](https://brad-cannell.github.io/my-ai-assistant/vignettes/python-helper-functions.html) for installation instructions and a full function reference.
 
 ```{python}
-# Load functions from py_scripts/py_scripts
 from py_scripts import (
     prompt_extract_system_prompt,
     prompt_extract_user_message,
@@ -106,9 +93,7 @@ from py_scripts import (
 
 # Expose API
 
-This assumes you've already: 
-1. Created an API key on the model provider's website
-2. Saved the API key in keyring using `keyring.set_password("API Name", "User", "API Key")`.
+See [Storing API Keys with Keyring](https://brad-cannell.github.io/my-ai-assistant/vignettes/keyring.html) for first-time setup instructions.
 
 ```{python}
 # Retrieve the password from the system keyring - Claude
@@ -120,18 +105,6 @@ if claude_api is not None:
     print("Environment variable 'ANTHROPIC_API_KEY' set successfully within the script.")
 else:
     print("Could not retrieve password from keyring.")
-```
-
-```{python}
-# # Retrieve the password from the system keyring
-# openai_api = keyring.get_password("ewb-course-development", "brad")
-
-# if openai_api is not None:
-#     # Set the retrieved value as a temporary environment variable
-#     os.environ['OPENAI_API_KEY'] = openai_api
-#     print("Environment variable 'OPENAI_API_KEY' set successfully within the script.")
-# else:
-#     print("Could not retrieve password from keyring.")
 ```
 
 # Read the Template Prompt
@@ -156,19 +129,14 @@ user_message = prompt_fill_placeholders(
 
 # Create Chat Object
 
+The `system_prompt` argument is optional. Omit it for a one-off conversation, or pass a string to set a persistent role or constraints. See [System Prompts](https://brad-cannell.github.io/my-ai-assistant/vignettes/system-prompts.html) for details.
+
 ```{python}
-chat = ctl.ChatAnthropic(
+chat = ChatAnthropic(
     model = model,
     system_prompt = system_prompt,
     max_tokens = 20000
 )
-```
-
-```{python}
-# chat = ctl.ChatOpenAI(
-#     model = model,
-#     system_prompt = system_prompt
-# )
 ```
 
 # Pass the Template Prompt to the AI Assistant
@@ -192,20 +160,13 @@ A section for optional follow-up questions and refinements.
 - Optionally, create a fork of the chat. `import copy; chat_fork = copy.deepcopy(chat)`
 - Asks follow-up questions in interactive mode - `chat.app()`.
 
-## Section - Summary
+# Section - Summary
 
 Optionally, ask for a lesson summary.
 
 ```{python}
 prompt_summary = "Please write a brief summary paragraph to wrap up this lesson."
-chat.chat(prompt_summary, echo='none')
-```
-
-### Response
-
-```{python}
-#| echo: false
-print(chat)
+chat.chat(prompt_summary)
 ```
 
 # Save Chat History
