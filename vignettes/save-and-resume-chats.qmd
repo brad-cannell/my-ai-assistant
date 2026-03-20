@@ -64,19 +64,16 @@ Include the date in the filename so multiple sessions produce distinct files tha
 
 To resume a conversation in a later session, re-create the chat object with the same provider, model, and system prompt, then restore the saved turns.
 
+Rerun above:
+- Load Packages
+- File Paths and Environment Variables
+- Load helper functions
+- Expose API
+- Create Chat Object
+
 ```python
-import pickle
-from pathlib import Path
-from chatlas import ChatAnthropic  # or ChatOpenAI
-
-# Re-create the chat object — must match the original provider, model, and system prompt
-chat = ChatAnthropic(
-    model="claude-sonnet-4-6",
-    system_prompt=system_prompt  # omit if no system prompt was used
-)
-
 # Load and restore turns
-chat_history_path_pkl = Path("path_to_folder/chat_history_yyyy-mm-dd.pkl")
+chat_history_path_pkl = (lesson_folder_path / "ai" / ("incorporate_chapter_12_2026-03-10.pkl"))
 with open(chat_history_path_pkl, "rb") as f:
     turns = pickle.load(f)
 
@@ -86,7 +83,11 @@ chat.set_turns(turns)
 print(chat)
 ```
 
-After `set_turns()`, the chat object behaves as if the conversation just happened — you can continue with `chat.chat()` or open the interactive interface with `chat.app()`.
+After `set_turns()`, the chat object behaves as if the conversation just happened. Use `chat.app()` to open the interactive interface and continue where you left off, or `chat.chat()` to send the next message programmatically.
+
+::: callout-tip
+**In a notebook, the chat object is usually already initialized.** If your notebook has setup cells that create the chat object (loading packages, setting the model, applying a system prompt), you only need to run those first, then load and restore the turns — you do not need to re-create the chat object from scratch. The load-and-restore block is the only new code needed for resuming.
+:::
 
 ::: callout-important
 **The provider and model must match.** Turns saved from a Claude session cannot be restored into an OpenAI chat object, and vice versa. Mismatched models from the same provider may also cause issues.
