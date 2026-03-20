@@ -50,8 +50,7 @@ today = date.today().isoformat()
 # By default, these are injected from Convert Chapters.qmd
 # They can also be altered manually.
 course_name = "{{Course Name}}"
-chapter_name = "" # Fill manually
-lesson_name = "{{Lesson Name}}"
+chapter_name = "{{Chapter Name}}"
 
 # Lesson file and folder paths
 # By default, these are injected from Convert Chapters.qmd
@@ -121,6 +120,22 @@ chat = ChatAnthropic(
 user_message = f"""
 I'm working on a new Epi-Workbench course called {course_name}. The course has a chapter named {chapter_name}. Currently, there is just one lesson file for this chapter. However, I want to divide it into two or more lessons. Please suggest how I should break up the content and what I should name the lessons.
 
+A few notes about Epi-Workbench lessons:
+- Lessons are Quarto (.qmd) files.
+- Data used in lessons is typically simulated directly in the lesson file using a code chunk rather than loaded from an external file.
+- Lesson filenames use Title Case (e.g., `Conditional Operations in R.qmd`).
+
+Please structure your response as follows:
+
+1. A brief rationale for how many lessons you recommend and why.
+2. A summary table with one row per lesson containing: lesson number, lesson title, and filename.
+3. For each lesson, a section that includes:
+   - The suggested title and filename
+   - A bulleted list of the content to include
+   - Any simulated datasets that will need to be carried into this lesson
+   - Any dependencies on content or objects introduced in a previous lesson
+4. A brief rationale for each lesson explaining the pedagogical logic behind the content grouping.
+
 Here is the lesson content:
 
 {lesson_content}
@@ -140,6 +155,61 @@ print(chat.get_last_turn())
 A section for optional follow-up questions and refinements. 
 - Optionally, create a fork of the chat. `import copy; chat_fork = copy.deepcopy(chat)`
 - Asks follow-up questions in interactive mode - `chat.app()`.
+
+# Generate a Claude Code Prompt
+
+```{python}
+generate_prompt_message = f"""
+I like this plan. Please generate the prompt I will pass to Claude Code to execute it. Use the following template exactly, filling in all placeholders based on the lesson plan you just produced:
+
+<template>
+I have a Quarto lesson file that needs to be split into multiple shorter lessons. Please read the original file in full before doing anything else, then follow the steps below.
+
+**Step 1: Read the original file**
+Read the file at `{lesson_file_path}` in its entirety before proceeding.
+
+**Step 2: Review the lesson plan**
+Split the original lesson into the following new lessons:
+
+| # | Folder Name | Filename |
+|:-:|:------------|:---------|
+| 1 | `[01 Lesson One Title]` | `[01 Lesson One Title.qmd]` |
+| 2 | `[02 Lesson Two Title]` | `[02 Lesson Two Title.qmd]` |
+| 3 | `[03 Lesson Three Title]` | `[03 Lesson Three Title.qmd]` |
+
+Add or remove rows as needed. The content to include in each lesson is described below:
+
+- **Lesson 1 – [Lesson One Title]:** [Describe the content to include]
+- **Lesson 2 – [Lesson Two Title]:** [Describe the content to include]
+- **Lesson 3 – [Lesson Three Title]:** [Describe the content to include]
+
+**Step 3: Create the new lesson folders and files**
+For each new lesson:
+- Create a new subfolder inside `{lesson_folder_path}`, named exactly as shown in the table in Step 2.
+- Inside each folder, create a `.qmd` file with the same name as the folder.
+- Copy the YAML front matter from the original lesson into each new file, updating the `title` field to match the new lesson title. Leave all other YAML fields unchanged.
+
+**Step 4: Populate each file with content**
+- Copy prose and code from the original lesson into the appropriate new files verbatim. Do not rewrite, summarize, or paraphrase any content.
+- Each new file should begin with the `library()` calls needed for the code in that lesson. Only include libraries that are actually used in that lesson's content.
+
+**Step 5: Add simulation code**
+- For each new lesson, identify which simulated datasets are actually used in that lesson's content.
+- Copy only the relevant simulation code chunks from the original file.
+- Place them after the `library()` calls but before the first instructional content.
+- Add a brief one- or two-sentence prose introduction before each simulation block explaining that the data is being created for use in the lesson.
+
+**Step 6: Review and flag**
+After creating all files, provide a summary listing every folder and file created. Flag any code chunks that reference a dataset or object not defined within that same lesson file — these will need manual review.
+</template>
+
+Replace every bracketed placeholder in the template with the actual titles, folder names, filenames, and content descriptions from the lesson plan above. Do not change anything else in the template.
+"""
+
+chat.chat(generate_prompt_message)
+```
+
+Copy and paste the prompt into Claude Code.
 
 # Save Chat History
 
