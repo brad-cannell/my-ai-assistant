@@ -1,0 +1,785 @@
+[
+  {
+    "file": "prompts/00 AI Assistant Meta Prompts/API vs Browser.md",
+    "type": "prompt",
+    "title": "Using the API vs the Browser",
+    "id": "using_api_vs_browser",
+    "author": "Brad Cannell",
+    "interface": "browser",
+    "date": "2026-03-17",
+    "date-modified": "2026-03-17",
+    "tags": [
+      "api",
+      "ai",
+      "sop"
+    ]
+  },
+  {
+    "file": "prompts/00 AI Assistant Meta Prompts/Merge with ewb_ai_assistant.md",
+    "type": "prompt",
+    "title": "My AI Assistant Intro",
+    "id": "my_ai_assistant_intro",
+    "author": "brad_cannell",
+    "created": "2026-03-17",
+    "last_updated": "2026-03-17"
+  },
+  {
+    "file": "prompts/00 AI Assistant Meta Prompts/My AI Assistant Revisions.md",
+    "type": "prompt",
+    "title": "My AI Assistant Intro",
+    "id": "my_ai_assistant_intro",
+    "author": "brad_cannell",
+    "created": "2026-03-17",
+    "last_updated": "2026-03-17"
+  },
+  {
+    "file": "prompts/00 AI Assistant Meta Prompts/Search.md",
+    "type": "prompt",
+    "title": "Search My AI Assistant",
+    "author": "brad_cannell",
+    "created": "2026-03-17",
+    "last_updated": "2026-03-17"
+  },
+  {
+    "file": "prompts/00 AI Assistant Meta Prompts/Viewing Vignettes.md",
+    "type": "prompt",
+    "title": "Viewing Vignettes",
+    "id": "viewing_vignettes",
+    "author": "Brad Cannell",
+    "interface": "browser",
+    "date": "2026-03-17",
+    "date-modified": "2026-03-17",
+    "tags": [
+      "api",
+      "ai",
+      "sop"
+    ]
+  },
+  {
+    "file": "prompts/00 AI Assistant Meta Prompts/Writing Python Scripts.md",
+    "type": "prompt",
+    "title": "Writing Python Scripts For My AI Assistant",
+    "author": "brad_cannell",
+    "created": "2026-03-17",
+    "last_updated": "2026-03-17"
+  },
+  {
+    "file": "prompts/Center for Neurodegenerative Disease/Shared Leadership Plan/Shared Leadership Plan.md",
+    "type": "prompt",
+    "title": "Shared Leadership Plan for the Center for Neurodegenerative Disease",
+    "id": "prompt_shared_leadership_plan_cnd",
+    "interface": "both",
+    "author": "Brad Cannell",
+    "created": "2026-01-28",
+    "last_updated": "2026-01-28",
+    "tags": [
+      "cnd"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Course Author Wiki/Parsing Markdown Files.md",
+    "type": "prompt",
+    "title": "Parsing Markdown Files",
+    "id": "parsing_markdown_files",
+    "status": "draft",
+    "author": "Brad Cannell",
+    "created": "2025-12-23",
+    "last_updated": "2026-03-17",
+    "tags": [
+      "api",
+      "markdown"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Courses/Archive/Adapt Labs/lab_data_transfer.md",
+    "type": "prompt",
+    "title": "Lab: Data Transfer",
+    "format": []
+  },
+  {
+    "file": "prompts/EWB/Courses/Archive/Adapt Labs/test_code_blocks_simple copy.md",
+    "type": "prompt",
+    "title": "Test Code Blocks Simple",
+    "author": "Brad Cannell",
+    "date": "2025-04-18",
+    "date-modified": "2025-04-18"
+  },
+  {
+    "file": "prompts/EWB/Courses/COL/Prompt Template - COL - Code Submission Quesions.md",
+    "type": "prompt",
+    "title": "Generate Code Submission COL Questions From Lesson",
+    "id": "generate_code_submission_col_from_lesson",
+    "date": "brad_cannell",
+    "created": "2026-01-28",
+    "date-modified": "2026-01-28",
+    "interface": "both",
+    "tags": [
+      "col",
+      "quizzes"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Courses/COL/Template Prompt - COL Quizzes.md",
+    "type": "prompt",
+    "title": "Template Prompt for EWB COL Quizzes",
+    "id": "template_prompt_col_quizzes",
+    "interface": "api",
+    "author": "brad_cannell",
+    "created": "2025-10-11",
+    "last_updated": "2025-12-30",
+    "tags": [
+      "quiz_questions"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Courses/CSTs/Step 1 - Simulate Learner Responses Short Version.md",
+    "type": "prompt",
+    "title": "CST Workflow - Step 1 - Simulate Learner Responses",
+    "id": "cst_simulate_learner_responses",
+    "author": "brad_cannell",
+    "created": "2026-01-31",
+    "last_updated": "2026-02-13",
+    "tags": [
+      "ewb",
+      "csts"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Courses/CSTs/Step 1 - Simulate Learner Responses V3.md",
+    "type": "prompt",
+    "title": "CST Workflow - Step 1 - Simulate Learner Responses",
+    "id": "cst_simulate_learner_responses",
+    "author": "brad_cannell",
+    "created": "2026-01-31",
+    "last_updated": "2026-02-15",
+    "tags": [
+      "ewb",
+      "csts"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Courses/CSTs/Step 1 - Simulate Learner Responses.md",
+    "type": "prompt",
+    "title": "CST Workflow - Step 1 - Simulate Learner Responses",
+    "id": "cst_simulate_learner_responses",
+    "author": "brad_cannell",
+    "created": "2026-01-31",
+    "last_updated": "2026-02-13",
+    "tags": [
+      "ewb",
+      "csts"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Courses/CSTs/Step 2 - CST Expectations Only.md",
+    "type": "prompt",
+    "title": "Template Prompt for EWB Code Submission Tests (CSTs) - Step 2",
+    "id": "template_prompt_cst_instructions_step-2",
+    "author": "brad_cannell",
+    "created": "2026-01-17",
+    "last_updated": "2026-02-15",
+    "tags": [
+      "ewb",
+      "csts"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Courses/CSTs/Template Prompt - CST 01 Instructions Expectations Only.md",
+    "type": "prompt",
+    "title": "Template Prompt for EWB Code Submission Tests (CSTs) - Step 1 - Instructions",
+    "id": "template_prompt_cst_instructions",
+    "author": "brad_cannell",
+    "created": "2026-01-17",
+    "last_updated": "2026-02-01",
+    "tags": [
+      "ewb",
+      "csts"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Courses/CSTs/Template Prompt - CST 01 Instructions.md",
+    "type": "prompt",
+    "title": "Template Prompt for EWB Code Submission Tests (CSTs) - Step 1 - Instructions",
+    "id": "template_prompt_cst_instructions",
+    "author": "brad_cannell",
+    "created": "2026-01-17",
+    "last_updated": "2026-02-01",
+    "tags": [
+      "ewb",
+      "csts"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Courses/CSTs/Template Prompt - CST 02 CST.md",
+    "type": "prompt",
+    "title": "Template Prompt for EWB Code Submission Tests (CSTs) - Step 2 - Pass the Code",
+    "id": "template_prompt_cst_code",
+    "author": "brad_cannell",
+    "created": "2026-01-17",
+    "last_updated": "2026-01-17",
+    "tags": [
+      "ewb",
+      "csts"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Courses/Prompt - README.md",
+    "type": "prompt",
+    "title": "Prompt for Filling in the Course Overview Sections of the README",
+    "id": "template_prompt_ewb_readme",
+    "interface": "browser",
+    "author": "brad_cannell",
+    "created": "2025-12-02",
+    "last_updated": "2026-02-17",
+    "tags": [
+      "ewb"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Courses/Template Prompt - Lesson Revisions Simple.md",
+    "type": "prompt",
+    "title": "Template Prompt for EWB Lesson Revisions - Super Simple Version",
+    "id": "template_prompt_lesson_revisions_simple",
+    "interface": "api",
+    "author": "brad_cannell",
+    "created": "2025-06-19",
+    "last_updated": "2026-01-20",
+    "tags": [
+      "ewb"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Courses/Template Prompt - Lesson Revisions.md",
+    "type": "prompt",
+    "title": "Template Prompt for EWB Lesson Revisions",
+    "id": "template_prompt_lesson_revisions",
+    "interface": "api",
+    "author": "brad_cannell",
+    "created": "2025-06-19",
+    "last_updated": "2026-02-27",
+    "tags": [
+      "ewb"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Courses/Template Prompt - Spelling and Grammar Check.md",
+    "type": "prompt",
+    "title": "Template Prompt for EWB Lesson Spelling and Grammar Check",
+    "id": "template_prompt_lesson_spelling_and_grammar",
+    "interface": "api",
+    "author": "brad_cannell",
+    "created": "2026-02-08",
+    "last_updated": "2026-02-17",
+    "tags": [
+      "ewb"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Courses/testthat/Revise CST Prompt.md",
+    "type": "prompt",
+    "title": "Revise Template Prompt for EWB Code Submission Tests (CSTs)",
+    "id": "revise_template_prompt_writing_prompts",
+    "author": "brad_cannell",
+    "created": "2026-01-17",
+    "last_updated": "2026-01-17",
+    "tags": [
+      "ai",
+      "prompts",
+      "csts"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Courses/testthat/use_expect/Convert Block to Expect Full Lesson.md",
+    "type": "prompt",
+    "title": "Template Prompt for Converting the CSTs in Existing Code Blocks to use expect - Full Lesson File",
+    "id": "template_prompt_convert_block_to_expect_full_lesson",
+    "author": "brad_cannell",
+    "created": "2026-01-29",
+    "last_updated": "2026-01-29",
+    "tags": [
+      "ewb",
+      "csts"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Courses/testthat/use_expect/Convert Block to Expect.md",
+    "type": "prompt",
+    "title": "Template Prompt for Converting the CSTs in Existing Code Blocks to use expect",
+    "id": "template_prompt_convert_block_to_expect",
+    "author": "brad_cannell",
+    "created": "2026-01-28",
+    "last_updated": "2026-01-28",
+    "tags": [
+      "ewb",
+      "csts"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Courses/testthat/use_expect/Use expect.md",
+    "type": "prompt",
+    "title": "Revise Template Prompt for EWB Code Submission Tests (CSTs)",
+    "id": "revise_template_prompt_writing_prompts",
+    "author": "brad_cannell",
+    "created": "2026-01-28",
+    "last_updated": "2026-01-28",
+    "tags": [
+      "csts"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Make Prompts/Template Prompt - Write Prompts.md",
+    "type": "prompt",
+    "title": "Template Prompt for Getting Help with Writing Prompts",
+    "id": "template_prompt_writing_prompts",
+    "interface": "both",
+    "author": "brad_cannell",
+    "created": "2026-01-17",
+    "last_updated": "2026-01-27",
+    "tags": [
+      "ai",
+      "prompts"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Template Prompt.md",
+    "type": "prompt",
+    "title": "<short, human-readable title>",
+    "id": "<unique_prompt_id>",
+    "interface": "<api | browser | both >",
+    "author": "brad_cannell",
+    "created": "<YYYY-MM-DD>",
+    "last_updated": "<YYYY-MM-DD>",
+    "tags": [
+      "tag1",
+      "tag2"
+    ]
+  },
+  {
+    "file": "prompts/EWB/Website Text/FAQ - Discussion Forum.md",
+    "type": "prompt",
+    "title": "FAQ: Discussion Forum",
+    "id": "faq_discussion_forum",
+    "status": "draft",
+    "author": "Brad Cannell",
+    "created": "2025-12-29",
+    "last_updated": "2025-12-29",
+    "tags": [
+      "faq",
+      "discussion forum"
+    ]
+  },
+  {
+    "file": "prompts/Quick Prompts.md",
+    "type": "prompt",
+    "title": "Quick Prompts",
+    "id": "quick_prompts",
+    "author": "brad_cannell",
+    "created": "2026-03-17",
+    "last_updated": "2026-03-17"
+  },
+  {
+    "file": "prompts/System Prompts.md",
+    "type": "prompt",
+    "title": "System Prompts",
+    "id": "system_prompts",
+    "author": "brad_cannell",
+    "created": "2026-03-17",
+    "last_updated": "2026-03-17"
+  },
+  {
+    "file": "prompts/TCU/ADR SharePoint/ADR Knowledge Base Technology .md",
+    "type": "prompt",
+    "title": "ADR Knowledge Base Technology",
+    "id": "adr_knowledge_base_technology",
+    "status": "draft",
+    "author": "Brad Cannell",
+    "created": "2025-12-27",
+    "last_updated": "2025-12-27",
+    "tags": [
+      "knowledge_base",
+      "sharepoint",
+      "box",
+      "wiki",
+      "sop"
+    ]
+  },
+  {
+    "file": "prompts/TCU/ADR SharePoint/ADR Welcome.md",
+    "type": "prompt",
+    "title": "ADR SharePoint Welcome Screen",
+    "id": "adr_welcome",
+    "status": "draft",
+    "author": "Brad Cannell",
+    "created": "2025-12-27",
+    "last_updated": "2025-12-27",
+    "tags": [
+      "tag1",
+      "tag2"
+    ]
+  },
+  {
+    "file": "prompts/template_prompt.md",
+    "type": "prompt",
+    "title": "<short, human-readable title>",
+    "id": "<unique_prompt_id>",
+    "interface": "<api | browser | both >",
+    "author": "Brad Cannell",
+    "created": "<YYYY-MM-DD>",
+    "last_updated": "<YYYY-MM-DD>",
+    "tags": [
+      "tag1",
+      "tag2"
+    ]
+  },
+  {
+    "file": "conversations/ADR/3MT/Development/Automate The 3MT Presentation Schedule and Email.qmd",
+    "type": "conversation",
+    "title": "Automate The 3MT Presentation Schedule and Email",
+    "author": "brad_cannell",
+    "date": "2026-02-18",
+    "date-modified": "2026-02-20",
+    "tags": [
+      "3MT",
+      "ADR",
+      "Scheduling",
+      "Data Cleaning"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/Center for Neurodegenerative Disease/Shared Leadership Plan.qmd",
+    "type": "conversation",
+    "title": "Shared Leadership Plan for the Center for Neurodegenerative Disease",
+    "author": "brad_cannell",
+    "date": "2026-01-28",
+    "date-modified": "2026-01-28",
+    "category": "academic",
+    "tags": [
+      "cnd",
+      "administration"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/DETECT/DSMB 2026-03.qmd",
+    "type": "conversation",
+    "title": "Review Documents for March 2026 DSMB Meeting",
+    "author": "brad_cannell",
+    "date": "2026-02-22",
+    "date-modified": "2026-02-22",
+    "interface": "api",
+    "tags": [
+      "detect_rpc",
+      "dsmb",
+      "compliance",
+      "nih",
+      "nia"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/EWB/CSTs/Abstracting CSTs in EWB/Abstracting CSTs in EWB.qmd",
+    "type": "conversation",
+    "title": "Abstracting CSTs in EWB",
+    "author": "brad_cannell",
+    "date": "2026-01-28",
+    "date-modified": "2026-03-17",
+    "category": "lesson_development",
+    "tags": [
+      "r",
+      "csts",
+      "test_that",
+      "unit_testing"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/EWB/CSTs/Multi-step CST Creation/Multi-step CST Creation.qmd",
+    "type": "conversation",
+    "title": "Experimenting with a New Multi-step CST Creation Workflow that Uses testthat Expectations",
+    "author": "brad_cannell",
+    "date": "2026-01-29",
+    "date-modified": "2026-03-17",
+    "category": "lesson_development",
+    "tags": [
+      "r",
+      "csts",
+      "test_that",
+      "unit_testing"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/EWB/CSTs/Use expect/Use expect.qmd",
+    "type": "conversation",
+    "title": "Should we use testthat expect_ Functions?",
+    "author": "brad_cannell",
+    "date": "2026-01-28",
+    "date-modified": "2026-03-17",
+    "category": "lesson_development",
+    "tags": [
+      "r",
+      "csts",
+      "test_that",
+      "unit_testing"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/EWB/Course Author Wiki/Wiki Page - Tags/Wiki Page - Categories and Tags.qmd",
+    "type": "conversation",
+    "title": "Categories and Tags",
+    "author": "Brad Cannell",
+    "date": "2025-12-23",
+    "date-modified": "2025-12-22",
+    "category": "Course Development",
+    "tags": [],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/EWB/Make Prompts - EWB/Make Prompt - COL Coding Questions.qmd",
+    "type": "conversation",
+    "title": "Make Prompt - COL Code Submission Questions",
+    "author": "brad_cannell",
+    "date": "2026-01-27",
+    "date-modified": "2026-01-27",
+    "category": "make_prompt",
+    "tags": [
+      "ai",
+      "promps",
+      "quizzes",
+      "col",
+      "coding exercises"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/EWB/Make Prompts - EWB/System Prompts.qmd",
+    "type": "conversation",
+    "title": "Help with Creating System Prompts for Other Conversations",
+    "author": "brad_cannell",
+    "date": "2025-12-30",
+    "date-modified": "2025-12-30",
+    "category": "ai_assistant",
+    "tags": [
+      "prompts",
+      "ai_assistant"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/EWB/Make Prompts - EWB/Template Conversation - Make Prompt.qmd",
+    "type": "conversation",
+    "title": "Make Prompt - Description",
+    "author": "brad_cannell",
+    "date": "yyyy-mm-dd",
+    "date-modified": "yyyy-mm-dd",
+    "category": "make_prompt",
+    "tags": [
+      "ai",
+      "prompts"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/EWB/Template - COL - Code Submission Quesions.qmd",
+    "type": "conversation",
+    "title": "COL - Code Submission Questions",
+    "author": "brad_cannell",
+    "date": "yyyy-mm-dd",
+    "date-modified": "yyyy-mm-dd",
+    "category": "lesson_development",
+    "tags": [
+      "r",
+      "col"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/EWB/Template - COL Quizzes.qmd",
+    "type": "conversation",
+    "title": "COL - {{Lesson Name}}",
+    "author": "brad_cannell",
+    "date": "{{YYYY-MM-DD}}",
+    "date-modified": "{{YYYY-MM-DD}}",
+    "category": "lesson_development",
+    "tags": [
+      "r",
+      "col"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/EWB/Template - Lesson Revisions - chatlas.qmd",
+    "type": "conversation",
+    "title": "Lesson - {{Lesson Name}}",
+    "author": "brad_cannell",
+    "date": "{{YYYY-MM-DD}}",
+    "date-modified": "{{YYYY-MM-DD}}",
+    "category": "lesson_development",
+    "tags": [
+      "r"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/EWB/Template - Lesson Spelling and Grammar.qmd",
+    "type": "conversation",
+    "title": "Spelling and Grammar Check - {{Lesson Name}}",
+    "author": "brad_cannell",
+    "date": "{{YYYY-MM-DD}}",
+    "date-modified": "{{YYYY-MM-DD}}",
+    "category": "lesson_development",
+    "tags": [
+      "r"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/EWB/Template - README.qmd",
+    "type": "conversation",
+    "title": "Lesson - Update README",
+    "author": "brad_cannell",
+    "date": "yyyy-mm-dd",
+    "date-modified": "yyyy-mm-dd",
+    "category": "lesson_development",
+    "tags": [
+      "r"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/Make Prompts/Template Conversation - Make Prompt.qmd",
+    "type": "conversation",
+    "title": "Make Prompt - Description",
+    "author": "brad_cannell",
+    "date": "yyyy-mm-dd",
+    "date-modified": "yyyy-mm-dd",
+    "category": "make_prompt",
+    "tags": [
+      "ai",
+      "prompts"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/Manuscript Google Trends/JMIR Formative Research Reponse to Reviewers/JMIR Formative Research Reponse to Reviewers.qmd",
+    "type": "conversation",
+    "title": "JMIR Formative Research Reponse to Reviewers",
+    "author": "brad_cannell",
+    "date": "2026-01-30",
+    "date-modified": "2026-01-30",
+    "category": "academic",
+    "tags": [
+      "research",
+      "publishing",
+      "google_trends"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/Personal/Chore Draft/Chore Draft.qmd",
+    "type": "conversation",
+    "title": "Lesson - Lesson Name",
+    "author": "brad_cannell",
+    "date": "yyyy-mm-dd",
+    "date-modified": "yyyy-mm-dd",
+    "category": "lesson_development",
+    "tags": [
+      "r"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/Personal/Diet and Exercise/Plant-based Diet/Plant-based Diet.qmd",
+    "type": "conversation",
+    "title": "Lesson - Lesson Name",
+    "author": "brad_cannell",
+    "date": "yyyy-mm-dd",
+    "date-modified": "yyyy-mm-dd",
+    "category": "lesson_development",
+    "tags": [
+      "r"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/System Prompts.qmd",
+    "type": "conversation",
+    "title": "Help with Creating System Prompts for Other Conversations",
+    "author": "brad_cannell",
+    "date": "2025-12-30",
+    "date-modified": "2025-12-30",
+    "category": "ai_assistant",
+    "tags": [
+      "prompts",
+      "ai_assistant"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/Template - Conversation - Chatlas.qmd",
+    "type": "conversation",
+    "title": "<short, human-readable title>",
+    "author": "brad_cannell",
+    "date": "yyyy-mm-dd",
+    "date-modified": "yyyy-mm-dd",
+    "interface": "<api | browser | both>",
+    "source_prompt": "null  # id of the source prompt file, if applicable",
+    "tags": [
+      "tag"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/Template - Conversation - No Prompt.qmd",
+    "type": "conversation",
+    "title": "<short, human-readable title>",
+    "author": "brad_cannell",
+    "date": "yyyy-mm-dd",
+    "date-modified": "yyyy-mm-dd",
+    "interface": "api",
+    "source_prompt": "null  # id of the source prompt file, if applicable",
+    "tags": [
+      "tag"
+    ],
+    "format": [],
+    "execute": []
+  },
+  {
+    "file": "conversations/Template - Conversation - ellmer.qmd",
+    "type": "conversation",
+    "title": "Chat Template",
+    "author": "brad_cannell",
+    "date": "2025-12-23",
+    "date-modified": "2025-12-23",
+    "source_prompt": "null  # id of the source prompt file, if applicable",
+    "tags": [
+      "tag1",
+      "tag2"
+    ],
+    "format": [],
+    "execute": []
+  }
+]
