@@ -180,55 +180,15 @@ A section for optional follow-up questions and refinements.
 
 # Save Chat History
 
-Optional, but necessary to return to the conversation later.
+See [Saving and Resuming Chats](https://brad-cannell.github.io/my-ai-assistant/vignettes/save-and-resume-chats.html) for the full workflow. Save both formats: markdown for browsing, pickle for resuming.
 
 ```{python}
-# Export chat history as a markdown file
-# This version is easier to pass back to to the chat object in the future.
-# chat_history_path_md = (lesson_folder_path / "ai" / ("col_history_" + today + ".md"))
-# chat.export(chat_history_path_md, overwrite=True)
+# Markdown — for browsing and searching
+chat_history_path_md = (lesson_folder_path / "ai" / ("col_history_" + today + ".md"))
+chat.export(chat_history_path_md, overwrite=True)
 
-# Export chat history as an HTML file
-# chat_history_path_html = (lesson_folder_path / "ai" / ("col_history_" + today + ".html"))
-# chat.export(chat_history_path_html, overwrite=True)
-
-# Export chat history as a json file
-# Useful for saving/loading the history to/from a database or file.
-# chat_history_path_json = (lesson_folder_path / "ai" / ("lesson_spelling_grammar_" + today + ".json"))
-# with open(chat_history_path_json, "w", encoding="utf-8") as f:
-#     json.dump(
-#         [json.loads(x) for x in turns_json],
-#         f,
-#         indent=2,
-#         ensure_ascii=False
-#     )
+# Pickle — for resuming in a later session
+chat_history_path_pkl = (lesson_folder_path / "ai" / ("col_history_" + today + ".pkl"))
+with open(chat_history_path_pkl, "wb") as f:
+    pickle.dump(chat.get_turns(), f)
 ```
-
-## Condense
-
-You can also optionally condense the history by asking the LLM to summarize it. This is useful if you want to keep the context of the conversation, but don’t want to provide the entire history to the model on each new submission.
-
-```{python}
-# chat.chat("Can you summarize our conversation so far?")
-# chat.set_turns([chat.get_last_turn()])
-```
-
-## Load chat history
-
-To optionally load the chat history later.
-
-```{python}
-# Import chat history as a md file
-# chat_history_path_md = (lesson_folder_path / "ai" / ("col_history_" + "yyyy-mm-dd" + ".md"))
-# history_md = chat_history_path_md.read_text(encoding="utf-8")
-
-# Import chat history as a json file
-# chat_history_path_json = (lesson_folder_path / "ai" / ("col_history_" + "yyyy-mm-dd" + ".json"))
-# history_json = json.loads(chat_history_path_json.read_text(encoding="utf-8"))
-```
-
-# Render to HTML
-
-Render to HTML (Optional)
-- Click the Preview button.
-- Type `quarto render "path/Lesson Revisions.qmd"` in the terminal.
