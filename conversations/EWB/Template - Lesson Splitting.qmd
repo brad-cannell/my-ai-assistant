@@ -1,0 +1,157 @@
+---
+title: "Lesson Splitting - {{Lesson Name}}"
+id: lesson_splitting_{{lesson_name}}
+author: brad_cannell
+date: {{YYYY-MM-DD}}
+date-modified: {{YYYY-MM-DD}}
+audience: course_authors
+category: lesson_development
+tags:
+  - r
+format:
+  html:
+    toc: true
+    embed-resources: true
+execute:
+  eval: true # Switch to false to run interactively
+---
+
+# Overview
+
+- Conversation about splitting a lesson into multiple lessons.
+
+# Prerequisites
+
+See [Working with Python and Chatlas](https://brad-cannell.github.io/my-ai-assistant/vignettes/python-and-chatlas.html) for setup instructions (virtual environment, package installation, API key management).
+
+# Load Packages
+
+```{python}
+from chatlas import ChatAnthropic, ChatOpenAI
+from datetime import date
+from pathlib import Path
+import keyring
+import pickle
+import os
+```
+
+# File Paths and Environment Variables
+
+```{python}
+# OpenAI Models: https://platform.openai.com/docs/models
+# Anthropic Models: https://platform.claude.com/docs/en/about-claude/models/overview
+# 2026-02-27: We prefer claude for lesson revisions.
+model = "claude-opus-4-6"
+
+# Today's date
+today = date.today().isoformat()
+
+# Course and lesson name
+# By default, these are injected from Convert Chapters.qmd
+# They can also be altered manually.
+course_name = "{{Course Name}}"
+chapter_name = "" # Fill manually
+lesson_name = "{{Lesson Name}}"
+
+# Lesson file and folder paths
+# By default, these are injected from Convert Chapters.qmd
+# They can also be altered manually.
+lesson_file_path = Path("{{lesson_file_path}}")
+lesson_folder_path = lesson_file_path.parent
+
+# Lesson content
+lesson_content = (lesson_file_path).read_text(encoding="utf-8")
+```
+
+```{python}
+# Check that all paths exist
+paths_to_check = {
+    "lesson_file_path": lesson_file_path,
+    "lesson_folder_path": lesson_folder_path
+}
+
+for name, path in paths_to_check.items():
+    if not path.exists():
+        raise FileNotFoundError(f"Path not found — {name}: {path}")
+    print(f"✓  {name}: {path}")
+```
+
+# Load helper functions
+
+See [Python Helper Functions](https://brad-cannell.github.io/my-ai-assistant/vignettes/python-helper-functions.html) for installation instructions and a full function reference.
+
+```{python}
+from py_scripts import (
+    prompt_extract_system_prompt,
+    prompt_extract_user_message,
+    prompt_fill_placeholders,
+)
+```
+
+# Expose API
+
+See [Storing API Keys with Keyring](https://brad-cannell.github.io/my-ai-assistant/vignettes/keyring.html) for first-time setup instructions.
+
+```{python}
+# Retrieve the password from the system keyring - Claude
+claude_api = keyring.get_password("ewb-course-development-claude", "brad")
+
+if claude_api is not None:
+    # Set the retrieved value as a temporary environment variable
+    os.environ['ANTHROPIC_API_KEY'] = claude_api
+    print("Environment variable 'ANTHROPIC_API_KEY' set successfully within the script.")
+else:
+    print("Could not retrieve password from keyring.")
+```
+
+# Create Chat Object
+
+The `system_prompt` argument is optional. Omit it for a one-off conversation, or pass a string to set a persistent role or constraints. See [System Prompts](https://brad-cannell.github.io/my-ai-assistant/vignettes/system-prompts.html) for details.
+
+```{python}
+chat = ChatAnthropic(
+    model = model,
+    system_prompt = "You are an expert instructional editor specializing in online and asynchronous learning. Your role is to revise course language to improve clarity, precision, tone, and readability while preserving the original instructional intent, learning objectives, and technical accuracy."
+)
+```
+
+# Pass a Prompt to the AI Assistant
+
+```{python}
+user_message = f"""
+I'm working on a new Epi-Workbench course called {course_name}. The course has a chapter named {chapter_name}. Currently, there is just one lesson file for this chapter. However, I want to divide it into two or more lessons. Please suggest how I should break up the content and what I should name the lessons.
+
+Here is the lesson content:
+
+{lesson_content}
+"""
+chat.chat(user_message, echo='none')
+```
+
+## Response
+
+```{python}
+#| echo: false
+print(chat.get_last_turn())
+```
+
+# Follow-up and Refinement
+
+A section for optional follow-up questions and refinements. 
+- Optionally, create a fork of the chat. `import copy; chat_fork = copy.deepcopy(chat)`
+- Asks follow-up questions in interactive mode - `chat.app()`.
+
+# Save Chat History
+
+See [Saving and Resuming Chats](https://brad-cannell.github.io/my-ai-assistant/vignettes/save-and-resume-chats.html) for the full workflow. Save both formats: markdown for browsing, pickle for resuming.
+
+```{python}
+# Markdown — for browsing and searching
+chat_history_path_md = conversation_folder_path / ("chat_history_" + today + ".md")
+chat.export(chat_history_path_md, overwrite=True)
+
+# Pickle — for resuming in a later session
+chat_history_path_pkl = conversation_folder_path / ("chat_history_" + today + ".pkl")
+with open(chat_history_path_pkl, "wb") as f:
+    pickle.dump(chat.get_turns(), f)
+```
