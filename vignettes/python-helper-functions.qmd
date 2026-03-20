@@ -1,0 +1,144 @@
+---
+title: "Python Helper Functions"
+date: "2026-03-17"
+date-modified: "2026-03-17"
+version: "1.0"
+description: "How to install, use, and maintain the py_scripts local package of reusable Python helper functions for AI workflows."
+categories: [python, workflow]
+format:
+  html:
+    toc: true
+    code-fold: false
+execute:
+  eval: false
+  echo: true
+---
+
+# Overview
+
+Reusable Python helper functions for this project live in `py_scripts/` — a local package installed in editable mode. Keeping helpers here rather than copying code into every conversation file means fixes and improvements propagate automatically across all conversations.
+
+```
+py_scripts/
+  py_scripts/
+    __init__.py                       # exports all public functions
+    prompt_extract_system_prompt.py
+    prompt_extract_user_message.py
+    prompt_fill_placeholders.py
+  pyproject.toml
+```
+
+---
+
+# Installation
+
+Install the package once per machine in editable mode. Editable mode means changes to files in `py_scripts/` take effect immediately without reinstalling.
+
+Run in the terminal:
+
+```bash
+pip install --editable "/Users/bradcannell/Desktop/Git/AI/my-ai-assistant/py_scripts"
+```
+
+After installing, restart the Python interpreter (or Quarto kernel) so the import resolves correctly.
+
+You do not need to reinstall when you add or modify functions — editable mode handles that. Reinstall only if you move the `py_scripts/` directory or set up on a new machine.
+
+---
+
+# Loading Functions in a Conversation
+
+Import functions by name from the `py_scripts` package:
+
+```python
+from py_scripts import (
+    prompt_extract_system_prompt,
+    prompt_extract_user_message,
+    prompt_fill_placeholders,
+)
+```
+
+---
+
+# Available Functions
+
+## `prompt_extract_system_prompt(file_path)`
+
+Reads a prompt Markdown file and extracts the text under the `# SYSTEM PROMPT` heading, stopping at the next top-level heading.
+
+```python
+system_prompt = prompt_extract_system_prompt(Path("prompts/your-prompt.md"))
+```
+
+Returns a string. Raises `ValueError` if no `# SYSTEM PROMPT` section is found.
+
+---
+
+## `prompt_extract_user_message(file_path)`
+
+Reads a prompt Markdown file and extracts the text under the `# USER MESSAGE` heading, stopping at the next top-level heading.
+
+```python
+user_message_raw = prompt_extract_user_message(Path("prompts/your-prompt.md"))
+```
+
+Returns a string. Raises `ValueError` if no `# USER MESSAGE` section is found.
+
+---
+
+## `prompt_fill_placeholders(text, replacements)`
+
+Replaces `{{placeholder}}` style variables in a prompt template string with their values.
+
+```python
+user_message = prompt_fill_placeholders(
+    text=user_message_raw,
+    replacements={
+        "lesson_name": lesson_name,
+        "course_name": course_name,
+    },
+)
+```
+
+`replacements` is a dict whose keys match placeholder names without braces. Raises `ValueError` if no placeholders are found in `text` or if any key or value is invalid.
+
+---
+
+# Adding a New Function
+
+1. Create a new file in `py_scripts/py_scripts/`, e.g. `my_new_function.py`:
+
+```python
+def my_new_function(arg):
+    """Docstring describing what it does."""
+    # implementation
+    return result
+```
+
+2. Export it from `py_scripts/py_scripts/__init__.py`:
+
+```python
+from .my_new_function import my_new_function
+
+__all__ = [
+    "prompt_extract_system_prompt",
+    "prompt_extract_user_message",
+    "prompt_fill_placeholders",
+    "my_new_function",       # add here
+]
+```
+
+3. Because the package is installed in editable mode, the new function is available immediately — no reinstall needed. Restart the interpreter if it was already running.
+
+---
+
+# Troubleshooting
+
+**`ModuleNotFoundError: No module named 'py_scripts'`**
+The package has not been installed in this environment. Run the `pip install --editable` command above and restart the interpreter.
+
+**Changes to a function are not taking effect**
+Restart the interpreter. Editable mode reloads from source on import, but a running interpreter may have cached the old version.
+
+**The install command fails**
+Confirm the path to `py_scripts/` is correct on your machine. The path in the install command is absolute — update it if the repo has moved.

@@ -1,7 +1,7 @@
 ---
 author: "Brad Cannell"
 date: "2025-12-22"
-updated: "2026-03-17"
+updated: "2026-03-20"
 ---
 
 # My AI Assistant
@@ -39,6 +39,7 @@ API keys are stored in the system keyring — never in git. See the [Keyring vig
 All workflow documentation lives in the published vignettes:
 
 - [Python and Chatlas](https://brad-cannell.github.io/my-ai-assistant/vignettes/python-and-chatlas.html) — getting started with API calls
+- [Python Helper Functions](https://brad-cannell.github.io/my-ai-assistant/vignettes/python-helper-functions.html) — installing, using, and adding to the py_scripts package
 - [Keyring](https://brad-cannell.github.io/my-ai-assistant/vignettes/keyring.html) — storing and retrieving API keys
 - [API vs Browser-Based AI Workflows](https://brad-cannell.github.io/my-ai-assistant/vignettes/api-vs-browser.html) — when to use the browser vs the API
 - [Claude Code vs. Chatlas](https://brad-cannell.github.io/my-ai-assistant/vignettes/claude-code-vs-chatlas.html) — which API tool to use once you've chosen the API

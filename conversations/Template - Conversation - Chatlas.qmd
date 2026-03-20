@@ -22,71 +22,40 @@ execute:
 - Conversation about...
 
 # Prerequisites
-- **Git Pull** to make sure you have the most current version of the prompts.
-- Install in the system kernel. The virtual environments cause too many problems with Box.
-- `import sys`
-- `print(sys.executable)` Path the Python interpreter that is actually running the code. 
-- Terminal: `which pip` Pip that will be used to install Python packages
-- Terminal: `/usr/local/bin/python3 -m pip install keyring openai anthropic jupyter -U chatlas shiny`
+
+See [Working with Python and Chatlas](https://brad-cannell.github.io/my-ai-assistant/vignettes/python-and-chatlas.html) for setup instructions (virtual environment, package installation, API key management).
 
 # Load Packages
 
 ```{python}
-from chatlas import ChatAnthropic
-from openai import OpenAI
-from httpcore import stream
+from chatlas import ChatAnthropic, ChatOpenAI
 from datetime import date
 from pathlib import Path
-import chatlas as ctl
-import anthropic
 import keyring
-import json
+import pickle
 import os
 ```
 
 # File Paths and Environment Variables
 
-They are passed to the AI assistant below.
-
 ```{python}
-# OpenAI Models: https://platform.openai.com/docs/models
-# Anthropic Models: https://platform.claude.com/docs/en/about-claude/models/overview
-model = "gpt-5-nano-2025-08-07"
+# OpenAI Models:    https://platform.openai.com/docs/models
+# Anthropic Models: https://docs.anthropic.com/en/docs/about-claude/models/overview
+# model = "gpt-5.4-mini-2026-03-17"
+# model = "claude-sonnet-4-6"
 
 # Today's date
 today = date.today().isoformat()
 
-# Course and lesson name
-course_name = "Course Name"
-lesson_name = "Lesson Name"
-
-# Lesson folder path
-lesson_folder_path = Path(
-    "Path/"
-    "Path/"
-)
-
-# Lesson content
-lesson_content = (lesson_folder_path / (lesson_name + ".qmd")).read_text(encoding="utf-8")
-
-# Get the current working directory
-cwd = Path.cwd()
-
-# Conversation
-conversation_folder_path = cwd / Path("01 Introduction to Descriptive Analysis/ai/")
-
 # Prompt paths
-path_template_prompt_lesson_revisions = '/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/AI Assistant/Prompts/Courses/Template Prompt - Lesson Revisions.md'
+prompt_path = '/Users/bradcannell/Desktop/Git/AI/my-ai-assistant/prompts/Test Prompt.md'
 ```
 
 # Load helper functions
 
-Run in terminal:
-- `/usr/local/bin/python3 -m pip install --editable "/Users/bradcannell/Desktop/Git/AI/my-ai-assistant/py_scripts"`
-- Restart interpreter.
+See [Python Helper Functions](https://brad-cannell.github.io/my-ai-assistant/vignettes/python-helper-functions.html) for installation instructions and a full function reference.
 
 ```{python}
-# Load functions from py_scripts/py_scripts
 from py_scripts import (
     prompt_extract_system_prompt,
     prompt_extract_user_message,
@@ -96,7 +65,7 @@ from py_scripts import (
 
 # Expose API
 
-This assumes you've already created an API key on [openai's website](https://platform.openai.com/api-keys), and that you saved the API key in keyring using `keyring.set_password("API Name", "User", "API Key")`.
+See [Storing API Keys with Keyring](https://brad-cannell.github.io/my-ai-assistant/vignettes/keyring.html) for first-time setup instructions.
 
 ```{python}
 # Retrieve the password from the system keyring
@@ -130,6 +99,8 @@ user_message = prompt_fill_placeholders(
 ```
 
 # Create Chat Object
+
+The `system_prompt` argument is optional. Omit it for a one-off conversation, or pass a string to set a persistent role or constraints. See [System Prompts](https://brad-cannell.github.io/my-ai-assistant/vignettes/system-prompts.html) for details.
 
 ```{python}
 chat = ctl.ChatOpenAI(
@@ -193,55 +164,15 @@ print(chat)
 
 # Save Chat History
 
-Optional, but necessary to return to the conversation later.
+See [Saving and Resuming Chats](https://brad-cannell.github.io/my-ai-assistant/vignettes/save-and-resume-chats.html) for the full workflow. Save both formats: markdown for browsing, pickle for resuming.
 
 ```{python}
-# Export chat history as a markdown file
-# This version is easier to pass back to to the chat object in the future.
-chat_history_path_md = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + today + ".md"))
+# Markdown — for browsing and searching
+chat_history_path_md = conversation_folder_path / ("chat_history_" + today + ".md")
 chat.export(chat_history_path_md, overwrite=True)
 
-# Export chat history as an HTML file
-chat_history_path_html = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + today + ".html"))
-chat.export(chat_history_path_html, overwrite=True)
-
-# Export chat history as a json file
-# Useful for saving/loading the history to/from a database or file.
-# chat_history_path_json = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + today + ".json"))
-# with open(chat_history_path_json, "w", encoding="utf-8") as f:
-#     json.dump(
-#         [json.loads(x) for x in turns_json],
-#         f,
-#         indent=2,
-#         ensure_ascii=False
-#     )
+# Pickle — for resuming in a later session
+chat_history_path_pkl = conversation_folder_path / ("chat_history_" + today + ".pkl")
+with open(chat_history_path_pkl, "wb") as f:
+    pickle.dump(chat.get_turns(), f)
 ```
-
-## Condense
-
-You can also optionally condense the history by asking the LLM to summarize it. This is useful if you want to keep the context of the conversation, but don’t want to provide the entire history to the model on each new submission.
-
-```{python}
-# chat.chat("Can you summarize our conversation so far?")
-# chat.set_turns([chat.get_last_turn()])
-```
-
-## Load chat history
-
-To optionally load the chat history later.
-
-```{python}
-# Import chat history as a md file
-# chat_history_path_md = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + "yyyy-mm-dd" + ".md"))
-# history_md = chat_history_path_md.read_text(encoding="utf-8")
-
-# Import chat history as a json file
-# chat_history_path_json = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + "yyyy-mm-dd" + ".json"))
-# history_json = json.loads(chat_history_path_json.read_text(encoding="utf-8"))
-```
-
-# Render to HTML
-
-Render to HTML (Optional)
-- Click the Preview button.
-- Type `quarto render "path/Lesson Revisions.qmd"` in the terminal.
