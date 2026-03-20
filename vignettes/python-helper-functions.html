@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2026-03-17">
-<meta name="description" content="How to securely store and retrieve API keys using the Python keyring package.">
+<meta name="description" content="How to install, use, and maintain the py_scripts local package of reusable Python helper functions for AI workflows.">
 
-<title>Storing API Keys with Keyring – My AI Assistant</title>
+<title>Python Helper Functions – My AI Assistant</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -157,11 +157,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#install-keyring" id="toc-install-keyring" class="nav-link" data-scroll-target="#install-keyring">Install Keyring</a></li>
-  <li><a href="#store-a-key-one-time-setup" id="toc-store-a-key-one-time-setup" class="nav-link" data-scroll-target="#store-a-key-one-time-setup">Store a Key (One-Time Setup)</a></li>
-  <li><a href="#retrieve-a-key-at-runtime" id="toc-retrieve-a-key-at-runtime" class="nav-link" data-scroll-target="#retrieve-a-key-at-runtime">Retrieve a Key at Runtime</a></li>
-  <li><a href="#update-or-delete-a-key" id="toc-update-or-delete-a-key" class="nav-link" data-scroll-target="#update-or-delete-a-key">Update or Delete a Key</a></li>
-  <li><a href="#quick-reference" id="toc-quick-reference" class="nav-link" data-scroll-target="#quick-reference">Quick Reference</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#loading-functions-in-a-conversation" id="toc-loading-functions-in-a-conversation" class="nav-link" data-scroll-target="#loading-functions-in-a-conversation">Loading Functions in a Conversation</a></li>
+  <li><a href="#available-functions" id="toc-available-functions" class="nav-link" data-scroll-target="#available-functions">Available Functions</a>
+  <ul class="collapse">
+  <li><a href="#prompt_extract_system_promptfile_path" id="toc-prompt_extract_system_promptfile_path" class="nav-link" data-scroll-target="#prompt_extract_system_promptfile_path"><code>prompt_extract_system_prompt(file_path)</code></a></li>
+  <li><a href="#prompt_extract_user_messagefile_path" id="toc-prompt_extract_user_messagefile_path" class="nav-link" data-scroll-target="#prompt_extract_user_messagefile_path"><code>prompt_extract_user_message(file_path)</code></a></li>
+  <li><a href="#prompt_fill_placeholderstext-replacements" id="toc-prompt_fill_placeholderstext-replacements" class="nav-link" data-scroll-target="#prompt_fill_placeholderstext-replacements"><code>prompt_fill_placeholders(text, replacements)</code></a></li>
+  </ul></li>
+  <li><a href="#adding-a-new-function" id="toc-adding-a-new-function" class="nav-link" data-scroll-target="#adding-a-new-function">Adding a New Function</a></li>
+  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a></li>
   </ul>
 </nav>
     </div>
@@ -170,18 +175,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Storing API Keys with Keyring</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Python Helper Functions</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
   <div class="quarto-categories">
     <div class="quarto-category">python</div>
-    <div class="quarto-category">api</div>
-    <div class="quarto-category">security</div>
     <div class="quarto-category">workflow</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    How to securely store and retrieve API keys using the Python keyring package.
+    How to install, use, and maintain the py_scripts local package of reusable Python helper functions for AI workflows.
   </div>
 </div>
 
@@ -212,150 +215,95 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="overview" class="level1">
 <h1>Overview</h1>
-<p>API keys must never be hardcoded in scripts or committed to Git. This vignette covers how to store API keys in the system keyring — a secure, OS-managed credential store — and retrieve them at runtime for use with the OpenAI and Anthropic APIs.</p>
-<p>For how to use a retrieved key in a conversation workflow, see <code>vignettes/python-and-chatlas.qmd</code>.</p>
+<p>Reusable Python helper functions for this project live in <code>py_scripts/</code> — a local package installed in editable mode. Keeping helpers here rather than copying code into every conversation file means fixes and improvements propagate automatically across all conversations.</p>
+<pre><code>py_scripts/
+  py_scripts/
+    __init__.py                       # exports all public functions
+    prompt_extract_system_prompt.py
+    prompt_extract_user_message.py
+    prompt_fill_placeholders.py
+  pyproject.toml</code></pre>
 <hr>
 </section>
-<section id="install-keyring" class="level1">
-<h1>Install Keyring</h1>
-<p>If keyring is not already installed in your environment:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> add keyring</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Or, if using a standard venv:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install keyring</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="installation" class="level1">
+<h1>Installation</h1>
+<p>Install the package once per machine in editable mode. Editable mode means changes to files in <code>py_scripts/</code> take effect immediately without reinstalling.</p>
+<p>Run in the terminal:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">--editable</span> <span class="st">"/Users/bradcannell/Desktop/Git/AI/my-ai-assistant/py_scripts"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>After installing, restart the Python interpreter (or Quarto kernel) so the import resolves correctly.</p>
+<p>You do not need to reinstall when you add or modify functions — editable mode handles that. Reinstall only if you move the <code>py_scripts/</code> directory or set up on a new machine.</p>
 <hr>
 </section>
-<section id="store-a-key-one-time-setup" class="level1">
-<h1>Store a Key (One-Time Setup)</h1>
-<p>Run this once per machine per API key. It stores the key in the OS credential store (Keychain on macOS, Credential Manager on Windows, libsecret on Linux). You do not need to re-run this unless the key changes.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> keyring</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>keyring.set_password(<span class="st">"service-name"</span>, <span class="st">"username"</span>, <span class="st">"your-api-key-here"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Service names used in this repo:</strong></p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Provider</th>
-<th>Service name</th>
-<th>Username</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>OpenAI</td>
-<td><code>bradGPT</code></td>
-<td><code>brad</code></td>
-</tr>
-<tr class="even">
-<td>Anthropic</td>
-<td><code>claude-my-ai-assistant</code></td>
-<td><code>brad</code></td>
-</tr>
-</tbody>
-</table>
-<p>For example, to store your OpenAI key:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> keyring</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>keyring.set_password(<span class="st">"bradGPT"</span>, <span class="st">"brad"</span>, <span class="st">"sk-..."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>And to store your Anthropic key:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> keyring</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>keyring.set_password(<span class="st">"claude-my-ai-assistant"</span>, <span class="st">"brad"</span>, <span class="st">"sk-ant-..."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Run these in a scratch script or an interactive Python session — never in a file that gets committed to Git, since the key value will be visible in the source.</p>
-</div>
-</div>
+<section id="loading-functions-in-a-conversation" class="level1">
+<h1>Loading Functions in a Conversation</h1>
+<p>Import functions by name from the <code>py_scripts</code> package:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> py_scripts <span class="im">import</span> (</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    prompt_extract_system_prompt,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    prompt_extract_user_message,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    prompt_fill_placeholders,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="retrieve-a-key-at-runtime" class="level1">
-<h1>Retrieve a Key at Runtime</h1>
-<p>The standard pattern in this repo retrieves the key from keyring and sets it as a temporary environment variable for the duration of the session:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> keyring</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># OpenAI</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>openai_api <span class="op">=</span> keyring.get_password(<span class="st">"bradGPT"</span>, <span class="st">"brad"</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> openai_api <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    os.environ[<span class="st">'OPENAI_API_KEY'</span>] <span class="op">=</span> openai_api</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"OPENAI_API_KEY set."</span>)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Could not retrieve OpenAI key from keyring."</span>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Anthropic</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>claude_api <span class="op">=</span> keyring.get_password(<span class="st">"claude-my-ai-assistant"</span>, <span class="st">"brad"</span>)</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> claude_api <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    os.environ[<span class="st">'ANTHROPIC_API_KEY'</span>] <span class="op">=</span> claude_api</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"ANTHROPIC_API_KEY set."</span>)</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Could not retrieve Anthropic key from keyring."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The API client libraries (<code>openai</code>, <code>anthropic</code>, <code>chatlas</code>) automatically read from these environment variables, so no further configuration is needed.</p>
+<section id="available-functions" class="level1">
+<h1>Available Functions</h1>
+<section id="prompt_extract_system_promptfile_path" class="level2">
+<h2 class="anchored" data-anchor-id="prompt_extract_system_promptfile_path"><code>prompt_extract_system_prompt(file_path)</code></h2>
+<p>Reads a prompt Markdown file and extracts the text under the <code># SYSTEM PROMPT</code> heading, stopping at the next top-level heading.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> prompt_extract_system_prompt(Path(<span class="st">"prompts/your-prompt.md"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Returns a string. Raises <code>ValueError</code> if no <code># SYSTEM PROMPT</code> section is found.</p>
 <hr>
 </section>
-<section id="update-or-delete-a-key" class="level1">
-<h1>Update or Delete a Key</h1>
-<p>To update a key, call <code>set_password</code> again with the new value — it overwrites the existing entry:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>keyring.set_password(<span class="st">"bradGPT"</span>, <span class="st">"brad"</span>, <span class="st">"sk-new-key-here"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>To delete a key entirely:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>keyring.delete_password(<span class="st">"bradGPT"</span>, <span class="st">"brad"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="prompt_extract_user_messagefile_path" class="level2">
+<h2 class="anchored" data-anchor-id="prompt_extract_user_messagefile_path"><code>prompt_extract_user_message(file_path)</code></h2>
+<p>Reads a prompt Markdown file and extracts the text under the <code># USER MESSAGE</code> heading, stopping at the next top-level heading.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>user_message_raw <span class="op">=</span> prompt_extract_user_message(Path(<span class="st">"prompts/your-prompt.md"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Returns a string. Raises <code>ValueError</code> if no <code># USER MESSAGE</code> section is found.</p>
 <hr>
 </section>
-<section id="quick-reference" class="level1">
-<h1>Quick Reference</h1>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 19%">
-<col style="width: 80%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Action</th>
-<th>Command</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Store a key</td>
-<td><code>keyring.set_password("service", "username", "key")</code></td>
-</tr>
-<tr class="even">
-<td>Retrieve a key</td>
-<td><code>keyring.get_password("service", "username")</code></td>
-</tr>
-<tr class="odd">
-<td>Delete a key</td>
-<td><code>keyring.delete_password("service", "username")</code></td>
-</tr>
-</tbody>
-</table>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Provider</th>
-<th>Service name</th>
-<th>Username</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>OpenAI</td>
-<td><code>bradGPT</code></td>
-<td><code>brad</code></td>
-</tr>
-<tr class="even">
-<td>Anthropic</td>
-<td><code>claude-my-ai-assistant</code></td>
-<td><code>brad</code></td>
-</tr>
-</tbody>
-</table>
+<section id="prompt_fill_placeholderstext-replacements" class="level2">
+<h2 class="anchored" data-anchor-id="prompt_fill_placeholderstext-replacements"><code>prompt_fill_placeholders(text, replacements)</code></h2>
+<p>Replaces <code>{placeholder}</code> style variables in a prompt template string with their values.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>user_message <span class="op">=</span> prompt_fill_placeholders(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    text<span class="op">=</span>user_message_raw,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    replacements<span class="op">=</span>{</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"lesson_name"</span>: lesson_name,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"course_name"</span>: course_name,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>replacements</code> is a dict whose keys match placeholder names without braces. Raises <code>ValueError</code> if no placeholders are found in <code>text</code> or if any key or value is invalid.</p>
+<hr>
+</section>
+</section>
+<section id="adding-a-new-function" class="level1">
+<h1>Adding a New Function</h1>
+<ol type="1">
+<li>Create a new file in <code>py_scripts/py_scripts/</code>, e.g.&nbsp;<code>my_new_function.py</code>:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> my_new_function(arg):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Docstring describing what it does."""</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># implementation</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="2" type="1">
+<li>Export it from <code>py_scripts/py_scripts/__init__.py</code>:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .my_new_function <span class="im">import</span> my_new_function</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="va">__all__</span> <span class="op">=</span> [</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"prompt_extract_system_prompt"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"prompt_extract_user_message"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"prompt_fill_placeholders"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"my_new_function"</span>,       <span class="co"># add here</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="3" type="1">
+<li>Because the package is installed in editable mode, the new function is available immediately — no reinstall needed. Restart the interpreter if it was already running.</li>
+</ol>
+<hr>
+</section>
+<section id="troubleshooting" class="level1">
+<h1>Troubleshooting</h1>
+<p><strong><code>ModuleNotFoundError: No module named 'py_scripts'</code></strong> The package has not been installed in this environment. Run the <code>pip install --editable</code> command above and restart the interpreter.</p>
+<p><strong>Changes to a function are not taking effect</strong> Restart the interpreter. Editable mode reloads from source on import, but a running interpreter may have cached the old version.</p>
+<p><strong>The install command fails</strong> Confirm the path to <code>py_scripts/</code> is correct on your machine. The path in the install command is absolute — update it if the repo has moved.</p>
 
 
 <!-- -->
@@ -815,12 +763,12 @@ Important
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Storing API Keys with Keyring"</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Python Helper Functions"</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2026-03-17"</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="an">date-modified:</span><span class="co"> "2026-03-17"</span></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="an">version:</span><span class="co"> "1.0"</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "How to securely store and retrieve API keys using the Python keyring package."</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [python, api, security, workflow]</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "How to install, use, and maintain the py_scripts local package of reusable Python helper functions for AI workflows."</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [python, workflow]</span></span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
@@ -832,124 +780,132 @@ Important
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu"># Overview</span></span>
 <span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>API keys must never be hardcoded in scripts or committed to Git. This vignette covers how to store API keys in the system keyring — a secure, OS-managed credential store — and retrieve them at runtime for use with the OpenAI and Anthropic APIs.</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>Reusable Python helper functions for this project live in <span class="in">`py_scripts/`</span> — a local package installed in editable mode. Keeping helpers here rather than copying code into every conversation file means fixes and improvements propagate automatically across all conversations.</span>
 <span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>For how to use a retrieved key in a conversation workflow, see <span class="in">`vignettes/python-and-chatlas.qmd`</span>.</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="fu"># Install Keyring</span></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>If keyring is not already installed in your environment:</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> add keyring</span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="in">py_scripts/</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="in">  py_scripts/</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="in">    __init__.py                       # exports all public functions</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="in">    prompt_extract_system_prompt.py</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="in">    prompt_extract_user_message.py</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="in">    prompt_fill_placeholders.py</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="in">  pyproject.toml</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>Or, if using a standard venv:</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="fu"># Installation</span></span>
 <span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install keyring</span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>Install the package once per machine in editable mode. Editable mode means changes to files in <span class="in">`py_scripts/`</span> take effect immediately without reinstalling.</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>Run in the terminal:</span>
 <span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="fu"># Store a Key (One-Time Setup)</span></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">--editable</span> <span class="st">"/Users/bradcannell/Desktop/Git/AI/my-ai-assistant/py_scripts"</span></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>Run this once per machine per API key. It stores the key in the OS credential store (Keychain on macOS, Credential Manager on Windows, libsecret on Linux). You do not need to re-run this unless the key changes.</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>After installing, restart the Python interpreter (or Quarto kernel) so the import resolves correctly.</span>
 <span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> keyring</span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>keyring.set_password(<span class="st">"service-name"</span>, <span class="st">"username"</span>, <span class="st">"your-api-key-here"</span>)</span>
-<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>You do not need to reinstall when you add or modify functions — editable mode handles that. Reinstall only if you move the <span class="in">`py_scripts/`</span> directory or set up on a new machine.</span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a><span class="fu"># Loading Functions in a Conversation</span></span>
 <span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>**Service names used in this repo:**</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>Import functions by name from the <span class="in">`py_scripts`</span> package:</span>
 <span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Provider  <span class="pp">|</span> Service name                  <span class="pp">|</span> Username <span class="pp">|</span></span>
-<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----------|-------------------------------|----------|</span></span>
-<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> OpenAI    <span class="pp">|</span> <span class="in">`bradGPT`</span>                     <span class="pp">|</span> <span class="in">`brad`</span>   <span class="pp">|</span></span>
-<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Anthropic <span class="pp">|</span> <span class="in">`claude-my-ai-assistant`</span>      <span class="pp">|</span> <span class="in">`brad`</span>   <span class="pp">|</span></span>
-<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>For example, to store your OpenAI key:</span>
-<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> keyring</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> py_scripts <span class="im">import</span> (</span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>    prompt_extract_system_prompt,</span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>    prompt_extract_user_message,</span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>    prompt_fill_placeholders,</span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>keyring.set_password(<span class="st">"bradGPT"</span>, <span class="st">"brad"</span>, <span class="st">"sk-..."</span>)</span>
-<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>And to store your Anthropic key:</span>
-<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> keyring</span>
-<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>keyring.set_password(<span class="st">"claude-my-ai-assistant"</span>, <span class="st">"brad"</span>, <span class="st">"sk-ant-..."</span>)</span>
-<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a>::: callout-important</span>
-<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>Run these in a scratch script or an interactive Python session — never in a file that gets committed to Git, since the key value will be visible in the source.</span>
-<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a><span class="fu"># Retrieve a Key at Runtime</span></span>
-<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a>The standard pattern in this repo retrieves the key from keyring and sets it as a temporary environment variable for the duration of the session:</span>
-<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> keyring</span>
-<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a><span class="co"># OpenAI</span></span>
-<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a>openai_api <span class="op">=</span> keyring.get_password(<span class="st">"bradGPT"</span>, <span class="st">"brad"</span>)</span>
-<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> openai_api <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a>    os.environ[<span class="st">'OPENAI_API_KEY'</span>] <span class="op">=</span> openai_api</span>
-<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"OPENAI_API_KEY set."</span>)</span>
-<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Could not retrieve OpenAI key from keyring."</span>)</span>
-<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a><span class="co"># Anthropic</span></span>
-<span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a>claude_api <span class="op">=</span> keyring.get_password(<span class="st">"claude-my-ai-assistant"</span>, <span class="st">"brad"</span>)</span>
-<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> claude_api <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a>    os.environ[<span class="st">'ANTHROPIC_API_KEY'</span>] <span class="op">=</span> claude_api</span>
-<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"ANTHROPIC_API_KEY set."</span>)</span>
-<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Could not retrieve Anthropic key from keyring."</span>)</span>
-<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a><span class="fu"># Available Functions</span></span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## `prompt_extract_system_prompt(file_path)`</span></span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>Reads a prompt Markdown file and extracts the text under the <span class="in">`# SYSTEM PROMPT`</span> heading, stopping at the next top-level heading.</span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> prompt_extract_system_prompt(Path(<span class="st">"prompts/your-prompt.md"</span>))</span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>Returns a string. Raises <span class="in">`ValueError`</span> if no <span class="in">`# SYSTEM PROMPT`</span> section is found.</span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a><span class="fu">## `prompt_extract_user_message(file_path)`</span></span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a>Reads a prompt Markdown file and extracts the text under the <span class="in">`# USER MESSAGE`</span> heading, stopping at the next top-level heading.</span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a>user_message_raw <span class="op">=</span> prompt_extract_user_message(Path(<span class="st">"prompts/your-prompt.md"</span>))</span>
+<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a>Returns a string. Raises <span class="in">`ValueError`</span> if no <span class="in">`# USER MESSAGE`</span> section is found.</span>
+<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a><span class="fu">## `prompt_fill_placeholders(text, replacements)`</span></span>
+<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a>Replaces <span class="in">`{placeholder}`</span> style variables in a prompt template string with their values.</span>
+<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a>user_message <span class="op">=</span> prompt_fill_placeholders(</span>
+<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a>    text<span class="op">=</span>user_message_raw,</span>
+<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a>    replacements<span class="op">=</span>{</span>
+<span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a>        <span class="st">"lesson_name"</span>: lesson_name,</span>
+<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a>        <span class="st">"course_name"</span>: course_name,</span>
+<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a><span class="in">`replacements`</span> is a dict whose keys match placeholder names without braces. Raises <span class="in">`ValueError`</span> if no placeholders are found in <span class="in">`text`</span> or if any key or value is invalid.</span>
 <span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a>The API client libraries (<span class="in">`openai`</span>, <span class="in">`anthropic`</span>, <span class="in">`chatlas`</span>) automatically read from these environment variables, so no further configuration is needed.</span>
+<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a><span class="fu"># Adding a New Function</span></span>
 <span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a><span class="fu"># Update or Delete a Key</span></span>
+<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Create a new file in <span class="in">`py_scripts/py_scripts/`</span>, e.g. <span class="in">`my_new_function.py`</span>:</span>
 <span id="cb9-110"><a href="#cb9-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a>To update a key, call <span class="in">`set_password`</span> again with the new value — it overwrites the existing entry:</span>
-<span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb9-114"><a href="#cb9-114" aria-hidden="true" tabindex="-1"></a>keyring.set_password(<span class="st">"bradGPT"</span>, <span class="st">"brad"</span>, <span class="st">"sk-new-key-here"</span>)</span>
-<span id="cb9-115"><a href="#cb9-115" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-116"><a href="#cb9-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a>To delete a key entirely:</span>
-<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb9-120"><a href="#cb9-120" aria-hidden="true" tabindex="-1"></a>keyring.delete_password(<span class="st">"bradGPT"</span>, <span class="st">"brad"</span>)</span>
-<span id="cb9-121"><a href="#cb9-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> my_new_function(arg):</span>
+<span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Docstring describing what it does."""</span></span>
+<span id="cb9-114"><a href="#cb9-114" aria-hidden="true" tabindex="-1"></a>    <span class="co"># implementation</span></span>
+<span id="cb9-115"><a href="#cb9-115" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb9-116"><a href="#cb9-116" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Export it from <span class="in">`py_scripts/py_scripts/__init__.py`</span>:</span>
+<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-120"><a href="#cb9-120" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb9-121"><a href="#cb9-121" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .my_new_function <span class="im">import</span> my_new_function</span>
 <span id="cb9-122"><a href="#cb9-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-123"><a href="#cb9-123" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb9-124"><a href="#cb9-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-125"><a href="#cb9-125" aria-hidden="true" tabindex="-1"></a><span class="fu"># Quick Reference</span></span>
-<span id="cb9-126"><a href="#cb9-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-127"><a href="#cb9-127" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Action        <span class="pp">|</span> Command                                                      <span class="pp">|</span></span>
-<span id="cb9-128"><a href="#cb9-128" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------------|--------------------------------------------------------------|</span></span>
-<span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Store a key   <span class="pp">|</span> <span class="in">`keyring.set_password("service", "username", "key")`</span>         <span class="pp">|</span></span>
-<span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Retrieve a key<span class="pp">|</span> <span class="in">`keyring.get_password("service", "username")`</span>                <span class="pp">|</span></span>
-<span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Delete a key  <span class="pp">|</span> <span class="in">`keyring.delete_password("service", "username")`</span>             <span class="pp">|</span></span>
+<span id="cb9-123"><a href="#cb9-123" aria-hidden="true" tabindex="-1"></a><span class="va">__all__</span> <span class="op">=</span> [</span>
+<span id="cb9-124"><a href="#cb9-124" aria-hidden="true" tabindex="-1"></a>    <span class="st">"prompt_extract_system_prompt"</span>,</span>
+<span id="cb9-125"><a href="#cb9-125" aria-hidden="true" tabindex="-1"></a>    <span class="st">"prompt_extract_user_message"</span>,</span>
+<span id="cb9-126"><a href="#cb9-126" aria-hidden="true" tabindex="-1"></a>    <span class="st">"prompt_fill_placeholders"</span>,</span>
+<span id="cb9-127"><a href="#cb9-127" aria-hidden="true" tabindex="-1"></a>    <span class="st">"my_new_function"</span>,       <span class="co"># add here</span></span>
+<span id="cb9-128"><a href="#cb9-128" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Because the package is installed in editable mode, the new function is available immediately — no reinstall needed. Restart the interpreter if it was already running.</span>
 <span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Provider  <span class="pp">|</span> Service name             <span class="pp">|</span> Username <span class="pp">|</span></span>
-<span id="cb9-134"><a href="#cb9-134" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----------|--------------------------|----------|</span></span>
-<span id="cb9-135"><a href="#cb9-135" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> OpenAI    <span class="pp">|</span> <span class="in">`bradGPT`</span>                <span class="pp">|</span> <span class="in">`brad`</span>   <span class="pp">|</span></span>
-<span id="cb9-136"><a href="#cb9-136" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Anthropic <span class="pp">|</span> <span class="in">`claude-my-ai-assistant`</span> <span class="pp">|</span> <span class="in">`brad`</span>   <span class="pp">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb9-134"><a href="#cb9-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-135"><a href="#cb9-135" aria-hidden="true" tabindex="-1"></a><span class="fu"># Troubleshooting</span></span>
+<span id="cb9-136"><a href="#cb9-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-137"><a href="#cb9-137" aria-hidden="true" tabindex="-1"></a>**`ModuleNotFoundError: No module named 'py_scripts'`**</span>
+<span id="cb9-138"><a href="#cb9-138" aria-hidden="true" tabindex="-1"></a>The package has not been installed in this environment. Run the <span class="in">`pip install --editable`</span> command above and restart the interpreter.</span>
+<span id="cb9-139"><a href="#cb9-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-140"><a href="#cb9-140" aria-hidden="true" tabindex="-1"></a>**Changes to a function are not taking effect**</span>
+<span id="cb9-141"><a href="#cb9-141" aria-hidden="true" tabindex="-1"></a>Restart the interpreter. Editable mode reloads from source on import, but a running interpreter may have cached the old version.</span>
+<span id="cb9-142"><a href="#cb9-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-143"><a href="#cb9-143" aria-hidden="true" tabindex="-1"></a>**The install command fails**</span>
+<span id="cb9-144"><a href="#cb9-144" aria-hidden="true" tabindex="-1"></a>Confirm the path to <span class="in">`py_scripts/`</span> is correct on your machine. The path in the install command is absolute — update it if the repo has moved.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
