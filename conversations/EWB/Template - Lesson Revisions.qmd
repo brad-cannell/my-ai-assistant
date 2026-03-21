@@ -154,6 +154,9 @@ chat.chat(user_message, echo='none')
 )
 ```
 
+# 🚩 Checkpoint: Initial Prep
+- **New chapter:** Place cursor here and type `Shift+Option+Cmd+P` to run all cells above (Positron: _Run All Cells Above Cursor_). Confirm no console errors before continuing.
+
 # Follow-up and Refinement
 
 A section for optional follow-up questions and refinements. 
