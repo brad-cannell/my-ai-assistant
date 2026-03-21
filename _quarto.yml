@@ -7,14 +7,44 @@ project:
 
 website:
   title: "My AI Assistant"
+  search: true
   navbar:
-    left:
-      - href: index.qmd
-        text: "Home"
     right:
       - icon: github
         href: https://github.com/brad-cannell/my-ai-assistant
         aria-label: "GitHub repository"
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - href: index.qmd
+        text: "Home"
+      - section: "Concepts & Decisions"
+        contents:
+          - vignettes/api-vs-browser.qmd
+          - vignettes/claude-code-vs-chatlas.qmd
+          - vignettes/prompt-vs-conversation.qmd
+      - section: "Prompts"
+        contents:
+          - vignettes/writing-prompts.qmd
+          - vignettes/prompt-format.qmd
+          - vignettes/system-prompts.qmd
+      - section: "Python Setup"
+        contents:
+          - vignettes/uv-virtual-environments.qmd
+          - vignettes/venv-virtual-environments.qmd
+          - vignettes/keyring.qmd
+      - section: "Chat Workflows"
+        contents:
+          - vignettes/python-and-chatlas.qmd
+          - vignettes/save-and-resume-chats.qmd
+          - vignettes/python-helper-functions.qmd
+      - section: "Version Control"
+        contents:
+          - vignettes/git-tags.qmd
+      - section: "About This Wiki"
+        contents:
+          - vignettes/vignette-workflow.qmd
 
 format:
   html:
