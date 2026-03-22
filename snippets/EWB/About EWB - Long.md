@@ -3,7 +3,7 @@ title: "About Epi-Workbench (EWB) - Long Version"
 author: "Brad Cannell"
 date: 2025-04-11
 date-modified: 2026-03-21
-tags: []
+tags: [ewb, branding, about, epidemiology, context, lesson-types, colors, logos]
 ---
 
 <introduction>
