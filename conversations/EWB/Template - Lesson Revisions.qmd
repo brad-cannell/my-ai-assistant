@@ -169,7 +169,8 @@ Optionally, ask for a lesson summary.
 
 ```{python}
 prompt_summary = "Please write a brief summary paragraph to wrap up this lesson."
-chat.chat(prompt_summary)
+chat.chat(prompt_summary, echo="none")
+print(str(chat.get_last_turn()))
 ```
 
 # Save Chat History
