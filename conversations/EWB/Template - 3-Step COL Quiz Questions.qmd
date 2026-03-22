@@ -233,6 +233,10 @@ Return all questions as a single, contiguous EWB markdown file, ready to upload 
 - Do not surround code in the answer or feedback text with backticks. Example: length(x) returns 6.
 </constraints>
 
+<important>
+Ensure that there are no backticks used in answer choices or answer choice feedback.
+</important>
+
 {col_quiz_format_examples}
 
 <competency_list>
@@ -267,7 +271,7 @@ print(f"COL questions saved: {col_question_path}")
 
 ```{python}
 # Capture the Step 2 output to pass as input to Step 3.
-quiz_questions = str(chat_step_02.get_last_turn())
+quiz_questions = col_question_path.read_text(encoding="uft-8")
 ```
 
 ```{python}
@@ -301,12 +305,15 @@ Then, provide a complete revised version of the full question set that incorpora
 - Do not surround code in the answer or feedback text with backticks. Example: length(x) returns 6.
 </constraints>
 
+<important>
+Ensure that there are no backticks used in answer choices or answer choice feedback.
+</important>
+
 {col_quiz_format_examples}
 
 <lesson_content>
 {lesson_content}
 </lesson_content>
-
 
 <competency_list>
 {competency_list}
