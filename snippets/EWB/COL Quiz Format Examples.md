@@ -5,6 +5,7 @@ Return all questions in EWB markdown format. Questions must be importable direct
 - Separate questions with `---`
 - Start each question with `## Question N` (numbering is for readability only; order is determined by position in the file)
 - Add `Type:` immediately after the header — this is the only required metadata field
+- Answer choice and feedback text: Never use backticks in answer choices or feedback strings, even when referencing code. Write code as plain text in these fields.
 - Optional metadata: `Points:` (default 100), `Correct Feedback:`, `Incorrect Feedback:`
 
 **Allowed types:** `single`, `multiple`, `matching`, `numerical`, `fill_blank`

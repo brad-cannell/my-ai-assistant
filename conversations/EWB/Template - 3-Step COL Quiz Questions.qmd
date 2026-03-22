@@ -271,7 +271,7 @@ print(f"COL questions saved: {col_question_path}")
 
 ```{python}
 # Capture the Step 2 output to pass as input to Step 3.
-quiz_questions = col_question_path.read_text(encoding="uft-8")
+quiz_questions = col_question_path.read_text(encoding="utf-8")
 ```
 
 ```{python}
@@ -354,9 +354,12 @@ A section for optional follow-up questions and refinements.
 # Save Final Questions
 
 ```{python}
+# Return only the finalized set of quiz_questions
+chat_step_03.chat("Please return only the finalized set of questions.", echo='none')
+
 # Save the revised Step 3 output as the final upload-ready EWB markdown file.
 col_question_path = lesson_folder_path / "ai" / ("col_questions_" + today + ".md")
-col_question_path.write_text(str(chat_step_02.get_last_turn()), encoding="utf-8")
+col_question_path.write_text(str(chat_step_03.get_last_turn()), encoding="utf-8")
 print(f"COL questions saved: {col_question_path}")
 ```
 
