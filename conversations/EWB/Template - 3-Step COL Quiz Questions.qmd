@@ -231,6 +231,7 @@ Return all questions as a single, contiguous EWB markdown file, ready to upload 
 - Randomize the position of the correct answer.
 - Surround code in the question text with backticks. Example: "What value does `length(x)` return?"
 - Do not surround code in the answer or feedback text with backticks. Example: length(x) returns 6.
+- All questions, answer choices, and feedback text MUST be 255 characters or less.
 </constraints>
 
 <important>
@@ -303,6 +304,7 @@ Then, provide a complete revised version of the full question set that incorpora
 - Randomize the position of the correct answer.
 - Surround code in the question text with backticks. Example: "What value does `length(x)` return?"
 - Do not surround code in the answer or feedback text with backticks. Example: length(x) returns 6.
+- All questions, answer choices, and feedback text MUST be 255 characters or less.
 </constraints>
 
 <important>
