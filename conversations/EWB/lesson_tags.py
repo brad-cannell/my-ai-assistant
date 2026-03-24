@@ -47,10 +47,8 @@ lesson_content = lesson_file_path.read_text(encoding="utf-8")
 
 # Tag SOP
 path_template_tag_sop = Path(
-    '/Users/bradcannell/Library/CloudStorage/'
-    'GoogleDrive-brad.cannell@epi-workbench.com/My Drive/SOPs/'
-    'Course Author Wiki/02 Course Development/01 Categories and Tags/'
-    'Categories and Tags.qmd'
+    '/Users/bradcannell/Desktop/Git/EWB/ewb-wiki/02 Course Development/'
+    '01 Categories and Tags/Categories and Tags.qmd'
 )
 tag_sop_content = path_template_tag_sop.read_text(encoding="utf-8")
 
