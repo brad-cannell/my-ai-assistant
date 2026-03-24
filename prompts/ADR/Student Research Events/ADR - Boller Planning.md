@@ -4,7 +4,7 @@ task: planning
 interface: Claude Cowork
 author: "Brad Cannell"
 created: 2026-03-18
-last_updated: 2026-03-18
+last_updated: 2026-03-24
 project: adr
 domain: academia
 tags:
@@ -40,9 +40,24 @@ Please suggest next steps for creating a schedule for this year's Boller Competi
 
 ## Follow-up: Issues and Decisions
 
-I'm attaching an updated spreadsheet.
+1. I'm attaching an updated spreadsheet.
 - The row with the duplicate name was deleted.
-- There is a new column containing the student's department.
+- The updated spreadsheet contains a new column containing the student's department.
 
+2. The 2026 Student Research Conference (Posters) and Boller Competition (oral presentations) will take place:
+  - April 10, 2026, from 8:00 AM to 5:00 PM.
+  - Location: The TCU Mary Couts Burnett Library—specifically, Gearhart Room 2230 and Library 3181.
+
+3. We want to group Boller presentations by department. Additionally, I need help deciding on the session structure. The decision is complicated a little bit by the fact that we need to interleave student poster sessions with the Boller presentations. The student poster sessions are not part of the Boller competition, but they cooccur and some faculty will serve as judges for both. I'm attaching a copy of last year's Student Research Conference (2025 Harris Student Research Conference Schedule). It contains a high-level overview of the Boller presentation sessions and poster sessions.
+
+4. I will need to add judges later.
+
+## Follow-up
+
+One quick clarification: You said, "Critical design logic: Each Boller session group presents their posters after their oral presentation — in a staggered rotation. This means every Boller presenter also has a poster session slot, and judges who cover both can move between rooms on a rolling schedule." That isn't correct. Two different groups of students are participating in the SRC poster presentations and the Boller Competition. They just happen to organized and advertised as one big student resarch event.
+
+Additionally, we only need two poster sessions this year. 
+
+Response to concern about students removed from the spreadsheet: I recieved an updated spreadsheet from the registrar. These names were removed intentionally. 
 
 
