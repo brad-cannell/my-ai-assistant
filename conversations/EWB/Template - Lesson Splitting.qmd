@@ -218,11 +218,11 @@ See [Saving and Resuming Chats](https://brad-cannell.github.io/my-ai-assistant/v
 
 ```{python}
 # Markdown — for browsing and searching
-chat_history_path_md = conversation_folder_path / ("chat_history_" + today + ".md")
+chat_history_path_md = lesson_folder_path / "ai" / ("lesson_splitting_history_" + today + ".md")
 chat.export(chat_history_path_md, overwrite=True)
 
 # Pickle — for resuming in a later session
-chat_history_path_pkl = conversation_folder_path / ("chat_history_" + today + ".pkl")
+chat_history_path_pkl = lesson_folder_path / "ai" / ("lesson_splitting_history_" + today + ".pkl")
 with open(chat_history_path_pkl, "wb") as f:
     pickle.dump(chat.get_turns(), f)
 ```
