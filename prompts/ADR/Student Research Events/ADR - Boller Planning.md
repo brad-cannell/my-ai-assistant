@@ -61,3 +61,39 @@ Additionally, we only need two poster sessions this year.
 Response to concern about students removed from the spreadsheet: I recieved an updated spreadsheet from the registrar. These names were removed intentionally. 
 
 
+# Summary
+
+## 2026-03-24
+
+Here's a summary of what we've accomplished in this conversation:
+
+**Understanding the event structure**
+- Clarified that the Boller Competition (oral presentations) and SRC (poster presentations) are two separate groups of students running concurrently as one advertised event on April 10, 2026, 8:00 AM–4:00 PM, across two rooms: Lib 3181 and Gearhart 2230.
+
+**Reviewing source materials**
+- Read last year's Boller schedule (2025) to understand the formatting template: a four-column table (Time, Student Name/Project Title, Mentor, Department) with session header rows.
+- Read last year's SRC schedule (2025) to understand how Boller and poster sessions were interleaved across the day.
+- Read and cleaned this year's participant spreadsheet: confirmed 18 Boller students across 4 departments after resolving a duplicate name entry and intentional removals.
+
+**Designing the 2026 session structure**
+- Chose 4 Boller sessions (down from 3 in 2025) to keep session lengths manageable.
+- Grouped students by department, with KINE split across two sessions by mentor.
+
+| Session | Department(s) | Students | Time |
+|---|---|---|---|
+| A | COSD | 4 | 8:15–9:35 am |
+| B | SW + NURS | 6 | 9:45–11:45 am |
+| C | KINE pt. 1 | 4 | 12:30–1:50 pm |
+| D | KINE pt. 2 | 4 | 2:00–3:20 pm |
+
+- KINE split by mentor: Esposito's 3 students + Trocchio in Session C; Porter, Jevas, Rhea, and White in Session D.
+- Placed 2 poster sessions (60 min each) concurrently with Boller Sessions B and D.
+
+**Producing deliverables**
+- Generated a draft **Boller schedule Word document** (`BollerSchedule2026_Draft.docx`) matching last year's formatting, with all 18 students assigned to sessions with presentation times.
+- Generated a **PNG day overview** (`SRC_Boller_2026_Day_Schedule.png`) showing both rooms side by side across the full day.
+
+**Still to do** (flagged but not yet completed):
+- Confirm final project titles with students (currently marked tentative).
+- Decide student ordering within sessions (currently as listed in the spreadsheet).
+- Assign judges and add them to the schedule.
