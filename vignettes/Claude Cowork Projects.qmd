@@ -1,0 +1,89 @@
+---
+title: "Claude Cowork Projects"
+date: "2026-03-25"
+date-modified: "2026-03-25"
+version: "1.0"
+description: "Instructions for using Claude Cowork Projects."
+categories: ["ai", "development", "api", "claude", "openai"]
+format:
+  html:
+    toc: true
+    code-fold: false  # set to true if vignette is prose-heavy with long code blocks
+execute:
+  eval: false
+  echo: true
+---
+
+# Overview
+
+<!--
+One to three sentences describing:
+- What this vignette covers
+- Who it is for or when to use it
+- Any cross-references to related vignettes
+
+Example:
+  This vignette covers X. For background on Y, see `vignettes/y.qmd`.
+-->
+
+---
+
+# Section Title
+
+<!--
+GUIDANCE FOR WRITING SECTIONS:
+
+Content type — pick the style that fits:
+
+1. CONCEPTUAL / REFERENCE (explains a concept, decision rule, or set of guidelines)
+   - Use prose paragraphs
+   - Use tables for decision rules or comparisons
+   - Use callout blocks for warnings, tips, or important constraints
+   - Avoid code unless a short snippet genuinely aids understanding
+
+2. HOW-TO / PROCEDURAL (walks through steps to accomplish a task)
+   - Use numbered steps for sequential procedures
+   - Use code blocks for commands or scripts
+   - Keep code blocks focused — one logical action per block
+   - Add a brief prose line before each code block explaining what it does
+
+3. REFERENCE CARD / QUICK REFERENCE (summary for scanning, not reading)
+   - Use a table or a minimal code block
+   - Place at the end of the vignette
+
+HEADING LEVELS:
+  # H1   — top-level sections (Overview, major topics)
+  ## H2  — subsections within a topic
+  ### H3 — sub-subsections; use sparingly
+
+CALLOUT TYPES:
+  ::: callout-note      — supplementary information, tips
+  ::: callout-important — constraints, limitations, things that will break
+  ::: callout-warning   — actions that could cause data loss or hard-to-fix problems
+  :::
+
+CROSS-REFERENCES:
+  - Other vignettes:     `vignettes/other-vignette.qmd`
+  - Conversation files:  `conversations/template-name.qmd`
+  - Prompt files:        `prompts/prompt-name.md`
+  - External docs:       [Link text](https://url)
+
+CODE BLOCKS:
+  - Python executable:   ```{python}
+  - R executable:        ```{r}
+  - Bash (display only): ```bash
+  - All non-executable blocks should be display-only (no {})
+-->
+
+---
+
+# Section Title
+
+---
+
+# Quick Reference
+
+<!--
+Optional. Include if the vignette covers enough discrete commands or rules
+that a summary table or code block would be useful for scanning later.
+-->

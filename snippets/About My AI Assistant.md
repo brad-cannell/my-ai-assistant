@@ -3,7 +3,7 @@ title: "About the AI Assistant Repo"
 author: "Brad Cannell"
 date: 2026-03-17
 date-modified: 2026-03-17
-tags: []
+tags: ["ai", "development", "api", "claude", "openai"]
 ---
 
 # About My AI Assistant
