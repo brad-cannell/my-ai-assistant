@@ -113,7 +113,7 @@
         "\n",
         "## Upload and Use a File\n"
       ],
-      "id": "cb1ee6c0"
+      "id": "4a5aedd4"
     },
     {
       "cell_type": "code",
@@ -131,7 +131,7 @@
         "\n",
         "print(f\"Uploaded file ID: {file.id}\")"
       ],
-      "id": "0e03a6ed",
+      "id": "52807003",
       "execution_count": null,
       "outputs": []
     },
@@ -161,7 +161,7 @@
         "\n",
         "print(response.output_text)"
       ],
-      "id": "3cacc66b",
+      "id": "ad037795",
       "execution_count": null,
       "outputs": []
     },
@@ -197,7 +197,7 @@
         "\n",
         "## Query a Vector Store\n"
       ],
-      "id": "a0c100a6"
+      "id": "3892fc2f"
     },
     {
       "cell_type": "code",
@@ -221,7 +221,7 @@
         "\n",
         "print(str(resp))"
       ],
-      "id": "41962629",
+      "id": "d3e98942",
       "execution_count": null,
       "outputs": []
     },
@@ -233,7 +233,7 @@
         "\n",
         "To verify which parts of the document the model used to generate its response:\n"
       ],
-      "id": "baa75640"
+      "id": "923bb868"
     },
     {
       "cell_type": "code",
@@ -249,7 +249,7 @@
         "\n",
         "print(str(resp))"
       ],
-      "id": "b42dd036",
+      "id": "cb0d8957",
       "execution_count": null,
       "outputs": []
     },
@@ -261,7 +261,7 @@
         "\n",
         "To keep `file_search` available across multiple turns, pass the same `kwargs` on each call — or set it once at the chat level:\n"
       ],
-      "id": "7c11bd68"
+      "id": "1d3078bf"
     },
     {
       "cell_type": "code",
@@ -276,7 +276,7 @@
         "resp1 = chat.chat(\"First question\")\n",
         "resp2 = chat.chat(\"Follow-up question\")"
       ],
-      "id": "d997a14e",
+      "id": "3fa6144e",
       "execution_count": null,
       "outputs": []
     },
@@ -304,7 +304,7 @@
         "2. Upload the PDF to your vector store (see [Vector Stores](#vector-stores) above).\n",
         "3. Query using `file_search`.\n"
       ],
-      "id": "55723a94"
+      "id": "0dc151f5"
     },
     {
       "cell_type": "code",
@@ -328,7 +328,7 @@
         "\n",
         "print(str(resp))"
       ],
-      "id": "2ad698f8",
+      "id": "f3a58177",
       "execution_count": null,
       "outputs": []
     },
@@ -344,7 +344,7 @@
         "\n",
         "Use the `web_search` tool to have the model retrieve and read a live page at query time. Add domain filtering to reduce the chance the model retrieves content from a different site.\n"
       ],
-      "id": "5c1d1b7b"
+      "id": "9ba0da01"
     },
     {
       "cell_type": "code",
@@ -369,7 +369,7 @@
         "\n",
         "print(str(resp))"
       ],
-      "id": "6934fe9f",
+      "id": "660c098b",
       "execution_count": null,
       "outputs": []
     },
@@ -379,7 +379,7 @@
       "source": [
         "To make results more deterministic with domain filtering (recommended):\n"
       ],
-      "id": "52da1a44"
+      "id": "435d3c4a"
     },
     {
       "cell_type": "code",
@@ -403,7 +403,7 @@
         "\n",
         "print(str(resp))"
       ],
-      "id": "be534a41",
+      "id": "103b3dca",
       "execution_count": null,
       "outputs": []
     },
@@ -413,7 +413,7 @@
       "source": [
         "To request sources so you can verify what the model actually read:\n"
       ],
-      "id": "72209125"
+      "id": "5f074a9e"
     },
     {
       "cell_type": "code",
@@ -431,7 +431,7 @@
         "\n",
         "print(str(resp))"
       ],
-      "id": "553e6b2b",
+      "id": "8125a925",
       "execution_count": null,
       "outputs": []
     },
@@ -470,7 +470,7 @@
         "\n",
         "Create the prompt in the OpenAI dashboard, then reference it by ID:\n"
       ],
-      "id": "d945b1e8"
+      "id": "15517e07"
     },
     {
       "cell_type": "code",
@@ -492,7 +492,7 @@
         "\n",
         "print(response.output_text)"
       ],
-      "id": "407ed12f",
+      "id": "ceedd801",
       "execution_count": null,
       "outputs": []
     },
@@ -504,7 +504,7 @@
         "\n",
         "To extend the conversation beyond the initial prompt, include a user message in the `input` field:\n"
       ],
-      "id": "cec8ffa0"
+      "id": "e61e26eb"
     },
     {
       "cell_type": "code",
@@ -523,7 +523,7 @@
         "\n",
         "print(response.output_text)"
       ],
-      "id": "06e93fe5",
+      "id": "b860fde8",
       "execution_count": null,
       "outputs": []
     },
@@ -535,7 +535,7 @@
         "The `version` field pins your call to a specific version of the stored prompt. If you omit it, the call uses the latest published version, which means prompt changes in the dashboard will immediately affect your code. Pinning to a version is safer for production or reproducible workflows.\n",
         ":::"
       ],
-      "id": "48ef1915"
+      "id": "d67dd70e"
     }
   ],
   "metadata": {
