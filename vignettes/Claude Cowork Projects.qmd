@@ -14,6 +14,18 @@ execute:
   echo: true
 ---
 
+# Notes
+
+- I need to turn this into a real vignette at some point. For now, I'm just jotting down some notes.
+- Big downsides to Claude Cowork:
+    - It doesn’t sync across computers.
+    - It burns through tokens quickly.
+- Should I use it like Claude Code?
+    - Mostly keep documents in my-ai-assistant.
+    - Use Claude Cowork for individual tasks when I want it to directly make changes to folders and files, but not for longer, ongoing chats. Think "commit" or "write a function to do x, y, z".
+    - Use Claude Chat Projects and/or the API for ongoing planning and conversations?
+
+
 # Overview
 
 <!--
