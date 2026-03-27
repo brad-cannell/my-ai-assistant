@@ -202,7 +202,7 @@
     "href": "vignettes/Claude Cowork Projects.html",
     "title": "Claude Cowork Projects",
     "section": "",
-    "text": "Overview\n\n\n\n\nSection Title\n\n\n\n\nSection Title\n\n\n\nQuick Reference"
+    "text": "Notes\n\nI need to turn this into a real vignette at some point. For now, I’m just jotting down some notes.\nBig downsides to Claude Cowork:\n\nIt doesn’t sync across computers.\nIt burns through tokens quickly.\n\nShould I use it like Claude Code?\n\nMostly keep documents in my-ai-assistant.\nUse Claude Cowork for individual tasks when I want it to directly make changes to folders and files, but not for longer, ongoing chats. Think “commit” or “write a function to do x, y, z”.\nUse Claude Chat Projects and/or the API for ongoing planning and conversations?\n\n\n\n\nOverview\n\n\n\n\nSection Title\n\n\n\n\nSection Title\n\n\n\nQuick Reference"
   },
   {
     "objectID": "index.html",
