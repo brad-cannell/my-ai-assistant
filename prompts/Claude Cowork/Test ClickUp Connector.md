@@ -12,7 +12,7 @@ last_updated: 2026-04-02
 - Can Claude Cowork inject a daily briefing into ClickUp (e.g. in a dedicated chat or Doc) on a schedule? https://app.clickup.com/t/868j3y71x
 - You will only be able to see the Claude Cowork task on your work computer (as of this writing, Claude Cowork chats aren't synced to the cloud). The Task title is, "Create ClickUp page with Claude connector".
 - **The user message below worked successfully!**
-- This could be useful for a number of things including daily breifings. 
+- It could be useful for a number of things, including daily briefings.
 
 # SYSTEM PROMPT
 
