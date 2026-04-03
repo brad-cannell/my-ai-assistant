@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-12-22">
-<meta name="description" content="Rationale and conventions for writing prompts as Markdown documents with YAML front matter.">
+<meta name="dcterms.date" content="2026-04-02">
+<meta name="description" content="How to search prompts, conversations, and vignettes in this repo.">
 
-<title>Prompt Format – My AI Assistant</title>
+<title>Searching My AI Assistant – My AI Assistant</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../vignettes/writing-prompts.html">Prompts</a></li><li class="breadcrumb-item"><a href="../vignettes/prompt-format.html">Prompt Format</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Searching My AI Assistant</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -217,7 +217,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../vignettes/prompt-format.html" class="sidebar-item-text sidebar-link active">
+  <a href="../vignettes/prompt-format.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prompt Format</span></a>
   </div>
 </li>
@@ -331,31 +331,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#why-prompts-are-written-as-markdown-documents-with-yaml-headers" id="toc-why-prompts-are-written-as-markdown-documents-with-yaml-headers" class="nav-link active" data-scroll-target="#why-prompts-are-written-as-markdown-documents-with-yaml-headers">Why Prompts Are Written as Markdown Documents with YAML Headers</a>
-  <ul class="collapse">
-  <li><a href="#why-markdown" id="toc-why-markdown" class="nav-link" data-scroll-target="#why-markdown">Why Markdown</a></li>
-  <li><a href="#why-yaml-headers" id="toc-why-yaml-headers" class="nav-link" data-scroll-target="#why-yaml-headers">Why YAML Headers</a></li>
-  <li><a href="#design-philosophy" id="toc-design-philosophy" class="nav-link" data-scroll-target="#design-philosophy">Design Philosophy</a></li>
-  </ul></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#searching-vignettes-on-the-website" id="toc-searching-vignettes-on-the-website" class="nav-link" data-scroll-target="#searching-vignettes-on-the-website">Searching Vignettes on the Website</a></li>
+  <li><a href="#searching-file-contents-in-positron" id="toc-searching-file-contents-in-positron" class="nav-link" data-scroll-target="#searching-file-contents-in-positron">Searching File Contents in Positron</a></li>
+  <li><a href="#ai-assisted-search-with-claude-code" id="toc-ai-assisted-search-with-claude-code" class="nav-link" data-scroll-target="#ai-assisted-search-with-claude-code">AI-Assisted Search with Claude Code</a></li>
+  <li><a href="#quick-reference" id="toc-quick-reference" class="nav-link" data-scroll-target="#quick-reference">Quick Reference</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../vignettes/writing-prompts.html">Prompts</a></li><li class="breadcrumb-item"><a href="../vignettes/prompt-format.html">Prompt Format</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Prompt Format</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Searching My AI Assistant</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
   <div class="quarto-categories">
-    <div class="quarto-category">prompts</div>
+    <div class="quarto-category">search</div>
     <div class="quarto-category">workflow</div>
-    <div class="quarto-category">markdown</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Rationale and conventions for writing prompts as Markdown documents with YAML front matter.
+    How to search prompts, conversations, and vignettes in this repo.
   </div>
 </div>
 
@@ -366,14 +364,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 22, 2025</p>
+      <p class="date">April 2, 2026</p>
     </div>
   </div>
   
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">March 18, 2026</p>
+      <p class="date-modified">April 2, 2026</p>
     </div>
   </div>
     
@@ -384,43 +382,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="why-prompts-are-written-as-markdown-documents-with-yaml-headers" class="level1">
-<h1>Why Prompts Are Written as Markdown Documents with YAML Headers</h1>
-<p>In this project, prompts are treated as <strong>long-lived knowledge artifacts</strong>, not disposable strings. Writing prompts as Markdown documents with YAML headers supports this goal by balancing clarity, durability, and future extensibility with minimal overhead.</p>
-<section id="why-markdown" class="level2">
-<h2 class="anchored" data-anchor-id="why-markdown">Why Markdown</h2>
-<ul>
-<li>Encourages <strong>clear, well-structured prompts</strong> that separate roles, context, tasks, and constraints</li>
-<li>Improves <strong>human readability</strong>, review, and collaboration</li>
-<li>Integrates naturally with <strong>Git-based workflows</strong>, enabling meaningful diffs and version history</li>
-<li>Supports <strong>disciplined iteration</strong> over time, especially in academic and pedagogical settings</li>
-<li>Remains lightweight and tool-agnostic, avoiding lock-in to any specific platform or API</li>
-</ul>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<p>This vignette covers the practical options for searching the contents of this repo. Three tools cover the vast majority of use cases: the website (for vignettes), Positron’s built-in search (for file contents), and Claude Code (for AI-assisted search). A custom-built search solution is not worth the maintenance overhead for this project.</p>
+<hr>
 </section>
-<section id="why-yaml-headers" class="level2">
-<h2 class="anchored" data-anchor-id="why-yaml-headers">Why YAML Headers</h2>
-<ul>
-<li>Capture <strong>stable, high-level metadata</strong> about each prompt (title, status, tags)</li>
-<li>Improve <strong>organization and discoverability</strong> without requiring tooling or automation</li>
-<li>Enable future capabilities such as filtering, indexing, logging, and semantic search</li>
-<li>Keep execution details and API-specific parameters <strong>out of the prompt definition</strong></li>
-<li>Are <strong>human-readable first</strong>, remaining useful even if no parsing system is ever built</li>
-</ul>
+<section id="searching-vignettes-on-the-website" class="level1">
+<h1>Searching Vignettes on the Website</h1>
+<p>The Quarto website (published to GitHub Pages) includes a built-in search bar that indexes all rendered vignettes. This is the easiest way to find a vignette by keyword when browsing the site.</p>
+<p>This only covers vignettes — prompts and conversations are not rendered to the site.</p>
+<hr>
 </section>
-<section id="design-philosophy" class="level2">
-<h2 class="anchored" data-anchor-id="design-philosophy">Design Philosophy</h2>
+<section id="searching-file-contents-in-positron" class="level1">
+<h1>Searching File Contents in Positron</h1>
+<p>For keyword search across prompts and conversations, use Positron’s built-in global search.</p>
+<p><strong>Keyboard shortcut:</strong> <code>Cmd+Shift+F</code></p>
+<p>This opens the Search panel, which searches the full text of all files in the workspace. It supports plain keywords, regular expressions, and file-type filters. This is the recommended approach for most searches — finding a prompt that mentions a specific topic, locating a conversation about a particular project, etc.</p>
+<hr>
+</section>
+<section id="ai-assisted-search-with-claude-code" class="level1">
+<h1>AI-Assisted Search with Claude Code</h1>
+<p>For fuzzy or semantic searches (“find files related to X”), Claude Code can search the repo and reason about the results.</p>
+<p><strong>Example prompts:</strong></p>
 <ul>
-<li>Prompts are treated as <strong>maintainable assets</strong>, not transient inputs</li>
-<li>Structure is used to <strong>support thinking</strong>, not constrain it</li>
-<li>Metadata is included only where it provides clear, lasting value</li>
-<li>The format should scale gracefully from <strong>manual use today</strong> to <strong>API-driven workflows tomorrow</strong></li>
+<li>“Search my-ai-assistant for files that reference a plant-based diet.”</li>
+<li>“Find all prompts related to EWB lesson revisions.”</li>
+<li>“Which conversations mention the DETECT study?”</li>
 </ul>
-<p>Together, Markdown and YAML provide a simple, durable foundation for managing prompts as part of a larger, reproducible knowledge system while preserving flexibility as tools, models, and workflows evolve.</p>
+<p>Claude Code has access to all files in the workspace and can combine keyword search with judgment about relevance — useful when you’re not sure exactly what you’re looking for.</p>
+<hr>
+</section>
+<section id="quick-reference" class="level1">
+<h1>Quick Reference</h1>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Goal</th>
+<th>Tool</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Find a vignette by keyword</td>
+<td>Website search bar (GitHub Pages)</td>
+</tr>
+<tr class="even">
+<td>Search file contents by keyword</td>
+<td>Positron <code>Cmd+Shift+F</code></td>
+</tr>
+<tr class="odd">
+<td>Fuzzy or semantic search</td>
+<td>Claude Code prompt</td>
+</tr>
+</tbody>
+</table>
 
 
 <!-- -->
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -876,12 +895,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Prompt Format"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2025-12-22"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">date-modified:</span><span class="co"> "2026-03-18"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Searching My AI Assistant"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2026-04-02"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">date-modified:</span><span class="co"> "2026-04-02"</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">version:</span><span class="co"> "1.0"</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "Rationale and conventions for writing prompts as Markdown documents with YAML front matter."</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [prompts, workflow, markdown]</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "How to search prompts, conversations, and vignettes in this repo."</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [search, workflow]</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
@@ -891,34 +910,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu"># Why Prompts Are Written as Markdown Documents with YAML Headers</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu"># Overview</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>In this project, prompts are treated as **long-lived knowledge artifacts**, not disposable strings. Writing prompts as Markdown documents with YAML headers supports this goal by balancing clarity, durability, and future extensibility with minimal overhead.</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>This vignette covers the practical options for searching the contents of this repo. Three tools cover the vast majority of use cases: the website (for vignettes), Positron's built-in search (for file contents), and Claude Code (for AI-assisted search). A custom-built search solution is not worth the maintenance overhead for this project.</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## Why Markdown</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Encourages **clear, well-structured prompts** that separate roles, context, tasks, and constraints</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Improves **human readability**, review, and collaboration</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Integrates naturally with **Git-based workflows**, enabling meaningful diffs and version history</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Supports **disciplined iteration** over time, especially in academic and pedagogical settings</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Remains lightweight and tool-agnostic, avoiding lock-in to any specific platform or API</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu"># Searching Vignettes on the Website</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>The Quarto website (published to GitHub Pages) includes a built-in search bar that indexes all rendered vignettes. This is the easiest way to find a vignette by keyword when browsing the site.</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>This only covers vignettes — prompts and conversations are not rendered to the site.</span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Why YAML Headers</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Capture **stable, high-level metadata** about each prompt (title, status, tags)</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Improve **organization and discoverability** without requiring tooling or automation</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Enable future capabilities such as filtering, indexing, logging, and semantic search</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Keep execution details and API-specific parameters **out of the prompt definition**</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Are **human-readable first**, remaining useful even if no parsing system is ever built</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="fu"># Searching File Contents in Positron</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>For keyword search across prompts and conversations, use Positron's built-in global search.</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>**Keyboard shortcut:** <span class="in">`Cmd+Shift+F`</span></span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Design Philosophy</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>This opens the Search panel, which searches the full text of all files in the workspace. It supports plain keywords, regular expressions, and file-type filters. This is the recommended approach for most searches — finding a prompt that mentions a specific topic, locating a conversation about a particular project, etc.</span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Prompts are treated as **maintainable assets**, not transient inputs</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Structure is used to **support thinking**, not constrain it</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Metadata is included only where it provides clear, lasting value</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The format should scale gracefully from **manual use today** to **API-driven workflows tomorrow**</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>Together, Markdown and YAML provide a simple, durable foundation for managing prompts as part of a larger, reproducible knowledge system while preserving flexibility as tools, models, and workflows evolve.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="fu"># AI-Assisted Search with Claude Code</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>For fuzzy or semantic searches ("find files related to X"), Claude Code can search the repo and reason about the results.</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>**Example prompts:**</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>"Search my-ai-assistant for files that reference a plant-based diet."</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>"Find all prompts related to EWB lesson revisions."</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>"Which conversations mention the DETECT study?"</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>Claude Code has access to all files in the workspace and can combine keyword search with judgment about relevance — useful when you're not sure exactly what you're looking for.</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="fu"># Quick Reference</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Goal <span class="pp">|</span> Tool <span class="pp">|</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Find a vignette by keyword <span class="pp">|</span> Website search bar (GitHub Pages) <span class="pp">|</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Search file contents by keyword <span class="pp">|</span> Positron <span class="in">`Cmd+Shift+F`</span> <span class="pp">|</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Fuzzy or semantic search <span class="pp">|</span> Claude Code prompt <span class="pp">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
