@@ -1,14 +1,10 @@
 ---
 title: Prompt for Filling in the Course Overview Sections of the README
 id: template_prompt_ewb_readme
-task: text_revision
-audience: course_author
 interface: browser
 author: brad_cannell
 created: 2025-12-02
 last_updated: 2026-02-17
-project: null
-domain: lesson_development
 tags:
   - ewb
 ---

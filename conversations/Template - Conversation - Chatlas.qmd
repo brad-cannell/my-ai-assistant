@@ -1,12 +1,10 @@
 ---
 title: <short, human-readable title>
-id: <unique_prompt_id>
 author: brad_cannell
 date: yyyy-mm-dd
 date-modified: yyyy-mm-dd
-audience: <academic | student | developer | clinician>
-interface: <api | browser | both >
-domain: <e.g., epidemiology | data_science | general>
+interface: <api | browser | both>
+source_prompt: null  # id of the source prompt file, if applicable
 tags:
   - tag
 format:

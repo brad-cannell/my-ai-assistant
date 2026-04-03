@@ -1,14 +1,10 @@
 ---
 title: Template Prompt for EWB Lesson Spelling and Grammar Check
 id: template_prompt_lesson_spelling_and_grammar
-task: text_revision
-audience: course_author
 interface: api
 author: brad_cannell
 created: 2026-02-08
 last_updated: 2026-02-17
-project: null
-domain: lesson_development
 tags:
   - ewb
 ---

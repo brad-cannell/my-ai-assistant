@@ -1,10 +1,8 @@
 ---
 title: "JMIR Formative Research Reponse to Reviewers"
-id: conversation_jmir_formative_research_reponse_to_reviewers
 author: brad_cannell
 date: 2026-01-30
 date-modified: 2026-01-30
-audience: authors
 category: academic
 tags:
   - research

@@ -1,14 +1,10 @@
 ---
-title: FAQ: Discussion Forum
+title: "FAQ: Discussion Forum"
 id: faq_discussion_forum
-task: text_revision
-audience: learners
 status: draft
 author: "Brad Cannell"
 created: 2025-12-29
 last_updated: 2025-12-29
-project: project_ewb
-domain: website
 tags:
   - faq
   - discussion forum

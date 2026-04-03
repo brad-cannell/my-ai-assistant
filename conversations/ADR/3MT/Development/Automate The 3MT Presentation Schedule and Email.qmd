@@ -1,11 +1,8 @@
 ---
 title: "Automate The 3MT Presentation Schedule and Email"
-id: 3mt_schedule_and_email
 author: brad_cannell
 date: 2026-02-18
 date-modified: 2026-02-20
-audience: self
-domain: administration
 tags:
   - 3MT
   - ADR

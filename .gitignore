@@ -9,8 +9,8 @@
 # Sensitive files
 # =============================================================================
 
-# API keys
 API Keys.txt
+prompts/Personal/Brooke/Final Divorce Decree.pdf
 
 # =============================================================================
 # R Files
@@ -76,13 +76,15 @@ wheels/
 ~$*
 
 # =============================================================================
-# Media files
+# Large files
 # =============================================================================
-/.quarto/
+prompts/Personal/Summer Camps 2026/2026ProgramGuideasof030626.pdf
+prompts/Personal/Summer Camps 2026/TCC Course Catalog.pdf
+prompts/Personal/Summer Camps 2026/XPLORESummeratTVS202616.pdf
 
 # =============================================================================
 # Quarto Website files
 # =============================================================================
-
+/.quarto/
 _site/
 *.pdf

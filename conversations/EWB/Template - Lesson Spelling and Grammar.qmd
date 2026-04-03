@@ -1,10 +1,8 @@
 ---
 title: "Spelling and Grammar Check - {{Lesson Name}}"
-id: spelling_and_grammar_check_{{lesson_name}}
 author: brad_cannell
 date: {{YYYY-MM-DD}}
 date-modified: {{YYYY-MM-DD}}
-audience: course_authors
 category: lesson_development
 tags:
   - r

@@ -1,13 +1,9 @@
 ---
 title: Template Prompt for Converting the CSTs in Existing Code Blocks to use expect - Full Lesson File
 id: template_prompt_convert_block_to_expect_full_lesson
-task: code_review
-audience: academic
 author: brad_cannell
 created: 2026-01-29
 last_updated: 2026-01-29
-project: testthat
-domain: lesson_development
 tags:
   - ewb
   - csts
