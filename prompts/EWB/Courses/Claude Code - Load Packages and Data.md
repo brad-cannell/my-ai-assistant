@@ -1,0 +1,5 @@
+I am adapting an R for Epidemiology chapter for EWB. The chapter was written in a single Quarto file, `restructuring_data_frames.qmd`. I am in the process of breaking it up into five shorter lessons on EWB: `Overview of Data Frame Structures`, `Pivoting Data Frames Longer`, `Pivoting Data Frames Wider`, `Pivoting Summary Statistics`, and `Tidy Data`.
+
+Right now, I'm adapting `Pivoting Data Frames Wider_modified.qmd`, which starts by having learners view the `babies_long` data frame. That made sense when this was a subsection of a single Quarto document, but now, learners need to load the necessary R packages and create the `babies_long` data frame before they can view it.
+
+Please review the previous file in this sequence of lessons, `Pivoting Data Frames Longer_modified.qmd`, and then add code chunks and narrative to this file for loading R packages and creating the `babies_long` data frame. Please use a style and voice that is consistent with previous lessons.
