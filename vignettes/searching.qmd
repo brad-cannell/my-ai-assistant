@@ -1,0 +1,61 @@
+---
+title: "Searching My AI Assistant"
+date: "2026-04-02"
+date-modified: "2026-04-02"
+version: "1.0"
+description: "How to search prompts, conversations, and vignettes in this repo."
+categories: [search, workflow]
+format:
+  html:
+    toc: true
+    code-fold: false
+execute:
+  eval: false
+  echo: true
+---
+
+# Overview
+
+This vignette covers the practical options for searching the contents of this repo. Three tools cover the vast majority of use cases: the website (for vignettes), Positron's built-in search (for file contents), and Claude Code (for AI-assisted search). A custom-built search solution is not worth the maintenance overhead for this project.
+
+---
+
+# Searching Vignettes on the Website
+
+The Quarto website (published to GitHub Pages) includes a built-in search bar that indexes all rendered vignettes. This is the easiest way to find a vignette by keyword when browsing the site.
+
+This only covers vignettes — prompts and conversations are not rendered to the site.
+
+---
+
+# Searching File Contents in Positron
+
+For keyword search across prompts and conversations, use Positron's built-in global search.
+
+**Keyboard shortcut:** `Cmd+Shift+F`
+
+This opens the Search panel, which searches the full text of all files in the workspace. It supports plain keywords, regular expressions, and file-type filters. This is the recommended approach for most searches — finding a prompt that mentions a specific topic, locating a conversation about a particular project, etc.
+
+---
+
+# AI-Assisted Search with Claude Code
+
+For fuzzy or semantic searches ("find files related to X"), Claude Code can search the repo and reason about the results.
+
+**Example prompts:**
+
+- "Search my-ai-assistant for files that reference a plant-based diet."
+- "Find all prompts related to EWB lesson revisions."
+- "Which conversations mention the DETECT study?"
+
+Claude Code has access to all files in the workspace and can combine keyword search with judgment about relevance — useful when you're not sure exactly what you're looking for.
+
+---
+
+# Quick Reference
+
+| Goal | Tool |
+|---|---|
+| Find a vignette by keyword | Website search bar (GitHub Pages) |
+| Search file contents by keyword | Positron `Cmd+Shift+F` |
+| Fuzzy or semantic search | Claude Code prompt |
