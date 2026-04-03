@@ -45,6 +45,7 @@ website:
       - section: "About This Wiki"
         contents:
           - vignettes/vignette-workflow.qmd
+          - vignesttes/searching.qmd
 
 format:
   html:
