@@ -10,7 +10,7 @@
 # =============================================================================
 
 API Keys.txt
-prompts/Personal/Brooke/Final Divorce Decree.pdf
+*.csv
 
 # =============================================================================
 # R Files
@@ -68,9 +68,14 @@ wheels/
 # Microsoft files
 # =============================================================================
 
-# Ignore all PowerPoint files (modern and old formats)
+# Ignore all Microsoft files (modern and old formats)
 *.pptx
 *.ppt
+*.docx
+*.doc
+*.xlsx
+*.xls
+
 
 # Ignore MS Office temporary files that start with ~$
 ~$*
@@ -78,9 +83,7 @@ wheels/
 # =============================================================================
 # Large files
 # =============================================================================
-prompts/Personal/Summer Camps 2026/2026ProgramGuideasof030626.pdf
-prompts/Personal/Summer Camps 2026/TCC Course Catalog.pdf
-prompts/Personal/Summer Camps 2026/XPLORESummeratTVS202616.pdf
+
 
 # =============================================================================
 # Quarto Website files
