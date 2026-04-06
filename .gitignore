@@ -64,6 +64,10 @@ wheels/
 # Virtual environments
 .venv
 
+# iPython Notebooks
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
 # =============================================================================
 # Microsoft files
 # =============================================================================
