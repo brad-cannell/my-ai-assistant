@@ -3,7 +3,7 @@ title: Parkinson's Disease Regular Briefing
 interface: Claude Cowork
 author: Brad Cannell
 created: 2026-04-05
-last_updated: 2026-04-05
+last_updated: 2026-04-06
 tags:
   - Parkinson's Disease
   - Scheduled
@@ -11,16 +11,23 @@ tags:
 
 # Overview (optional)
 
-- I am creating a Parkinson's Disease daily (or weekly) briefing.
+- I am creating two scheduled Parkinson's Disease briefings to help me stay current on Parkinson's Disease.
+  - A daily briefing that contains basic PD facts.
+  - A weekly briefing that contains a more extensive review of recent advances in the field.
 - I am using doing so with a [scheduled Claude Cowork task](https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-cowork).
 - I worked on this prompt with [Claude.ai](https://claude.ai/chat/d2e73862-2c4c-4e7a-9d90-60f90cbefb17).
 - I am recording a backup version of the prompt here.
+  - Currently, this scheduled task is specific to the device it was set up on. If you want to view it on a different device, you have to create a new, independent task.
+- The results are appended to markdown files stored in the same directory as the prompt.
+  - pd_basics_log.md: Contains a record of the PD basic facts covered.
+  - pd_researchers_log.md: Contains a record of the names of researchers mentioned in the weekly briefing.
+  -  pd_stories_log copy.md: Contains a record of the news stories mentioned in the weekly briefing.
 
 # SYSTEM PROMPT
 
 I don't think this arrangement uses a system prompt.
 
----
+------------------------------------------------------------------------
 
 # USER MESSAGE
 
@@ -39,58 +46,55 @@ At the start of each run, read both log files before searching the web or compil
 
 ## Instructions
 
-1. Read `pd_stories_log.md` and `pd_researchers_log.md` before proceeding.
+1.  Read `pd_stories_log.md` and `pd_researchers_log.md` before proceeding.
 
-2. Search the web for Parkinson's Disease news and research published or updated in the last week, prioritizing the most recent items first. Focus on:
-   - New or updated clinical research and trial results
-   - Basic science advances (e.g., neuroprotection, biomarkers, alpha-synuclein, neuroinflammation)
-   - Epidemiology, risk factors, and population-level findings — especially those relevant to aging populations, elder mistreatment, social isolation, screening, or late-life outcomes
-   - Treatment and medication updates
-   - Caregiver and quality-of-life findings
+2.  Search the web for Parkinson's Disease news and research published or updated in the last week, prioritizing the most recent items first. Focus on:
 
-3. Avoid items already present in `pd_stories_log.md` unless there is a significant update or new finding. If an item is an update to a previously logged story, note that briefly (e.g., "Update: ...").
+    - New or updated clinical research and trial results
+    - Basic science advances (e.g., neuroprotection, biomarkers, alpha-synuclein, neuroinflammation)
+    - Epidemiology, risk factors, and population-level findings — especially those relevant to aging populations, elder mistreatment, social isolation, screening, or late-life outcomes
+    - Treatment and medication updates
+    - Caregiver and quality-of-life findings
 
-4. Compile a briefing with the following structure:
+3.  Avoid items already present in `pd_stories_log.md` unless there is a significant update or new finding. If an item is an update to a previously logged story, note that briefly (e.g., "Update: ...").
 
----
+4.  Compile a briefing with the following structure:
 
-## Parkinson's Disease Briefing — [Today's Date]
+------------------------------------------------------------------------
+
+## Parkinson's Disease Briefing — \[Today's Date\]
 
 ### 🔬 Research & Science
 
-[2–4 items, each with a 2–3 sentence summary and an inline source link]
+\[2–4 items, each with a 2–3 sentence summary and an inline source link\]
 
 ### 🏥 Clinical & Treatment Updates
 
-[1–3 items, each with a 2–3 sentence summary and an inline source link]
+\[1–3 items, each with a 2–3 sentence summary and an inline source link\]
 
 ### 📰 News & Other Noteworthy Items
 
-[1–2 items if available, with inline source links]
+\[1–2 items if available, with inline source links\]
 
 ### 💡 Today's Deeper Dive
 
-[Pick the single most significant or interesting item — with preference for population-level, aging, or screening research when available — and provide a richer 4–6 sentence summary explaining why it matters and its implications for epidemiologic research or public health practice]
-
-### 🧠 Today's Basic Fact
-
-[One foundational fact about Parkinson's Disease — covering biology, epidemiology, diagnosis, pathophysiology, or history. Aim to build cumulative knowledge over time by varying the topic each day. Include an inline source link to a reputable reference (e.g., Parkinson's Foundation, Michael J. Fox Foundation, peer-reviewed review article).]
+\[Pick the single most significant or interesting item — with preference for population-level, aging, or screening research when available — and provide a richer 4–6 sentence summary explaining why it matters and its implications for epidemiologic research or public health practice\]
 
 ### 👩‍🔬 Researchers to Know
 
-[List any researchers named in today's briefing. For each, provide: full name, institutional affiliation if available, and a one-sentence description of their area of focus based on the work cited. This section helps build a running knowledge of key figures in the PD research community.]
+\[List any researchers named in today's briefing. For each, provide: full name, institutional affiliation if available, and a one-sentence description of their area of focus based on the work cited. This section helps build a running knowledge of key figures in the PD research community.\]
 
----
+------------------------------------------------------------------------
 
-5. If no significant new items are found in a category, note that briefly rather than leaving it empty.
+5.  If no significant new items are found in a category, note that briefly rather than leaving it empty.
 
-6. After delivering the briefing, update the log files as follows:
+6.  After delivering the briefing, update the log files as follows:
 
 ### Updating pd_stories_log.md
 
 Append one entry per new story covered in today's briefing using this format:
 
-```
+```         
 ## [Today's Date]
 - **[Story title or brief headline]** | [Source name] | [URL]
 - **[Story title or brief headline]** | [Source name] | [URL]
@@ -102,7 +106,7 @@ Do not re-log stories already present in the file unless today's item is a meani
 
 Append any researchers from today's briefing who are not already in the file using this format:
 
-```
+```         
 ## [Researcher Full Name]
 - **Affiliation:** [Institution, if known]
 - **Focus:** [One-sentence description of their research area based on today's citation]

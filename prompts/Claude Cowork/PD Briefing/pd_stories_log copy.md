@@ -1,6 +1,6 @@
 # Parkinson's Disease Stories Log
 
-This file is maintained automatically by the daily PD briefing prompt. One entry is appended per briefing run, listing all new stories covered that day. It is read at the start of each run to prevent duplicate coverage.
+This file is maintained automatically by the `PD Weekly Briefing` prompt. One entry is appended per briefing run, listing all new stories covered that day. It is read at the start of each run to prevent duplicate coverage.
 
 ---
 
@@ -14,3 +14,12 @@ This file is maintained automatically by the daily PD briefing prompt. One entry
 - **Tavapadon NDA submitted to FDA for Parkinson's motor symptom management** | Michael J. Fox Foundation | https://www.michaeljfox.org/news/new-parkinsons-drug-tavapadon-submitted-fda-review
 - **Penn State Health covers adaptive deep brain stimulation for National Parkinson's Awareness Month** | Penn State Health News | https://pennstatehealthnews.org/2026/04/the-medical-minute-latest-parkinsons-disease-treatments-help-patients-stay-active-longer/
 - **Cure Parkinson's announces SLEIPNIR multi-arm adaptive platform trial to begin recruitment in 2026** | Cure Parkinson's | https://cureparkinsons.org.uk/2026/01/2026-research-progress/
+
+## 2026-04-06
+- **SK-129 foldamer inhibits alpha-synuclein aggregation and crosses blood-brain barrier in multiple PD models** | Science Translational Medicine | https://www.science.org/doi/10.1126/scitranslmed.adu1050
+- **Repeated donor FMT improves motor symptoms in drug-naïve Parkinson's: Phase 2 RCT** | Signal Transduction and Targeted Therapy (Nature) | https://www.nature.com/articles/s41392-026-02604-9
+- **Blarcamesine rescues motor function and restores dopaminergic nerve fibers in advanced preclinical PD model** | Anavex / AD/PD 2026 Conference | https://www.globenewswire.com/news-release/2026/03/17/3257034/29248/en/Anavex-Life-Sciences-Presents-Significant-Treatment-Effects-of-Blarcamesine-in-New-Advanced-Alpha-Synuclein-Model-of-Parkinson-s-Disease-at-AD-PD-2026-Conference.html
+- **Antiviral innate immunity induces alpha-synuclein pSer129 phosphorylation independent of aggregation** | npj Parkinson's Disease | https://www.nature.com/articles/s41531-026-01297-9
+- **EJS ACT-PD — world's largest PD trial — expanding to full UK site network through April 2026** | Van Andel Institute / UCL | https://www.vai.org/article/largest-ever-parkinsons-disease-clinical-trial-opens/
+- **Major PD advocacy coalition urges Congress to preserve NIH funding as FY2027 budget proposes 20% cut** | APDA / Michael J. Fox Foundation / Parkinson's Foundation | https://www.michaeljfox.org/news/leading-parkinsons-organizations-urge-congress-strengthen-research-funding-national-institutes
+- **EPA trichloroethylene (TCE) ban stayed pending legal challenge; chemical remains in use** | APDA | https://www.apdaparkinson.org/article/parkinsons-advocates-rally-in-d-c-urge-congress-to-boost-research-funding-ban-parkinsons-linked-chemical/
