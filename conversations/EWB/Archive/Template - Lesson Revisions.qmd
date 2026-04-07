@@ -1,0 +1,187 @@
+---
+title: "Lesson - {{Lesson Name}}"
+author: brad_cannell
+date: {{YYYY-MM-DD}}
+date-modified: {{YYYY-MM-DD}}
+category: lesson_development
+tags:
+  - r
+format:
+  html:
+    toc: true
+    embed-resources: true
+execute:
+  eval: true # Switch to false to run interactively
+---
+
+# Overview
+
+- Conversation about editing the language in this lesson.
+
+# Prerequisites
+
+See [Working with Python and Chatlas](https://brad-cannell.github.io/my-ai-assistant/vignettes/python-and-chatlas.html) for setup instructions (virtual environment, package installation, API key management).
+
+# Load Packages
+
+```{python}
+from chatlas import ChatAnthropic, ChatOpenAI
+from datetime import date
+from pathlib import Path
+import keyring
+import pickle
+import os
+```
+
+# File Paths and Environment Variables
+
+```{python}
+# OpenAI Models: https://platform.openai.com/docs/models
+# Anthropic Models: https://platform.claude.com/docs/en/about-claude/models/overview
+# 2026-02-27: We prefer claude for lesson revisions.
+model = "claude-sonnet-4-6"
+
+# Today's date
+today = date.today().isoformat()
+
+# Course and lesson name
+# By default, these are injected from Convert Chapters.qmd
+# They can also be altered manually.
+course_name = "{{Course Name}}"
+lesson_name = "{{Lesson Name}}"
+
+# Lesson file and folder paths
+# By default, these are injected from Convert Chapters.qmd
+# They can also be altered manually.
+lesson_file_path = Path("{{lesson_file_path}}")
+lesson_folder_path = lesson_file_path.parent
+
+# Lesson content
+lesson_content = (lesson_file_path).read_text(encoding="utf-8")
+
+# Prompt path
+path_template_prompt_lesson_revisions = '/Users/bradcannell/Desktop/Git/AI/my-ai-assistant/prompts/EWB/Courses/Template Prompt - Lesson Revisions.md'
+```
+
+```{python}
+# Check that all paths exist
+paths_to_check = {
+    "lesson_file_path": lesson_file_path,
+    "lesson_folder_path": lesson_folder_path,
+    "path_template_prompt_lesson_revisions": Path(path_template_prompt_lesson_revisions),
+}
+
+for name, path in paths_to_check.items():
+    if not path.exists():
+        raise FileNotFoundError(f"Path not found — {name}: {path}")
+    print(f"✓  {name}: {path}")
+```
+
+# Load helper functions
+
+See [Python Helper Functions](https://brad-cannell.github.io/my-ai-assistant/vignettes/python-helper-functions.html) for installation instructions and a full function reference.
+
+```{python}
+from py_scripts import (
+    prompt_extract_system_prompt,
+    prompt_extract_user_message,
+    prompt_fill_placeholders,
+)
+```
+
+# Expose API
+
+See [Storing API Keys with Keyring](https://brad-cannell.github.io/my-ai-assistant/vignettes/keyring.html) for first-time setup instructions.
+
+```{python}
+# Retrieve the password from the system keyring - Claude
+claude_api = keyring.get_password("ewb-course-development-claude", "brad")
+
+if claude_api is not None:
+    # Set the retrieved value as a temporary environment variable
+    os.environ['ANTHROPIC_API_KEY'] = claude_api
+    print("Environment variable 'ANTHROPIC_API_KEY' set successfully within the script.")
+else:
+    print("Could not retrieve password from keyring.")
+```
+
+# Read the Template Prompt
+
+```{python}
+# Raw system (developer) section of the prompt template.
+system_prompt = prompt_extract_system_prompt(path_template_prompt_lesson_revisions)
+
+# Raw user message section of the prompt template.
+user_message_raw = prompt_extract_user_message(path_template_prompt_lesson_revisions)
+
+# Inject course and lesson name into user message
+user_message = prompt_fill_placeholders(
+    text = user_message_raw,
+    replacements = {
+        "lesson_name": lesson_name,
+        "course_name": course_name,
+        "lesson_content": lesson_content,
+    },
+)
+```
+
+# Create Chat Object
+
+The `system_prompt` argument is optional. Omit it for a one-off conversation, or pass a string to set a persistent role or constraints. See [System Prompts](https://brad-cannell.github.io/my-ai-assistant/vignettes/system-prompts.html) for details.
+
+```{python}
+chat = ChatAnthropic(
+    model = model,
+    system_prompt = system_prompt,
+    max_tokens = 20000
+)
+```
+
+# Pass the Template Prompt to the AI Assistant
+
+```{python}
+chat.chat(user_message, echo='none')
+```
+
+# Write the Revised Lesson Text to a Markdown File for Review
+
+```{python}
+(lesson_folder_path / "ai" / ("revised_lesson_content_" + today + ".md")).write_text(
+    str(chat.get_last_turn()),
+    encoding='utf-8'
+)
+```
+
+# 🚩 Checkpoint: Initial Prep
+- **New chapter:** Place cursor here and type `Shift+Option+Cmd+P` to run all cells above (Positron: _Run All Cells Above Cursor_). Confirm no console errors before continuing.
+
+# Follow-up and Refinement
+
+A section for optional follow-up questions and refinements. 
+- Optionally, create a fork of the chat. `import copy; chat_fork = copy.deepcopy(chat)`
+- Asks follow-up questions in interactive mode - `chat.app()`.
+
+# Section - Summary
+
+Optionally, ask for a lesson summary.
+
+```{python}
+prompt_summary = "Please write a brief summary paragraph to wrap up this lesson."
+chat.chat(prompt_summary, echo="none")
+print(str(chat.get_last_turn()))
+```
+
+# Save Chat History
+
+See [Saving and Resuming Chats](https://brad-cannell.github.io/my-ai-assistant/vignettes/save-and-resume-chats.html) for the full workflow. Save both formats: markdown for browsing, pickle for resuming.
+
+```{python}
+# Markdown — for browsing and searching
+chat_history_path_md = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + today + ".md"))
+chat.export(chat_history_path_md, overwrite=True)
+
+# Pickle — for resuming in a later session
+chat_history_path_pkl = (lesson_folder_path / "ai" / ("lesson_revisions_history_" + today + ".pkl"))
+with open(chat_history_path_pkl, "wb") as f:
+    pickle.dump(chat.get_turns(), f)
+```

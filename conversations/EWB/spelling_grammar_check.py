@@ -13,16 +13,19 @@
 #   2. Review results in ai/spelling_and_grammar_check_YYYY-MM-DD.md.
 # =============================================================================
 
-from chatlas import ChatAnthropic
-from openai import OpenAI
-from httpcore import stream
+from chatlas import ChatAnthropic, ChatOpenAI
 from datetime import date
 from pathlib import Path
-import chatlas as ctl
-import anthropic
 import keyring
-import json
+import pickle
 import os
+
+# Load helper functions
+from py_scripts import (
+    prompt_extract_system_prompt,
+    prompt_extract_user_message,
+    prompt_fill_placeholders,
+)
 
 # =============================================================================
 # File Paths and Environment Variables
@@ -52,8 +55,8 @@ lesson_content = lesson_file_path.read_text(encoding="utf-8")
 
 # Prompt paths
 path_template_prompt_spelling_grammar = Path(
-    '/Users/bradcannell/Desktop/Git/AI/ewb-ai-assistant'
-    '/prompts/Courses/Template Prompt - Spelling and Grammar Check.md'
+    '/Users/bradcannell/Desktop/Git/AI/my-ai-assistant'
+    '/prompts/EWB/Courses/Template Prompt - Spelling and Grammar Check.md'
 )
 
 # =============================================================================
@@ -70,20 +73,6 @@ for name, path in paths_to_check.items():
     if not path.exists():
         raise FileNotFoundError(f"Path not found — {name}: {path}")
     print(f"✓  {name}: {path}")
-
-# =============================================================================
-# Load helper functions
-#
-# Prerequisites (run once in terminal):
-#   /usr/local/bin/python3 -m pip install --editable "/Users/bradcannell/Desktop/Git/AI/ewb-ai-assistant/py_scripts"
-#   Then restart the interpreter.
-# =============================================================================
-
-from ewb_py_scripts import (
-    prompt_extract_system_prompt,
-    prompt_extract_user_message,
-    prompt_fill_placeholders,
-)
 
 # =============================================================================
 # Expose API
@@ -124,7 +113,7 @@ user_message = prompt_fill_placeholders(
 # Create Chat Object and Run Spelling/Grammar Check
 # =============================================================================
 
-chat = ctl.ChatOpenAI(
+chat = ChatOpenAI(
     model=model,
     system_prompt=system_prompt,
 )

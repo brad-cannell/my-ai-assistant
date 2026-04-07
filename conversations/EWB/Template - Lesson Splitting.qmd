@@ -206,7 +206,7 @@ After creating all files, provide a summary listing every folder and file create
 Replace every bracketed placeholder in the template with the actual titles, folder names, filenames, and content descriptions from the lesson plan above. Do not change anything else in the template.
 """
 
-chat.chat(generate_prompt_messag, echo='none')
+chat.chat(generate_prompt_message, echo='none')
 print(chat.get_last_turn())
 ```
 

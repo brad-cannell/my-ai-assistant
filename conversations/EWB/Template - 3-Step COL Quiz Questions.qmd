@@ -26,12 +26,18 @@ execute:
 - Step 1 extracts competencies from the lesson for human review.
 - Step 2 generates one quiz question per approved competency.
 - Step 3 critiques the questions and returns a revised, upload-ready EWB markdown file.
+- This version of the template embeds the prompt text directly in a code block rather than loading it from a separate prompt markdown file.
+    - Why make this change?
+        1. Easier to adapt on the fly.
+        2. Creates a more honest record of the prompt actually used. If the prompt is loaded from a separate file and later modified, there is no record of the change in this conversation.
 
 # Prerequisites
 
 See [Working with Python and Chatlas](https://brad-cannell.github.io/my-ai-assistant/vignettes/python-and-chatlas.html) for setup instructions (virtual environment, package installation, API key management).
 
-# Load Packages
+# Load Packages and Helper Functions
+
+See [Python Helper Functions](https://brad-cannell.github.io/my-ai-assistant/vignettes/python-helper-functions.html) for installation instructions and a full function reference.
 
 ```{python}
 from chatlas import ChatAnthropic, ChatOpenAI
@@ -40,6 +46,13 @@ from pathlib import Path
 import keyring
 import pickle
 import os
+
+# Load helper functions
+from py_scripts import (
+    prompt_extract_system_prompt,
+    prompt_extract_user_message,
+    prompt_fill_placeholders,
+)
 ```
 
 # File Paths and Environment Variables
@@ -70,9 +83,7 @@ lesson_content = (lesson_file_path).read_text(encoding="utf-8")
 # Path to COL Quiz Format Examples snippet
 path_col_quiz_format_examples = Path('/Users/bradcannell/Desktop/Git/AI/my-ai-assistant/snippets/EWB/COL Quiz Format Examples.md')
 col_quiz_format_examples = path_col_quiz_format_examples.read_text(encoding="utf-8")
-```
 
-```{python}
 # Check that all paths exist
 paths_to_check = {
     "lesson_file_path": lesson_file_path,
@@ -84,18 +95,6 @@ for name, path in paths_to_check.items():
     if not path.exists():
         raise FileNotFoundError(f"Path not found — {name}: {path}")
     print(f"✓  {name}: {path}")
-```
-
-# Load Helper Functions
-
-See [Python Helper Functions](https://brad-cannell.github.io/my-ai-assistant/vignettes/python-helper-functions.html) for installation instructions and a full function reference.
-
-```{python}
-from py_scripts import (
-    prompt_extract_system_prompt,
-    prompt_extract_user_message,
-    prompt_fill_placeholders,
-)
 ```
 
 # Expose API
@@ -151,6 +150,8 @@ For each competency, provide:
 - **Assessability note:** In one sentence, describe how this competency could be assessed in a low-stakes quiz — without relying on recall of a specific example or code chunk from the lesson.
 
 Return between 5 and 8 competencies, ordered from foundational to more advanced. If a lesson concept is too narrow or example-specific to support a generalizable question, omit it.
+
+At least half of the questions should simply check for recall and recognition only.
 </task>
 
 <constraints>
@@ -179,7 +180,6 @@ chat_step_01.chat(user_message_step_01, echo='none')
 # Save the Step 1 competency list as a markdown file
 competency_list_path = lesson_folder_path / "ai" / ("col_competency_list_" + today + ".md")
 competency_list_path.write_text(str(chat_step_01.get_last_turn()), encoding="utf-8")
-print(f"Competency list saved: {competency_list_path}")
 ```
 
 # 🚩 Checkpoint: Review Competency List
@@ -260,7 +260,6 @@ chat_step_02.chat(user_message_step_02, echo='none')
 # Save the Step 2 COL questions as a markdown file
 col_question_path = lesson_folder_path / "ai" / ("col_questions_" + today + ".md")
 col_question_path.write_text(str(chat_step_02.get_last_turn()), encoding="utf-8")
-print(f"COL questions saved: {col_question_path}")
 ```
 
 ---
@@ -311,7 +310,10 @@ Then, provide a complete revised version of the full question set that incorpora
 Ensure that there are no backticks used in answer choices or answer choice feedback.
 </important>
 
+<formatting_examples>
+Question formatting examples only:
 {col_quiz_format_examples}
+</formatting_examples>
 
 <lesson_content>
 {lesson_content}
@@ -362,7 +364,6 @@ chat_step_03.chat("Please return only the finalized set of questions.", echo='no
 # Save the revised Step 3 output as the final upload-ready EWB markdown file.
 col_question_path = lesson_folder_path / "ai" / ("col_questions_" + today + ".md")
 col_question_path.write_text(str(chat_step_03.get_last_turn()), encoding="utf-8")
-print(f"COL questions saved: {col_question_path}")
 ```
 
 ---
