@@ -24,3 +24,23 @@ Sources: [GBD 2021 PD Projections to 2050 (BMJ, 2025)](https://pubmed.ncbi.nlm.n
 
 ---
 
+# Parkinson's Disease Review — 2026-04-08
+
+---
+
+## 🧠 Today's Basic Fact
+
+**The Pre-Symptomatic Neurodegeneration Threshold: Why PD Motor Diagnosis Lags Disease Onset by Years to Decades**
+
+By the time cardinal motor symptoms of Parkinson's disease emerge — resting tremor, bradykinesia, rigidity, and postural instability — an estimated **60–80% of dopaminergic neurons in the substantia nigra pars compacta (SNpc) have already been lost**. This is one of the most clinically and epidemiologically consequential facts in PD biology.
+
+The SNpc projects via the nigrostriatal pathway to the putamen (dorsal striatum), where dopamine release facilitates voluntary movement through the **direct (Go) and indirect (NoGo) basal ganglia pathways**. As neurons die, surviving cells compensate through increased dopamine synthesis and release per neuron, upregulation of postsynaptic dopamine receptors, and circuit-level plasticity — masking the deficit until homeostatic reserve is exhausted. Only at that point do the hypokinetic motor features become clinically apparent.
+
+The pathological substrate of this dying neuronal population is the **Lewy body** — an intraneuronal inclusion composed primarily of misfolded, aggregated **α-synuclein** (encoded by *SNCA*). Braak and colleagues (2003) proposed a six-stage model of α-synuclein propagation: pathology begins in the **olfactory bulb and dorsal motor nucleus of the vagus** (stages 1–2), ascends to the SNpc and locus coeruleus (stages 3–4), and eventually spreads to the neocortex (stages 5–6). This ascending propagation — consistent with a prion-like cell-to-cell transmission model — may span **10–20 years before motor diagnosis**, explaining why prodromal non-motor features (hyposmia/anosmia, REM sleep behavior disorder, constipation, depression) frequently predate motor PD by years.
+
+**Epidemiological implications:** The lag between biological onset and clinical diagnosis is a core source of **incidence-prevalence bias** in PD research. Estimates of disease duration, used extensively in cost-of-illness, caregiver burden, and quality-of-life studies, are anchored to motor symptom onset — not true disease onset — systematically truncating estimated duration and potentially underestimating cumulative burden. Prodromal biomarker research (CSF/plasma α-synuclein seed amplification assays, skin biopsy for phosphorylated α-synuclein, dopamine transporter SPECT imaging) aims to shift the epidemiological clock earlier.
+
+Sources: [NINDS — Parkinson's Disease](https://www.ninds.nih.gov/health-information/disorders/parkinsons-disease) | [Braak Staging — Nature Neuroscience (2004)](https://www.nature.com/articles/nn1303) | [α-Synuclein in PD — Cell Death & Disease (2023)](https://www.nature.com/articles/s41419-023-05672-9) | [Parkinson's Foundation — What Is Parkinson's?](https://www.parkinson.org/understanding-parkinsons/what-is-parkinsons) | [npj PD — Nigrostriatal Dopaminergic Denervation in Early PD (2023)](https://www.nature.com/articles/s41531-023-00586-x)
+
+---
+
