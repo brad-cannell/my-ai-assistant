@@ -44,3 +44,38 @@ Sources: [NINDS — Parkinson's Disease](https://www.ninds.nih.gov/health-inform
 
 ---
 
+# Parkinson's Disease Review — 2026-04-09
+
+---
+
+## 🧠 Today's Basic Fact
+
+**The Genetics of Parkinson's Disease: From Mendelian Mutations to Polygenic Risk**
+
+For most of the 20th century, PD was considered an environmental disease — a view overturned in 1997 when Polymeropoulos et al. identified the first causative point mutation in *SNCA* (A53T) in a large Italian kindred. Today, genetics is recognized as far more central to PD than previously appreciated. A 2024 analysis by Lim & Klein argues the field has accumulated enough evidence to consider **PD predominantly a genetic disease** — even so-called "sporadic" cases carry a substantial polygenic burden.
+
+**The genetic architecture of PD spans three tiers:**
+
+**1. Monogenic (Mendelian) causes (~5–10% of PD overall; higher in early-onset or familial cases)**
+
+Seven genes are established monogenic causes of PD:
+
+- *Autosomal dominant (typically late-onset):* **LRRK2** (leucine-rich repeat kinase 2), **SNCA** (α-synuclein), **VPS35** (vacuolar protein sorting 35), and **CHCHD2** (coiled-coil-helix-coiled-coil-helix domain 2). LRRK2 p.G2019S is the single most common pathogenic PD variant globally, present in ~1% of sporadic and ~4% of familial European-ancestry PD; prevalence rises dramatically in Ashkenazi Jewish (~18–20%) and North African Berber/Arab (~30–40%) populations.
+- *Autosomal recessive (typically early-onset, median age <50):* **PRKN/Parkin**, **PINK1** (PTEN-induced kinase 1), and **DJ-1/PARK7**. Parkin mutations are the most common cause of early-onset PD globally; median age at onset for PRKN, PINK1, and DJ-1 carriers is ~32, ~31, and ~27 years, respectively.
+
+Clinically, recessive PD often presents with a more benign motor course, slower progression, preserved cognition, and excellent levodopa response compared to sporadic PD — reflecting a mitochondrial/mitophagy pathway etiology rather than α-synuclein–driven Lewy pathology (notably, Parkin-mutation PD brains often lack typical Lewy bodies at autopsy).
+
+**2. Intermediate-risk variants**
+
+**GBA1** (glucocerebrosidase) harbors the most common genetic *risk factor* for PD. GBA1 variants — ranging from mild (N370S) to severe (L444P) — are found in **4–20% of PD patients** depending on ancestry and clinical ascertainment; penetrance estimates range from ~10–30% by age 80. GBA1-PD is characterized by earlier onset, faster motor progression, greater cognitive decline, and higher rate of Lewy pathology compared to non-GBA PD. The mechanism likely involves impaired lysosomal glucocerebrosidase activity → accumulation of glycolipid substrates → disruption of α-synuclein clearance.
+
+**3. Polygenic risk (common variants, ~GWAS)**
+
+Genome-wide association studies (GWAS) have now identified **>90 independent risk loci** for PD in European-ancestry populations. Individually, each locus confers only modest risk (OR ~1.05–1.3); collectively, polygenic risk scores (PRS) derived from these variants show meaningful discrimination. Importantly, many GWAS hits map to genes in pathways already implicated by Mendelian genetics — lysosomal biology (*GBA1*, *CTSB*), endolysosomal trafficking (*VPS35*, *RAB7L1*), mitochondrial function (*PINK1*), and immune regulation — reinforcing pathway convergence across the genetic spectrum of PD.
+
+**Epidemiological implications:** The highly heterogeneous genetic architecture of PD — with marked variation by ancestry (e.g., LRRK2 enrichment in Ashkenazi Jewish and North African populations, PRKN enrichment in East Asian early-onset cases) — has important implications for study design, causal inference, and generalizability. Most GWAS have been conducted in European-ancestry cohorts, limiting discovery in non-European populations and creating potential for population stratification artifacts. Ancestry-stratified analyses and global biobank partnerships (e.g., GP2 — Global Parkinson's Genetics Program) are actively working to close this gap.
+
+Sources: [Lim & Klein, *J Parkinson's Dis* (2024) — PD is Predominantly a Genetic Disease](https://journals.sagepub.com/doi/10.3233/JPD-230376) | [Towards a Global View of PD Genetics, *Annals of Neurology* (2024)](https://onlinelibrary.wiley.com/doi/full/10.1002/ana.26905) | [Genetics of PD: Dominant Forms and GBA — *ScienceDirect* (2024)](https://www.sciencedirect.com/science/article/pii/S2667049624000097) | [Genetics of PD: A Clinical Perspective — *PMC* (2021)](https://pmc.ncbi.nlm.nih.gov/articles/PMC8304082/) | [Analysis of Rare PD Variants in Millions of People — *npj Parkinson's Disease* (2023)](https://www.nature.com/articles/s41531-023-00608-8)
+
+---
+

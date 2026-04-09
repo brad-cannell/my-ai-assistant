@@ -72,7 +72,11 @@ At the start of each run, read the log file before searching the web or compilin
 
 ------------------------------------------------------------------------
 
-5.  After delivering the briefing, append it to `pd_basics_log.md`. Do not re-log facts already present in the file unless today's item is a meaningful update, in which case add an "Update:" prefix.
+5.  Deliver the briefing to my "PD Briefing" ClickUp channel at: https://app.clickup.com/8446862/chat/r/81rwe-7731.
+
+6. After delivering the briefing, append it to `pd_basics_log.md`. Do not re-log facts already present in the file unless today's item is a meaningful update, in which case add an "Update:" prefix.
+
+7. Commit `pd_basics_log.md` using the message "[YYYY-MM-DD] PD Briefing". Then, push the commit to GitHub.
 
 ## Rules
 
