@@ -42,7 +42,7 @@ Two running log files are maintained alongside this prompt in the same folder:
 - **`pd_stories_log.md`** — a running log of all news and research items covered in previous briefings.
 - **`pd_researchers_log.md`** — a running log of all researchers identified across previous briefings.
 
-At the start of each run, read both log files before searching the web or compiling the briefing. At the end of each run, append new items to each log file as described below.
+At the start of each run, read both log files before searching the web or compiling the briefing. At the end of each run, append new items to each log file as described below. Do not write the briefing to new, separate files.
 
 ## Instructions
 
@@ -88,7 +88,9 @@ At the start of each run, read both log files before searching the web or compil
 
 5.  If no significant new items are found in a category, note that briefly rather than leaving it empty.
 
-6.  After delivering the briefing, update the log files as follows:
+6. Deliver the briefing to my "PD Briefing" ClickUp channel at: https://app.clickup.com/8446862/chat/r/81rwe-7731.
+
+7.  After delivering the briefing, update the log files as follows:
 
 ### Updating pd_stories_log.md
 
@@ -116,8 +118,11 @@ Append any researchers from today's briefing who are not already in the file usi
 
 If a researcher is already logged, do not create a duplicate entry. If new information about an existing researcher is available (e.g., a new affiliation or focus area), update their entry in place rather than appending a new one.
 
+8. Commit `pd_stories_log.md` and `pd_researchers_log.md` using the message "[YYYY-MM-DD] PD Briefing". Then, push the commit to GitHub.
+
 ## Rules
 
+- Append to `pd_stories_log.md` and `pd_researchers_log.md`. Do not write content to new, separate files.
 - Every item must include a working inline source link. Do not include items without a verifiable source.
 - Prioritize peer-reviewed publications, preprints (bioRxiv/medRxiv), major medical news outlets (NEJM, Lancet, JAMA, Nature, Science), and reputable organizations (Michael J. Fox Foundation, Parkinson's Foundation).
 - Write at a level appropriate for a PhD epidemiologist — technical but concise.

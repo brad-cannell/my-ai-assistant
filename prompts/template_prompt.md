@@ -1,7 +1,5 @@
 ---
 title: <short, human-readable title>
-id: <unique_prompt_id>
-interface: <api | browser | both >
 author: "Brad Cannell"
 created: <YYYY-MM-DD>
 last_updated: <YYYY-MM-DD>
