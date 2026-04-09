@@ -101,16 +101,51 @@ Please generate a step-by-step build guide I can follow to create the Qualtrics 
 
 Before moving on, please add an additional appendix section to the guide. The new appendix section should list the members of each judge team on separate lines. This allows for easy cut-and-paste into the Step 3 judge identification questions via Qualtric's "Edit multiple" question option. Please return only the additional appendix material. I will manually copy and paste it into the markdown guide.
 
-🔴 When the opportunity arises, here are some QR details to think through:
+Anonymous Link: <https://tcu.co1.qualtrics.com/jfe/form/SV_ba4iUmEmlCbLBhI>
 
-- How large should they be, and how should we attach them?
+## Testing
 
-- Should they have the expected judges' names printed on them as well?
+I'm attaching a PDF screenshot of the first complete version of the Qualtrics survey. If you are able, please review it for typos and errors.
 
-- How should we inform judges which posters they need to judge? We will send them an email, but should we also have a form available to review on the day of?
+1.  Great catch! I deleted `judges_02_03`
+2.  I double-checked the recode values. They are all correct.
+3.  I created a custom end-of-survey message that says, "Thank you! Your scores for Poster \#`${e://Field/PosterNum}`{style="color: rgb(0, 0, 0); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"} have been recorded. You may close this window and scan the next poster's QR code." I stored it in my Qualtrics end-of-survey message library. I added it to the survey by clicking "Survey Flow" -\> "Add a New Element Here" -\> "End of Survey" -\> "Customize" -\> "Custom end of survey message..." -\> selecting "SRC Judging For EOS Message" from the dropdown list. I'm not sure why it doesn't appear on the survey builder screen, but it does appear when I test the survey. Please write some instructions I can add to the guide about this, and suggest a place for me to add them.
+4.  Yes, I prefer it in the same block as the scoring questions. That creates one less "Next" button for judges to click.
 
-- What happens if they mess up or need to revise a score?
+## QR Code
 
-Ask Claude to create instructions that I can email out to judges.
+1.  I would like a simple printable sheet (one label per poster with poster number, student name, and QR code). Should we also add the names of the judges to the label?
+2.  This is the base anonymous link: https://tcu.co1.qualtrics.com/jfe/form/SV_ba4iUmEmlCbLBhI
 
-Ask Claude to summarize all of this into a guide I can use when I have to repeat this process next year.
+## Instructions
+
+These work great! Thank you! Now, please help me create instructions for the faculty judges. Please generate the instructions as a markdown document.
+
+1.  I plan to email these instructions to judges and also print copies for the day of the event.
+2.  Yes, judges are to be told to contact "Brad Cannell (573-239-8876)." I'm afraid I won't receive it in time if they email me. I'll also be judging and doing other event management tasks during the SRC.
+3.  Please add the actual PIN. Please also add instructions to keep the PIN private.
+4.  Yes, it's probably a good idea to mention that there is no pre-review this year.
+
+## Email 
+
+Now I need to write an email to send to the judges. The email needs to include their judging assignments (I haven't sent them out yet). I will also attach the instruction sheet we just created.
+
+Additionally, I'm wondering whether I should send a separate email to each judging team rather than a single email to all judges for at least two reasons:
+
+1.  Some teams are judging fewer posters than others. Teams with more posters may feel resentful if they see it in the email.
+2.   It may be easier for judges to digest the email if it only has their assignments rather than a table of all assignments.
+
+### Email Follow-up Question Responses
+
+1.  One email per team.
+2.  I think we should include the poster titles.
+3.  I plan to send them tonight (Wednesday). The event is on Friday.
+4.  I want to cc Eva Leon (E.LEON\@tcu.edu) on all of these emails.
+
+### Add the Emails to Outlook
+
+Additionally, what's the best way to preserve the formatting when I paste this content into an Outlook (web) email? And should I try to automate the process of writing and sending the emails?
+
+## Summarize - Make Reproducible
+
+Summarize everything we did in this chat into a guide I can use to quickly reproduce this workflow next year when I am preparing for the SRC again.
