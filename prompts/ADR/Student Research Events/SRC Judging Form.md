@@ -126,14 +126,14 @@ These work great! Thank you! Now, please help me create instructions for the fac
 3.  Please add the actual PIN. Please also add instructions to keep the PIN private.
 4.  Yes, it's probably a good idea to mention that there is no pre-review this year.
 
-## Email 
+## Email
 
 Now I need to write an email to send to the judges. The email needs to include their judging assignments (I haven't sent them out yet). I will also attach the instruction sheet we just created.
 
 Additionally, I'm wondering whether I should send a separate email to each judging team rather than a single email to all judges for at least two reasons:
 
 1.  Some teams are judging fewer posters than others. Teams with more posters may feel resentful if they see it in the email.
-2.   It may be easier for judges to digest the email if it only has their assignments rather than a table of all assignments.
+2.  It may be easier for judges to digest the email if it only has their assignments rather than a table of all assignments.
 
 ### Email Follow-up Question Responses
 
@@ -146,6 +146,29 @@ Additionally, I'm wondering whether I should send a separate email to each judgi
 
 Additionally, what's the best way to preserve the formatting when I paste this content into an Outlook (web) email? And should I try to automate the process of writing and sending the emails?
 
+## Testing the Survey
+
+I'm testing the process for importing and analyzing judges' scores in Positron using R. I'm attaching the code I have so far. When I import the Qualtrics data through the API, I get the following error:
+
+<error> ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── cols( .default = col_logical(), StartDate = col_datetime(format = ""), EndDate = col_datetime(format = ""), Status = col_character(), IPAddress = col_character(), Progress = col_double(), `Duration (in seconds)` = col_double(), RecordedDate = col_datetime(format = ""), ResponseId = col_character(), LocationLatitude = col_double(), LocationLongitude = col_double(), DistributionChannel = col_character(), UserLanguage = col_character(), judges_01_01 = col_character(), judges_01_13 = col_character(), judges_01_19 = col_character(), judges_02_23 = col_character(), judges_02_28 = col_character(), pin = col_double(), poster_design = col_character(), science = col_character() \# ... with 6 more columns ) ℹ Use `spec()` for the full column specifications.
+
+Warning messages: 1: There was 1 warning in `dplyr::mutate()`. ℹ In argument: `poster_design = readr::parse_factor(...)`. Caused by warning: ! 2 parsing failures. row col expected actual 4 -- value in level set Good Generally readable and organized with minor issues — e.g., some clutter, small text, or a figure that could be clearer. 5 -- value in level set Good Generally readable and organized with minor issues — e.g., some clutter, small text, or a figure that could be clearer. 2: There was 1 warning in `dplyr::mutate()`. ℹ In argument: `science = readr::parse_factor(science, levels = ln, ordered = TRUE, include_na = FALSE)`. Caused by warning: ! 2 parsing failures. row col expected actual 3 -- value in level set Good Most key sections are present and adequate, but one area (e.g., background, methods, or results) is underdeveloped or somewhat unclear.\
+5 -- value in level set Adequate Multiple sections are missing, unclear, or underdeveloped. It's hard to understand the full scope of the research from the poster alone. 3: There was 1 warning in `dplyr::mutate()`. ℹ In argument: `presentation = readr::parse_factor(...)`. Caused by warning: ! 1 parsing failure. row col expected actual 4 -- value in level set Good The student explains the work adequately. The explanation is generally clear but may lack depth, confidence, or engagement in some areas. 4: There was 1 warning in `dplyr::mutate()`. ℹ In argument: `critical_thinking = readr::parse_factor(...)`. Caused by warning: ! 1 parsing failure. row col expected actual 3 -- value in level set Good The student can discuss limitations and next steps at a basic level and answers most questions adequately. </error>
+
+Will you please help me troubleshoot this error an come up with solutions?
+
+### Importing Qualtrics data with labels
+
+Unfortunately, when I try option B, the judges' names are also imported as numeric values.
+
+### Scoring each poster
+
+I'm attaching my updated code file with just a couple of updates. I'm also attaching a file showing what the data currently looks like (src_scores_clean.csv). I need your help:
+
+1.  Writing code to flag potential issues (e.g., too many or not enough reviews for a given poster).
+2.  Calculating an overall score for each poster.
+3.  Generating a report showing the posters ranked by overall score.
+
 ## Summarize - Make Reproducible
 
-Summarize everything we did in this chat into a guide I can use to quickly reproduce this workflow next year when I am preparing for the SRC again.
+Summarize everything we did in this chat into a guide I can use to quickly reproduce this workflow next year when I am preparing for the SRC again. Create the summary as a markdown file.
