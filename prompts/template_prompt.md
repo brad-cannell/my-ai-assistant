@@ -3,9 +3,6 @@ title: <short, human-readable title>
 author: "Brad Cannell"
 created: <YYYY-MM-DD>
 last_updated: <YYYY-MM-DD>
-tags:
-  - tag1
-  - tag2
 ---
 
 <!--
