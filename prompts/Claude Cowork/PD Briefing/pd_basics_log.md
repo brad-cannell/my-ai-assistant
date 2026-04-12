@@ -44,6 +44,35 @@ Sources: [NINDS — Parkinson's Disease](https://www.ninds.nih.gov/health-inform
 
 ---
 
+# Parkinson's Disease Review — 2026-04-10
+
+---
+
+## 🧠 Today's Basic Fact
+
+**Levodopa: The Gold Standard of Parkinson's Disease Treatment — Mechanism, Efficacy, and the Long-Term Complication Problem**
+
+Levodopa (L-DOPA) has been the cornerstone of Parkinson's disease pharmacotherapy for over 55 years and remains the most effective symptomatic treatment available. Its discovery and clinical development represent one of the landmark achievements in 20th-century neurology.
+
+**The core pharmacological problem levodopa solves:** Dopamine itself cannot cross the blood-brain barrier (BBB) due to its polarity — it is excluded by the tight junctions and active efflux transporters of the BBB. Levodopa, the immediate metabolic precursor, is a neutral amino acid transported across the BBB via large neutral amino acid transporters (LAT1/SLC7A5). Once in the brain, it is decarboxylated by aromatic L-amino acid decarboxylase (AADC/DDC) — present in residual dopaminergic terminals and, in later disease, in serotonergic neurons and glia — to replenish synaptic dopamine in the striatum.
+
+**Carbidopa co-formulation:** Levodopa is almost universally administered with **carbidopa**, a peripheral DOPA decarboxylase inhibitor that does not cross the BBB. Carbidopa prevents ~80% of levodopa from being converted to dopamine in the periphery (where it causes nausea, vomiting, and orthostatic hypotension), thereby increasing CNS bioavailability from ~1–2% to ~10% of the administered dose and enabling substantially lower effective doses. The combination was introduced in the early 1970s and replaced levodopa monotherapy as standard practice.
+
+**Clinical efficacy:** Levodopa dramatically reduces motor symptom burden — resting tremor, bradykinesia, and rigidity typically improve by 50–70% on validated scales (e.g., MDS-UPDRS Part III) — and meaningfully improved life expectancy in the pre-treatment era. Importantly, **levodopa is purely symptomatic**: it does not slow neurodegeneration, halt α-synuclein aggregation, or protect surviving dopaminergic neurons. The underlying disease continues to progress irrespective of treatment.
+
+**The long-term complication problem:** Because levodopa is administered as discrete oral doses (typically 3–5×/day), it produces **pulsatile striatal dopamine stimulation** rather than the tonic release of a healthy nigrostriatal system. As disease advances and dopaminergic terminal capacity to buffer dopamine falls:
+
+- **Motor fluctuations** ("wearing off," "on-off" phenomena) — develop in an estimated **50% of patients after 5 years** and **up to 80% after 10 years** of treatment.
+- **Levodopa-induced dyskinesia (LID)** — involuntary, often choreiform movements during peak levodopa levels. LID affects approximately **30–40% of patients after 4–6 years** and up to **80% in advanced disease**. Pathophysiologically, LID arises from maladaptive plasticity in striatal D1 receptor signaling (FosB upregulation, aberrant ERK phosphorylation) driven by pulsatile dopamine exposure in a denervated striatum.
+
+**Newer delivery strategies to address pulsatility:** Continuous dopaminergic stimulation (CDS) is the pharmacological principle behind intestinal levodopa-carbidopa gel infusion (Duopa/Duodopa, 2015) and **VYALEV (foscarbidopa/foslevodopa)** — FDA-approved October 2024 as a subcutaneous 24-hour continuous infusion for advanced PD.
+
+**Epidemiological implications:** Disease duration in PD studies is anchored to motor symptom onset, not biological onset. Since levodopa-related complications are time-from-treatment-initiation dependent, studies of complication burden, QoL, and caregiver impact must account carefully for both disease duration and treatment duration as distinct exposures. The severity and timing of LID and motor fluctuations are among the strongest predictors of health resource utilization, nursing home placement, and caregiver burden.
+
+Sources: [Levodopa Treatment — Impacts and Mechanisms Throughout PD Progression, *J Neural Transmission* (2025)](https://link.springer.com/article/10.1007/s00702-025-02893-4) | [Update on Present and Future Pharmacologic Treatment of PD, *Neurology & Therapy* (2025)](https://link.springer.com/article/10.1007/s40120-025-00800-3) | [Levodopa-Induced Dyskinesia — Pathogenesis and Emerging Treatment Strategies, *MDPI Cells* (2022)](https://www.mdpi.com/2073-4409/11/23/3736) | [FDA Approves VYALEV for Advanced PD (Oct 2024)](https://news.abbvie.com/2024-10-17-U-S-FDA-Approves-VYALEV-TM-foscarbidopa-and-foslevodopa-for-Adults-Living-with-Advanced-Parkinsons-Disease) | [Parkinson's Foundation — Medications](https://www.parkinson.org/understanding-parkinsons/treatment/medication)
+
+---
+
 # Parkinson's Disease Review — 2026-04-09
 
 ---
