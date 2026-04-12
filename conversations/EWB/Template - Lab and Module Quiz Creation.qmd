@@ -1,0 +1,392 @@
+---
+title: "Create Lab - {{Lesson Name}}"
+id: create_lab_{{lesson_name}}
+author: brad_cannell
+date: {{YYYY-MM-DD}}
+date-modified: {{YYYY-MM-DD}}
+audience: course_authors
+category: lesson_development
+tags:
+  - lab
+  - pipeline
+  - competency_extraction
+  - ewb_markdown
+  - critique
+format:
+  html:
+    toc: true
+    embed-resources: true
+execute:
+  eval: true # Switch to false to run interactively
+---
+
+# Overview
+
+🔴 Come back and update this.
+
+- Multi-step pipeline conversation for generating new lab assignments.
+- Step 1 Pass the lessons and competencies to the model.
+- Step 2 Create a general outline for the tasks the lab should 
+- This version of the template embeds the prompt text directly in a code block rather than loading it from a separate prompt markdown file.
+    - Why make this change?
+        1. Easier to adapt on the fly.
+        2. Creates a more honest record of the prompt actually used. If the prompt is loaded from a separate file and later modified, there is no record of the change in this conversation.
+
+# Prerequisites
+
+See [Working with Python and Chatlas](https://brad-cannell.github.io/my-ai-assistant/vignettes/python-and-chatlas.html) for setup instructions (virtual environment, package installation, API key management).
+
+# Load Packages and Helper Functions
+
+See [Python Helper Functions](https://brad-cannell.github.io/my-ai-assistant/vignettes/python-helper-functions.html) for installation instructions and a full function reference.
+
+```{python}
+from chatlas import ChatAnthropic, ChatOpenAI
+from datetime import date
+from pathlib import Path
+import keyring
+import pickle
+import os
+
+# Load helper functions
+from py_scripts import (
+    prompt_extract_system_prompt,
+    prompt_extract_user_message,
+    prompt_fill_placeholders,
+)
+```
+
+# File Paths and Environment Variables
+
+```{python}
+# OpenAI Models: https://platform.openai.com/docs/models
+# Anthropic Models: https://platform.claude.com/docs/en/about-claude/models/overview
+model_simple = "claude-sonnet-4-6" # For simple tasks
+model_complex = "claude-opus-4-6" # For more complex tasks
+
+# Today's date
+today = date.today().isoformat()
+
+# Course and lesson name
+# By default, these are injected from Convert Chapters.qmd
+# They can also be altered manually.
+course_name = "{{Course Name}}"
+lesson_name = "{{Lesson Name}}"
+
+# Lesson file and folder paths
+# By default, these are injected from Convert Chapters.qmd
+# They can also be altered manually.
+lesson_file_path = Path("{{lesson_file_path}}")
+lesson_folder_path = lesson_file_path.parent
+
+# Lesson content
+lesson_content = (lesson_file_path).read_text(encoding="utf-8")
+
+# Path to COL Quiz Format Examples snippet
+path_col_quiz_format_examples = Path('/Users/bradcannell/Desktop/Git/AI/my-ai-assistant/snippets/EWB/COL Quiz Format Examples.md')
+col_quiz_format_examples = path_col_quiz_format_examples.read_text(encoding="utf-8")
+
+# Check that all paths exist
+paths_to_check = {
+    "lesson_file_path": lesson_file_path,
+    "lesson_folder_path": lesson_folder_path,
+    "path_col_quiz_format_examples": path_col_quiz_format_examples
+}
+
+for name, path in paths_to_check.items():
+    if not path.exists():
+        raise FileNotFoundError(f"Path not found — {name}: {path}")
+    print(f"✓  {name}: {path}")
+```
+
+# Expose API
+
+See [Storing API Keys with Keyring](https://brad-cannell.github.io/my-ai-assistant/vignettes/keyring.html) for first-time setup instructions.
+
+```{python}
+# Retrieve the password from the system keyring - Claude
+claude_api = keyring.get_password("ewb-course-development-claude", "brad")
+
+if claude_api is not None:
+    os.environ['ANTHROPIC_API_KEY'] = claude_api
+    print("Environment variable 'ANTHROPIC_API_KEY' set successfully within the script.")
+else:
+    print("Could not retrieve password from keyring.")
+```
+
+---
+
+# Step 1: Competency Extraction
+
+- I'm not sure if we need to extract competencies. 
+
+```{python}
+system_prompt = "You are an AI assistant specialized in authoring high-quality labs and course culminating exercises for Epi-Workbench, a web-based platform offering interactive courses in epidemiology, data science, and artificial intelligence for public health professionals and health researchers. Your goal is to produce clear, accurate, pedagogically sound, and platform-ready labs and course culminating exercises that reinforce explicit learning objectives, support skill-building, and fit within a browser-based, no-install environment.
+"
+```
+
+```{python}
+user_message_step_01 = f"""
+<context>
+I am an epidemiologist, gerontologist, data scientist, and professor at Texas Christian University. I am also the co-founder and owner of Epi-Workbench, LLC - a small business developing a web-based educational platform.
+
+I am creating a web-based business called "Epi-Workbench." Epi-Workbench is an online platform offering interactive courses in epidemiology, data science, and artificial intelligence specifically designed for people working in public health and other health professions and, to a lesser extent, members of the general public who are interested in learning more about health research. With beginner to advanced-level courses, Epi-Workbench combines real-person instruction with hands-on coding exercises and integrated AI tools for a comprehensive learning experience. Learners can develop skills in statistical programming, applied statistical analyses, and scientific communication—all from the convenience of their browser, with no installation required.
+
+    <lab_exercises>
+    Each course includes at least one lab exercise. Labs allow learners to apply multiple concepts from the course in a more comprehensive and realistic scenario. Labs provide structured guidance while offering more complexity than individual lessons, helping learners bridge the gap between theory and practice. Learners can complete each lab exercise as many times as they like, promoting practice and confidence without penalty.
+    </lab_exercises>
+
+    <culminating_exercises>
+    Culminating exercises are final assessments that mirror the structure of labs but with minimal guidance. These exercises challenge learners to synthesize and apply everything they've learned, encouraging self-assessment and reflection. They serve as capstone experiences that reinforce mastery and readiness for real-world application.
+    </culminating_exercises>
+
+</context>
+
+<task>
+I am going to pass you the content of one or more EWB lessons. Please analyze the lesson(s) and extract the most important competencies a learner should have after completing it.
+
+For each competency, provide:
+
+- **Competency statement:** A single, precise sentence beginning with an action verb (e.g., "Explain," "Apply," "Interpret," "Distinguish") that describes what the learner should be able to do.
+- **Type:** Classify as *conceptual* (understanding ideas or principles), *procedural* (performing a task or using a tool), or *applied* (using knowledge to solve a problem or make a decision).
+- **Assessability note:** In one sentence, describe how this competency could be assessed in a low-stakes quiz — without relying on recall of a specific example or code chunk from the lesson.
+
+Return between 5 and 8 competencies, ordered from foundational to more advanced. If a lesson concept is too narrow or example-specific to support a generalizable question, omit it.
+
+At least half of the questions should simply check for recall and recognition only.
+</task>
+
+<constraints>
+- Use "learners" or "the learner" rather than "you" or "your."
+- Focus on durable, transferable knowledge and skills — not lesson-specific trivia.
+- Do not include competencies that can only be assessed by recognizing a specific variable name, dataset value, or code output from the lesson.
+</constraints>
+
+<lesson_content>
+{lesson_content}
+</lesson_content>
+"""
+```
+
+```{python}
+# Create Chat Object
+chat_step_01 = ChatAnthropic(
+    model=model,
+    system_prompt=system_prompt,
+    max_tokens=20000
+)
+
+# Pass the prompt to the AI assistant
+chat_step_01.chat(user_message_step_01, echo='none')
+
+# Save the Step 1 competency list as a markdown file
+competency_list_path = lesson_folder_path / "ai" / ("col_competency_list_" + today + ".md")
+competency_list_path.write_text(str(chat_step_01.get_last_turn()), encoding="utf-8")
+```
+
+# 🚩 Checkpoint: Review Competency List
+
+- **Stop here.** Read the competency list above before continuing.
+- Edit the competency list as needed — remove competencies that are too narrow or example-specific, reword any that are unclear, and confirm the ordering makes sense from foundational to advanced.
+- Copy the approved competency list into `competency_list` below, then continue to Step 2.
+
+```{python}
+# Copy the approved competency list here before running Step 2.
+competency_list = competency_list_path.read_text(encoding="utf-8")
+```
+
+---
+
+# Step 2: Question Generation
+
+- Step 2 of the 3-step COL quiz generation pipeline. 
+- Generates one COL quiz question per competency from the approved competency list produced in Step 1. 
+- Output is returned as a single, upload-ready EWB markdown file.
+
+```{python}
+user_message_step_02 = f"""
+<task>
+Below I will pass you an updated list of competencies extracted from the EWB lesson. Please write one COL quiz question for each competency.
+
+Each question should:
+
+- Directly assess the competency it is paired with.
+- Be grounded in the concepts taught in the lesson, but assess generalizable knowledge or skills — not recall of a specific example, object name, dataset value, or one-off code output shown in the lesson.
+- Be self-contained. Include all information needed to answer the question in the question text itself. Learners should not need to scroll up, re-read a prior example, or remember details of a specific code chunk in order to answer correctly.
+
+For each question, choose the question type that best fits the competency being assessed. Prefer types that require active recall or application (e.g., fill_blank, numerical) over those that rely primarily on recognition (e.g., single), unless recognition is the skill being assessed.
+
+Please provide draft feedback for each answer choice:
+- For correct answer choices, start the feedback message with a short encouraging phrase.
+- For incorrect answer choices, start the feedback message with a short encouraging phrase, then explain why the answer is incorrect.
+
+Return all questions as a single, contiguous EWB markdown file, ready to upload to the Quiz Builder.
+</task>
+
+<constraints>
+- Use 'us,' 'we,' 'our,' and 'ours' instead of 'you,' 'your,' and 'yours' to maintain a collaborative tone.
+- Do not begin every question with "In this lesson…". Vary question stems naturally.
+- Use "In this lesson…" only when it adds clarity by pointing to a specific example, dataset, or code chunk from the lesson.
+- When referencing lesson code, keep past tense (e.g., "What did select() help us do?"). When asking general conceptual questions, present tense is fine.
+- End answer choices with an appropriate punctuation mark.
+- Do not use multiple choice questions to test learners' ability to correctly write R code. If we want to test their ability to correctly write R code, we should use a coding exercise.
+- Randomize the position of the correct answer.
+- Surround code in the question text with backticks. Example: "What value does `length(x)` return?"
+- Do not surround code in the answer or feedback text with backticks. Example: length(x) returns 6.
+- All questions, answer choices, and feedback text MUST be 255 characters or less.
+</constraints>
+
+<important>
+Ensure that there are no backticks used in answer choices or answer choice feedback.
+</important>
+
+{col_quiz_format_examples}
+
+<competency_list>
+{competency_list}
+</competency_list>
+"""
+```
+
+```{python}
+# Create Chat Object
+chat_step_02 = ChatAnthropic(
+    model=model,
+    system_prompt=system_prompt,
+    max_tokens=20000
+)
+
+# Pass the prompt to the AI assistant
+chat_step_02.chat(user_message_step_02, echo='none')
+
+# Save the Step 2 COL questions as a markdown file
+col_question_path = lesson_folder_path / "ai" / ("col_questions_" + today + ".md")
+col_question_path.write_text(str(chat_step_02.get_last_turn()), encoding="utf-8")
+```
+
+---
+
+# Step 3: Critique and Revision
+
+- Step 3 of the 3-step COL quiz generation pipeline. 
+- Evaluates the questions produced in Step 2 against a structured set of quality criteria, then returns a complete revised question set as a single, upload-ready EWB markdown file.
+
+```{python}
+# Capture the Step 2 output to pass as input to Step 3.
+quiz_questions = col_question_path.read_text(encoding="utf-8")
+```
+
+```{python}
+user_message_step_03 = f"""
+<task>
+Below I will pass you a set of COL quiz questions written for an EWB lesson, along with the original lesson content and the competency list the questions were based on. Please evaluate each question and provide structured feedback.
+
+For each question, assess the following criteria:
+
+- **Competency alignment:** Does the question clearly assess the competency it was paired with? Or does it drift toward a related but different concept?
+- **Self-containment:** Can a learner answer the question without referring back to the lesson? If not, identify what missing information should be added to the question stem.
+- **Generalizability:** Does the question test a transferable concept or skill, or does it rely on remembering a lesson-specific example, variable name, dataset value, or code output?
+- **Question type fit:** Is the chosen question type the best match for the competency? If not, suggest a more appropriate type and briefly explain why.
+- **Feedback quality:** Is the feedback for each answer choice accurate, encouraging, and instructive? Flag any feedback that is vague, discouraging, or missing a clear explanation.
+- **Overall quality rating:** Rate each question as *Strong*, *Needs minor revision*, or *Needs major revision*.
+
+After evaluating all questions, provide a brief summary (3–5 sentences) noting any patterns across the question set — for example, over-reliance on a single question type, clustering at the recall level, or gaps in competency coverage.
+
+Then, provide a complete revised version of the full question set that incorporates all corrections. Return the revised questions as a single, contiguous EWB markdown file, ready to upload to the Quiz Builder. Include all questions — not just the ones that were revised — so the output file is complete and upload-ready.
+</task>
+
+<constraints>
+- Use 'us,' 'we,' 'our,' and 'ours' instead of 'you,' 'your,' and 'yours' to maintain a collaborative tone.
+- Do not begin every question with "In this lesson…". Vary question stems naturally.
+- Use "In this lesson…" only when it adds clarity by pointing to a specific example, dataset, or code chunk from the lesson.
+- When referencing lesson code, keep past tense (e.g., "What did select() help us do?"). When asking general conceptual questions, present tense is fine.
+- End answer choices with an appropriate punctuation mark.
+- Do not use multiple choice questions to test learners' ability to correctly write R code. If we want to test their ability to correctly write R code, we should use a coding exercise.
+- Randomize the position of the correct answer.
+- Surround code in the question text with backticks. Example: "What value does `length(x)` return?"
+- Do not surround code in the answer or feedback text with backticks. Example: length(x) returns 6.
+- All questions, answer choices, and feedback text MUST be 255 characters or less.
+</constraints>
+
+<important>
+Ensure that there are no backticks used in answer choices or answer choice feedback.
+</important>
+
+<formatting_examples>
+Question formatting examples only:
+{col_quiz_format_examples}
+</formatting_examples>
+
+<lesson_content>
+{lesson_content}
+</lesson_content>
+
+<competency_list>
+{competency_list}
+</competency_list>
+
+<col_quiz_questions>
+{quiz_questions}
+</col_quiz_questions>
+"""
+```
+
+```{python}
+# Create Chat Object
+chat_step_03 = ChatAnthropic(
+    model=model,
+    system_prompt=system_prompt,
+    max_tokens=20000
+)
+
+chat_step_03.chat(user_message_step_03, echo='none')
+```
+
+## Response
+
+```{python}
+#| echo: false
+print(str(chat_step_03.get_last_turn()))
+```
+
+# Follow-up and Refinement
+
+A section for optional follow-up questions and refinements.
+- Each step uses its own independent chat object (chat_step_01, chat_step_02, chat_step_03).
+- To continue a conversation within a step, call chat_step_0N.chat() with a follow-up message.
+- Optionally, create a fork of any chat. `import copy; chat_fork = copy.deepcopy(chat_step_02)`
+- Ask follow-up questions in interactive mode - `chat_step_02.app()`.
+
+# Save Final Questions
+
+```{python}
+# Return only the finalized set of quiz_questions
+chat_step_03.chat("Please return only the finalized set of questions.", echo='none')
+
+# Save the revised Step 3 output as the final upload-ready EWB markdown file.
+col_question_path = lesson_folder_path / "ai" / ("col_questions_" + today + ".md")
+col_question_path.write_text(str(chat_step_03.get_last_turn()), encoding="utf-8")
+```
+
+---
+
+# Save Chat Histories
+
+See [Saving and Resuming Chats](https://brad-cannell.github.io/my-ai-assistant/vignettes/save-and-resume-chats.html) for the full workflow. Save both formats: markdown for browsing, pickle for resuming.
+
+```{python}
+ai_folder = lesson_folder_path / "ai"
+ai_folder.mkdir(parents=True, exist_ok=True)
+
+for label, chat in [("step1", chat_step_01), ("step2", chat_step_02), ("step3", chat_step_03)]:
+    # Markdown — for browsing and searching
+    md_path = ai_folder / f"col_quiz_{label}_history_{today}.md"
+    chat.export(md_path, overwrite=True)
+    print(f"✓  {label} history saved: {md_path}")
+
+    # Pickle — for resuming in a later session
+    pkl_path = ai_folder / f"col_quiz_{label}_history_{today}.pkl"
+    with open(pkl_path, "wb") as f:
+        pickle.dump(chat.get_turns(), f)
+    print(f"✓  {label} pickle saved:  {pkl_path}")
+```
