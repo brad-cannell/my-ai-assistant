@@ -173,22 +173,12 @@ I'm attaching my updated code file with just a couple of updates. I'm also attac
 
 Summarize everything we did in this chat into a guide I can use to quickly reproduce this workflow next year when I am preparing for the SRC again. Create the summary as a markdown file.
 
------
+------------------------------------------------------------------------
 
 # Upadates to the Report
 
-I want to split this file (Summarize_Scores.qmd) into three files.
-1. Import and clean. An R script that imports the data from Qualtrics, cleans it, and saves the clean data as a CSV file.
-2. Data quality checks. A Quarto file that imports the cleaned CSV file from step 1, performs data quality checks, and renders as an HTML report.
-3. Scoring and Results. A Quarto file that scores and ranks, and renders as an HTML report.
+I want to split this file (Summarize_Scores.qmd) into three files. 1. Import and clean. An R script that imports the data from Qualtrics, cleans it, and saves the clean data as a CSV file. 2. Data quality checks. A Quarto file that imports the cleaned CSV file from step 1, performs data quality checks, and renders as an HTML report. 3. Scoring and Results. A Quarto file that scores and ranks, and renders as an HTML report.
 
-Please help me make the following updates to `data_quality.qmd`:
-1. I would like to add the date and time the report was last run to the top of the rendered report.
-2. I want to be able to run `import_clean.R` at the top of this file, but I don’t want it to run by default (`#| eval: false`).
-3. I don’t want the Load Packages or Import Data headings or code blocks to be visible in the rendered report.
-4. I don’t want to collapse the code blocks for Check Review Counts, Check for Duplicate Submissions, Check for Missing Scores, and Check for Score Outliers by default.
-5. I want the tabular results to be displayed in the rendered report with the `DT` package.
+Please help me make the following updates to `data_quality.qmd`: 1. I would like to add the date and time the report was last run to the top of the rendered report. 2. I want to be able to run `import_clean.R` at the top of this file, but I don’t want it to run by default (`#| eval: false`). 3. I don’t want the Load Packages or Import Data headings or code blocks to be visible in the rendered report. 4. I don’t want to collapse the code blocks for Check Review Counts, Check for Duplicate Submissions, Check for Missing Scores, and Check for Score Outliers by default. 5. I want the tabular results to be displayed in the rendered report with the `DT` package.
 
-Please help me make the following updates to `scoring_results.qmd`:
-- In addition to the overall ranking, I need to rank the posters by grad status (undergraduate, graduate, doctoral).
-- The poster number and undergraduate/graduate status is available in: '/Users/bradcannell/Library/CloudStorage/Box-Box/ADR Admin/HC Research Committee Shared/Student Research Conference/2026 SRC/2026 Poster Session Assignments.xlsx'
+Please help me make the following updates to `scoring_results.qmd`: - In addition to the overall ranking, I need to rank the posters by grad status (undergraduate, graduate, doctoral). - The poster number and undergraduate/graduate status is available in: '/Users/bradcannell/Library/CloudStorage/Box-Box/ADR Admin/HC Research Committee Shared/Student Research Conference/2026 SRC/2026 Poster Session Assignments.xlsx'
