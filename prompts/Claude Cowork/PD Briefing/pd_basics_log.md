@@ -73,6 +73,42 @@ Sources: [Levodopa Treatment — Impacts and Mechanisms Throughout PD Progressio
 
 ---
 
+# Parkinson's Disease Review — 2026-04-13
+
+---
+
+## 🧠 Today's Basic Fact
+
+**Cognitive Impairment and Dementia in Parkinson's Disease: Prevalence, Trajectory, and Neuropathological Substrate**
+
+Cognitive impairment is one of the most clinically consequential non-motor manifestations of Parkinson's disease and a leading determinant of quality of life, caregiver burden, and long-term care placement. Far from being a late-stage curiosity, cognitive decline spans a spectrum from subtle executive dysfunction at diagnosis to frank dementia affecting the majority of patients with advanced disease.
+
+**Prevalence and incidence:**
+At diagnosis, 10–20% of PD patients already meet criteria for cognitive impairment, and approximately 25–30% of non-demented PD patients have mild cognitive impairment (MCI-PD). Point prevalence of Parkinson's disease dementia (PDD) in prevalent PD populations is approximately 25–30%.
+
+A 2024 systematic review and meta-analysis (Gibson et al., *Movement Disorders*) estimated the **pooled incidence rate of PDD at 4.45 per 100 person-years**, equating to a ~4.5% annual risk, with a relative risk of dementia approximately **3.25-fold greater than age-matched controls**.
+
+Long-term risk is striking: a *Neurology* 2024 analysis using the Penn cohort found a **27% probability of PDD by 10 years of disease duration, 47% by 15 years, and 74% by 20 years**. A separate PPMI-based analysis yielded more conservative estimates (9–15% at 10 years), likely reflecting differences in cohort ascertainment (research vs. clinical). MCI-PD is highly labile: roughly 30–40% remain stable, while **up to 60% convert to dementia** over follow-up; MCI prevalence increases from ~30% in de novo PD to an estimated 75% after 10+ years of disease.
+
+**Neuropathological substrate and DLB/PDD overlap:**
+PDD arises from the spread of **cortical Lewy body pathology** (Braak stages 5–6) into limbic and neocortical regions, disrupting cholinergic, dopaminergic, and noradrenergic projections supporting memory and executive function. Critically, many PDD brains also harbor co-occurring **Alzheimer-type pathology (amyloid plaques, neurofibrillary tangles)**, which additively accelerates cognitive decline. The diagnostic boundary between PDD and **dementia with Lewy bodies (DLB)** is purely temporal: per the "1-year rule," if dementia precedes or coincides with motor symptom onset (within 1 year), the diagnosis is DLB; if motor symptoms antedate dementia by >1 year, it is PDD. Neuropathologically, the two are largely indistinguishable — they represent a clinical spectrum of Lewy body disease.
+
+**Cognitive profile:**
+The neuropsychological signature of PDD is primarily **frontal-subcortical**: executive dysfunction (planning, set-shifting, working memory), visuospatial impairment, and attentional deficits predominate — distinct from the amnestic-predominant profile of typical Alzheimer's disease. Memory encoding is less severely impaired early in PDD; retrieval deficits predominate, and cueing partially restores recall.
+
+**Genetic modifiers:**
+*GBA1* mutations — the most common genetic risk factor for PD overall — substantially accelerate and worsen cognitive decline in PDD, likely via impaired lysosomal α-synuclein clearance. *APOE ε4* also modestly increases PDD risk, consistent with the additive amyloid burden described above.
+
+**Treatment:**
+Rivastigmine (a dual AChE/BuChE inhibitor) is the only FDA-approved pharmacotherapy for PDD (approved 2006). Efficacy is modest (~2.5-point mean improvement on ADAS-Cog), reflecting the severe cholinergic deficit — exceeding that of Alzheimer's disease due to additional nucleus basalis of Meynert degeneration. No disease-modifying therapies exist for PDD.
+
+**Epidemiological implications:**
+PDD is among the strongest predictors of nursing home admission and is a primary driver of caregiver burden (depressive symptoms, role overload, financial hardship in care partners) and health resource utilization. Studies of PD that do not separately characterize or stratify by cognitive status risk substantial outcome heterogeneity — a critical design consideration for QoL, cost-of-illness, and caregiver burden research.
+
+Sources: [Gibson et al. — Systematic Review & Meta-Analysis of PDD Risk, *Movement Disorders* (2024)](https://movementdisorders.onlinelibrary.wiley.com/doi/10.1002/mds.29918) | [Long-Term Dementia Risk in Parkinson Disease, *Neurology* (2024)](https://www.neurology.org/doi/10.1212/WNL.0000000000209699) | [Clinical Epidemiology & Management of Dementia in PD, *PMC Review* (2024)](https://pmc.ncbi.nlm.nih.gov/articles/PMC10852884/) | [Mild Cognitive Impairment in PD: Current View, *Frontiers in Cognition* (2024)](https://www.frontiersin.org/journals/cognition/articles/10.3389/fcogn.2024.1369538/full) | [Parkinson's Foundation — Dementia & PD](https://www.parkinson.org/understanding-parkinsons/symptoms/dementia)
+
+---
+
 # Parkinson's Disease Review — 2026-04-09
 
 ---

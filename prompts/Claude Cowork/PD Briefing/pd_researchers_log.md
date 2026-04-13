@@ -27,3 +27,33 @@ This file is maintained automatically by the `PD Weekly Briefing` prompt. Resear
 - **Focus:** Conducting randomized clinical trials examining gut microbiota modulation via fecal microbiota transplantation as a therapeutic approach for early-stage, drug-naïve Parkinson's disease.
 - **First noted:** 2026-04-06
 - **Source:** https://www.nature.com/articles/s41392-026-02604-9
+
+## O.S. Mabrouk
+- **Affiliation:** Not confirmed from available sources
+- **Focus:** Lead author on the REASON phase 1 randomized controlled trial of BIIB094, an LRRK2-targeting antisense oligonucleotide for Parkinson's disease; focuses on ASO-based therapeutics for genetically-defined PD.
+- **First noted:** 2026-04-13
+- **Source:** https://www.nature.com/articles/s41591-026-04262-4
+
+## Dr. Danielle Larson
+- **Affiliation:** Division of Movement Disorders, Ken & Ruth Davee Department of Neurology, Northwestern University
+- **Focus:** Co-investigator on the REASON BIIB094 phase 1 LRRK2-targeting ASO trial; clinical focus on movement disorders and PD clinical trials.
+- **First noted:** 2026-04-13
+- **Source:** https://news.feinberg.northwestern.edu/2026/04/08/experimental-drug-lowers-parkinsons-linked-protein-in-early-trial/
+
+## Andrew Verdegaal
+- **Affiliation:** Yale School of Medicine
+- **Focus:** First author on study demonstrating that COMT inhibitors alter gut microbiome composition in ways that promote levodopa degradation by Enterococcus faecalis; researches drug-microbiome interactions in neurological disease.
+- **First noted:** 2026-04-13
+- **Source:** https://neurosciencenews.com/parkinsons-gut-microbiome-levodopa-comt-30502/
+
+## Andrew Goodman
+- **Affiliation:** Yale School of Medicine
+- **Focus:** Senior author on the COMT inhibitor/gut microbiome study published in Nature Microbiology; microbiome researcher specializing in interactions between gut bacteria and pharmaceutical agents, including PD therapeutics.
+- **First noted:** 2026-04-13
+- **Source:** https://neurosciencenews.com/parkinsons-gut-microbiome-levodopa-comt-30502/
+
+## Jonas Hannestad, MD, PhD
+- **Affiliation:** Not confirmed from available sources (associated with Gain Therapeutics or collaborating institution)
+- **Focus:** Presented Phase 1b interim data on GT-02287, an orally bioavailable GCase allosteric modulator for GBA1-associated Parkinson's disease; focuses on GBA1-targeted therapeutics and CSF biomarker development.
+- **First noted:** 2026-04-13
+- **Source:** https://www.neurologylive.com/view/jonas-hannestad-phase-1b-data-gt-02287-parkinson-disease
