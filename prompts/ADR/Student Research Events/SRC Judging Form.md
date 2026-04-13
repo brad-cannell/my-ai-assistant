@@ -175,7 +175,7 @@ Summarize everything we did in this chat into a guide I can use to quickly repro
 
 ------------------------------------------------------------------------
 
-# Upadates to the Report
+# Updates to the Report
 
 I want to split this file (Summarize_Scores.qmd) into three files. 1. Import and clean. An R script that imports the data from Qualtrics, cleans it, and saves the clean data as a CSV file. 2. Data quality checks. A Quarto file that imports the cleaned CSV file from step 1, performs data quality checks, and renders as an HTML report. 3. Scoring and Results. A Quarto file that scores and ranks, and renders as an HTML report.
 
