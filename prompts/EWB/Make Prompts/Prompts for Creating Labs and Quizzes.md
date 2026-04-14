@@ -63,3 +63,58 @@ Here are some things I noticed:
 13. The example used in the original Task 10 doesn't do a good job of illustrating a scenario when we would need to create a custom function. We ultimately go on to build the `flag_elevated()` based on this example. However, we could easily get the same result using this code without a custom function: `screening_data |> mutate(glucose_elevated = fasting_glucose > 126)`. The custom function essentially does nothing for us.
 
 I'm wondering if we should also create an eighth step in our workflow where I insert notes to Claude into the Quarto document (e.g., `<!-- 🔴 Note to Claude: This would be a good place to insert a question about X. -->`). Or perhaps I should have already done this in one of our existing steps.
+
+------------------------------------------------------------------------
+
+# Claude Cowork Prompt for Finding Repetitive Code
+
+> I have an idea. What if I ask Claude Cowork to review all of my previous lesson files for repetitive code, and code that would otherwise benefit from a custom function? Then, it could record them in a markdown file that we can pass to our workflow. This could provide the AI assistant with concrete examples of the kinds of problems our learners might want to learn to address by writing custom functions.
+
+<context>
+
+I am developing a lab assignment for an R programming course called Epi-Workbench (EWB). The lab teaches learners how to write custom R functions. I need your help reviewing my existing course materials to find real examples of repetitive code patterns that a custom function could improve.
+
+</context>
+
+<task>
+
+Please review all of the lesson files, lab assignments, and quizzes in the following locations:
+
+- '/Users/bradcannell/Desktop/Git/Academia/Teaching/intro.r.public/modules'
+- '/Users/bradcannell/Desktop/Git/Academia/Teaching/intro.r.private/modules'
+- '/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/Courses/Introduction to Bivariate Descriptive Analysis in R'
+- '/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/Courses/Introduction to Coding Tools and Best Practices in R'
+- '/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/Courses/Introduction to Data Management in R'
+- '/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/Courses/Introduction to Data Transfer in R'
+- '/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/Courses/Introduction to Descriptive Analysis in R'
+- '/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/Courses/Introduction to Univariate Descriptive Analysis in R'
+- '/Users/bradcannell/Library/CloudStorage/GoogleDrive-brad.cannell@epi-workbench.com/My Drive/Courses/R Fundamentals'
+
+For each repetitive code pattern you find, record it in a markdown file called `repetitive_code_patterns.md` using the format described below.
+
+Identify code patterns that meet at least one of the following criteria:
+
+1.  **Copy-paste repetition** — the same or nearly identical code block appears two or more times, differing only in variable names, column names, or literal values.
+2.  **Built-in function limitation** — code that uses a workaround because a built-in R function doesn't produce the exact result needed (e.g., handling NA values in a comparison, coercing output format).
+3.  **Multi-step boilerplate** — a sequence of 2 or more steps that always appear together and always serve the same purpose (e.g., compute a statistic, round it, assign it to an object).
+
+For each pattern found, record the following:
+
+- **Pattern name** — a short descriptive label (e.g., "Repeated grouped summary by variable").
+- **Criterion met** — which of the three criteria above applies.
+- **Source** — the file name(s) where the pattern appears.
+- **Description** — 2–3 sentences describing what the code does, why it is repetitive or limited, and what a custom function would improve.
+- **Representative example** — a short code excerpt (the smallest example that clearly illustrates the pattern). If the pattern appears in multiple files, show one representative example only.
+- **Function opportunity** — one sentence describing what a custom function built around this pattern would accept as arguments and return as output.
+
+</task>
+
+<constraints> 
+
+- Focus on patterns that are realistic and common in public health data analysis workflows — not obscure edge cases. 
+- Only include patterns where writing a custom function would provide a clear, demonstrable benefit over the inline code. If a single tidyverse expression already handles the pattern cleanly, skip it. 
+- Do not include patterns that require packages or techniques not already used in the course materials. 
+- Order the patterns from most common/impactful to least. 
+- If you find more than 15 patterns, include only the 15 strongest. 
+
+</constraints>
