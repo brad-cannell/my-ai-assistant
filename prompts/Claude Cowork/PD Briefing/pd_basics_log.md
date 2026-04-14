@@ -109,6 +109,40 @@ Sources: [Gibson et al. — Systematic Review & Meta-Analysis of PDD Risk, *Move
 
 ---
 
+# Parkinson's Disease Review — 2026-04-14
+
+---
+
+## 🧠 Today's Basic Fact
+
+**Neuropsychiatric Symptoms in Parkinson's Disease: Depression, Anxiety, Apathy, and Psychosis**
+
+Neuropsychiatric symptoms (NPS) are among the most prevalent, debilitating, and undertreated features of Parkinson's disease. Across cross-sectional studies, **70–89% of PD patients** experience at least one NPS at some point during the disease course, and their impact on quality of life frequently exceeds that of motor symptoms. PD is increasingly conceptualized as a complex neuropsychiatric disorder — not merely a movement disorder.
+
+**Depression (~35–40% point prevalence; lifetime risk ≥50%)**
+
+Depression is the most common neuropsychiatric condition in PD. Pooled prevalence estimates consistently cluster around 35–40%, though reported ranges vary widely (2.7–90%) depending on instrument, disease stage, and case definition. Crucially, depression in PD is not purely reactive to chronic illness — it reflects an intrinsic neuropathological process involving degeneration of monoaminergic nuclei: the dopaminergic ventral tegmental area (VTA), serotonergic dorsal raphe nucleus, and noradrenergic locus coeruleus (all of which also bear Lewy body pathology in Braak stages 1–4). This is evidenced by the fact that depression frequently **precedes motor diagnosis** as a prodromal feature, by years to decades. Despite its prevalence, only ~26% of affected PD patients receive pharmacological treatment — a substantial treatment gap. SSRIs and SNRIs are generally first-line; tricyclic antidepressants (e.g., nortriptyline) have RCT support but are limited by anticholinergic adverse effects in an already cognitively vulnerable population.
+
+**Anxiety (~30–40% prevalence)**
+
+Anxiety disorders — including generalized anxiety disorder, panic disorder, social phobia, and PD-specific "off"-period anxiety — affect approximately 30–40% of PD patients and are strongly correlated with depression (the two co-occur in ~40% of cases). PD-related anxiety has both neuropathological substrates (noradrenergic and serotonergic dysfunction) and pharmacodynamic contributors: anxiety is a prominent feature of levodopa "off" states, reflecting dopamine withdrawal in limbic circuits. This motor-psychiatric coupling creates diagnostic complexity and complicates epidemiological measurement.
+
+**Apathy (~37% point prevalence)**
+
+Apathy — defined as diminished motivation not explained by depression, cognitive impairment, or motor disability — affects roughly 37% of PD patients (range: 15–70%), including ~34% at early disease stages. Apathy is mechanistically linked to dopaminergic denervation of the mesolimbic (VTA → nucleus accumbens) circuit and correlates with greater motor impairment, cognitive decline, and male sex. Importantly, **apathy is conceptually and clinically distinct from depression**: apathy is characterized by reduced goal-directed behavior and emotional reactivity without the dysphoric mood, guilt, and anhedonia of major depression — though overlap is common. Apathy is among the strongest independent predictors of health-related quality of life impairment in early PD and is associated with greater caregiver burden. No pharmacotherapy is FDA-approved for PD apathy; dopamine agonists and rivastigmine (in PDD) have modest evidence.
+
+**Parkinson's Disease Psychosis (PDP; cumulative prevalence ~50–60%)**
+
+PDP — characterized by visual hallucinations, delusions, illusions, and passage/presence phenomena — is the most feared NPS and a leading precipitant of nursing home placement. Point prevalence estimates range from 8–40%; **cumulative lifetime prevalence in PD reaches approximately 60%**, with advanced disease, cognitive impairment, sleep disturbance, and anticholinergic medication load among the strongest risk factors. The neuropathological substrate involves spread of Lewy body pathology to visual cortex and limbic regions (Braak stages 5–6), serotonergic dysfunction, and dopaminergic medication effects. Typical antipsychotics (haloperidol) and most atypicals are contraindicated due to dopamine D2 blockade worsening parkinsonism. **Pimavanserin** (Nuplazid) — a selective 5-HT2A inverse agonist with no D2 activity — received FDA approval in 2016 as the first and only pharmacotherapy specifically indicated for PDP. A 2024 systematic analysis confirms pimavanserin does not worsen motor or cognitive function and does not carry excess mortality risk versus other atypical antipsychotics. Clozapine (at low doses) also has strong evidence but requires mandatory weekly CBC monitoring due to agranulocytosis risk, limiting uptake.
+
+**Epidemiological implications for QoL and caregiver research:**
+
+The NPS burden in PD has direct implications for studies of quality of life, caregiver impact, and late-life function. NPS — particularly depression, apathy, and psychosis — are more strongly associated with caregiver distress, health resource utilization, and institutionalization than equivalent motor impairment. Studies that quantify PD burden without separately characterizing NPS will systematically underestimate the true patient and caregiver experience. Notably, NPS measurement is complicated by symptom overlap with motor PD (psychomotor slowing mimics depression; hypomimia confounds assessment of affect), requiring PD-specific validated instruments (e.g., GDS-15, MADRS, NPI, UPDRS Part I).
+
+Sources: [The Neuropsychiatry of PD: Advances and Challenges, *Lancet Neurology* (2024)](https://www.uems-neuroboard.org/web/images/docs/exam/2024/papers/11-The-neuropsychiatry-of-Parkinson-disease.pdf) | [Neuropsychiatric Symptoms in PD: Updated Review, *PMC* (2022)](https://pmc.ncbi.nlm.nih.gov/articles/PMC9110237/) | [Fatigue and Neuropsychiatric Symptoms in PD, *Frontiers in Neurology* (2025)](https://www.frontiersin.org/journals/neurology/articles/10.3389/fneur.2025.1670644/full) | [Depression in PD: Neurobiology and Treatment, *PMC* (2022)](https://pmc.ncbi.nlm.nih.gov/articles/PMC9200562/) | [Optimal Diagnosis and Role of Pimavanserin in PDP, *CNS Drugs* (2024)](https://link.springer.com/article/10.1007/s40263-024-01084-1) | [Apathy in PD: Clinical Determinants and QoL, *PMC* (2023)](https://pmc.ncbi.nlm.nih.gov/articles/PMC9839259/) | [Parkinson's Foundation — Emotional Health](https://www.parkinson.org/understanding-parkinsons/symptoms/emotional-health)
+
+---
+
 # Parkinson's Disease Review — 2026-04-09
 
 ---
