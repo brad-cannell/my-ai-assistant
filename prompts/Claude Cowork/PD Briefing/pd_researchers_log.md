@@ -4,6 +4,24 @@ This file is maintained automatically by the `PD Weekly Briefing` prompt. Resear
 
 ---
 
+## Mengda Ren
+- **Affiliation:** Lee Kong Chian School of Medicine (LKCMedicine), Nanyang Technological University (NTU), Singapore
+- **Focus:** Investigates the role of lipid metabolism enzymes — particularly glycerol-3-phosphate acyltransferase (GPAT) — in amplifying α-synuclein toxicity through lipid peroxidation, with a focus on identifying metabolic co-drivers of Parkinson's disease pathology and developing GPAT inhibitors as therapeutic candidates.
+- **First noted:** 2026-04-15
+- **Source:** https://www.nature.com/articles/s41467-026-68325-3
+
+## S. Canaslan
+- **Affiliation:** University Medical Center Göttingen / Klinikum rechts der Isar, Technical University of Munich
+- **Focus:** First author on 2026 *npj Parkinson's Disease* study validating α-synuclein seeding amplification assays in tear fluid as a non-invasive biomarker for early PD detection; focuses on accessible, non-invasive diagnostic and monitoring approaches for synucleinopathies.
+- **First noted:** 2026-04-15
+- **Source:** https://www.nature.com/articles/s41531-026-01282-2
+
+## M. Schmitz / F. Maass
+- **Affiliation:** University Medical Center Göttingen
+- **Focus:** Senior/co-authors on the 2026 *npj Parkinson's Disease* tear fluid αSynSAA study; research centers on biomarker development and diagnostic tool validation for Parkinson's disease and related synucleinopathies.
+- **First noted:** 2026-04-15
+- **Source:** https://www.nature.com/articles/s41531-026-01282-2
+
 ## Dr. Anna Orr
 - **Affiliation:** Weill Cornell Medicine
 - **Focus:** Investigates the role of astrocytes in neurodegenerative disease, with particular attention to how TDP-43 abnormalities in glial cells disrupt synaptic RNA processing in ways shared across Parkinson's disease, ALS, and frontotemporal dementia.

@@ -143,6 +143,34 @@ Sources: [The Neuropsychiatry of PD: Advances and Challenges, *Lancet Neurology*
 
 ---
 
+# Parkinson's Disease Review — 2026-04-15
+
+---
+
+## 🧠 Today's Basic Fact
+
+**Sleep Disorders in Parkinson's Disease: REM Sleep Behavior Disorder as Prodromal Biomarker, and the Broader Sleep Burden**
+
+Sleep disturbances are among the most prevalent and quality-of-life-impairing non-motor features of Parkinson's disease, affecting **up to 90% of PD patients** across the disease course — with nearly half experiencing multiple concurrent sleep disorders. Sleep dysfunction is also, critically, one of the earliest detectable manifestations of PD, preceding motor diagnosis by years to decades through a key prodromal syndrome: **REM sleep behavior disorder (RBD)**.
+
+**The Sleep Disorder Landscape in PD**
+
+Multiple overlapping sleep conditions affect PD patients: **Insomnia** is the most prevalent, characterized primarily by sleep maintenance difficulties (not sleep initiation); worsens with disease progression. **Excessive daytime sleepiness (EDS)** affects ~35% of PD patients (vs. ~8% of age-matched controls), associated with disease duration, older age, and dopaminergic medication use. **Restless legs syndrome (RLS)** affects ~20% of PD patients (pooled meta-analysis; 46 studies), with comorbid PD+RLS associated with worse motor function, more neuropsychiatric symptoms, and significantly poorer QoL. **Obstructive sleep apnea** occurs at rates comparable to the non-PD population, though detection is complicated by PD's motor and cognitive features. **RBD** affects approximately **33–46% of PD patients** overall (pooled meta-analysis), rising to ~77% in polysomnography-based cohort studies.
+
+**RBD: The Most Important Prodromal Biomarker in PD**
+
+Isolated/idiopathic RBD (iRBD) — characterized by dream-enactment behavior due to loss of normal REM-associated muscle atonia — carries a remarkable phenoconversion rate: **80–90% of individuals with iRBD will eventually develop a synucleinopathy** (PD, DLB, or MSA), making iRBD essentially a pre-diagnostic stage of synucleinopathy. The mechanistic basis lies in α-synuclein accumulation in the **subcoeruleus nucleus and brainstem pontine tegmentum** — corresponding to **Braak stages 1–2**, the earliest identifiable Lewy body pathology, preceding SNpc degeneration and motor onset. The "body-first" PD subtype is especially associated with the prodromal triad of RBD + autonomic dysfunction + hyposmia.
+
+**Impact on Quality of Life and Caregivers**
+
+Sleep disturbances are consistently among the PD symptoms with the greatest QoL impact — equal to or exceeding motor impairment in patient-reported outcomes. A 2025 study (*npj PD*) documented that RBD negatively impacts both **patients and their bed partners**. Multiple concurrent sleep disorders have multiplicative adverse effects. The QoL impact operates through: nighttime disruption → daytime fatigue and functional limitation; comorbidity with depression and anxiety; acceleration of cognitive decline; and caregiver sleep disruption from patient RBD episodes.
+
+**Epidemiological implications:** iRBD offers a rare window to study PD years before motor onset (PPMI prodromal cohorts); sleep disorder prevalence is chronically under-measured by self-report; near-universal iRBD-to-synucleinopathy conversion reframes the at-risk population as larger than motor-diagnosed prevalence suggests; caregiver studies omitting sleep disruption will underestimate burden.
+
+Sources: [Sleep disorders in PD — early and multiple problem, *npj PD* (2024)](https://www.nature.com/articles/s41531-024-00642-0) | [RBD and α-synuclein mechanistic link, *PMC* (2025)](https://pmc.ncbi.nlm.nih.gov/articles/PMC12204336/) | [Biomarkers of conversion in iRBD, *Lancet Neurology* (2021)](https://www.thelancet.com/journals/laneur/article/PIIS1474-4422(21)00176-9/abstract) | [Impact of RBD on patients and partners, *npj PD* (2025)](https://www.nature.com/articles/s41531-025-00986-1) | [Multiple comorbid sleep disorders and QoL, *npj PD* (2020)](https://www.nature.com/articles/s41531-020-00126-x) | [GWAS of RBD in PD, *npj PD* (2025)](https://www.nature.com/articles/s41531-025-01078-w) | [Insomnia in PD: causes, consequences, therapies, *Molecular Neurobiology* (2024)](https://link.springer.com/article/10.1007/s12035-024-04400-4)
+
+---
+
 # Parkinson's Disease Review — 2026-04-09
 
 ---
