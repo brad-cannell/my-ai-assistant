@@ -118,3 +118,126 @@ For each pattern found, record the following:
 - If you find more than 15 patterns, include only the 15 strongest. 
 
 </constraints>
+
+------------------------------------------------------------------------
+
+# Claude Cowork Conversation About Creating a Prompt that Creates a Google Doc Version of the Lab/Quiz
+
+This was done on my work computer. It won't be visible online.
+
+## Check for Google Docs access
+
+Are you able to view the Google Doc: __https://docs.google.com/document/d/1R75ktQJ5e849WOMhlSORjCe6xWsWFRCsvDles1_tUUQ/edit?tab=t.0__?
+
+## Compare Quarto and Google Docs
+
+I'm attaching a Quarto document here as well. The Google Doc and the Quarto document are from the same lab assignment for my Introduction to R Programming course.
+
+When I write new lab assignments, I start by writing them in Quarto documents. In the past, I would manually create the Google Doc by copying and pasting content from the Quarto Document, then spend a long time formatting it.
+
+Why do I write the lab in two different formats? Google Docs usually feel more familiar to my students than Quarto documents do. So, they generally start by opening the Google Doc and using it as a set of instructions to follow while they complete the lab assignment. Then they can download and open the Quarto file to use as an answer key.
+
+I would like your help with writing a prompt I can use to have Claude do this conversion for me. Take note of where the format, structure, and content of these documents are the same and where they differ. 
+
+The goal is for me to pass Claude this prompt and a new Quarto lab file, and for Claude to return a formatted Google Doc.
+
+## Word and the API
+
+**I passed this to Claude Code, not Claude Cowork**
+
+I'm passing the prompt to Claude through an API call, assisted by functions from the Chatlas package. 
+
+The code doing the work looks like this: [highling the code]
+
+<code>
+# Create Chat Object
+chat_step_08 = ChatAnthropic(
+    model=model_complex,
+    system_prompt=system_prompt,
+    max_tokens=20000
+)
+
+# Pass the prompt to the AI assistant
+chat_step_08.chat(user_message_step_08, echo='none')
+
+# Save the assembled lab as a .qmd file
+lab_docx_path = lab_folder_path / f"lab_{lab_quiz_name.lower().replace(' ', '_')}.docx"
+lab_docx_path.write_text(str(chat_step_08.get_last_turn()), encoding="utf-8")
+
+print(f"Lab saved to: {lab_docx_path}. Upload it to Google Docs next.")
+</code>
+
+This code doesn't work because `lab_docx_path.write_text(str(chat_step_08.get_last_turn()), encoding="utf-8")` doesn't actually create a Word document. What's the best way to generate a Word document from this API call?
+
+### Follow-up Question about Google Docs
+
+Ultimately, I really want to end up with a Google Doc. Is there any way to skip straight to creating a Google Doc or do I need to create Word document first?
+
+### Word template
+
+Okay. It sounds like I need to make a Word template from my Google Doc. How do I do that?
+
+### Start with a plain markdown document
+
+It looks like I can upload a markdown document to Google Docs, and then edit and share it exactly like I would a native Google Doc. Perhaps my next step should be to create a revised markdown document, upload it Google Docs, do some light manual editing, and then share it intead of a Google doc. In fact, perhaps I should skip Google Docs altogether and just use GitHub.
+
+**Asking Claude Code to write some helper functions**
+
+<context>
+I write lab assignments in Quarto (`.qmd`) files. These files serve as the instructor's answer key — they contain full R code solutions, explanatory notes for students, and question-and-answer pairs. Your job is to convert the answer key Quarto files into student-facing lab instructions documents I can upload to GitHub and share with students.
+
+The student-facing instructions differs from the lab answer key in several important ways:
+- All R code is removed. Students write their own code in a separate Quarto file.
+- All "Notes for students" sections (which contain answers and explanations) are removed.
+- Question answers are stripped.
+</context>
+
+<task>
+Help me write four Python helper functions for creating a new instructions document from the lab answer key with the following removed:
+ 
+1. **YAML header** — everything between the opening and closing `---` delimiters at the top of the file.
+2. **All R code** — remove every the R code inside all ` ```{{r}} ... ``` ` blocks. Do not replace it with anything. Leave the code blocks and comments.
+3. **"Notes for students" subsections** — remove every `### Notes for students` heading and all content beneath it (until the next heading of equal or higher level).
+4. **Question answers** — the `### Question N` subsections each contain a question followed by a bullet-point answer. Remove the heading, keep only the question text (reworded to be student-facing if needed), and strip the answer. The questions are reformatted elsewhere (see below).
+</task>
+
+<constraints>
+- The new helper functions should be saved to the same location as my existing helper functions: '/Users/bradcannell/Desktop/Git/AI/my-ai-assistant/py_scripts/py_scripts'. I will load the helper functions in the "# Load Packages and Helper Functions" section of this document.
+- The first function in the pipeline should accept the lab answer key as input and return the modifed file to the file path saved to `lab_instructions_path`.
+- All subsequent functions in the pipeline should overwrite the the modifed file saved to `lab_instructions_path`.
+</constraints>
+
+#### Follow-up
+
+Please make the following adjustments to the functions:
+
+lab_remove_yaml_header()
+- Change this function to be called `lab_update_yaml_header()`.
+- Instead of removing the YAML header completely, make the following modifications:
+  - Change the `author` field to `author: "[Your Name]"`
+  - Change the date in the `date-modified` field to `[Enter Date]`
+
+lab_remove_r_code():
+- Don't remove R code that imports data.
+  - These will typically include a `read_*` function.
+- Don't remove R code that creates tibbles and data frames using the `tibble()`, `tribble()` or `data.frame()` functions.
+
+lab_remove_question_answers():
+- The `### Question N` subsections each contain a question followed by a bullet-point answer. KEEP the heading and the question text, but strip the answer.
+- Some questions use {r, eval=false} code blocks as multiple-choice answer options rather than * bullet answers. After `lab_remove_r_code` runs, those blocks still contain the comment text (e.g., `# Correct. Block 3 is labeled Midwest...`). I want those stripped too. Please extend `lab_remove_question_answers` to also drop code blocks within question sections.
+ - When the answer choices are removed, please add "See our course LMS for the answer choices and submit your response." verbatim to the end of the question text.
+
+------------------------------------------------------------------------
+
+# Creating a Module Quiz from the Lab
+
+At this point, I have a complete lab assignment created. Now, I need to create a culminating exercise. 
+
+Culminating exercises are final assessments that mirror the structure of labs but with minimal guidance. These exercises challenge learners to synthesize and apply everything they've learned, encouraging self-assessment and reflection. They serve as capstone experiences that reinforce mastery and readiness for real-world application.
+
+I could start the process of creating a culminating exercise from scratch, but I don't think that's the most efficient path. The intent is for culminating exercises to cover the exact same content as the labs, and even for the tasks to be similar. The examples and data should be different, and therefore the follow-up questions and answers will be different, but a student who does well on the lab should have no problem doing well on the culminating exercise. Therefore, it seems like providing the lab to the AI assistant could be the most approprite starting point.
+
+All that said, the culminating exercise should be more difficult than the lab. However, the additional difficulty should be the result of providing less guidance (e.g., no "Notes to students" sections or hints) rather more difficult material.
+
+## Follow-up
+
