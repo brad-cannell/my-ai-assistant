@@ -206,3 +206,45 @@ Sources: [Lim & Klein, *J Parkinson's Dis* (2024) — PD is Predominantly a Gene
 
 ---
 
+# Parkinson's Disease Review — 2026-04-20
+
+---
+
+## 🧠 Today's Basic Fact
+
+**Autonomic Dysfunction in Parkinson's Disease: A Pervasive, Prodromal, and Prognostically Significant Non-Motor Domain**
+
+Dysautonomia — dysfunction of the autonomic nervous system — affects an estimated **70–90% of PD patients** across the disease course and represents one of the most clinically significant, QoL-impairing, and prognostically informative non-motor domains in PD. Despite its prevalence, autonomic symptoms are frequently underrecognized and undertreated in clinical practice.
+
+**Pathophysiological Basis**
+
+The mechanistic substrate of dysautonomia in PD is **peripheral α-synuclein pathology** in autonomic ganglia, the enteric nervous system, and postganglionic cardiac sympathetic neurons — consistent with the early Braak stages and the "body-first" subtype hypothesis. This explains why autonomic symptoms frequently **precede motor diagnosis** by years, offering a window into prodromal disease detection. The three principal anatomical targets are: (1) the **cardiac sympathetic plexus** (→ orthostatic hypotension, reduced [¹²³I]-MIBG cardiac uptake on scintigraphy); (2) the **enteric nervous system** (→ constipation, delayed gastric emptying); and (3) **sacral autonomic nuclei** (→ urinary dysfunction, sexual dysfunction).
+
+**Cardiovascular Autonomic Dysfunction (Neurogenic Orthostatic Hypotension)**
+
+Neurogenic orthostatic hypotension (nOH) — defined as a ≥20 mmHg drop in systolic or ≥10 mmHg drop in diastolic BP within 3 minutes of standing, attributable to impaired sympathetic vasoconstriction — affects approximately **30–50% of PD patients** (pooled meta-analyses). It is symptomatic (dizziness, syncope, falls) in roughly one-third of affected individuals (~13–16% of overall PD). Notably, OH is now recognized in the **MDS research criteria as a biomarker of prodromal PD**. The healthcare cost implications are substantial: annual healthcare costs for PD patients with OH are estimated at **$25,205/person/year** vs. $9,831/person/year without OH — nearly a threefold differential. Supine hypertension co-occurs in 34–50%, complicating management. A 2025 systematic review and meta-analysis confirmed that OH in PD is independently associated with greater motor severity, cognitive decline, falls, and reduced survival.
+
+**Gastrointestinal Autonomic Dysfunction**
+
+Constipation is among the most prevalent and **earliest-onset** autonomic manifestations, present in approximately **60% of patients during the prodromal period** and reported in up to nearly all patients with established PD in some series. Delayed gastric emptying is also highly prevalent (~70–100% in advanced PD) and has direct clinical implications: it causes erratic levodopa absorption, contributing substantially to motor fluctuations ("wearing off") and unpredictable "on-off" phenomena — underscoring the mechanistic link between GI autonomic dysfunction and pharmacotherapy outcomes. Sialorrhea (drooling), dysphagia, and small intestinal dysmotility are also common with advancing disease.
+
+**Urinary and Sexual Dysfunction**
+
+Lower urinary tract symptoms — predominantly **urgency, frequency, and nocturia** (rather than hesitancy, distinguishing PD from benign prostatic hyperplasia) — affect 27–80% of PD patients, arising from dopaminergic and noradrenergic denervation of the pontine micturition center and sacral circuits. Sexual dysfunction (erectile dysfunction, reduced libido, hypersexuality as a dopamine agonist complication) affects 60–80% of men and 40–70% of women with PD and is among the most underreported and undertreated symptoms. **Urinary and sexual dysfunction are consistently identified as the most severe autonomic domains by patient report.**
+
+**QoL Impact and Caregiver Burden**
+
+Critically, autonomic dysfunction may impair health-related quality of life to a **greater degree than equivalent motor disability** in PD. Cross-sectional analyses show GI autonomic symptoms are among the strongest independent predictors of PDQ-39 QoL scores. In prospective cohort data, overall dysautonomia severity is independently associated with greater rates of increase in depressive and anxiety symptoms over a 5-year follow-up period. The burden extends to care partners: PD patients with clinically significant cardiovascular autonomic dysfunction have a **tenfold higher odds of causing moderate-to-severe caregiver burden** (Zarit Burden Interview) compared to those without, even after covariate adjustment.
+
+**Prognostic Significance**
+
+Autonomic failure is an established prognostic marker for aggressive disease progression: PD patients with significant dysautonomia carry a **3- to 7-fold higher risk of dementia and death within 10 years** of diagnosis — likely reflecting the extent of extra-nigral α-synuclein spread into brainstem and peripheral autonomic circuits.
+
+**Epidemiological Implications**
+
+For researchers studying PD burden, QoL, or caregiver outcomes: (1) autonomic symptoms are chronically under-ascertained when relying on motor staging or medication history alone — validated autonomic scales (SCOPA-AUT, COMPASS-31) are essential; (2) the prodromal prevalence of GI and cardiovascular autonomic features makes them valuable early-disease biomarkers for epidemiological cohort enrichment; (3) the independent caregiver burden attributable to dysautonomia argues for explicit autonomic assessment in caregiver studies.
+
+Sources: [Epidemiology of Autonomic Dysfunction in PD — *Molecular Medicine Reports / PMC* (2025)](https://pmc.ncbi.nlm.nih.gov/articles/PMC12464526/) | [Advances in Autonomic Dysfunction Research in PD — *Frontiers in Aging Neuroscience* (2025)](https://www.frontiersin.org/journals/aging-neuroscience/articles/10.3389/fnagi.2025.1468895/full) | [Neurogenic OH in PD — *MDPI J. Clinical Medicine* (2025)](https://www.mdpi.com/2077-0383/14/2/630) | [OH in PD: Systematic Review & Meta-Analysis — *PMC* (2025)](https://pmc.ncbi.nlm.nih.gov/articles/PMC12310585/) | [Burden of Caregiving for Cardiovascular Dysautonomia in PD — *Clinical Autonomic Research* (2022)](https://link.springer.com/article/10.1007/s10286-022-00888-9) | [Differential Impact of Autonomic Domains on Clinical Outcomes — *Journal of Neurology* (2022)](https://link.springer.com/article/10.1007/s00415-022-11221-9) | [Parkinson's Foundation — Autonomic Dysfunction](https://www.parkinson.org/understanding-parkinsons/symptoms/autonomic-dysfunction)
+
+---
+
