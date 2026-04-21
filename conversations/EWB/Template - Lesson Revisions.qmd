@@ -227,7 +227,7 @@ chat.chat(user_message, echo='none')
 # Write the Revised Lesson Text to a Markdown File for Review
 
 ```{python}
-(lesson_folder_path / "ai" / ("revised_lesson_content_" + today + ".md")).write_text(
+(lesson_folder_path / "ai" / ("revised_lesson_content_" + today + ".qmd")).write_text(
     str(chat.get_last_turn()),
     encoding='utf-8'
 )
