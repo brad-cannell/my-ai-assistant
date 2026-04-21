@@ -248,3 +248,35 @@ Sources: [Epidemiology of Autonomic Dysfunction in PD — *Molecular Medicine Re
 
 ---
 
+# Parkinson's Disease Review — 2026-04-21
+
+---
+
+## 🧠 Today's Basic Fact
+
+**The Economic Burden of Parkinson's Disease: $82.2 Billion in 2024 and Rising**
+
+The total economic burden of Parkinson's disease and atypical parkinsonisms in the United States reached **$82.2 billion in 2024** — a figure that has already surpassed the $79 billion previously projected for 2037, arriving **more than a decade ahead of schedule**. Released in March 2026 by the Michael J. Fox Foundation for Parkinson's Research and the Parkinson's Foundation, this is the most comprehensive U.S. cost-of-illness analysis to date, incorporating direct medical costs, indirect productivity losses, pre-diagnostic costs, and informal caregiving — components historically omitted from narrower economic analyses.
+
+**Aggregate cost structure (U.S., 2024):**
+- **Direct medical costs:** $23.8 billion (hospitalizations, outpatient care, medications)
+- **Indirect and non-medical costs:** $58.4 billion (lost income, disability, informal caregiving)
+- **Federal government exposure:** >$25 billion total (~90% of direct medical costs financed through Medicare and Medicaid)
+- **Projected trajectory:** >$112 billion by 2045 absent disease-modifying intervention
+
+**Per-person costs:**
+Average direct medical costs per person with PD were **$18,859/year**, driven by episodic acute-care utilization (falls, aspiration pneumonia, psychosis-related hospitalizations) layered atop a chronic medication burden. Non-medical out-of-pocket costs averaged **$15,614/person/year — more than double the figure from a decade earlier** — driven by assistive devices, home modifications, personal care services, and transportation. The pre-diagnostic window carries its own burden: patients incurred on average **>$10,000 in additional medical costs in the year prior to formal PD diagnosis**, reflecting workup for prodromal symptoms (cognitive complaints, falls, GI dysfunction) that are retrospectively attributable to PD.
+
+**Disease-stage cost gradient:**
+The cost burden is steeply progressive. A 2024 systematic review of cost-of-illness studies from a societal perspective (Wijers et al., *Movement Disorders*, 2024) estimated mean annual costs at approximately **€20,911 (~$23,000) per patient/year** across all disease stages, rising to **nearly €100,000 in the most severely affected patients** — a roughly **4.4-fold escalation from early to advanced disease**. The key cost drivers in advanced disease are nursing home/long-term care placement, inpatient hospitalizations, and formal home care services. Across the societal cost structure: healthcare costs account for **46.1%** of total; productivity losses for **37.4%**; and patient/family direct costs for **16.4%**. North American per-patient costs are **3.6× higher than Asian estimates**, reflecting healthcare price differentials rather than disease burden variation alone.
+
+**Caregiver economic impact:**
+Informal caregiving constitutes a substantial hidden subsidy to the healthcare system. Nearly **40% of PD patients in 2024 relied on unpaid care partners**, who collectively absorbed **$8.3 billion in lost earnings and productivity** through reduced work hours, early retirement, or workforce exit. More than **34% of care partners canceled or missed their own routine healthcare visits** — a secondary burden largely invisible in standard cost estimates and directly relevant to caregiver health surveillance.
+
+**Epidemiological implications:**
+The $82.2 billion figure almost certainly understates true burden. Cost-of-illness estimates anchored to motor-symptom diagnosis omit the multi-year prodromal period of healthcare utilization. Diagnosis codes systematically undercount PD in early disease, racial/ethnic minorities, and lower-resource clinical settings. The indirect cost estimate, while including informal caregiving, does not capture caregiver health depreciation. The 2017→2024 increase from $52B to $82.2B (+58% in 7 years) substantially outpaces both inflation and PD prevalence growth, implying rising per-patient cost intensity as the prevalent population ages into more advanced disease — a dynamic that will accelerate through 2050 as the prevalence wave crests.
+
+Sources: [MJFF — New Report: $82.2 Billion Economic Burden (March 2026)](https://www.michaeljfox.org/news/new-report-finds-parkinsons-disease-cost-patients-families-and-federal-government-822-billion) | [Parkinson's Foundation — 2024 Economic Burden Report](https://www.parkinson.org/about-us/news/economic-burden-2024-report) | [APDA — $82.2 Billion Summary](https://www.apdaparkinson.org/article/new-report-reveals-82-2-billion-economic-burden-of-parkinsons-in-the-u-s/) | [Wijers et al. — Systematic Review: Cost of Illness of PD, *Movement Disorders* (2024)](https://movementdisorders.onlinelibrary.wiley.com/doi/10.1002/mds.29995) | [Espay et al. — Current and Projected Future Economic Burden of PD in the U.S., *npj PD* (2020)](https://www.nature.com/articles/s41531-020-0117-1) | [Economic Burden of PD: Multinational Real-World Cost-of-Illness Study, *Drugs Real World Outcomes* (2024)](https://link.springer.com/article/10.1007/s40801-023-00410-1)
+
+---
+
