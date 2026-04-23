@@ -8,6 +8,7 @@ last_updated: 2026-04-22
 # Overview (optional)
 
 - Prompt to help automate the graduate faculty appointments.
+- Complements: https://app.clickup.com/8446862/v/dc/81rwe-4031/81rwe-24891
 - Completed in two steps:
   1. Create a spreadsheet with necessary information (names, dates, etc.).
   2. Create appointment letters based on templates and the information in the spreadsheets.
@@ -15,8 +16,6 @@ last_updated: 2026-04-22
 # SYSTEM PROMPT
 
 You are assisting **Dr. Brad Cannell**, Associate Dean for Research (ADR) at **Harris College of Nursing and Health Sciences, TexasChristian University (TCU)**.
-
-Your job is to help organize **Harris College student research events**, including:
 
 ---
 
@@ -73,104 +72,110 @@ The goal is two self-contained prompts the user can paste into Claude Code to ru
 
 ## Prompt 1: Extract Faculty Data into Spreadsheet
 
-```
-Use the `anthropic-skills:xlsx` skill to create a comprehensive faculty data spreadsheet.
-
 ## Task
-Read every HC Grad Faculty Appointment Form PDF (and supplement with CVs where needed) from each department folder listed below. Extract the specified fields for every faculty member and write them all into a new Excel spreadsheet.
+Read every HC Grad Faculty Appointment Form PDF (supplemented by CVs and recommendation letters) from each department subfolder and extract faculty appointment data into a new Excel spreadsheet.
 
 ## Root Directory
-`/Users/bradcannell/Library/CloudStorage/Box-Box/HC Graduate Faculty - Main/2026 Grad Faculty Appointments to Review/01 Spring 26 submitted by Units for AD4R to Review`
+[PASTE THE FULL PATH TO THE SEMESTER WORKING FOLDER HERE]
+Example: /Users/bradcannell/Library/CloudStorage/Box-Box/HC Graduate Faculty - Main/2026 Grad Faculty Appointments to Review/01 Spring 26 submitted by Units for AD4R to Review
 
 ## Folders to Search
-Search ALL subfolders of the root directory EXCEPT `2026 Letter Templates for AD4R` and `Completed Letters from AD4R`. This includes:
-- `KINE/`
-- `NRAN/`
-- `NURS/`
-- `SOWO/`
-- `Materials submitted by Interim Dean Ward/` (Occupational Therapy / OTD faculty)
+Search ALL subfolders of the root directory EXCEPT:
+- `[Year] Letter Templates for AD4R`
+- `Completed Letters from AD4R`
+- Any subfolder named `New Hires` or containing `_Complete` in the name (those letters are already done)
 
-For each subfolder, look for the HC Grad Faculty Appointment Form PDF. Also read the faculty CV (PDF or DOCX) to find credentials (degrees) when not on the form.
+Typical department folders: KINE, NRAN, NURS, SOWO, and a folder for materials submitted by the Interim Dean (which contains OTD faculty and any department chairs being nominated).
+
+For each faculty member, read their HC Grad Faculty Appointment Form PDF first. If credentials (degrees, certifications) are missing or unclear on the form, read the CV.
 
 ## Columns to Extract (one row per faculty member)
 
 | Column | Description | Source |
-|--------|-------------|--------|
-| Department Code | Abbreviation (KINE, NRAN, NURS, SOWO, OTD) | Folder name |
-| Department Full Name | e.g., "Department of Kinesiology" | Appointment form |
-| Last Name | Faculty last name | Appointment form |
-| First Name | Faculty first name | Appointment form |
-| Credentials | Degrees and certifications (e.g., PhD, DNP, RN) | CV or form |
-| Full Name with Credentials | "First Last, Credential1, Credential2" | Combine above |
-| Appointment Type | One of: Research / Clinical / Associate Research / Provisional | Appointment form (checked box) |
-| Start Date | Appointment effective start date (e.g., June 1, 2026) | Appointment form |
-| End Date | Appointment end date (e.g., May 31, 2031) | Appointment form |
-| Appointment Term String | "June 1, 2026 – May 31, 2031" | Combine start + end |
-| Unit Head Name | Name of the department chair/unit head | Appointment form or recommendation letter |
-| Notes | Any special circumstances (e.g., "Provisional – tenure year 2027") | Appointment form |
+|---|---|---|
+| Department Code | Abbreviation (KINE, NRAN, NURS, SOWO, OTD, etc.) | Folder name |
+| Department Full Name | Full department name (e.g., "Kinesiology", "Nursing") | Appointment form |
+| Last Name | Faculty last name | Appointment form / CV |
+| First Name | Faculty first name (complete — not just initials) | Appointment form / CV |
+| Credentials | All degrees and certifications in CV order (e.g., PhD, RN; DNP, CRNA, FAAN) | CV preferred, form as fallback |
+| Full Name with Credentials | "First Last, Credential1, Credential2" | Combined |
+| Appointment Type | Research / Clinical / Associate Research / Provisional — based on checked box | Appointment form |
+| Start Date | Effective start date written out (e.g., "June 1, 2026") | Appointment form |
+| End Date | Appointment end date written out (e.g., "May 31, 2031") | Appointment form |
+| Appointment Term String | "June 1, 2026 – May 31, 2031" | Combined |
+| Unit Head Name | Name + credentials of the department chair / unit head | Appointment form or recommendation letter |
+| Notes | Special circumstances (e.g., Provisional end year, unit head is the nominee) | Appointment form |
+
+## Important Rules
+- If a faculty member IS the department chair, the nomination will have been signed by Interim Dean Ward. Use Ward as the Unit Head.
+- Provisional appointment end dates vary — use the date on the form exactly; do not default to 5 years.
+- Use the CV as the authoritative source for credentials and their order.
+- Do NOT include faculty from any folder that contains "Complete" in its name.
 
 ## Output
 Save the spreadsheet as:
-`[root directory]/2026 Grad Faculty Appointments - Data.xlsx`
+`[root directory]/[Year] Grad Faculty Appointments - Data.xlsx`
 
-Format the spreadsheet with:
-- Bold header row
-- Column widths auto-fitted to content
+Format:
+- Worksheet named "Appointments"
+- Bold, dark-background header row with white text
 - Alternating row shading for readability
-- One worksheet named "Appointments"
-```
+- Column widths fitted to content
+- Arial font throughout
 
 ---
 
 ## Prompt 2: Generate Appointment Letters
 
-```
-Use the `anthropic-skills:docx` skill to generate one appointment letter per faculty member.
-
 ## Task
-Read the data spreadsheet, then for each faculty member select the correct letter template, fill in all placeholder fields with the faculty's data, and save the completed letter as a DOCX file.
+Read the faculty data spreadsheet, then generate one filled-in DOCX appointment letter per faculty member using the correct template.
 
 ## Root Directory
-`/Users/bradcannell/Library/CloudStorage/Box-Box/HC Graduate Faculty - Main/2026 Grad Faculty Appointments to Review/01 Spring 26 submitted by Units for AD4R to Review`
+[PASTE THE SAME PATH AS STAGE 1]
 
 ## Input Spreadsheet
-`[root directory]/2026 Grad Faculty Appointments - Data.xlsx`
-(Created in Stage 1 — read every row of the "Appointments" worksheet.)
+`[root directory]/[Year] Grad Faculty Appointments - Data.xlsx`
+Read every row from the "Appointments" worksheet.
 
-## Template Files (in `[root directory]/2026 Letter Templates for AD4R/`)
+## Template Files
+Templates are in: `[root directory]/[Year] Letter Templates for AD4R/`
+
 Select the template based on the "Appointment Type" column:
-- **Research** → `ResearchGraduateFaculty appt ltr 2026.docx`
-- **Clinical** → `ClinicalGraduateFaculty Appt Ltr 2026.docx`
-- **Provisional** → `ProvResearch GraduateFaculty AD Ltr 2026.docx`
+- Research → `ResearchGraduateFaculty appt ltr [Year].docx`
+- Clinical → `ClinicalGraduateFaculty Appt Ltr [Year].docx`
+- Provisional → `ProvResearch GraduateFaculty AD Ltr [Year].docx`
+- Associate Research → `AssocResearchGraduateFaculty appt ltr [Year].docx` (rarely used)
 
 ## Placeholder Replacements
-Replace every placeholder with the faculty's data:
+For each faculty member, replace all highlighted placeholder text in the template:
 
-| Placeholder in template | Replace with |
-|-------------------------|-------------|
-| `Name, Credentials` | Full Name with Credentials column |
-| `TCU Dept. name` or `TCU Dept name` or `TCU Dept` | Department Full Name column |
-| `Dr. Last name` or `Dr. Last Name` | `Dr. [Last Name]` |
-| `DATE` (first occurrence, or standalone) | Start Date column |
-| `DATE RANGE` | Appointment Term String column |
-| `(unit head)` or `Unit Head` or `Unit head` | Unit Head Name column |
+| Placeholder | Replace with |
+|---|---|
+| `Name, Credentials` | Full Name with Credentials (e.g., "Susan Fife, DNP, RN") |
+| `TCU Dept. name` / `TCU Dept name` / `TCU Dept` | Department Full Name |
+| `Last name` / `Last Name` | Faculty last name only |
+| `DATE` (first occurrence, in "effective DATE") | Start Date |
+| `DATE RANGE` | Appointment Term String |
+| `(unit head)` / `unit head` / `Unit Head` / `Unit head` | Unit Head Name (with credentials) |
 
-For the Provisional template, the date appears in the pattern "June 1, DATE – May 31, DATE" — replace each `DATE` with the correct year from the Start Date and End Date columns respectively.
+**Provisional template special case:** The body contains "June 1, DATE - May 31, DATE". Replace this entire phrase with the Appointment Term String from the spreadsheet (which handles cases where the start month is not June).
+
+## Technical Approach
+- Use python-docx to load each template
+- For each paragraph, concatenate all run texts, apply replacements, write result back to the first run, and clear subsequent runs
+- Remove yellow highlight formatting from replaced runs
+- Apply replacements in order from most specific to most general (e.g., "DATE RANGE" before "DATE", "Last name," before "Last name")
 
 ## Output
-Save each letter as a DOCX file in:
-`[root directory]/Completed Letters from AD4R/`
+Save each letter to: `[root directory]/Completed Letters from AD4R/`
+Filename: `[LastName]_[FirstName]_GradFaculty_Appt_Ltr.docx`
+(Replace spaces in multi-word first names with underscores)
 
-Naming convention: `[LastName]_[FirstName]_GradFaculty_Appt_Ltr.docx`
-Example: `Porter_Ryan_GradFaculty_Appt_Ltr.docx`
-
-After generating all letters, print a summary table confirming:
-- Faculty name
-- Appointment type
-- Template used
-- Output filename
-- Any errors or fields that could not be filled
-```
+## Verification
+After generating all letters:
+1. Report a summary table: Faculty name | Appointment type | Template used | Output filename | Any issues
+2. Flag any paragraph where a known placeholder string was NOT replaced
+3. Confirm the total count matches the number of rows in the spreadsheet
 
 ---
 
