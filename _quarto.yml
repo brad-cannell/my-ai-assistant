@@ -39,6 +39,9 @@ website:
           - vignettes/python-and-chatlas.qmd
           - vignettes/save-and-resume-chats.qmd
           - vignettes/python-helper-functions.qmd
+      - section: "Obsidian"
+        contents:
+          - vignettes/obsidian-setup.qmd
       - section: "Version Control"
         contents:
           - vignettes/git-tags.qmd
