@@ -98,3 +98,18 @@ wheels/
 /.quarto/
 _site/
 *.pdf
+
+# =============================================================================
+# Obsidian files
+# =============================================================================
+
+# Device-specific and frequently-changing workspace state
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# Community plugin code (large, platform-specific binaries; install manually)
+.obsidian/plugins/
+
+# Generated cache and local trash
+.obsidian/cache
+.trash/

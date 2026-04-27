@@ -1,0 +1,166 @@
+---
+title: "Obsidian Setup"
+date: "2026-04-27"
+date-modified: "2026-04-27"
+version: "1.0"
+description: "How this repo is configured as an Obsidian vault, including iPhone access via Working Copy and recommended plugins."
+categories: [obsidian, workflow, setup, git]
+format:
+  html:
+    toc: true
+    code-fold: false
+execute:
+  eval: false
+  echo: true
+---
+
+**Scope:** How to open this repo as an Obsidian vault on Mac and iPhone, what configuration is committed vs. gitignored, and which plugins enhance the AI prompt workflow.
+
+---
+
+## 1. Background
+
+This repo is already Obsidian-ready. Every file in `prompts/` and `snippets/` is plain Markdown with YAML front matter — exactly what Obsidian excels at. Opening the repo root as a vault adds:
+
+- **Graph view** — visualize connections between research notes and prompts
+- **Tag pane** — browse and filter by the `tags:` field in YAML front matter
+- **Dataview** — query prompt metadata across hundreds of files (e.g., "show all prompts tagged `manuscripts`")
+- **Better search** — fuzzy search, tag filtering, and semantic search via plugins
+- **Live preview editing** — a nicer Markdown writing experience than a plain text editor
+
+Quarto files (`.qmd`) appear in Obsidian as readable plain Markdown. Callout blocks (`::: callout-note`) and executable code fences (` ```{python} `) render as raw text rather than styled elements, but the prose content is fully readable.
+
+---
+
+## 2. Opening the Vault
+
+1. Download and install [Obsidian](https://obsidian.md) if you haven't already.
+2. Open Obsidian → **Open folder as vault**.
+3. Navigate to and select the root of this repo (`my-ai-assistant/`).
+4. Obsidian will find the `.obsidian/` config folder and apply settings automatically.
+
+The repo root is the vault root — there is no nested vault folder.
+
+---
+
+## 3. Vault Configuration (`.obsidian/`)
+
+Two config files are committed to Git so that settings are consistent across devices:
+
+| File | Purpose |
+|------|---------|
+| `.obsidian/app.json` | Core app settings (link format, attachment folder, unsupported file visibility) |
+| `.obsidian/core-plugins.json` | Which built-in Obsidian plugins are enabled |
+
+### Key settings in `app.json`
+
+| Setting | Value | Reason |
+|---------|-------|--------|
+| `useMarkdownLinks` | `true` | Standard `[text](link)` syntax instead of `[[wikilinks]]`, keeping files portable outside Obsidian |
+| `newLinkFormat` | `"relative"` | Links use relative paths, consistent with Git-tracked files |
+| `showUnsupportedFiles` | `true` | `.qmd` files appear in the file explorer |
+| `trashOption` | `"local"` | Deleted files go to `.trash/` inside the vault (recoverable), rather than the system trash |
+| `attachmentFolderPath` | `"assets"` | Images and other attachments are stored in `assets/` |
+| `newFileLocation` | `"current"` | New notes are created in the same folder as the currently open file |
+
+### What is gitignored
+
+The following are excluded from Git because they are device-specific, change on every session, or contain large binaries:
+
+```
+.obsidian/workspace.json        # last open files/panes — changes every session
+.obsidian/workspace-mobile.json # mobile-specific workspace state
+.obsidian/plugins/              # community plugin code — install manually on each device
+.obsidian/cache                 # generated search index
+.trash/                         # vault trash folder
+```
+
+Community plugin *settings* (stored in `.obsidian/plugins/<plugin-id>/data.json`) are also excluded because they live inside the `plugins/` folder. If you configure a plugin and want to preserve those settings across devices, you will need to copy the relevant `data.json` files out of `plugins/` or add specific exceptions to `.gitignore`.
+
+---
+
+## 4. iPhone Access via Working Copy
+
+Working Copy is a full Git client for iOS that exposes repos to other apps through the iOS Files file provider. Obsidian on iPhone can open a vault directly from Working Copy.
+
+### One-time setup
+
+1. Install [Working Copy](https://workingcopyapp.com) and [Obsidian](https://obsidian.md) from the App Store.
+2. In Working Copy, clone the GitHub repo.
+3. In Working Copy → Repository Settings → enable **File Provider** for this repo. This makes the repo visible to other apps via the Files app.
+4. Open Obsidian on iPhone → **Open folder as vault** → navigate through **Files → Working Copy → my-ai-assistant**.
+
+### Sync workflow
+
+iOS does not allow background processes, so Obsidian Git cannot auto-sync on iPhone. Follow this pattern for each phone session:
+
+```bash
+# Before editing on iPhone: pull in Working Copy
+# (tap the repo → pull)
+
+# Edit notes in Obsidian on iPhone
+
+# After editing: commit and push in Working Copy
+# (tap the repo → commit → push)
+```
+
+Keeping this discipline prevents merge conflicts between edits made on the phone and edits made on your Mac.
+
+---
+
+## 5. Recommended Community Plugins
+
+Community plugins are not committed to Git (the `plugins/` folder is gitignored), so you install them manually on each device via **Settings → Community plugins → Browse**.
+
+### Dataview
+
+Queries your YAML front matter like a database. Useful for building dynamic indexes of prompts by project, tag, or date.
+
+```dataview
+TABLE task, tags
+FROM "prompts"
+WHERE contains(tags, "manuscripts")
+SORT date DESC
+```
+
+Install: search `dataview` in the Community plugins browser.
+
+### Templater
+
+More powerful than the built-in Templates plugin. Create new prompt files from `prompts/template_prompt.md` using a hotkey, with automatic date insertion and placeholder support.
+
+Install: search `templater-obsidian`.
+
+After installing, point Templater's template folder to `prompts/` (or a dedicated `_templates/` folder if you prefer to keep templates separate).
+
+### Smart Connections
+
+Adds AI-powered semantic search across all notes. Surfaces related prompts and research notes even when they don't share exact keywords.
+
+Install: search `smart-connections`.
+
+Requires an OpenAI API key (configured in the plugin settings). Your key is stored locally on the device and is not committed to Git.
+
+---
+
+## 6. Core Plugins (Enabled by Default)
+
+The following built-in Obsidian plugins are enabled by the committed `core-plugins.json`:
+
+| Plugin | What it does |
+|--------|-------------|
+| File explorer | Browse the vault folder tree |
+| Global search | Full-text search across all files |
+| Quick switcher | Open any file by name with `Cmd+O` |
+| Graph view | Visualize links between notes |
+| Backlinks | See which notes link to the current file |
+| Outgoing links | See links from the current file |
+| Tag pane | Browse all YAML `tags:` values |
+| Page preview | Hover over a link to preview the note |
+| Templates | Insert template files (core, simpler than Templater) |
+| Note composer | Merge or split notes |
+| Command palette | Run any command with `Cmd+P` |
+| Outline | Jump to headings in the current file |
+| Word count | Character and word count in the status bar |
+| File recovery | Automatic snapshots for crash recovery |
+| Starred / Bookmarks | Pin frequently used files |
