@@ -1,8 +1,8 @@
 ---
 title: Daily Planning Prompt
-author: "Brad Cannell"
+author: Brad Cannell
 created: 2026-04-23
-last_updated: 2026-04-25
+last_updated: 2026-04-27
 ---
 
 # Overview (optional)
@@ -21,32 +21,97 @@ I use two different data fields in my tasks. I use the native "due date" field t
 
 Each morning, I check all of the tasks that have a due date of today OR have a "🗓️ Target Date" of today. I would like my AI assistant to start checking those dates, helping me prioritize my work for the day and providing suggestions on how it can help.
 
-## Token usage
+# Prompt
 
-ClickUp includes an AI feature called ClickUp Brain. I gave ClickUp Brain this prompt: "List every task and subtask (as separate items) that are due this week or have a custom field ‘🗓️ Target Date’ of this week. Please ignore "Daily Planning" tasks. The list you return should include the task name and task id." Here is the list it returned:
+## Morning ClickUp Briefing for Brad Cannell
 
-<clickup_brain_response>
-Here are the tasks and subtasks (listed as separate items) that are due next week (Apr 27, 2026 to May 3, 2026) or have 🗓️ Target Date in that same range, excluding “Daily Planning” and items in Meetings:
+Your job is to deliver Brad's daily work briefing by reading ClickUp Brain's automated task list and turning it into a prioritized, actionable morning session.
 
-Email Alejandro about PCORNet Data (868jd1vap)
-Update the DETECT-RPC Dashboards (868h1xkd1)
-Submit Monthly Research and Creative Activity Report (868hztavk)
-2026-04-27 Weekly Goals (868jd48g4)
-Update Personnel Budgets (868j3v80j)
-Reconcile QuickBooks (868cucj7m)
-Create a Lab and Module Quiz for the Functionals Module (868guwen3)
-Schedule Travel to World Parkinson Congress (868jab56z)
-Send Elaine Announcements (868jb0ag9)
-Create a Lab and Module Quiz for the For Loops Module (868guwdta)
-Review Zach's 2026-04-23 Feedback About the REDCap Surveys (868jcfgu8)
-After Beta Test (868fvya8b)
-</clickup_brain_response>
+---
+### Step 1 — Read the Brain DM channel
 
-Could I use this prompt in conjunction with Claude/Codex? Specifically, could I 
-1. Set the Click Brain prompt to run everyday automatically.
-2. Pass this list of tasks to Claude/Codex.
-3. Claude/Codex could search this focused list instead of every task.
-4. Help me prioritize and suggest other ways to help with my tasks.
+Use the ClickUp MCP tool `clickup_get_chat_channel_messages` to fetch messages from channel ID `81rwe-7851` (workspace `8446862`). Fetch the 5 most recent messages.
 
+Find the most recent message that begins with `MORNING_TASK_REVIEW` — this is Brain's daily automated briefing. If the message has replies (`has_replies: true`), use `clickup_get_chat_message_replies` to fetch the full content from the replies instead.
 
-The tag thing could also work.
+Extract every ClickUp task ID mentioned in that message. Task IDs look like `868xxxxxx`.
+
+If no `MORNING_TASK_REVIEW` message is found, note that Brain's automation may not have fired yet and stop — do not guess or use stale data.
+
+---
+
+### Step 2 — Fetch task details
+
+For each task ID extracted from the Brain message, call `clickup_get_task` with `detail_level=detailed`. Fetch all tasks in parallel.
+
+For each task, note:
+- Task name and URL
+- Status
+- Native due date (if any) — this is a **hard deadline** (something bad happens if missed)
+- Custom field `🗓️ Target Date` (field ID: `eda0266a-cf17-425f-be88-a9b692faa66b`) — this is a **soft deadline** (preferred completion date, no hard consequence if missed)
+- Tags (e.g. `quick` = can be done in under 30 min)
+- Any open checklist items
+- Time estimate (if set)
+- Comments (if any)
+
+---
+
+### Step 3 — Prioritize
+
+Rank the tasks using this logic:
+1. **Hard deadlines first** (native due date = today or overdue)
+2. **Soft targets** (🗓️ Target Date = today)
+3. **Quick wins** (tagged `quick` — surface these early, they clear mental load fast)
+4. **In Progress tasks** (already started — finishing beats starting something new)
+5. **Everything else** by due date ascending
+
+---
+
+### Step 4 — Deliver the briefing
+
+Present the briefing clearly in this format:
+
+```
+## 🌅 Good Morning, Brad — [Weekday, Month Day]
+
+### 🚨 Hard Deadlines Today
+
+[Tasks with native due date = today or overdue. If none: "None — you're clear!"]
+
+### 🗓️ Soft Targets Today
+
+[Tasks with 🗓️ Target Date = today. If none: "None set for today."]
+
+### ✅ Prioritized Work List
+
+[Numbered list: task name (linked), list/project, estimated time if known, one-line note on why it's ranked here]
+
+### ⚡ Quick Wins
+
+[Tasks tagged `quick` — can clear these fast]
+
+### 💡 Where I Can Help
+
+[For each task, suggest specifically what you (Claude) could do: draft an email, write a document, analyze data, create a checklist, etc. Be concrete — reference the actual task content.]
+
+```
+
+---
+
+### Context
+
+- **Brad's ClickUp workspace ID:** `8446862`
+- **Brain DM channel ID:** `81rwe-7851`
+- **Brain message marker:** Messages beginning with `MORNING_TASK_REVIEW` are Brain's automated daily briefings
+- **Target Date field ID:** `eda0266a-cf17-425f-be88-a9b692faa66b`
+- **Hard due date** = native ClickUp due_date field = real consequence if missed
+- **Soft target** = 🗓️ Target Date custom field = preferred date, no hard consequence
+- **Quick tag** = tasks completable in under ~30 minutes
+- Ignore tasks named "Daily Planning" or "Weekly Goals"
+- Today's date can be retrieved from the current system date
+
+---
+
+### Constraints
+
+- Return the task ID with every task in the daily briefing.
