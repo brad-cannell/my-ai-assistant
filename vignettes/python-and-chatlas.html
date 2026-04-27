@@ -290,12 +290,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Version Control</span></a>
+ <span class="menu-text">Obsidian</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vignettes/obsidian-setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Obsidian Setup</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Version Control</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../vignettes/git-tags.html" class="sidebar-item-text sidebar-link">
@@ -306,13 +323,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
  <span class="menu-text">About This Wiki</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../vignettes/vignette-workflow.html" class="sidebar-item-text sidebar-link">
@@ -522,7 +539,7 @@ Important
 </div>
 <section id="upload-and-use-a-file" class="level2">
 <h2 class="anchored" data-anchor-id="upload-and-use-a-file">Upload and Use a File</h2>
-<div id="59befbf9" class="cell" data-execution_count="1">
+<div id="0d3fc8e1" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> openai <span class="im">import</span> OpenAI</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> OpenAI()</span>
@@ -535,7 +552,7 @@ Important
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Uploaded file ID: </span><span class="sc">{</span><span class="bu">file</span><span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="a39ad667" class="cell" data-execution_count="2">
+<div id="a96a1f1b" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Use the uploaded file as input in a conversation</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.responses.create(</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
@@ -598,7 +615,7 @@ Note
 </section>
 <section id="query-a-vector-store" class="level2">
 <h2 class="anchored" data-anchor-id="query-a-vector-store">Query a Vector Store</h2>
-<div id="5b027164" class="cell" data-execution_count="3">
+<div id="abda77d4" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> chatlas <span class="im">import</span> ChatOpenAI</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>chat <span class="op">=</span> ChatOpenAI(model<span class="op">=</span>model)</span>
@@ -621,7 +638,7 @@ Note
 <section id="request-sources" class="level2">
 <h2 class="anchored" data-anchor-id="request-sources">Request Sources</h2>
 <p>To verify which parts of the document the model used to generate its response:</p>
-<div id="e8b9635b" class="cell" data-execution_count="4">
+<div id="ec284ffe" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>resp <span class="op">=</span> chat.chat(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"[your question here]"</span>,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    kwargs<span class="op">=</span>{</span>
@@ -636,7 +653,7 @@ Note
 <section id="multi-turn-conversations-with-a-vector-store" class="level2">
 <h2 class="anchored" data-anchor-id="multi-turn-conversations-with-a-vector-store">Multi-turn Conversations with a Vector Store</h2>
 <p>To keep <code>file_search</code> available across multiple turns, pass the same <code>kwargs</code> on each call — or set it once at the chat level:</p>
-<div id="3fb7b797" class="cell" data-execution_count="5">
+<div id="f03c3a94" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Option 1: pass kwargs on each turn</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>resp1 <span class="op">=</span> chat.chat(<span class="st">"First question"</span>, kwargs<span class="op">=</span>{<span class="st">"tools"</span>: [{<span class="st">"type"</span>: <span class="st">"file_search"</span>, <span class="st">"vector_store_ids"</span>: [vs_id]}]})</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>resp2 <span class="op">=</span> chat.chat(<span class="st">"Follow-up question"</span>, kwargs<span class="op">=</span>{<span class="st">"tools"</span>: [{<span class="st">"type"</span>: <span class="st">"file_search"</span>, <span class="st">"vector_store_ids"</span>: [vs_id]}]})</span>
@@ -674,7 +691,7 @@ Note
 <li>Upload the PDF to your vector store (see <a href="#vector-stores">Vector Stores</a> above).</li>
 <li>Query using <code>file_search</code>.</li>
 </ol>
-<div id="d7340b2f" class="cell" data-execution_count="6">
+<div id="c02ff1c2" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> chatlas <span class="im">import</span> ChatOpenAI</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>chat <span class="op">=</span> ChatOpenAI(model<span class="op">=</span>model)</span>
@@ -699,7 +716,7 @@ Note
 <section id="method-2-live-web-search" class="level2">
 <h2 class="anchored" data-anchor-id="method-2-live-web-search">Method 2: Live Web Search</h2>
 <p>Use the <code>web_search</code> tool to have the model retrieve and read a live page at query time. Add domain filtering to reduce the chance the model retrieves content from a different site.</p>
-<div id="a22d7060" class="cell" data-execution_count="7">
+<div id="785e3a19" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> chatlas <span class="im">import</span> ChatOpenAI</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>chat <span class="op">=</span> ChatOpenAI(model<span class="op">=</span>model)</span>
@@ -720,7 +737,7 @@ Note
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">str</span>(resp))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>To make results more deterministic with domain filtering (recommended):</p>
-<div id="f3cc0623" class="cell" data-execution_count="8">
+<div id="54457652" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>resp <span class="op">=</span> chat.chat(</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"Use web search and rely on this page for the answer:</span><span class="ch">\n</span><span class="sc">{</span>url<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">"</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"[Your question here]"</span>,</span>
@@ -740,7 +757,7 @@ Note
 <span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">str</span>(resp))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>To request sources so you can verify what the model actually read:</p>
-<div id="1e767524" class="cell" data-execution_count="9">
+<div id="077947d8" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>resp <span class="op">=</span> chat.chat(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"Use web search to answer from this page:</span><span class="ch">\n</span><span class="sc">{</span>url<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">"</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"[Your question here]"</span>,</span>
@@ -789,7 +806,7 @@ Note
 <section id="basic-usage" class="level2">
 <h2 class="anchored" data-anchor-id="basic-usage">Basic Usage</h2>
 <p>Create the prompt in the OpenAI dashboard, then reference it by ID:</p>
-<div id="29635856" class="cell" data-execution_count="10">
+<div id="6da12345" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> openai <span class="im">import</span> OpenAI</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> OpenAI()</span>
@@ -810,7 +827,7 @@ Note
 <section id="adding-follow-up-messages" class="level2">
 <h2 class="anchored" data-anchor-id="adding-follow-up-messages">Adding Follow-up Messages</h2>
 <p>To extend the conversation beyond the initial prompt, include a user message in the <code>input</code> field:</p>
-<div id="daf85927" class="cell" data-execution_count="11">
+<div id="3c3b60ac" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.responses.create(</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    prompt<span class="op">=</span>{</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"id"</span>: <span class="st">"your-prompt-id"</span>,</span>

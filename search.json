@@ -440,6 +440,89 @@
     ]
   },
   {
+    "objectID": "vignettes/keyring.html",
+    "href": "vignettes/keyring.html",
+    "title": "Storing API Keys with Keyring",
+    "section": "",
+    "text": "Overview\nAPI keys must never be hardcoded in scripts or committed to Git. This vignette covers how to store API keys in the system keyring — a secure, OS-managed credential store — and retrieve them at runtime for use with the OpenAI and Anthropic APIs.\nFor how to use a retrieved key in a conversation workflow, see vignettes/python-and-chatlas.qmd.\n\n\n\nInstall Keyring\nIf keyring is not already installed in your environment:\nuv add keyring\nOr, if using a standard venv:\npip install keyring\n\n\n\nStore a Key (One-Time Setup)\nRun this once per machine per API key. It stores the key in the OS credential store (Keychain on macOS, Credential Manager on Windows, libsecret on Linux). You do not need to re-run this unless the key changes.\nimport keyring\n\nkeyring.set_password(\"service-name\", \"username\", \"your-api-key-here\")\nService names used in this repo:\n\n\n\nProvider\nService name\nUsername\n\n\n\n\nOpenAI\nbradGPT\nbrad\n\n\nAnthropic\nclaude-my-ai-assistant\nbrad\n\n\n\nFor example, to store your OpenAI key:\nimport keyring\n\nkeyring.set_password(\"bradGPT\", \"brad\", \"sk-...\")\nAnd to store your Anthropic key:\nimport keyring\n\nkeyring.set_password(\"claude-my-ai-assistant\", \"brad\", \"sk-ant-...\")\n\n\n\n\n\n\nImportant\n\n\n\nRun these in a scratch script or an interactive Python session — never in a file that gets committed to Git, since the key value will be visible in the source.\n\n\n\n\n\nRetrieve a Key at Runtime\nThe standard pattern in this repo retrieves the key from keyring and sets it as a temporary environment variable for the duration of the session:\nimport keyring\nimport os\n\n# OpenAI\nopenai_api = keyring.get_password(\"bradGPT\", \"brad\")\nif openai_api is not None:\n    os.environ['OPENAI_API_KEY'] = openai_api\n    print(\"OPENAI_API_KEY set.\")\nelse:\n    print(\"Could not retrieve OpenAI key from keyring.\")\n\n# Anthropic\nclaude_api = keyring.get_password(\"claude-my-ai-assistant\", \"brad\")\nif claude_api is not None:\n    os.environ['ANTHROPIC_API_KEY'] = claude_api\n    print(\"ANTHROPIC_API_KEY set.\")\nelse:\n    print(\"Could not retrieve Anthropic key from keyring.\")\nThe API client libraries (openai, anthropic, chatlas) automatically read from these environment variables, so no further configuration is needed.\n\n\n\nUpdate or Delete a Key\nTo update a key, call set_password again with the new value — it overwrites the existing entry:\nkeyring.set_password(\"bradGPT\", \"brad\", \"sk-new-key-here\")\nTo delete a key entirely:\nkeyring.delete_password(\"bradGPT\", \"brad\")\n\n\n\nQuick Reference\n\n\n\n\n\n\n\nAction\nCommand\n\n\n\n\nStore a key\nkeyring.set_password(\"service\", \"username\", \"key\")\n\n\nRetrieve a key\nkeyring.get_password(\"service\", \"username\")\n\n\nDelete a key\nkeyring.delete_password(\"service\", \"username\")\n\n\n\n\n\n\nProvider\nService name\nUsername\n\n\n\n\nOpenAI\nbradGPT\nbrad\n\n\nAnthropic\nclaude-my-ai-assistant\nbrad",
+    "crumbs": [
+      "Python Setup",
+      "Storing API Keys with Keyring"
+    ]
+  },
+  {
+    "objectID": "vignettes/claude-code-vs-chatlas.html",
+    "href": "vignettes/claude-code-vs-chatlas.html",
+    "title": "Claude Code vs. Chatlas",
+    "section": "",
+    "text": "Scope: This vignette applies after you have decided to use the API rather than the browser (see API vs Browser-Based AI Workflows). The question here is which API workflow to use: Claude Code (an agentic CLI tool) or Chatlas in a Quarto conversation document.\nBoth tools use the Anthropic API and are billed per token. The difference is what each tool can do and what kind of output it produces.\n\n\nThe Core Decision Question\n\n“Is the task about acting on files in this repo, or about injecting external content into a conversation?”\n\n\n\n\n\n\n\n\nAnswer\nTool\n\n\n\n\nActing on files — read, edit, create, commit, run commands\nClaude Code\n\n\nInjecting external content — documents, lessons, chapters not in the repo\nChatlas in Quarto\n\n\nUnsure\nSee the signal lists below\n\n\n\n\n\n\nUse Claude Code When:\n\nThe task involves files or code already in the repo — reading, editing, creating, refactoring, or committing them\nYou want actions taken, not just text generated — file edits, shell commands, git operations\nYou are doing developer tasks: debugging, code review, documentation, repo organization\nOutput IS a file change — there is nothing to copy and paste elsewhere\nFast iteration matters and you want minimal setup — no Quarto document, no package imports\nYou want Claude to search and reason about the project structure and act on what it finds\nYou are exploring a prompt structure and plan to ask Claude Code to write the result to prompts/ when you are done\n\n\n\n\nUse Chatlas in Quarto When:\n\nYou are injecting large external content — a lesson file, a book chapter, a manuscript, a dataset description that lives outside the repo\nYou need a fully archivable, resumable conversation — the .pkl + .md two-file strategy (see Saving and Resuming Chats)\nOutput is prose or structured text that does not map to a file edit and may be pasted elsewhere\nYou need precise parameter control — specific model, max_tokens, temperature, or a structured system prompt loaded from prompts/\nThe conversation itself is the artifact — something you want to document, share, or return to programmatically\nYou are running a batch or pipeline workflow with structured inputs and outputs\nThe task involves content from outside the repo that Claude Code cannot access without manual pasting\n\n\n\n\nBoundary Cases\n\n\n\n\n\n\n\nSituation\nRecommendation\n\n\n\n\nReviewing a file in the repo\nClaude Code — it can read the file directly\n\n\nReviewing a document from Google Drive or Box\nChatlas — load the file in Python and inject it\n\n\nDrafting a new vignette or prompt file\nClaude Code — it can write and commit the file\n\n\nRevising lesson content across many lessons in a pipeline\nChatlas — structured, repeatable, archivable\n\n\nOne-off question about code in the repo\nClaude Code\n\n\nLong multi-turn conversation you want to resume later\nChatlas — Claude Code sessions are not resumable via pickle\n\n\nExploring what a good prompt might look like\nClaude Code — then promote the result to prompts/\n\n\nApplying a finalized, reusable prompt to many inputs\nChatlas\n\n\n\n\n\n\nThe “Promote to Prompt” Workflow\nClaude Code is a natural starting point for exploration — you can have a conversation, iterate quickly, and let it act on the repo. When you arrive at a prompt structure worth keeping, ask Claude Code to write it to prompts/ following the conventions in Prompt Format and commit it. From that point forward, load the prompt from prompts/ in a Chatlas conversation document.\nThis workflow bridges the two tools: Claude Code for exploration and authoring, Chatlas for repeatable, documented execution.\n\n\n\nQuick Reference\nCLAUDE CODE                         CHATLAS IN QUARTO\n───────────                         ─────────────────\nFiles in the repo                   External documents\nActions: edit, commit, run          Text generation only\nFast, minimal setup                 Structured, archivable\nOutput is a file change             Output is prose/content\nSessions not resumable              Resumable via pickle\nNo parameter control needed         Precise model/token control\nExploration → promote to prompts/   Finalized, reusable prompts",
+    "crumbs": [
+      "Concepts & Decisions",
+      "Claude Code vs. Chatlas"
+    ]
+  },
+  {
+    "objectID": "vignettes/Claude Cowork Projects.html",
+    "href": "vignettes/Claude Cowork Projects.html",
+    "title": "Claude Cowork Projects",
+    "section": "",
+    "text": "Notes\n\nI need to turn this into a real vignette at some point. For now, I’m just jotting down some notes.\nBig downsides to Claude Cowork:\n\nIt doesn’t sync across computers.\nIt burns through tokens quickly.\n\nShould I use it like Claude Code?\n\nMostly keep documents in my-ai-assistant.\nUse Claude Cowork for individual tasks when I want it to directly make changes to folders and files, but not for longer, ongoing chats. Think “commit” or “write a function to do x, y, z”.\nUse Claude Chat Projects and/or the API for ongoing planning and conversations?\n\n\n\n\nOverview\n\n\n\n\nSection Title\n\n\n\n\nSection Title\n\n\n\nQuick Reference"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "My AI Assistant",
+    "section": "",
+    "text": "A personal reference repository for AI assistant workflows, prompt templates, and helper functions for working with the Claude and OpenAI APIs in R and Python.\nUse the sidebar to navigate topics, or search for a specific term.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "vignettes/api-vs-browser.html",
+    "href": "vignettes/api-vs-browser.html",
+    "title": "API vs Browser-Based AI Workflows",
+    "section": "",
+    "text": "Scope: The primary decision of whether a given AI-assisted task should use a browser-based interface or an API-based workflow. Does not cover choices made within the API category. Once you have decided to use the API, the next decision is which tool to reach for — see Claude Code vs. Chatlas.\nInteraction modes in scope:\nTask domains: Research, grant writing, course development (Epi-Workbench), code assistance, and administrative tasks.",
+    "crumbs": [
+      "Concepts & Decisions",
+      "API vs Browser-Based AI Workflows"
+    ]
+  },
+  {
+    "objectID": "vignettes/api-vs-browser.html#use-the-browser-when",
+    "href": "vignettes/api-vs-browser.html#use-the-browser-when",
+    "title": "API vs Browser-Based AI Workflows",
+    "section": "Use the Browser When:",
+    "text": "Use the Browser When:\n\nThe task is genuinely exploratory (“let me think out loud with Claude”)\nYou expect to use the output once and not reference it again\nYou are away from your development environment (no access to repo/terminal)\nYou need to upload a file for quick extraction or summarization and have no pipeline for it\nThe task is low-stakes and iteration speed matters more than documentation\nYou are troubleshooting or debugging interactively and expect many rapid back-and-forth exchanges",
+    "crumbs": [
+      "Concepts & Decisions",
+      "API vs Browser-Based AI Workflows"
+    ]
+  },
+  {
+    "objectID": "vignettes/api-vs-browser.html#use-the-api-when",
+    "href": "vignettes/api-vs-browser.html#use-the-api-when",
+    "title": "API vs Browser-Based AI Workflows",
+    "section": "Use the API When:",
+    "text": "Use the API When:\n\nYou have used a similar prompt before, or expect to use it again\nThe output will be incorporated into a document, codebase, or artifact you are maintaining (EWB lesson, grant section, manuscript, R script)\nReproducibility matters — you may need to document what was sent, what parameters were used, and what was returned\nThe task involves file context that is structured and reusable (formatting guidelines, CST examples, style rules)\nYou are building or maintaining a pipeline (EWB lesson creation, batch content review)\nYou want parameter control (model selection, temperature, system prompt)\nThe task involves sensitive research content where better data handling terms apply\nYou are teaching or demonstrating AI usage and want a documentable, transferable example\nThe task would benefit from a model other than the browser default — e.g., a larger context window for full document analysis, or a faster/cheaper model for batch or repetitive work\nThe task is high-volume or cost-sensitive and strategic model selection would meaningfully reduce cost or processing time",
+    "crumbs": [
+      "Concepts & Decisions",
+      "API vs Browser-Based AI Workflows"
+    ]
+  },
+  {
+    "objectID": "vignettes/api-vs-browser.html#boundary-cases",
+    "href": "vignettes/api-vs-browser.html#boundary-cases",
+    "title": "API vs Browser-Based AI Workflows",
+    "section": "Boundary Cases",
+    "text": "Boundary Cases\n\n\n\n\n\n\n\nSituation\nRecommendation\n\n\n\n\nQuick code fix, one function\nBrowser — unless it’s part of a documented pipeline\n\n\nDrafting an email from a template\nAPI — prompt is reusable; output may be archived\n\n\nUploading a PDF for a one-time summary\nBrowser\n\n\nUploading a file as structured context for ongoing work\nAPI\n\n\nBrainstorming grant aims\nBrowser — then migrate key outputs to API doc or notes\n\n\nRefining specific aims language\nAPI\n\n\nAsking “does this paragraph make sense?”\nBrowser\n\n\nFull manuscript section review\nAPI",
+    "crumbs": [
+      "Concepts & Decisions",
+      "API vs Browser-Based AI Workflows"
+    ]
+  },
+  {
     "objectID": "vignettes/git-tags.html",
     "href": "vignettes/git-tags.html",
     "title": "Git Tags",
@@ -517,86 +600,80 @@
     ]
   },
   {
-    "objectID": "vignettes/api-vs-browser.html",
-    "href": "vignettes/api-vs-browser.html",
-    "title": "API vs Browser-Based AI Workflows",
+    "objectID": "vignettes/obsidian-setup.html",
+    "href": "vignettes/obsidian-setup.html",
+    "title": "Obsidian Setup",
     "section": "",
-    "text": "Scope: The primary decision of whether a given AI-assisted task should use a browser-based interface or an API-based workflow. Does not cover choices made within the API category. Once you have decided to use the API, the next decision is which tool to reach for — see Claude Code vs. Chatlas.\nInteraction modes in scope:\nTask domains: Research, grant writing, course development (Epi-Workbench), code assistance, and administrative tasks.",
+    "text": "Scope: How to open this repo as an Obsidian vault on Mac and iPhone, what configuration is committed vs. gitignored, and which plugins enhance the AI prompt workflow.",
     "crumbs": [
-      "Concepts & Decisions",
-      "API vs Browser-Based AI Workflows"
+      "Obsidian",
+      "Obsidian Setup"
     ]
   },
   {
-    "objectID": "vignettes/api-vs-browser.html#use-the-browser-when",
-    "href": "vignettes/api-vs-browser.html#use-the-browser-when",
-    "title": "API vs Browser-Based AI Workflows",
-    "section": "Use the Browser When:",
-    "text": "Use the Browser When:\n\nThe task is genuinely exploratory (“let me think out loud with Claude”)\nYou expect to use the output once and not reference it again\nYou are away from your development environment (no access to repo/terminal)\nYou need to upload a file for quick extraction or summarization and have no pipeline for it\nThe task is low-stakes and iteration speed matters more than documentation\nYou are troubleshooting or debugging interactively and expect many rapid back-and-forth exchanges",
+    "objectID": "vignettes/obsidian-setup.html#background",
+    "href": "vignettes/obsidian-setup.html#background",
+    "title": "Obsidian Setup",
+    "section": "1. Background",
+    "text": "1. Background\nThis repo is already Obsidian-ready. Every file in prompts/ and snippets/ is plain Markdown with YAML front matter — exactly what Obsidian excels at. Opening the repo root as a vault adds:\n\nGraph view — visualize connections between research notes and prompts\nTag pane — browse and filter by the tags: field in YAML front matter\nDataview — query prompt metadata across hundreds of files (e.g., “show all prompts tagged manuscripts”)\nBetter search — fuzzy search, tag filtering, and semantic search via plugins\nLive preview editing — a nicer Markdown writing experience than a plain text editor\n\nQuarto files (.qmd) appear in Obsidian as readable plain Markdown. Callout blocks (::: callout-note) and executable code fences (```{python}) render as raw text rather than styled elements, but the prose content is fully readable.",
     "crumbs": [
-      "Concepts & Decisions",
-      "API vs Browser-Based AI Workflows"
+      "Obsidian",
+      "Obsidian Setup"
     ]
   },
   {
-    "objectID": "vignettes/api-vs-browser.html#use-the-api-when",
-    "href": "vignettes/api-vs-browser.html#use-the-api-when",
-    "title": "API vs Browser-Based AI Workflows",
-    "section": "Use the API When:",
-    "text": "Use the API When:\n\nYou have used a similar prompt before, or expect to use it again\nThe output will be incorporated into a document, codebase, or artifact you are maintaining (EWB lesson, grant section, manuscript, R script)\nReproducibility matters — you may need to document what was sent, what parameters were used, and what was returned\nThe task involves file context that is structured and reusable (formatting guidelines, CST examples, style rules)\nYou are building or maintaining a pipeline (EWB lesson creation, batch content review)\nYou want parameter control (model selection, temperature, system prompt)\nThe task involves sensitive research content where better data handling terms apply\nYou are teaching or demonstrating AI usage and want a documentable, transferable example\nThe task would benefit from a model other than the browser default — e.g., a larger context window for full document analysis, or a faster/cheaper model for batch or repetitive work\nThe task is high-volume or cost-sensitive and strategic model selection would meaningfully reduce cost or processing time",
+    "objectID": "vignettes/obsidian-setup.html#opening-the-vault",
+    "href": "vignettes/obsidian-setup.html#opening-the-vault",
+    "title": "Obsidian Setup",
+    "section": "2. Opening the Vault",
+    "text": "2. Opening the Vault\n\nDownload and install Obsidian if you haven’t already.\nOpen Obsidian → Open folder as vault.\nNavigate to and select the root of this repo (my-ai-assistant/).\nObsidian will find the .obsidian/ config folder and apply settings automatically.\n\nThe repo root is the vault root — there is no nested vault folder.",
     "crumbs": [
-      "Concepts & Decisions",
-      "API vs Browser-Based AI Workflows"
+      "Obsidian",
+      "Obsidian Setup"
     ]
   },
   {
-    "objectID": "vignettes/api-vs-browser.html#boundary-cases",
-    "href": "vignettes/api-vs-browser.html#boundary-cases",
-    "title": "API vs Browser-Based AI Workflows",
-    "section": "Boundary Cases",
-    "text": "Boundary Cases\n\n\n\n\n\n\n\nSituation\nRecommendation\n\n\n\n\nQuick code fix, one function\nBrowser — unless it’s part of a documented pipeline\n\n\nDrafting an email from a template\nAPI — prompt is reusable; output may be archived\n\n\nUploading a PDF for a one-time summary\nBrowser\n\n\nUploading a file as structured context for ongoing work\nAPI\n\n\nBrainstorming grant aims\nBrowser — then migrate key outputs to API doc or notes\n\n\nRefining specific aims language\nAPI\n\n\nAsking “does this paragraph make sense?”\nBrowser\n\n\nFull manuscript section review\nAPI",
+    "objectID": "vignettes/obsidian-setup.html#vault-configuration-.obsidian",
+    "href": "vignettes/obsidian-setup.html#vault-configuration-.obsidian",
+    "title": "Obsidian Setup",
+    "section": "3. Vault Configuration (.obsidian/)",
+    "text": "3. Vault Configuration (.obsidian/)\nTwo config files are committed to Git so that settings are consistent across devices:\n\n\n\n\n\n\n\nFile\nPurpose\n\n\n\n\n.obsidian/app.json\nCore app settings (link format, attachment folder, unsupported file visibility)\n\n\n.obsidian/core-plugins.json\nWhich built-in Obsidian plugins are enabled\n\n\n\n\nKey settings in app.json\n\n\n\n\n\n\n\n\nSetting\nValue\nReason\n\n\n\n\nuseMarkdownLinks\ntrue\nStandard [text](link) syntax instead of [[wikilinks]], keeping files portable outside Obsidian\n\n\nnewLinkFormat\n\"relative\"\nLinks use relative paths, consistent with Git-tracked files\n\n\nshowUnsupportedFiles\ntrue\n.qmd files appear in the file explorer\n\n\ntrashOption\n\"local\"\nDeleted files go to .trash/ inside the vault (recoverable), rather than the system trash\n\n\nattachmentFolderPath\n\"assets\"\nImages and other attachments are stored in assets/\n\n\nnewFileLocation\n\"current\"\nNew notes are created in the same folder as the currently open file\n\n\n\n\n\nWhat is gitignored\nThe following are excluded from Git because they are device-specific, change on every session, or contain large binaries:\n.obsidian/workspace.json        # last open files/panes — changes every session\n.obsidian/workspace-mobile.json # mobile-specific workspace state\n.obsidian/plugins/              # community plugin code — install manually on each device\n.obsidian/cache                 # generated search index\n.trash/                         # vault trash folder\nCommunity plugin settings (stored in .obsidian/plugins/&lt;plugin-id&gt;/data.json) are also excluded because they live inside the plugins/ folder. If you configure a plugin and want to preserve those settings across devices, you will need to copy the relevant data.json files out of plugins/ or add specific exceptions to .gitignore.",
     "crumbs": [
-      "Concepts & Decisions",
-      "API vs Browser-Based AI Workflows"
+      "Obsidian",
+      "Obsidian Setup"
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "My AI Assistant",
-    "section": "",
-    "text": "A personal reference repository for AI assistant workflows, prompt templates, and helper functions for working with the Claude and OpenAI APIs in R and Python.\nUse the sidebar to navigate topics, or search for a specific term.",
+    "objectID": "vignettes/obsidian-setup.html#iphone-access-via-working-copy",
+    "href": "vignettes/obsidian-setup.html#iphone-access-via-working-copy",
+    "title": "Obsidian Setup",
+    "section": "4. iPhone Access via Working Copy",
+    "text": "4. iPhone Access via Working Copy\nWorking Copy is a full Git client for iOS that exposes repos to other apps through the iOS Files file provider. Obsidian on iPhone can open a vault directly from Working Copy.\n\nOne-time setup\n\nInstall Working Copy and Obsidian from the App Store.\nIn Working Copy, clone the GitHub repo.\nIn Working Copy → Repository Settings → enable File Provider for this repo. This makes the repo visible to other apps via the Files app.\nOpen Obsidian on iPhone → Open folder as vault → navigate through Files → Working Copy → my-ai-assistant.\n\n\n\nSync workflow\niOS does not allow background processes, so Obsidian Git cannot auto-sync on iPhone. Follow this pattern for each phone session:\n# Before editing on iPhone: pull in Working Copy\n# (tap the repo → pull)\n\n# Edit notes in Obsidian on iPhone\n\n# After editing: commit and push in Working Copy\n# (tap the repo → commit → push)\nKeeping this discipline prevents merge conflicts between edits made on the phone and edits made on your Mac.",
     "crumbs": [
-      "Home"
+      "Obsidian",
+      "Obsidian Setup"
     ]
   },
   {
-    "objectID": "vignettes/Claude Cowork Projects.html",
-    "href": "vignettes/Claude Cowork Projects.html",
-    "title": "Claude Cowork Projects",
-    "section": "",
-    "text": "Notes\n\nI need to turn this into a real vignette at some point. For now, I’m just jotting down some notes.\nBig downsides to Claude Cowork:\n\nIt doesn’t sync across computers.\nIt burns through tokens quickly.\n\nShould I use it like Claude Code?\n\nMostly keep documents in my-ai-assistant.\nUse Claude Cowork for individual tasks when I want it to directly make changes to folders and files, but not for longer, ongoing chats. Think “commit” or “write a function to do x, y, z”.\nUse Claude Chat Projects and/or the API for ongoing planning and conversations?\n\n\n\n\nOverview\n\n\n\n\nSection Title\n\n\n\n\nSection Title\n\n\n\nQuick Reference"
-  },
-  {
-    "objectID": "vignettes/claude-code-vs-chatlas.html",
-    "href": "vignettes/claude-code-vs-chatlas.html",
-    "title": "Claude Code vs. Chatlas",
-    "section": "",
-    "text": "Scope: This vignette applies after you have decided to use the API rather than the browser (see API vs Browser-Based AI Workflows). The question here is which API workflow to use: Claude Code (an agentic CLI tool) or Chatlas in a Quarto conversation document.\nBoth tools use the Anthropic API and are billed per token. The difference is what each tool can do and what kind of output it produces.\n\n\nThe Core Decision Question\n\n“Is the task about acting on files in this repo, or about injecting external content into a conversation?”\n\n\n\n\n\n\n\n\nAnswer\nTool\n\n\n\n\nActing on files — read, edit, create, commit, run commands\nClaude Code\n\n\nInjecting external content — documents, lessons, chapters not in the repo\nChatlas in Quarto\n\n\nUnsure\nSee the signal lists below\n\n\n\n\n\n\nUse Claude Code When:\n\nThe task involves files or code already in the repo — reading, editing, creating, refactoring, or committing them\nYou want actions taken, not just text generated — file edits, shell commands, git operations\nYou are doing developer tasks: debugging, code review, documentation, repo organization\nOutput IS a file change — there is nothing to copy and paste elsewhere\nFast iteration matters and you want minimal setup — no Quarto document, no package imports\nYou want Claude to search and reason about the project structure and act on what it finds\nYou are exploring a prompt structure and plan to ask Claude Code to write the result to prompts/ when you are done\n\n\n\n\nUse Chatlas in Quarto When:\n\nYou are injecting large external content — a lesson file, a book chapter, a manuscript, a dataset description that lives outside the repo\nYou need a fully archivable, resumable conversation — the .pkl + .md two-file strategy (see Saving and Resuming Chats)\nOutput is prose or structured text that does not map to a file edit and may be pasted elsewhere\nYou need precise parameter control — specific model, max_tokens, temperature, or a structured system prompt loaded from prompts/\nThe conversation itself is the artifact — something you want to document, share, or return to programmatically\nYou are running a batch or pipeline workflow with structured inputs and outputs\nThe task involves content from outside the repo that Claude Code cannot access without manual pasting\n\n\n\n\nBoundary Cases\n\n\n\n\n\n\n\nSituation\nRecommendation\n\n\n\n\nReviewing a file in the repo\nClaude Code — it can read the file directly\n\n\nReviewing a document from Google Drive or Box\nChatlas — load the file in Python and inject it\n\n\nDrafting a new vignette or prompt file\nClaude Code — it can write and commit the file\n\n\nRevising lesson content across many lessons in a pipeline\nChatlas — structured, repeatable, archivable\n\n\nOne-off question about code in the repo\nClaude Code\n\n\nLong multi-turn conversation you want to resume later\nChatlas — Claude Code sessions are not resumable via pickle\n\n\nExploring what a good prompt might look like\nClaude Code — then promote the result to prompts/\n\n\nApplying a finalized, reusable prompt to many inputs\nChatlas\n\n\n\n\n\n\nThe “Promote to Prompt” Workflow\nClaude Code is a natural starting point for exploration — you can have a conversation, iterate quickly, and let it act on the repo. When you arrive at a prompt structure worth keeping, ask Claude Code to write it to prompts/ following the conventions in Prompt Format and commit it. From that point forward, load the prompt from prompts/ in a Chatlas conversation document.\nThis workflow bridges the two tools: Claude Code for exploration and authoring, Chatlas for repeatable, documented execution.\n\n\n\nQuick Reference\nCLAUDE CODE                         CHATLAS IN QUARTO\n───────────                         ─────────────────\nFiles in the repo                   External documents\nActions: edit, commit, run          Text generation only\nFast, minimal setup                 Structured, archivable\nOutput is a file change             Output is prose/content\nSessions not resumable              Resumable via pickle\nNo parameter control needed         Precise model/token control\nExploration → promote to prompts/   Finalized, reusable prompts",
+    "objectID": "vignettes/obsidian-setup.html#recommended-community-plugins",
+    "href": "vignettes/obsidian-setup.html#recommended-community-plugins",
+    "title": "Obsidian Setup",
+    "section": "5. Recommended Community Plugins",
+    "text": "5. Recommended Community Plugins\nCommunity plugins are not committed to Git (the plugins/ folder is gitignored), so you install them manually on each device via Settings → Community plugins → Browse.\n\nDataview\nQueries your YAML front matter like a database. Useful for building dynamic indexes of prompts by project, tag, or date.\nTABLE task, tags\nFROM \"prompts\"\nWHERE contains(tags, \"manuscripts\")\nSORT date DESC\nInstall: search dataview in the Community plugins browser.\n\n\nTemplater\nMore powerful than the built-in Templates plugin. Create new prompt files from prompts/template_prompt.md using a hotkey, with automatic date insertion and placeholder support.\nInstall: search templater-obsidian.\nAfter installing, point Templater’s template folder to prompts/ (or a dedicated _templates/ folder if you prefer to keep templates separate).\n\n\nSmart Connections\nAdds AI-powered semantic search across all notes. Surfaces related prompts and research notes even when they don’t share exact keywords.\nInstall: search smart-connections.\nRequires an OpenAI API key (configured in the plugin settings). Your key is stored locally on the device and is not committed to Git.",
     "crumbs": [
-      "Concepts & Decisions",
-      "Claude Code vs. Chatlas"
+      "Obsidian",
+      "Obsidian Setup"
     ]
   },
   {
-    "objectID": "vignettes/keyring.html",
-    "href": "vignettes/keyring.html",
-    "title": "Storing API Keys with Keyring",
-    "section": "",
-    "text": "Overview\nAPI keys must never be hardcoded in scripts or committed to Git. This vignette covers how to store API keys in the system keyring — a secure, OS-managed credential store — and retrieve them at runtime for use with the OpenAI and Anthropic APIs.\nFor how to use a retrieved key in a conversation workflow, see vignettes/python-and-chatlas.qmd.\n\n\n\nInstall Keyring\nIf keyring is not already installed in your environment:\nuv add keyring\nOr, if using a standard venv:\npip install keyring\n\n\n\nStore a Key (One-Time Setup)\nRun this once per machine per API key. It stores the key in the OS credential store (Keychain on macOS, Credential Manager on Windows, libsecret on Linux). You do not need to re-run this unless the key changes.\nimport keyring\n\nkeyring.set_password(\"service-name\", \"username\", \"your-api-key-here\")\nService names used in this repo:\n\n\n\nProvider\nService name\nUsername\n\n\n\n\nOpenAI\nbradGPT\nbrad\n\n\nAnthropic\nclaude-my-ai-assistant\nbrad\n\n\n\nFor example, to store your OpenAI key:\nimport keyring\n\nkeyring.set_password(\"bradGPT\", \"brad\", \"sk-...\")\nAnd to store your Anthropic key:\nimport keyring\n\nkeyring.set_password(\"claude-my-ai-assistant\", \"brad\", \"sk-ant-...\")\n\n\n\n\n\n\nImportant\n\n\n\nRun these in a scratch script or an interactive Python session — never in a file that gets committed to Git, since the key value will be visible in the source.\n\n\n\n\n\nRetrieve a Key at Runtime\nThe standard pattern in this repo retrieves the key from keyring and sets it as a temporary environment variable for the duration of the session:\nimport keyring\nimport os\n\n# OpenAI\nopenai_api = keyring.get_password(\"bradGPT\", \"brad\")\nif openai_api is not None:\n    os.environ['OPENAI_API_KEY'] = openai_api\n    print(\"OPENAI_API_KEY set.\")\nelse:\n    print(\"Could not retrieve OpenAI key from keyring.\")\n\n# Anthropic\nclaude_api = keyring.get_password(\"claude-my-ai-assistant\", \"brad\")\nif claude_api is not None:\n    os.environ['ANTHROPIC_API_KEY'] = claude_api\n    print(\"ANTHROPIC_API_KEY set.\")\nelse:\n    print(\"Could not retrieve Anthropic key from keyring.\")\nThe API client libraries (openai, anthropic, chatlas) automatically read from these environment variables, so no further configuration is needed.\n\n\n\nUpdate or Delete a Key\nTo update a key, call set_password again with the new value — it overwrites the existing entry:\nkeyring.set_password(\"bradGPT\", \"brad\", \"sk-new-key-here\")\nTo delete a key entirely:\nkeyring.delete_password(\"bradGPT\", \"brad\")\n\n\n\nQuick Reference\n\n\n\n\n\n\n\nAction\nCommand\n\n\n\n\nStore a key\nkeyring.set_password(\"service\", \"username\", \"key\")\n\n\nRetrieve a key\nkeyring.get_password(\"service\", \"username\")\n\n\nDelete a key\nkeyring.delete_password(\"service\", \"username\")\n\n\n\n\n\n\nProvider\nService name\nUsername\n\n\n\n\nOpenAI\nbradGPT\nbrad\n\n\nAnthropic\nclaude-my-ai-assistant\nbrad",
+    "objectID": "vignettes/obsidian-setup.html#core-plugins-enabled-by-default",
+    "href": "vignettes/obsidian-setup.html#core-plugins-enabled-by-default",
+    "title": "Obsidian Setup",
+    "section": "6. Core Plugins (Enabled by Default)",
+    "text": "6. Core Plugins (Enabled by Default)\nThe following built-in Obsidian plugins are enabled by the committed core-plugins.json:\n\n\n\nPlugin\nWhat it does\n\n\n\n\nFile explorer\nBrowse the vault folder tree\n\n\nGlobal search\nFull-text search across all files\n\n\nQuick switcher\nOpen any file by name with Cmd+O\n\n\nGraph view\nVisualize links between notes\n\n\nBacklinks\nSee which notes link to the current file\n\n\nOutgoing links\nSee links from the current file\n\n\nTag pane\nBrowse all YAML tags: values\n\n\nPage preview\nHover over a link to preview the note\n\n\nTemplates\nInsert template files (core, simpler than Templater)\n\n\nNote composer\nMerge or split notes\n\n\nCommand palette\nRun any command with Cmd+P\n\n\nOutline\nJump to headings in the current file\n\n\nWord count\nCharacter and word count in the status bar\n\n\nFile recovery\nAutomatic snapshots for crash recovery\n\n\nStarred / Bookmarks\nPin frequently used files",
     "crumbs": [
-      "Python Setup",
-      "Storing API Keys with Keyring"
+      "Obsidian",
+      "Obsidian Setup"
     ]
   },
   {

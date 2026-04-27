@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-03-17">
-<meta name="description" content="What system prompts are, when to use them, and how to pass them to the chat object in Chatlas.">
+<meta name="dcterms.date" content="2026-04-27">
+<meta name="description" content="How this repo is configured as an Obsidian vault, including iPhone access via Working Copy and recommended plugins.">
 
-<title>System Prompts – My AI Assistant</title>
+<title>Obsidian Setup – My AI Assistant</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../vignettes/writing-prompts.html">Prompts</a></li><li class="breadcrumb-item"><a href="../vignettes/system-prompts.html">System Prompts</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../vignettes/obsidian-setup.html">Obsidian</a></li><li class="breadcrumb-item"><a href="../vignettes/obsidian-setup.html">Obsidian Setup</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -223,7 +223,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../vignettes/system-prompts.html" class="sidebar-item-text sidebar-link active">
+  <a href="../vignettes/system-prompts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">System Prompts</span></a>
   </div>
 </li>
@@ -298,7 +298,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../vignettes/obsidian-setup.html" class="sidebar-item-text sidebar-link">
+  <a href="../vignettes/obsidian-setup.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Obsidian Setup</span></a>
   </div>
 </li>
@@ -354,35 +354,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#when-to-use-a-system-prompt" id="toc-when-to-use-a-system-prompt" class="nav-link" data-scroll-target="#when-to-use-a-system-prompt">When to Use a System Prompt</a></li>
-  <li><a href="#passing-a-system-prompt-in-chatlas" id="toc-passing-a-system-prompt-in-chatlas" class="nav-link" data-scroll-target="#passing-a-system-prompt-in-chatlas">Passing a System Prompt in Chatlas</a>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">1. Background</a></li>
+  <li><a href="#opening-the-vault" id="toc-opening-the-vault" class="nav-link" data-scroll-target="#opening-the-vault">2. Opening the Vault</a></li>
+  <li><a href="#vault-configuration-.obsidian" id="toc-vault-configuration-.obsidian" class="nav-link" data-scroll-target="#vault-configuration-.obsidian">3. Vault Configuration (<code>.obsidian/</code>)</a>
   <ul class="collapse">
-  <li><a href="#option-1-inline-string" id="toc-option-1-inline-string" class="nav-link" data-scroll-target="#option-1-inline-string">Option 1: Inline String</a></li>
-  <li><a href="#option-2-loaded-from-a-prompt-file" id="toc-option-2-loaded-from-a-prompt-file" class="nav-link" data-scroll-target="#option-2-loaded-from-a-prompt-file">Option 2: Loaded from a Prompt File</a></li>
+  <li><a href="#key-settings-in-app.json" id="toc-key-settings-in-app.json" class="nav-link" data-scroll-target="#key-settings-in-app.json">Key settings in <code>app.json</code></a></li>
+  <li><a href="#what-is-gitignored" id="toc-what-is-gitignored" class="nav-link" data-scroll-target="#what-is-gitignored">What is gitignored</a></li>
   </ul></li>
-  <li><a href="#what-to-put-in-a-system-prompt" id="toc-what-to-put-in-a-system-prompt" class="nav-link" data-scroll-target="#what-to-put-in-a-system-prompt">What to Put in a System Prompt</a></li>
-  <li><a href="#quick-reference" id="toc-quick-reference" class="nav-link" data-scroll-target="#quick-reference">Quick Reference</a></li>
+  <li><a href="#iphone-access-via-working-copy" id="toc-iphone-access-via-working-copy" class="nav-link" data-scroll-target="#iphone-access-via-working-copy">4. iPhone Access via Working Copy</a>
+  <ul class="collapse">
+  <li><a href="#one-time-setup" id="toc-one-time-setup" class="nav-link" data-scroll-target="#one-time-setup">One-time setup</a></li>
+  <li><a href="#sync-workflow" id="toc-sync-workflow" class="nav-link" data-scroll-target="#sync-workflow">Sync workflow</a></li>
+  </ul></li>
+  <li><a href="#recommended-community-plugins" id="toc-recommended-community-plugins" class="nav-link" data-scroll-target="#recommended-community-plugins">5. Recommended Community Plugins</a>
+  <ul class="collapse">
+  <li><a href="#dataview" id="toc-dataview" class="nav-link" data-scroll-target="#dataview">Dataview</a></li>
+  <li><a href="#templater" id="toc-templater" class="nav-link" data-scroll-target="#templater">Templater</a></li>
+  <li><a href="#smart-connections" id="toc-smart-connections" class="nav-link" data-scroll-target="#smart-connections">Smart Connections</a></li>
+  </ul></li>
+  <li><a href="#core-plugins-enabled-by-default" id="toc-core-plugins-enabled-by-default" class="nav-link" data-scroll-target="#core-plugins-enabled-by-default">6. Core Plugins (Enabled by Default)</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../vignettes/writing-prompts.html">Prompts</a></li><li class="breadcrumb-item"><a href="../vignettes/system-prompts.html">System Prompts</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../vignettes/obsidian-setup.html">Obsidian</a></li><li class="breadcrumb-item"><a href="../vignettes/obsidian-setup.html">Obsidian Setup</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">System Prompts</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Obsidian Setup</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
   <div class="quarto-categories">
-    <div class="quarto-category">python</div>
-    <div class="quarto-category">chatlas</div>
-    <div class="quarto-category">prompts</div>
+    <div class="quarto-category">obsidian</div>
     <div class="quarto-category">workflow</div>
+    <div class="quarto-category">setup</div>
+    <div class="quarto-category">git</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    What system prompts are, when to use them, and how to pass them to the chat object in Chatlas.
+    How this repo is configured as an Obsidian vault, including iPhone access via Working Copy and recommended plugins.
   </div>
 </div>
 
@@ -393,14 +403,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 17, 2026</p>
+      <p class="date">April 27, 2026</p>
     </div>
   </div>
   
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">March 17, 2026</p>
+      <p class="date-modified">April 27, 2026</p>
     </div>
   </div>
     
@@ -411,115 +421,243 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="overview" class="level1">
-<h1>Overview</h1>
-<p>A system prompt sets persistent context for a conversation before the first user message is sent — defining the model’s role, tone, constraints, and any background it should carry throughout the session. This vignette covers when to use one, the two ways to supply one in Chatlas, and what to put in it.</p>
-<p>For the conventions used to write and store reusable prompt files, see <code>vignettes/prompt-format.qmd</code> and <code>prompts/template_prompt.md</code>.</p>
+<p><strong>Scope:</strong> How to open this repo as an Obsidian vault on Mac and iPhone, what configuration is committed vs.&nbsp;gitignored, and which plugins enhance the AI prompt workflow.</p>
+<hr>
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">1. Background</h2>
+<p>This repo is already Obsidian-ready. Every file in <code>prompts/</code> and <code>snippets/</code> is plain Markdown with YAML front matter — exactly what Obsidian excels at. Opening the repo root as a vault adds:</p>
+<ul>
+<li><strong>Graph view</strong> — visualize connections between research notes and prompts</li>
+<li><strong>Tag pane</strong> — browse and filter by the <code>tags:</code> field in YAML front matter</li>
+<li><strong>Dataview</strong> — query prompt metadata across hundreds of files (e.g., “show all prompts tagged <code>manuscripts</code>”)</li>
+<li><strong>Better search</strong> — fuzzy search, tag filtering, and semantic search via plugins</li>
+<li><strong>Live preview editing</strong> — a nicer Markdown writing experience than a plain text editor</li>
+</ul>
+<p>Quarto files (<code>.qmd</code>) appear in Obsidian as readable plain Markdown. Callout blocks (<code>::: callout-note</code>) and executable code fences (<code>```{python}</code>) render as raw text rather than styled elements, but the prose content is fully readable.</p>
 <hr>
 </section>
-<section id="when-to-use-a-system-prompt" class="level1">
-<h1>When to Use a System Prompt</h1>
+<section id="opening-the-vault" class="level2">
+<h2 class="anchored" data-anchor-id="opening-the-vault">2. Opening the Vault</h2>
+<ol type="1">
+<li>Download and install <a href="https://obsidian.md">Obsidian</a> if you haven’t already.</li>
+<li>Open Obsidian → <strong>Open folder as vault</strong>.</li>
+<li>Navigate to and select the root of this repo (<code>my-ai-assistant/</code>).</li>
+<li>Obsidian will find the <code>.obsidian/</code> config folder and apply settings automatically.</li>
+</ol>
+<p>The repo root is the vault root — there is no nested vault folder.</p>
+<hr>
+</section>
+<section id="vault-configuration-.obsidian" class="level2">
+<h2 class="anchored" data-anchor-id="vault-configuration-.obsidian">3. Vault Configuration (<code>.obsidian/</code>)</h2>
+<p>Two config files are committed to Git so that settings are consistent across devices:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 42%">
-<col style="width: 57%">
+<col style="width: 40%">
+<col style="width: 60%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>Situation</th>
-<th>System prompt?</th>
+<th>File</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>One-off, exploratory conversation</td>
-<td>No — omit it; start the chat without one</td>
+<td><code>.obsidian/app.json</code></td>
+<td>Core app settings (link format, attachment folder, unsupported file visibility)</td>
 </tr>
 <tr class="even">
-<td>Recurring task with a consistent role or set of constraints</td>
-<td>Yes — write one and save it to <code>prompts/</code></td>
-</tr>
-<tr class="odd">
-<td>Quick one-off with some useful framing</td>
-<td>Yes — pass a brief inline string</td>
+<td><code>.obsidian/core-plugins.json</code></td>
+<td>Which built-in Obsidian plugins are enabled</td>
 </tr>
 </tbody>
 </table>
-<p>The No Prompt conversation template (<code>conversations/Template - Conversation - No Prompt.qmd</code>) is designed for cases where no system prompt is needed. For recurring tasks, use the Chatlas template (<code>conversations/Template - Conversation - Chatlas.qmd</code>) which loads a system prompt from <code>prompts/</code>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Omitting the <code>system_prompt</code> argument is fine — Chatlas will use the provider’s default behavior. You do not need to pass an empty string.</p>
-</div>
-</div>
+<section id="key-settings-in-app.json" class="level3">
+<h3 class="anchored" data-anchor-id="key-settings-in-app.json">Key settings in <code>app.json</code></h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 29%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Setting</th>
+<th>Value</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>useMarkdownLinks</code></td>
+<td><code>true</code></td>
+<td>Standard <code>[text](link)</code> syntax instead of <code>[[wikilinks]]</code>, keeping files portable outside Obsidian</td>
+</tr>
+<tr class="even">
+<td><code>newLinkFormat</code></td>
+<td><code>"relative"</code></td>
+<td>Links use relative paths, consistent with Git-tracked files</td>
+</tr>
+<tr class="odd">
+<td><code>showUnsupportedFiles</code></td>
+<td><code>true</code></td>
+<td><code>.qmd</code> files appear in the file explorer</td>
+</tr>
+<tr class="even">
+<td><code>trashOption</code></td>
+<td><code>"local"</code></td>
+<td>Deleted files go to <code>.trash/</code> inside the vault (recoverable), rather than the system trash</td>
+</tr>
+<tr class="odd">
+<td><code>attachmentFolderPath</code></td>
+<td><code>"assets"</code></td>
+<td>Images and other attachments are stored in <code>assets/</code></td>
+</tr>
+<tr class="even">
+<td><code>newFileLocation</code></td>
+<td><code>"current"</code></td>
+<td>New notes are created in the same folder as the currently open file</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="what-is-gitignored" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-gitignored">What is gitignored</h3>
+<p>The following are excluded from Git because they are device-specific, change on every session, or contain large binaries:</p>
+<pre><code>.obsidian/workspace.json        # last open files/panes — changes every session
+.obsidian/workspace-mobile.json # mobile-specific workspace state
+.obsidian/plugins/              # community plugin code — install manually on each device
+.obsidian/cache                 # generated search index
+.trash/                         # vault trash folder</code></pre>
+<p>Community plugin <em>settings</em> (stored in <code>.obsidian/plugins/&lt;plugin-id&gt;/data.json</code>) are also excluded because they live inside the <code>plugins/</code> folder. If you configure a plugin and want to preserve those settings across devices, you will need to copy the relevant <code>data.json</code> files out of <code>plugins/</code> or add specific exceptions to <code>.gitignore</code>.</p>
 <hr>
 </section>
-<section id="passing-a-system-prompt-in-chatlas" class="level1">
-<h1>Passing a System Prompt in Chatlas</h1>
-<p>The <code>system_prompt</code> parameter is set when creating the chat object. It applies to the entire conversation.</p>
-<section id="option-1-inline-string" class="level2">
-<h2 class="anchored" data-anchor-id="option-1-inline-string">Option 1: Inline String</h2>
-<p>For a quick one-off framing that does not need to be saved or reused:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> chatlas <span class="im">import</span> ChatAnthropic</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>chat <span class="op">=</span> ChatAnthropic(</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-sonnet-4-6"</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    system_prompt<span class="op">=</span><span class="st">"You are a concise technical writer. Respond in plain language suitable for a non-specialist audience."</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="option-2-loaded-from-a-prompt-file" class="level2">
-<h2 class="anchored" data-anchor-id="option-2-loaded-from-a-prompt-file">Option 2: Loaded from a Prompt File</h2>
-<p>For recurring tasks, save the system prompt in a Markdown file under <code>prompts/</code> (see <code>prompts/template_prompt.md</code> for the standard format). Load it at runtime using the <code>prompt_extract_system_prompt</code> helper:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> chatlas <span class="im">import</span> ChatAnthropic</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ewb_py_scripts <span class="im">import</span> prompt_extract_system_prompt</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>prompt_path <span class="op">=</span> Path(<span class="st">"prompts/your-prompt.md"</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> prompt_extract_system_prompt(prompt_path)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>chat <span class="op">=</span> ChatAnthropic(</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-sonnet-4-6"</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    system_prompt<span class="op">=</span>system_prompt</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This keeps the prompt definition in a versioned file separate from the conversation document.</p>
+<section id="iphone-access-via-working-copy" class="level2">
+<h2 class="anchored" data-anchor-id="iphone-access-via-working-copy">4. iPhone Access via Working Copy</h2>
+<p>Working Copy is a full Git client for iOS that exposes repos to other apps through the iOS Files file provider. Obsidian on iPhone can open a vault directly from Working Copy.</p>
+<section id="one-time-setup" class="level3">
+<h3 class="anchored" data-anchor-id="one-time-setup">One-time setup</h3>
+<ol type="1">
+<li>Install <a href="https://workingcopyapp.com">Working Copy</a> and <a href="https://obsidian.md">Obsidian</a> from the App Store.</li>
+<li>In Working Copy, clone the GitHub repo.</li>
+<li>In Working Copy → Repository Settings → enable <strong>File Provider</strong> for this repo. This makes the repo visible to other apps via the Files app.</li>
+<li>Open Obsidian on iPhone → <strong>Open folder as vault</strong> → navigate through <strong>Files → Working Copy → my-ai-assistant</strong>.</li>
+</ol>
+</section>
+<section id="sync-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="sync-workflow">Sync workflow</h3>
+<p>iOS does not allow background processes, so Obsidian Git cannot auto-sync on iPhone. Follow this pattern for each phone session:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Before editing on iPhone: pull in Working Copy</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (tap the repo → pull)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Edit notes in Obsidian on iPhone</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># After editing: commit and push in Working Copy</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># (tap the repo → commit → push)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Keeping this discipline prevents merge conflicts between edits made on the phone and edits made on your Mac.</p>
 <hr>
 </section>
 </section>
-<section id="what-to-put-in-a-system-prompt" class="level1">
-<h1>What to Put in a System Prompt</h1>
-<p>A system prompt typically includes some combination of:</p>
-<ul>
-<li><strong>Role</strong> — what the model should act as (“You are a statistician reviewing epidemiologic methods…”)</li>
-<li><strong>Constraints</strong> — what it must or must not do (“Do not add new information. Preserve original meaning.”)</li>
-<li><strong>Output format</strong> — how the response should be structured (“Return your response as a Markdown list.”)</li>
-<li><strong>Background context</strong> — standing information the model should have for the whole session</li>
-</ul>
-<p>Keep system prompts focused. A single, well-defined role is more reliable than a long list of competing instructions.</p>
-<p>The prompt template in <code>prompts/template_prompt.md</code> provides a structured starting point with <code># SYSTEM PROMPT</code> and <code># USER MESSAGE</code> sections.</p>
-<p>For guidance on writing prompt content — including when and how to use XML tags to structure complex prompts and delimit injected text — see <a href="writing-prompts.html">Writing Effective Prompts</a>.</p>
+<section id="recommended-community-plugins" class="level2">
+<h2 class="anchored" data-anchor-id="recommended-community-plugins">5. Recommended Community Plugins</h2>
+<p>Community plugins are not committed to Git (the <code>plugins/</code> folder is gitignored), so you install them manually on each device via <strong>Settings → Community plugins → Browse</strong>.</p>
+<section id="dataview" class="level3">
+<h3 class="anchored" data-anchor-id="dataview">Dataview</h3>
+<p>Queries your YAML front matter like a database. Useful for building dynamic indexes of prompts by project, tag, or date.</p>
+<pre class="dataview"><code>TABLE task, tags
+FROM "prompts"
+WHERE contains(tags, "manuscripts")
+SORT date DESC</code></pre>
+<p>Install: search <code>dataview</code> in the Community plugins browser.</p>
+</section>
+<section id="templater" class="level3">
+<h3 class="anchored" data-anchor-id="templater">Templater</h3>
+<p>More powerful than the built-in Templates plugin. Create new prompt files from <code>prompts/template_prompt.md</code> using a hotkey, with automatic date insertion and placeholder support.</p>
+<p>Install: search <code>templater-obsidian</code>.</p>
+<p>After installing, point Templater’s template folder to <code>prompts/</code> (or a dedicated <code>_templates/</code> folder if you prefer to keep templates separate).</p>
+</section>
+<section id="smart-connections" class="level3">
+<h3 class="anchored" data-anchor-id="smart-connections">Smart Connections</h3>
+<p>Adds AI-powered semantic search across all notes. Surfaces related prompts and research notes even when they don’t share exact keywords.</p>
+<p>Install: search <code>smart-connections</code>.</p>
+<p>Requires an OpenAI API key (configured in the plugin settings). Your key is stored locally on the device and is not committed to Git.</p>
 <hr>
 </section>
-<section id="quick-reference" class="level1">
-<h1>Quick Reference</h1>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># No system prompt (one-off conversation)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>chat <span class="op">=</span> ChatAnthropic(model<span class="op">=</span><span class="st">"claude-sonnet-4-6"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Inline system prompt</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>chat <span class="op">=</span> ChatAnthropic(</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-sonnet-4-6"</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    system_prompt<span class="op">=</span><span class="st">"Your role description here."</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># System prompt loaded from a file</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> prompt_extract_system_prompt(Path(<span class="st">"prompts/your-prompt.md"</span>))</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>chat <span class="op">=</span> ChatAnthropic(model<span class="op">=</span><span class="st">"claude-sonnet-4-6"</span>, system_prompt<span class="op">=</span>system_prompt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="core-plugins-enabled-by-default" class="level2">
+<h2 class="anchored" data-anchor-id="core-plugins-enabled-by-default">6. Core Plugins (Enabled by Default)</h2>
+<p>The following built-in Obsidian plugins are enabled by the committed <code>core-plugins.json</code>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Plugin</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>File explorer</td>
+<td>Browse the vault folder tree</td>
+</tr>
+<tr class="even">
+<td>Global search</td>
+<td>Full-text search across all files</td>
+</tr>
+<tr class="odd">
+<td>Quick switcher</td>
+<td>Open any file by name with <code>Cmd+O</code></td>
+</tr>
+<tr class="even">
+<td>Graph view</td>
+<td>Visualize links between notes</td>
+</tr>
+<tr class="odd">
+<td>Backlinks</td>
+<td>See which notes link to the current file</td>
+</tr>
+<tr class="even">
+<td>Outgoing links</td>
+<td>See links from the current file</td>
+</tr>
+<tr class="odd">
+<td>Tag pane</td>
+<td>Browse all YAML <code>tags:</code> values</td>
+</tr>
+<tr class="even">
+<td>Page preview</td>
+<td>Hover over a link to preview the note</td>
+</tr>
+<tr class="odd">
+<td>Templates</td>
+<td>Insert template files (core, simpler than Templater)</td>
+</tr>
+<tr class="even">
+<td>Note composer</td>
+<td>Merge or split notes</td>
+</tr>
+<tr class="odd">
+<td>Command palette</td>
+<td>Run any command with <code>Cmd+P</code></td>
+</tr>
+<tr class="even">
+<td>Outline</td>
+<td>Jump to headings in the current file</td>
+</tr>
+<tr class="odd">
+<td>Word count</td>
+<td>Character and word count in the status bar</td>
+</tr>
+<tr class="even">
+<td>File recovery</td>
+<td>Automatic snapshots for crash recovery</td>
+</tr>
+<tr class="odd">
+<td>Starred / Bookmarks</td>
+<td>Pin frequently used files</td>
+</tr>
+</tbody>
+</table>
 
 
 <!-- -->
@@ -979,12 +1117,12 @@ Note
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "System Prompts"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2026-03-17"</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="an">date-modified:</span><span class="co"> "2026-03-17"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Obsidian Setup"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2026-04-27"</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="an">date-modified:</span><span class="co"> "2026-04-27"</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="an">version:</span><span class="co"> "1.0"</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "What system prompts are, when to use them, and how to pass them to the chat object in Chatlas."</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [python, chatlas, prompts, workflow]</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "How this repo is configured as an Obsidian vault, including iPhone access via Working Copy and recommended plugins."</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [obsidian, workflow, setup, git]</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
@@ -994,102 +1132,156 @@ Note
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu"># Overview</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>**Scope:** How to open this repo as an Obsidian vault on Mac and iPhone, what configuration is committed vs. gitignored, and which plugins enhance the AI prompt workflow.</span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>A system prompt sets persistent context for a conversation before the first user message is sent — defining the model's role, tone, constraints, and any background it should carry throughout the session. This vignette covers when to use one, the two ways to supply one in Chatlas, and what to put in it.</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>For the conventions used to write and store reusable prompt files, see <span class="in">`vignettes/prompt-format.qmd`</span> and <span class="in">`prompts/template_prompt.md`</span>.</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. Background</span></span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>This repo is already Obsidian-ready. Every file in <span class="in">`prompts/`</span> and <span class="in">`snippets/`</span> is plain Markdown with YAML front matter — exactly what Obsidian excels at. Opening the repo root as a vault adds:</span>
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="fu"># When to Use a System Prompt</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Situation <span class="pp">|</span> System prompt? <span class="pp">|</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----------|---------------|</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> One-off, exploratory conversation <span class="pp">|</span> No — omit it; start the chat without one <span class="pp">|</span></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Recurring task with a consistent role or set of constraints <span class="pp">|</span> Yes — write one and save it to <span class="in">`prompts/`</span> <span class="pp">|</span></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Quick one-off with some useful framing <span class="pp">|</span> Yes — pass a brief inline string <span class="pp">|</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Graph view** — visualize connections between research notes and prompts</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Tag pane** — browse and filter by the <span class="in">`tags:`</span> field in YAML front matter</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Dataview** — query prompt metadata across hundreds of files (e.g., "show all prompts tagged <span class="in">`manuscripts`</span>")</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Better search** — fuzzy search, tag filtering, and semantic search via plugins</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Live preview editing** — a nicer Markdown writing experience than a plain text editor</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>Quarto files (<span class="in">`.qmd`</span>) appear in Obsidian as readable plain Markdown. Callout blocks (<span class="in">`::: callout-note`</span>) and executable code fences (` ``<span class="in">`{python} `</span>) render as raw text rather than styled elements, but the prose content is fully readable.</span>
 <span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>The No Prompt conversation template (<span class="in">`conversations/Template - Conversation - No Prompt.qmd`</span>) is designed for cases where no system prompt is needed. For recurring tasks, use the Chatlas template (<span class="in">`conversations/Template - Conversation - Chatlas.qmd`</span>) which loads a system prompt from <span class="in">`prompts/`</span>.</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>Omitting the <span class="in">`system_prompt`</span> argument is fine — Chatlas will use the provider's default behavior. You do not need to pass an empty string.</span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="fu"># Passing a System Prompt in Chatlas</span></span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>The <span class="in">`system_prompt`</span> parameter is set when creating the chat object. It applies to the entire conversation.</span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Option 1: Inline String</span></span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>For a quick one-off framing that does not need to be saved or reused:</span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> chatlas <span class="im">import</span> ChatAnthropic</span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>chat <span class="op">=</span> ChatAnthropic(</span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-sonnet-4-6"</span>,</span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>    system_prompt<span class="op">=</span><span class="st">"You are a concise technical writer. Respond in plain language suitable for a non-specialist audience."</span></span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="fu">## Option 2: Loaded from a Prompt File</span></span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>For recurring tasks, save the system prompt in a Markdown file under <span class="in">`prompts/`</span> (see <span class="in">`prompts/template_prompt.md`</span> for the standard format). Load it at runtime using the <span class="in">`prompt_extract_system_prompt`</span> helper:</span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> chatlas <span class="im">import</span> ChatAnthropic</span>
-<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ewb_py_scripts <span class="im">import</span> prompt_extract_system_prompt</span>
-<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>prompt_path <span class="op">=</span> Path(<span class="st">"prompts/your-prompt.md"</span>)</span>
-<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> prompt_extract_system_prompt(prompt_path)</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. Opening the Vault</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Download and install <span class="co">[</span><span class="ot">Obsidian</span><span class="co">](https://obsidian.md)</span> if you haven't already.</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Open Obsidian → **Open folder as vault**.</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Navigate to and select the root of this repo (<span class="in">`my-ai-assistant/`</span>).</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Obsidian will find the <span class="in">`.obsidian/`</span> config folder and apply settings automatically.</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>The repo root is the vault root — there is no nested vault folder.</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. Vault Configuration (`.obsidian/`)</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>Two config files are committed to Git so that settings are consistent across devices:</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> File <span class="pp">|</span> Purpose <span class="pp">|</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|---------|</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`.obsidian/app.json`</span> <span class="pp">|</span> Core app settings (link format, attachment folder, unsupported file visibility) <span class="pp">|</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`.obsidian/core-plugins.json`</span> <span class="pp">|</span> Which built-in Obsidian plugins are enabled <span class="pp">|</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="fu">### Key settings in `app.json`</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Setting <span class="pp">|</span> Value <span class="pp">|</span> Reason <span class="pp">|</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|-------|--------|</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`useMarkdownLinks`</span> <span class="pp">|</span> <span class="in">`true`</span> <span class="pp">|</span> Standard <span class="in">`[text](link)`</span> syntax instead of <span class="in">`[[wikilinks]]`</span>, keeping files portable outside Obsidian <span class="pp">|</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`newLinkFormat`</span> <span class="pp">|</span> <span class="in">`"relative"`</span> <span class="pp">|</span> Links use relative paths, consistent with Git-tracked files <span class="pp">|</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`showUnsupportedFiles`</span> <span class="pp">|</span> <span class="in">`true`</span> <span class="pp">|</span> <span class="in">`.qmd`</span> files appear in the file explorer <span class="pp">|</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`trashOption`</span> <span class="pp">|</span> <span class="in">`"local"`</span> <span class="pp">|</span> Deleted files go to <span class="in">`.trash/`</span> inside the vault (recoverable), rather than the system trash <span class="pp">|</span></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`attachmentFolderPath`</span> <span class="pp">|</span> <span class="in">`"assets"`</span> <span class="pp">|</span> Images and other attachments are stored in <span class="in">`assets/`</span> <span class="pp">|</span></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`newFileLocation`</span> <span class="pp">|</span> <span class="in">`"current"`</span> <span class="pp">|</span> New notes are created in the same folder as the currently open file <span class="pp">|</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="fu">### What is gitignored</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>The following are excluded from Git because they are device-specific, change on every session, or contain large binaries:</span>
 <span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>chat <span class="op">=</span> ChatAnthropic(</span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-sonnet-4-6"</span>,</span>
-<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>    system_prompt<span class="op">=</span>system_prompt</span>
-<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>This keeps the prompt definition in a versioned file separate from the conversation document.</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="in">.obsidian/workspace.json        # last open files/panes — changes every session</span></span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a><span class="in">.obsidian/workspace-mobile.json # mobile-specific workspace state</span></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a><span class="in">.obsidian/plugins/              # community plugin code — install manually on each device</span></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a><span class="in">.obsidian/cache                 # generated search index</span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a><span class="in">.trash/                         # vault trash folder</span></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>Community plugin *settings* (stored in <span class="in">`.obsidian/plugins/&lt;plugin-id&gt;/data.json`</span>) are also excluded because they live inside the <span class="in">`plugins/`</span> folder. If you configure a plugin and want to preserve those settings across devices, you will need to copy the relevant <span class="in">`data.json`</span> files out of <span class="in">`plugins/`</span> or add specific exceptions to <span class="in">`.gitignore`</span>.</span>
 <span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a><span class="fu"># What to Put in a System Prompt</span></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>A system prompt typically includes some combination of:</span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4. iPhone Access via Working Copy</span></span>
 <span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Role** — what the model should act as ("You are a statistician reviewing epidemiologic methods...")</span>
-<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Constraints** — what it must or must not do ("Do not add new information. Preserve original meaning.")</span>
-<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Output format** — how the response should be structured ("Return your response as a Markdown list.")</span>
-<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Background context** — standing information the model should have for the whole session</span>
-<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>Keep system prompts focused. A single, well-defined role is more reliable than a long list of competing instructions.</span>
-<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>The prompt template in <span class="in">`prompts/template_prompt.md`</span> provides a structured starting point with <span class="in">`# SYSTEM PROMPT`</span> and <span class="in">`# USER MESSAGE`</span> sections.</span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>Working Copy is a full Git client for iOS that exposes repos to other apps through the iOS Files file provider. Obsidian on iPhone can open a vault directly from Working Copy.</span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a><span class="fu">### One-time setup</span></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Install <span class="co">[</span><span class="ot">Working Copy</span><span class="co">](https://workingcopyapp.com)</span> and <span class="co">[</span><span class="ot">Obsidian</span><span class="co">](https://obsidian.md)</span> from the App Store.</span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>In Working Copy, clone the GitHub repo.</span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>In Working Copy → Repository Settings → enable **File Provider** for this repo. This makes the repo visible to other apps via the Files app.</span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Open Obsidian on iPhone → **Open folder as vault** → navigate through **Files → Working Copy → my-ai-assistant**.</span>
 <span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>For guidance on writing prompt content — including when and how to use XML tags to structure complex prompts and delimit injected text — see <span class="co">[</span><span class="ot">Writing Effective Prompts</span><span class="co">](writing-prompts.html)</span>.</span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sync workflow</span></span>
 <span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>iOS does not allow background processes, so Obsidian Git cannot auto-sync on iPhone. Follow this pattern for each phone session:</span>
 <span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a><span class="fu"># Quick Reference</span></span>
-<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a><span class="co"># No system prompt (one-off conversation)</span></span>
-<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>chat <span class="op">=</span> ChatAnthropic(model<span class="op">=</span><span class="st">"claude-sonnet-4-6"</span>)</span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a><span class="co"># Before editing on iPhone: pull in Working Copy</span></span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a><span class="co"># (tap the repo → pull)</span></span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a><span class="co"># Edit notes in Obsidian on iPhone</span></span>
 <span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a><span class="co"># Inline system prompt</span></span>
-<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>chat <span class="op">=</span> ChatAnthropic(</span>
-<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-sonnet-4-6"</span>,</span>
-<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>    system_prompt<span class="op">=</span><span class="st">"Your role description here."</span></span>
-<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a><span class="co"># After editing: commit and push in Working Copy</span></span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a><span class="co"># (tap the repo → commit → push)</span></span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>Keeping this discipline prevents merge conflicts between edits made on the phone and edits made on your Mac.</span>
 <span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a><span class="co"># System prompt loaded from a file</span></span>
-<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> prompt_extract_system_prompt(Path(<span class="st">"prompts/your-prompt.md"</span>))</span>
-<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a>chat <span class="op">=</span> ChatAnthropic(model<span class="op">=</span><span class="st">"claude-sonnet-4-6"</span>, system_prompt<span class="op">=</span>system_prompt)</span>
-<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5. Recommended Community Plugins</span></span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>Community plugins are not committed to Git (the <span class="in">`plugins/`</span> folder is gitignored), so you install them manually on each device via **Settings → Community plugins → Browse**.</span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a><span class="fu">### Dataview</span></span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>Queries your YAML front matter like a database. Useful for building dynamic indexes of prompts by project, tag, or date.</span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a><span class="in">```dataview</span></span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a><span class="in">TABLE task, tags</span></span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a><span class="in">FROM "prompts"</span></span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a><span class="in">WHERE contains(tags, "manuscripts")</span></span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a><span class="in">SORT date DESC</span></span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>Install: search <span class="in">`dataview`</span> in the Community plugins browser.</span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a><span class="fu">### Templater</span></span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a>More powerful than the built-in Templates plugin. Create new prompt files from <span class="in">`prompts/template_prompt.md`</span> using a hotkey, with automatic date insertion and placeholder support.</span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a>Install: search <span class="in">`templater-obsidian`</span>.</span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a>After installing, point Templater's template folder to <span class="in">`prompts/`</span> (or a dedicated <span class="in">`_templates/`</span> folder if you prefer to keep templates separate).</span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a><span class="fu">### Smart Connections</span></span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a>Adds AI-powered semantic search across all notes. Surfaces related prompts and research notes even when they don't share exact keywords.</span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a>Install: search <span class="in">`smart-connections`</span>.</span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a>Requires an OpenAI API key (configured in the plugin settings). Your key is stored locally on the device and is not committed to Git.</span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6. Core Plugins (Enabled by Default)</span></span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a>The following built-in Obsidian plugins are enabled by the committed <span class="in">`core-plugins.json`</span>:</span>
+<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Plugin <span class="pp">|</span> What it does <span class="pp">|</span></span>
+<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------|-------------|</span></span>
+<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> File explorer <span class="pp">|</span> Browse the vault folder tree <span class="pp">|</span></span>
+<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Global search <span class="pp">|</span> Full-text search across all files <span class="pp">|</span></span>
+<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Quick switcher <span class="pp">|</span> Open any file by name with <span class="in">`Cmd+O`</span> <span class="pp">|</span></span>
+<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Graph view <span class="pp">|</span> Visualize links between notes <span class="pp">|</span></span>
+<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Backlinks <span class="pp">|</span> See which notes link to the current file <span class="pp">|</span></span>
+<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Outgoing links <span class="pp">|</span> See links from the current file <span class="pp">|</span></span>
+<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Tag pane <span class="pp">|</span> Browse all YAML <span class="in">`tags:`</span> values <span class="pp">|</span></span>
+<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Page preview <span class="pp">|</span> Hover over a link to preview the note <span class="pp">|</span></span>
+<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Templates <span class="pp">|</span> Insert template files (core, simpler than Templater) <span class="pp">|</span></span>
+<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Note composer <span class="pp">|</span> Merge or split notes <span class="pp">|</span></span>
+<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Command palette <span class="pp">|</span> Run any command with <span class="in">`Cmd+P`</span> <span class="pp">|</span></span>
+<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Outline <span class="pp">|</span> Jump to headings in the current file <span class="pp">|</span></span>
+<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Word count <span class="pp">|</span> Character and word count in the status bar <span class="pp">|</span></span>
+<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> File recovery <span class="pp">|</span> Automatic snapshots for crash recovery <span class="pp">|</span></span>
+<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Starred / Bookmarks <span class="pp">|</span> Pin frequently used files <span class="pp">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
